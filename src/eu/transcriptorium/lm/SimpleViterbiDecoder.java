@@ -6,6 +6,14 @@ import edu.berkeley.nlp.lm.collections.BoundedList;
 import eu.transcriptorium.lm.VariantLexicon.Variant;
 import eu.transcriptorium.util.Functions;
 
+/**
+ * This selects, assuming an LM defined on sequences of "normalized" forms and a weighted variant lexicon,
+ * the most probable sequence of normalized forms.
+ * To select the most probable sequence of witnessed forms, one should add probability along paths instead of maximizing.
+ * This implementation is completely inefficient.
+ * @author does
+ *
+ */
 public class SimpleViterbiDecoder 
 {
 	VariantLexicon lexicon;
@@ -95,7 +103,13 @@ public class SimpleViterbiDecoder
 		return stateMap.values();
 	}
 	
-	void scoreSentence(final List<String> sentence, final NgramLanguageModel<String> lm, VariantLexicon lexicon)
+	/**
+	 * Simple dynamic programming search
+	 * @param sentence (Sentence to be processed)
+	 * @param lm (Language model)
+	 * @param lexicon (Variant lexicon)
+	 */
+	synchronized void scoreSentence(final List<String> sentence, final NgramLanguageModel<String> lm, VariantLexicon lexicon)
 	{
 		this.lm = lm;
 		this.lexicon = lexicon;
@@ -156,6 +170,6 @@ public class SimpleViterbiDecoder
 			statePath.add(s);
 			normalizedSentence.add(s.ngram.get(s.ngram.size()-1));
 		}
-		System.err.println(normalizedSentence); // too long ...
+		System.err.println(normalizedSentence); // one end symbol too long ...
 	}
 }

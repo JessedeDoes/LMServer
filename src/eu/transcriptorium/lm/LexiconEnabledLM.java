@@ -12,7 +12,10 @@ import edu.berkeley.nlp.lm.StringWordIndexer;
 import edu.berkeley.nlp.lm.WordIndexer;
 import edu.berkeley.nlp.lm.collections.BoundedList;
 import edu.berkeley.nlp.lm.io.ArpaLmReader;
+import edu.berkeley.nlp.lm.io.KneserNeyFileWritingLmReaderCallback;
+import edu.berkeley.nlp.lm.io.KneserNeyLmReaderCallback;
 import edu.berkeley.nlp.lm.io.LmReaders;
+import edu.berkeley.nlp.lm.io.TextReader;
 import edu.berkeley.nlp.lm.util.Logger;
 /*
  * Need to redefine both indexing and scoring
@@ -21,6 +24,9 @@ import edu.berkeley.nlp.lm.util.Logger;
 public class LexiconEnabledLM 
 {
 	VariantLexicon lexicon;
+	boolean fromXML = true;
+	
+	final NormalizingStringWordIndexer wordIndexer = new NormalizingStringWordIndexer();
 	
 	private static void usage() 
 	{
@@ -37,37 +43,51 @@ public class LexiconEnabledLM
 				usage();
 			}
 			final int lmOrder = Integer.parseInt(argv[0]);
-			final String lexiconFilename = argv[1];
-			final String outputFile = argv[2];
+			//final String lexiconFilename = argv[1];
+			final String outputFile = argv[1];
 
 			final List<String> inputFiles = new ArrayList<String>();
-			for (int i = 3; i < argv.length; ++i) 
+			for (int i = 2; i < argv.length; ++i) 
 			{
 				inputFiles.add(argv[i]);
 			}
-			VariantLexicon vl = new VariantLexicon(); 
-			vl.loadFromFile(lexiconFilename);
+			/*
+				VariantLexicon vl = new VariantLexicon(); 
+				vl.loadFromFile(lexiconFilename);
+			 */
 			LexiconEnabledLM lelm = new LexiconEnabledLM();
 			lelm.makeModel(inputFiles, lmOrder, outputFile);
 		}
 	}
+
 	
-	public static void makeModel(List<String> inputFiles, int lmOrder, String outputFile)
+	/**
+	 * From sentence per line text
+	 * To deal with XML directory, override TextReader
+	 * @param inputFiles
+	 * @param lmOrder
+	 * @param outputFile
+	 */
+	public void makeModel(List<String> inputFiles, int lmOrder, String outputFile)
 	{
-		if (inputFiles.isEmpty()) inputFiles.add("-");
-		
+		if (inputFiles.isEmpty()) 
+			inputFiles.add("-");
+
 		Logger.setGlobalLogger(new Logger.SystemLogger(System.out, System.err));
 		Logger.startTrack("Reading text files " + inputFiles + " and writing to file " + outputFile);
-		final NormalizingStringWordIndexer wordIndexer = new NormalizingStringWordIndexer();
+		
 		wordIndexer.setStartSymbol(ArpaLmReader.START_SYMBOL);
 		wordIndexer.setEndSymbol(ArpaLmReader.END_SYMBOL);
 		wordIndexer.setUnkSymbol(ArpaLmReader.UNK_SYMBOL);
-		
-		LmReaders.createKneserNeyLmFromTextFiles(inputFiles, (WordIndexer<String>) wordIndexer, lmOrder, new File(outputFile), new ConfigOptions());
-		
+
+		if (fromXML)
+			TEIReader.createKneserNeyLmFromTEIFiles(inputFiles, (WordIndexer<String>) wordIndexer, lmOrder, new File(outputFile), new ConfigOptions());
+		else
+			LmReaders.createKneserNeyLmFromTextFiles(inputFiles, (WordIndexer<String>) wordIndexer, lmOrder, new File(outputFile), new ConfigOptions());
+
 		Logger.endTrack();
 	}
-	
+
 	/**
 	 * This assumes that each witnessed for maps to only one normalized form,
 	 * which is a bit unlikely for linguistically motivated models ...<br>
@@ -81,35 +101,35 @@ public class LexiconEnabledLM
 	public  float scoreSentence(final List<String> sentence, final NgramLanguageModel<String> lm) 
 	{
 		List<String> normalizedSentence = new ArrayList<String>();
-		
+
 		for (String w: sentence)
 		{
 			normalizedSentence.add(lexicon.getNormalizedWordform(w));
 		}
-		
+
 		final List<String> normalizedSentenceWithBounds = new BoundedList<String>(normalizedSentence, lm.getWordIndexer().getStartSymbol(), lm.getWordIndexer().getEndSymbol());
 		final List<String> sentenceWithBounds = 
 				new BoundedList<String>(sentence, lm.getWordIndexer().getStartSymbol(), lm.getWordIndexer().getEndSymbol());
 		final int lmOrder = lm.getLmOrder();
 		float sentenceScore = 0.0f;
-	
+
 		for (int i = 1; i < lmOrder - 1 && i <= normalizedSentenceWithBounds.size() + 1; ++i) 
 		{
 			final List<String> ngram = normalizedSentenceWithBounds.subList(-1, i);
-			final float scoreNgram = lm.getLogProb(ngram);
+			final float scoreNgram = lm.getLogProb(ngram); 
 			sentenceScore += scoreNgram + lexicon.getLogRealizationProbability(normalizedSentenceWithBounds.get(i), sentence.get(i));
 		}
-		
+
 		for (int i = lmOrder - 1; i < normalizedSentenceWithBounds.size() + 2; ++i) 
 		{
 			final List<String> ngram = normalizedSentenceWithBounds.subList(i - lmOrder, i);
 			final float scoreNgram = lm.getLogProb(ngram);
 			sentenceScore += scoreNgram + lexicon.getLogRealizationProbability(normalizedSentenceWithBounds.get(i), sentence.get(i));
 		}
-		
+
 		return sentenceScore;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -119,21 +139,23 @@ public class LexiconEnabledLM
 		{
 			List<String> inputFiles = Arrays.asList("resources/exampleData/normalizedTrainingCorpus.txt");
 			File out = File.createTempFile("test", "lm");
-			
+
 			final StringWordIndexer wordIndexer = new StringWordIndexer();
 			wordIndexer.setStartSymbol(ArpaLmReader.START_SYMBOL);
 			wordIndexer.setEndSymbol(ArpaLmReader.END_SYMBOL);
 			wordIndexer.setUnkSymbol(ArpaLmReader.UNK_SYMBOL);
-			
+
 			// TODO: order 2 does not work.. fix it...
-			LmReaders.createKneserNeyLmFromTextFiles(inputFiles,  wordIndexer, 3, out, new ConfigOptions());
 			
+			LmReaders.createKneserNeyLmFromTextFiles(inputFiles,  wordIndexer, 3, out, new ConfigOptions());
+
 			VariantLexicon lexicon  = new VariantLexicon();
 			lexicon.loadFromFile("resources/exampleData/variantLexicon.txt");
-			
-			NgramLanguageModel<String> lm = LmReaders.readArrayEncodedLmFromArpa(out.getCanonicalPath(), false);
+
+			NgramLanguageModel<String> lm = 
+					LmReaders.readArrayEncodedLmFromArpa(out.getCanonicalPath(), false);
 			List<String> sentence = Arrays.asList("x","x","x","x","x", "x", "x","x", "x","x","x","x","x","x","x");
-			
+
 			for (int i=0; i < 1; i++)
 			{
 				SimpleViterbiDecoder sv = new SimpleViterbiDecoder();
@@ -144,7 +166,7 @@ public class LexiconEnabledLM
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args)
 	{
 		LexiconEnabledLM lelm = new LexiconEnabledLM();

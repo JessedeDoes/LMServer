@@ -28,6 +28,8 @@ public class TestArpaLM
 			{
 				String[] words = s.split("\\s+");
 				List<String> wordList = Arrays.asList(words);
+				// there is no need to add sentence bounds, the scoreSentence method does that
+				// (but not during training...) (?) it appears that it does, so why the earlier trouble??
 				float p = model.scoreSentence(wordList) / (float) words.length;
 				if (!Float.isNaN(p))
 				{
@@ -39,7 +41,7 @@ public class TestArpaLM
 					rejects++;
 				}
 			}
-			System.out.println("Average sentence cross entropy: " + total / (double) k + " rejects: "  + rejects);
+			System.err.println("Average sentence cross entropy: " + total / (double) k + " rejects: "  + rejects);
 		} catch (Exception e)
 		{
 		}

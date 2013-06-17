@@ -12,7 +12,7 @@ import edu.berkeley.nlp.lm.collections.Indexer;
 public class NormalizingStringWordIndexer implements WordIndexer<String>
 {
 	VariantLexicon lexicon;
-	
+	StringNormalizer normalizer = new SimpleStringNormalizer();
 	/**
 	 * 
 	 */
@@ -21,6 +21,15 @@ public class NormalizingStringWordIndexer implements WordIndexer<String>
 	{
 		this.lexicon = lexicon;
 		sparseIndexer = new Indexer<String>();
+	}
+	
+	public String normalize(String s)
+	{
+		if (s.equals(this.getStartSymbol()))
+			return this.getStartSymbol();
+		if (s.equals(this.getEndSymbol()))
+			return this.getEndSymbol();
+		return normalizer.getNormalizedForm(null, null, s);
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -43,7 +52,7 @@ public class NormalizingStringWordIndexer implements WordIndexer<String>
 	@Override
 	public int getOrAddIndex(final String word) 
 	{
-		return sparseIndexer.getIndex(lexicon.getNormalizedWordform(word));
+		return sparseIndexer.getIndex(normalize(word));
 	}
 
 	@Override
@@ -112,7 +121,7 @@ public class NormalizingStringWordIndexer implements WordIndexer<String>
 	@Override
 	public int getIndexPossiblyUnk(final String word) 
 	{
-		final int id = sparseIndexer.indexOf(lexicon.getNormalizedWordform(word));
+		final int id = sparseIndexer.indexOf(normalize(word));
 		return id < 0 ? unkIndex : id;
 	}
 }

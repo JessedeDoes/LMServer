@@ -12,7 +12,7 @@ import edu.berkeley.nlp.lm.collections.Indexer;
 public class NormalizingStringWordIndexer implements WordIndexer<String>
 {
 	VariantLexicon lexicon;
-	StringNormalizer normalizer = new SimpleStringNormalizer();
+	StringNormalizer normalizer = new TrivialStringNormalizer();
 	/**
 	 * 
 	 */

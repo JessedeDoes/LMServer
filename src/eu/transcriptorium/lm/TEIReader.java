@@ -45,6 +45,16 @@ public class TEIReader<W>  implements LmReader<LongRef, LmReaderCallback<LongRef
 	private List<String> inputFiles;
 	LmReaderCallback<LongRef> callback = null;
 	
+	public boolean tokenIsOK(String s)
+	{
+		if (s.length() > 30) return false;
+		if (s.matches("^[A-Za-z0-9]+"))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public TEIReader(final List<String> inputFiles, final WordIndexer<W> wordIndexer) 
 	{
 		//this(getLineIterator(inputFiles), wordIndexer);
@@ -69,7 +79,7 @@ public class TEIReader<W>  implements LmReader<LongRef, LmReaderCallback<LongRef
 	 * @param outputFile
 	 */
 	@Override
-	public void parse(final LmReaderCallback<LongRef> callback) 
+	public void parse(final LmReaderCallback< LongRef> callback) 
 	{
 		this.callback = callback;
 		
@@ -174,8 +184,11 @@ public class TEIReader<W>  implements LmReader<LongRef, LmReaderCallback<LongRef
 				for (int i=0; i < tokens.size(); i++)
 				{
 					String w = tokens.get(i).getTextContent();
-					sent[i + 1] = wordIndexer.getOrAddIndexFromString(w);
-					words.add(w);
+					if (tokenIsOK(w))
+					{
+						sent[i + 1] = wordIndexer.getOrAddIndexFromString(w);
+						words.add(w);
+					}
 				}
 				String sentence = Functions.join(words, " ");
 				callback.call(sent, 0, sent.length, new LongRef(1L), sentence);

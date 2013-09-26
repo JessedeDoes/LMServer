@@ -22,7 +22,7 @@ public class VariantLexicon
 	private Map<Variant,Variant> contents = new HashMap<Variant,Variant>();
 	
 	private String unknownWordSymbol = "<unk>";
-
+	
 	public Set<Variant> variantSet()
 	{
 		return this.contents.keySet();
@@ -56,7 +56,16 @@ public class VariantLexicon
 			for (String p: parts)
 			{
 				if (p.length() > 0)
-					composingCharacters.add(p);
+				{
+					String z = p;
+					if (p.equals("'"))
+						z = "<quote>";
+					if (p.equals("+"))
+						z = "<plus>";
+					if (p.equals("\""))
+						z = "<dquote>";
+					composingCharacters.add(z);
+				}
 			}
 			composingCharacters.add("@");
 			// TODO Auto-generated constructor stub
@@ -78,9 +87,15 @@ public class VariantLexicon
  * </pre>
 		 * @return
 		 */
+		
+		public String escape(String s)
+		{
+			return s.replaceAll("'", "\\'").replaceAll("\"", "\\\"");
+		}
 		public String toStringUPV()
 		{
-			return String.format("\"%s\"\t[%s]\t%f\t%s", normalForm,variantForm,probability, Functions.join(composingCharacters," "));
+			return String.format("\"%s\"\t[%s]\t%f\t%s", escape(normalForm),
+					escape(variantForm),probability, Functions.join(composingCharacters," "));
 		}
 		
 		public boolean equals(Object o)

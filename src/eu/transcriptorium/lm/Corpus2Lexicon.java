@@ -23,7 +23,7 @@ public class Corpus2Lexicon implements nl.namescape.filehandling.DoSomethingWith
 
 	enum Type {word, lemma, lwt};
 	Type type = Type.word;
-
+	int maximumWordLength = 20;
 	public StringNormalizer normalizer = this;
 	
 	public String getNormalizedForm(String lemma, String tag, String wordform)
@@ -71,7 +71,14 @@ public class Corpus2Lexicon implements nl.namescape.filehandling.DoSomethingWith
 		{
 			for (Variant v: variantLexicon.getVariantsFromNormalForm(n))
 			{
-				System.out.println(v.toStringUPV());
+				if (true || v.variantForm.length() < maximumWordLength)
+				{
+					if (false && (v.variantForm + v.normalForm).matches(".*[\'\"].*"))
+					{
+						
+					} else
+						System.out.println(v.toStringUPV());
+				}
 			}
 		}
 	}

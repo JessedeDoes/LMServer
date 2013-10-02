@@ -117,14 +117,16 @@ public class LexiconEnabledLM
 		{
 			final List<String> ngram = normalizedSentenceWithBounds.subList(-1, i);
 			final float scoreNgram = lm.getLogProb(ngram); 
-			sentenceScore += scoreNgram + lexicon.getLogRealizationProbability(normalizedSentenceWithBounds.get(i), sentence.get(i));
+			sentenceScore += scoreNgram + 
+					lexicon.getLogRealizationProbability(normalizedSentenceWithBounds.get(i), sentence.get(i));
 		}
 
 		for (int i = lmOrder - 1; i < normalizedSentenceWithBounds.size() + 2; ++i) 
 		{
 			final List<String> ngram = normalizedSentenceWithBounds.subList(i - lmOrder, i);
 			final float scoreNgram = lm.getLogProb(ngram);
-			sentenceScore += scoreNgram + lexicon.getLogRealizationProbability(normalizedSentenceWithBounds.get(i), sentence.get(i));
+			sentenceScore += scoreNgram + 
+					lexicon.getLogRealizationProbability(normalizedSentenceWithBounds.get(i), sentence.get(i));
 		}
 
 		return sentenceScore;

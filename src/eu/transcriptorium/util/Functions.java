@@ -1,6 +1,6 @@
 package eu.transcriptorium.util;
 
-import java.util.List;
+import java.util.*;
 
 public class Functions 
 {
@@ -22,5 +22,18 @@ public class Functions
 			sb.append(item);
 		}
 		return sb.toString();
+	}
+	
+	public static Map<String,String> getAttributesFromLine(String l)
+	{
+		Map<String,String> m = new HashMap<String,String>();
+		String[] parts = l.split("\\s+");
+		for (String p: parts)
+		{
+			String[] av = p.split("=");
+			if (av.length > 1)
+				m.put(av[0], av[1]);
+		}
+		return m;
 	}
 }

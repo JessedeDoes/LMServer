@@ -12,6 +12,7 @@ public class Node  implements Serializable
 	String id=null;
 	int topSortOrder=-1;
 	double l = Double.NaN;
+	Object htkinfo = "Hallo";
 	
 	public boolean isFinal()
 	{

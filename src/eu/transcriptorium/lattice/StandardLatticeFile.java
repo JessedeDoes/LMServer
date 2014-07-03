@@ -101,6 +101,11 @@ public class StandardLatticeFile
 						//System.err.println("Node with id " + id  + " in line " + l );
 						node.id = id;
 						node.word = m.get( "W");
+						if (node.word == null)
+						{
+							System.err.println("Error in line " + l  + "  file "  + fileName);
+							System.exit(1);
+						}
 						String v = m.get( "v");
 						if (v != null)
 						{
@@ -109,7 +114,8 @@ public class StandardLatticeFile
 						lattice.nodes.put(id, node);
 						n++;
 					}
-				}  else if (scanState == State.arcs) // J=15    S=2    E=9    a=-1130.85  l=-9.330
+				}  
+				if (scanState == State.arcs) // J=15    S=2    E=9    a=-1130.85  l=-9.330
 				{
 					Arc arc = new Arc();
 					arc.id = m.get("J");
@@ -124,6 +130,7 @@ public class StandardLatticeFile
 						arc.source = startNode;
 						arc.destination = endNode;
 						arc.source.arcs.add(arc);
+						//System.err.println(arc);
 					} else
 					{
 						System.err.println("Arc problem: " + l);

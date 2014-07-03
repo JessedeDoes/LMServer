@@ -12,7 +12,7 @@ public class ConcatenateRegions
 {
 	
 	static String exampleDir = 
-			"//svprre02/datalokaal/Scratch/HTR/BFBNew/StoredExperiments/SomeLattices/resultados/res-128gauss/";
+			"//svprre02/datalokaal/Scratch/HTR/BFBNew/Lattices/";
 	public static void concatenateRegions(String dirname)
 	{
 		
@@ -67,7 +67,9 @@ public class ConcatenateRegions
 			}
 			
 			Lattice c = Lattice.concatenate(lattices);
-			System.err.println("Region " + r + ", " + lines.size() + " lines ");
+			c.removeLinebreaks(); // AHEM? why does this work in windows and NOT in linux??????
+	
+			System.err.println("Region " + r + ", " + lines.size() + " lines " + c.N + "  states");
 			
 			try
 			{

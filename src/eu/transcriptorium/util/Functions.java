@@ -28,11 +28,15 @@ public class Functions
 	{
 		Map<String,String> m = new HashMap<String,String>();
 		String[] parts = l.split("\\s+");
-		for (String p: parts)
+		for (String p: parts) // dit gaat mis voor == etc
 		{
-			String[] av = p.split("=");
-			if (av.length > 1)
-				m.put(av[0], av[1]);
+			int i = p.indexOf("=");
+			if (i > 0)
+			{
+				String a = p.substring(0,i);
+				String v = p.substring(i+1);
+				m.put(a,v);
+			}
 		}
 		return m;
 	}

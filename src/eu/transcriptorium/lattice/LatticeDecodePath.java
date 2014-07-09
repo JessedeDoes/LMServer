@@ -2,6 +2,13 @@ package eu.transcriptorium.lattice;
 
 import java.util.*;
 
+/**
+ * It is important to determine when paths can be merged.
+ * When at a certain nodeInfo, all paths have the same end node and we need not consider that.
+ * But context needs to be the same for the LM.
+ * @author does
+ *
+ */
 public class LatticeDecodePath
 {
 	Node node;
@@ -13,6 +20,32 @@ public class LatticeDecodePath
 
 	List<String> m_Context = new ArrayList<String>();
 
+	public LatticeDecodePath()
+	{
+		
+	}
+	
+	public LatticeDecodePath(Node node, LatticeDecodePath prevpath,
+			Probabilities probs)
+	{
+		// TODO Auto-generated constructor stub
+		m_Prob =	probs.prob;
+		m_GProb = prevpath.m_GProb + 	probs.gprob;
+		this.node = node;
+		this.m_Prev = prevpath;
+	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		LatticeDecodePath other = (LatticeDecodePath) o;
+		return this.m_Context.equals(other.m_Context);
+	}
+	@Override
+	public int hashCode()
+	{
+		return this.m_Context.hashCode();
+	}
 	public void addLink(LatticeDecodePath path, double diff)
 	{
 		PathLink l = new PathLink(path, diff, m_Preds);
@@ -22,11 +55,20 @@ public class LatticeDecodePath
 
 	void merge(LatticeDecodePath  p, int nbest) 
 	{
-		if (m_Prob < p.m_Prob) 
+		//String thisPrev = m_Prev != null? m_Prev.node.word:null;
+		//String otherPrev = p.m_Prev != null? p.m_Prev.node.word:null;
+		
+		if (m_Prob < p.m_Prob) // p is better.....
 		{
+	
+			//System.err.printf("better prob %f (%s) < %f (%s)!\n", m_Prob, thisPrev, p.m_Prob, otherPrev );
+
 			m_Prob = p.m_Prob;
 			m_GProb = p.m_GProb;
 			m_Prev = p.m_Prev;
+		} else
+		{
+			//System.err.printf("NO better prob %f (%s) < %f (%s)!\n", m_Prob, thisPrev, p.m_Prob, otherPrev );
 		}
 
 		if (nbest != 0) 

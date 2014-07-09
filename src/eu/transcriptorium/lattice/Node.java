@@ -11,7 +11,7 @@ public class Node  implements Serializable
 	int v  = 0; // pronunciation variant number
 	String id=null;
 	int topSortOrder=-1;
-	double l = Double.NaN;
+	final double nodeLanguageScore = Double.NaN;
 	Object htkinfo = "Hallo";
 	
 	public boolean isFinal()

@@ -8,20 +8,20 @@ public class Arc  implements Serializable
 	transient Node source = null;
 	
 	String id;
-	double a; // acoustice prob
-	double l; // lm prob
+	double acoustic; // acoustice prob
+	double language; // lm prob
 	
 	public String toString()
 	{
-		return destination.id + ":"  + a;
+		return destination.id + ":"  + acoustic;
 	}
 	
 	public Arc clone() // does NOT clone the node references in the arcs
 	{
 		Arc a =new Arc();
 		a.id = this.id;
-		a.l = this.l;
-		a.a = this.a;
+		a.language = this.language;
+		a.acoustic = this.acoustic;
 		a.destination = this.destination;
 		a.source = this.source;
 		return a;

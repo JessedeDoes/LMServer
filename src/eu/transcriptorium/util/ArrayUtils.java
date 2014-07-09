@@ -1,12 +1,16 @@
 package eu.transcriptorium.util;
 import java.util.*;
-public class ArrayUtils
+public class ArrayUtils<T>
 {
-	public static Object[] reverse(Object[] arr) 
+	public static <T>  void reverse(T[] arr, int N) 
 	{
-		List < Object > list = Arrays.asList(arr);
-		Collections.reverse(list);
-		return list.toArray();
+		for (int i=0; i < N / 2; i++)
+		{
+			T swap;
+			swap = arr[i];
+			arr[i] = arr[N -i -1];
+			arr[N -i -1] = swap;
+		}
 	}
 }
 

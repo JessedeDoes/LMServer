@@ -24,6 +24,8 @@ public class Lattice implements Serializable, Cloneable
 	Map<String, String> properties = new HashMap<String,String>();
 	int N = 0; // number of nodes
 	int L = 0; // number of arcs
+	public double lmscale = 1.0;
+	public double wdpenalty = 0.0;
 
 	public Node getStartNode()
 	{
@@ -140,8 +142,8 @@ public class Lattice implements Serializable, Cloneable
 			a.source = n;
 			a.destination = l2.getStartNode();
 			//System.err.println("Add arc from " + n +   " to " + a.destination);
-			a.l = 0.0;
-			a.a = 0.0;
+			a.language = 0.0;
+			a.acoustic = 0.0;
 			n.arcs.add(a);
 		}
 
@@ -185,10 +187,12 @@ public class Lattice implements Serializable, Cloneable
 			n.incomingArcs.clear();
 
 		for (Node n: getNodes())
+		{
 			for (Arc a: n.arcs)
 			{
 				a.destination.incomingArcs.add(a);
 			}
+		}
 	}
 
 	public void addArc(Node s, Node d, double a, double l)
@@ -198,8 +202,8 @@ public class Lattice implements Serializable, Cloneable
 		s.arcs.add(arc);
 		arc.source = s;
 		arc.destination = d;
-		arc.a = a;
-		arc.l = l;
+		arc.acoustic = a;
+		arc.language = l;
 	}
 
 
@@ -211,8 +215,8 @@ public class Lattice implements Serializable, Cloneable
 			{
 				Arc a1 = new Arc();
 				a1.destination = arc.destination;
-				a1.l = arc.l + l;
-				a1.a = arc.a + a;
+				a1.language = arc.language + l;
+				a1.acoustic = arc.acoustic + a;
 				addTo.add(a1);
 			}
 		} else
@@ -220,9 +224,9 @@ public class Lattice implements Serializable, Cloneable
 			{
 				String w = arc.destination.word;
 				if (w.equals(Lattice.nullWordSymbol))
-					findTransitionsAcrossSentenceStart(arc.destination, addTo, arc.l+l, arc.a+a);
+					findTransitionsAcrossSentenceStart(arc.destination, addTo, arc.language+l, arc.acoustic+a);
 				else if (w.equals(Lattice.sentenceStartSymbol))
-					findTransitionsAcrossSentenceStart(arc.destination, addTo, arc.l+l, arc.a+a);
+					findTransitionsAcrossSentenceStart(arc.destination, addTo, arc.language+l, arc.acoustic+a);
 			}
 	}
 	
@@ -257,15 +261,15 @@ public class Lattice implements Serializable, Cloneable
 					Node n0 = a0.source;
 					n0.lastInLine = true; // do we really have to rewrite the decoder in java ... kwilnie! ....
 					
-					double A0 = a0.a;
-					double L0 = a0.l;
+					double A0 = a0.acoustic;
+					double L0 = a0.language;
 					
 					deleteTransition(n0,n);
 					
 					for (Arc a: arcsToNextLine)
 					{
-						double A = A0 + a.a ;
-						double L = L0 + a.l;
+						double A = A0 + a.acoustic ;
+						double L = L0 + a.language;
 						this.addArc(a0.source, a.destination, A, L);
 					}
 				}

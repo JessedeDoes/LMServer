@@ -31,35 +31,35 @@ N=128  L=487
 public class StandardLatticeFile
 {
 	static enum State {prologue, nodes, arcs};
-	
+
 	public static void printLattice(PrintStream p, Lattice l)
 	{
 		Map<String,String> m = l.properties;
 		p.printf("VERSION=%s\nUTTERANCE=%s\nlmname=%s\nlmscale=%s wdpenalty=%s\n", 
-			m.get("VERSION"), m.get("UTTERANCE"), m.get("lmname"), m.get("lmscale"), m.get("wdpenalty") );
+				m.get("VERSION"), m.get("UTTERANCE"), m.get("lmname"), m.get("lmscale"), m.get("wdpenalty") );
 		p.printf("acscale=%s\nvocab=%s\nN=%d L=%d\n", 
 				m.get("acscale"), m.get("vocab"), l.N, l.L);
-		
+
 		if (false)
 			return;
 		List<Integer> li = new ArrayList<Integer>();
 		for (Node n: l.getNodes())
-		  li.add(Integer.parseInt(n.id));
-		
+			li.add(Integer.parseInt(n.id));
+
 		Collections.sort(li);
-		
+
 		for (Integer i: li)
 		{
 			Node n = l.getNode(i.toString());
 			p.printf("I=%s W=%s v=%d\n", n.id, n.word, n.v);
 		}
-		
+
 		for (Arc a: l.arcs) // J=15    S=2    E=9    a=-1130.85  l=-9.330
 		{
-			p.printf("J=%s S=%s E=%s a=%f l=%f\n", a.id, a.source.id, a.destination.id, a.a, a.l);
+			p.printf("J=%s S=%s E=%s a=%f l=%f\n", a.id, a.source.id, a.destination.id, a.acoustic, a.language);
 		}
 	}
-	
+
 	public static Lattice readLatticeFromFile(String fileName)
 	{
 		State scanState = State.prologue;
@@ -85,6 +85,14 @@ public class StandardLatticeFile
 						if (m.get("L") != null)
 						{
 							lattice.L = Integer.parseInt(m.get("L"));
+						}
+						if (m.get("lmscale") != null)
+						{
+							lattice.lmscale = Double.parseDouble(m.get("lmscale"));
+						}
+						if (m.get("wdpenalty") != null)
+						{
+							lattice.wdpenalty = Double.parseDouble(m.get("wdpenalty"));
 						}
 					}
 				} else if (scanState == State.nodes) // I=111  W=REFEREES            v=1  
@@ -119,12 +127,12 @@ public class StandardLatticeFile
 				{
 					Arc arc = new Arc();
 					arc.id = m.get("J");
-					
+
 					Node startNode = lattice.getNode(m.get("S"));
 					Node endNode = lattice.getNode(m.get("E"));
-					arc.a = Double.parseDouble(m.get("a"));
-					arc.l = Double.parseDouble(m.get("l"));
-					
+					arc.acoustic = Double.parseDouble(m.get("a"));
+					arc.language = Double.parseDouble(m.get("l"));
+
 					if (startNode != null && endNode != null)
 					{
 						arc.source = startNode;
@@ -145,7 +153,7 @@ public class StandardLatticeFile
 		lattice.rebuildArcList();
 		return lattice;
 	}
-	
+
 	public static void main(String [] args)
 	{
 		StandardLatticeFile slf = new StandardLatticeFile();

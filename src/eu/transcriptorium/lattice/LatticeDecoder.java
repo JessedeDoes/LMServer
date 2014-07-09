@@ -3,6 +3,8 @@ package eu.transcriptorium.lattice;
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.io.LmReaders;
 import eu.transcriptorium.lattice.TopologicalSort.LatticeException;
+import eu.transcriptorium.lm.VariantLexicon;
+import eu.transcriptorium.lm.VariantLexicon.Variant;
 import eu.transcriptorium.util.ArrayUtils;
 
 import eu.transcriptorium.util.StringUtils;
@@ -17,6 +19,7 @@ public class LatticeDecoder
 	NgramLanguageModel<String> lm = null;
 	double beamWidth = 0;
 	private double lmscale = 20;
+	private VariantLexicon variantLexicon = null;
 	double oldLmScale = Double.NaN;
 	static final double LogP_Zero = Double.NEGATIVE_INFINITY;
 	static final double LogP_One = 0;
@@ -119,7 +122,7 @@ public class LatticeDecoder
 		return result;
 	}
 /**
- * We do not really use this.... NBest lists are not interesting
+ * We do not really use this.... NBest lists are not useful right now.
  * @param winfo
  * @param maxWords
  * @param ignoreWords
@@ -147,9 +150,11 @@ public class LatticeDecoder
 				if (node.htkinfo == null && node.word.equals(Vocab_None))  
 				{
 					wi.invalidate();
-				} if (node.htkinfo == null) // only word label is available, e.g., when processing PFSGs
+				} 
+				if (node.htkinfo == null) // only word label is available, e.g., when processing PFSGs
 				{
 					wi.word = node.word;
+				
 					wi.languageScore = path.m_GProb; // this is cumulative score
 				} else // find the time of the predecessor node 
 				{
@@ -171,6 +176,18 @@ public class LatticeDecoder
 					// wi.languageScore = path->m_GProb; // this is cumulative score
 				}
 				wi.wordPosterior = wi.transPosterior = 1.0;
+				if (this.variantLexicon != null)
+				{
+					List<Variant> l = this.variantLexicon.getVariantsFromNormalForm(node.word);
+					System.err.println(l);
+					if (l != null && l.size() >= node.v)
+						wi.word = l.get(node.v-1).variantForm;
+					else
+						System.err.println(wi.word + " v=" + node.v + " not in lexicon!");
+				}  else
+				{
+					System.err.println("dit is niet zo");
+				}
 				//System.err.println("set wi.word to " + wi.word);
 			}
 			path = path.m_Prev;
@@ -279,20 +296,16 @@ public class LatticeDecoder
 					if ((	probs.prob + probBwd) >= threshold) 
 					{
 						LatticeDecodePath  newpath = new LatticeDecodePath(node, path, probs);
-
-						numPaths ++;
-
-						if (numPaths > maxPaths)
-							break mainLoop;
+						
+						if (++numPaths > maxPaths) break mainLoop;
 
 						if (nbest != 0) 
-						{
-							newpath.addLink(path, probs.prob - path.m_Prob); // beware: implement this!
-						}
+							newpath.addLink(path, probs.prob - path.m_Prob); // beware: implement this later if we are interested in nbest anyway
 
 						shiftContext(word, nolmword, path, newpath);  
 
 						LatticeDecodePath p;
+						
 						if ((p = info.m_PHash.get(newpath)) != null) 
 						{
 							p.merge(newpath, nbest);
@@ -300,7 +313,6 @@ public class LatticeDecoder
 						{
 							info.m_PHash.put(newpath, newpath);
 						}
-						// System.err.println("New path: " + newpath);
 					} 
 				}
 			}
@@ -384,7 +396,8 @@ public class LatticeDecoder
 
 	/**
 	 * Determine prob and gprob from previous path, language model score and current transition.
-	 * I do not understand the old LM score stuff. If we do it this way, one could remove
+	 * I do not understand the old LM score stuff. If we do it this way, one could remove the old weight before processing.
+	 * Besides, I am now adding it instead of subtracting.... which means we interpolate ....
 	 * @param node
 	 * @param word
 	 * @param oldlmscore
@@ -476,13 +489,16 @@ public class LatticeDecoder
 		this.ignoreWords = ignoreWords;
 	}
 
-	public static void decodeLatticeFile(String fileName, NgramLanguageModel<String> lm)
+	public static void decodeLatticeFile(String fileName, NgramLanguageModel<String> lm, VariantLexicon v)
 	{
 		Lattice l = StandardLatticeFile.readLatticeFromFile(fileName);
 		l.addIncomingArcs(); 
 		LatticeDecoder d = new LatticeDecoder();
+		d.setVariantLexicon(v);
+		
 		d.setLanguageModel(lm);
 		long s = System.currentTimeMillis();
+		
 		List<String> decoded = d.decode(l);
 		String sentence = StringUtils.join(decoded, " ");
 		System.out.println("<" + fileName +  "> " + sentence);
@@ -490,7 +506,7 @@ public class LatticeDecoder
 		System.err.printf("decode time in milliseconds for %s: " + (e-s)  + "\n", fileName);
 	}
 	
-	public static void decodeFilesInFolder(String dirname, NgramLanguageModel<String> lm)
+	public static void decodeFilesInFolder(String dirname, NgramLanguageModel<String> lm, VariantLexicon v)
 	{
 		File d = new File(dirname);
 		
@@ -512,7 +528,7 @@ public class LatticeDecoder
 				try
 				{
 					String p = f.getCanonicalPath();
-					decodeLatticeFile(p, lm);
+					decodeLatticeFile(p, lm, v);
 				} catch (IOException e)
 				{
 					// TODO Auto-generated catch block
@@ -526,22 +542,6 @@ public class LatticeDecoder
 		}
 	}
 	
-	public static void main(String[] args)
-	{
-		NgramLanguageModel<String> lm = null;
-		
-		String languageModel =  "resources/exampleData/trigramModel.lm";
-		//languageModel = null;
-		if (languageModel != null)
-		{
-		  lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
-			System.err.println("finished reading LM");
-		}
-		if (args.length == 0)
-			decodeLatticeFile("resources/exampleData/115_070_002_02_18.lattice", lm);
-		else
-			decodeFilesInFolder(args[0],lm);
-	}
 
 	double getLmscale()
 	{
@@ -551,5 +551,38 @@ public class LatticeDecoder
 	void setLmscale(double lmscale)
 	{
 		this.lmscale = lmscale;
+	}
+
+	private VariantLexicon getVariantLexicon()
+	{
+		return variantLexicon;
+	}
+
+	private void setVariantLexicon(VariantLexicon variantLexicon)
+	{
+		this.variantLexicon = variantLexicon;
+	}
+	
+	public static void main(String[] args)
+	{
+		NgramLanguageModel<String> lm = null;
+		
+		String languageModel =  "resources/exampleData/trigramModel.lm";
+		languageModel = null;
+		if (languageModel != null)
+		{
+		  lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
+			System.err.println("finished reading LM");
+		}
+		VariantLexicon v = null;
+		if (args.length > 1)
+		{
+			v = new VariantLexicon();
+			v.loadFromFile(args[1]);
+		}
+		if (args.length == 0)
+			decodeLatticeFile("resources/exampleData/115_070_002_02_18.lattice", lm, v);
+		else
+			decodeFilesInFolder(args[0],lm, v);
 	}
 }

@@ -18,7 +18,7 @@ public class VariantLexicon
 {
 	private HashMap<String,List<Variant>> variantFormF2VariantsMap = new  HashMap<String,List<Variant>>();
 	private HashMap<String,List<Variant>> normalFormF2VariantsMap= new  HashMap<String,List<Variant>>();
-	
+	static boolean removeQuotes = true;
 	private Map<Variant,Variant> contents = new HashMap<Variant,Variant>();
 	
 	private String unknownWordSymbol = "<unk>";
@@ -40,8 +40,8 @@ public class VariantLexicon
 	
 	public static class Variant
 	{
-		String variantForm;
-		String normalForm;
+		public String variantForm;
+		public String normalForm;
 		double probability = 0; // relative frequency of variantForm in normalForm
 		int absoluteFrequency=0;
 		
@@ -49,8 +49,16 @@ public class VariantLexicon
 		
 		public Variant(String variantForm, String normalForm) 
 		{
+			if (removeQuotes)
+			{
+				normalForm = normalForm.replaceAll("^\"" , "");
+				normalForm = normalForm.replaceAll("\"$" , "");
+				variantForm = variantForm.replaceAll("^\\[", "");
+				variantForm = variantForm.replaceAll("\\]$", "");
+			}
 			this.variantForm = variantForm;
 			this.normalForm = normalForm;
+		
 			String[] parts = variantForm.split("");
 			composingCharacters = new ArrayList<String>();
 			for (String p: parts)
@@ -154,7 +162,6 @@ public class VariantLexicon
 			String s;
 			while ( (s = b.readLine()) != null)
 			{
-				//System.err.println(s);
 				String[] parts = s.split("\\s+");
 				
 				Variant v = new Variant(parts[1],parts[0]);
@@ -167,6 +174,7 @@ public class VariantLexicon
 				if (parts.length > 3)
 					v.composingCharacters = Arrays.asList(Arrays.copyOfRange(parts, 3, parts.length));	
 				addVariant(v);
+				//System.err.println(v);
 				//System.err.println(v);
 			}
 		} catch (Exception e)

@@ -14,25 +14,44 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.*;
 
+
+/**
+ * This is (almost) a java clone of the SRI lattice decoder
+ * <p>
+ * Why is it needed?
+ * <ul>
+ * <li>Hyphenated models
+ * <li>Output of non-normalized words (? is that really impossible with SRI)
+ * <li>To be added: evaluation with ground truth, so we can use this to optimize parameters
+ * </ul>
+ * @author does
+ *
+ */
 public class LatticeDecoder
 {
-	NgramLanguageModel<String> lm = null;
-	double beamWidth = 0;
+	private NgramLanguageModel<String> lm = null;
+	private double beamWidth = 0;
 	private double lmscale = 20;
 	private VariantLexicon variantLexicon = null;
-	double oldLmScale = Double.NaN;
+	
 	static final double LogP_Zero = Double.NEGATIVE_INFINITY;
 	static final double LogP_One = 0;
 	static final String Vocab_None = Lattice.nullWordSymbol; // CHECK....
-	double logP_floor = Double.NEGATIVE_INFINITY;
-	int contextLen = 2; // doe maar wat...
-	int maxFanIn = 0;
+	
+	private double logP_floor = Double.NEGATIVE_INFINITY;
+	
+	private int contextLen = 2; // doe maar wat...
+	private int maxFanIn = 0;
 	private int maxPaths = Integer.MAX_VALUE ;
+	
 	//private int maxWords;
+	
 	private Set<String> ignoreWords = new HashSet<String>();
-	NodePathInfo [] nodeinfo = null;
-	List<Node> sortedNodes = null;
-	int finalPosition = -1;
+	
+	transient private double oldLmScale = Double.NaN;
+	transient private NodePathInfo [] nodeinfo = null;
+	transient private List<Node> sortedNodes = null;
+	transient private int finalPosition = -1;
 
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
@@ -46,13 +65,24 @@ public class LatticeDecoder
 
 	public List<String> decode(Lattice lattice)
 	{
+		lattice.addIncomingArcs(); 
+		this.resetTransient();
 		int maxWords = lattice.getSize(); // meer dan dat kunnen er niet uitkomen
 		List<String> words = new ArrayList<String>();
-		this.decode1Best(lattice, words, maxWords, ignoreWords, lm, contextLen, beamWidth, Double.NEGATIVE_INFINITY, maxWords);
+		this.decode1BestOuter(lattice, words, maxWords, getIgnoreWords(), lm, contextLen, beamWidth, Double.NEGATIVE_INFINITY, maxWords);
 		return words;
 	}
 
-	public double decode1Best(Lattice lattice, List<String> words, int maxWords, Set<String> ignoreWords,
+	private void resetTransient()
+	{
+		// TODO Auto-generated method stub
+		nodeinfo = null;
+		sortedNodes = null;
+		finalPosition = -1;
+		oldLmScale = Double.NaN;
+	}
+
+	private double decode1BestOuter(Lattice lattice, List<String> words, int maxWords, Set<String> ignoreWords,
 			NgramLanguageModel lm , int contextLen, double beamwidth, double  logP_floor, 
 			int maxPaths)
 	{
@@ -67,7 +97,7 @@ public class LatticeDecoder
 
 		try
 		{
-			result = decode1Best(lattice,  winfo, maxWords, ignoreWords,  contextLen, logP_floor, maxPaths);
+			result = decode1BestInner(lattice,  winfo, maxWords, ignoreWords,  contextLen, logP_floor, maxPaths);
 			System.err.println("Result=" + result);
 		} catch (LatticeException e)
 		{
@@ -93,7 +123,7 @@ public class LatticeDecoder
 		return result;
 	}
 
-	public double decode1Best(Lattice lattice,  NBestWordInfo[] winfo, 
+	private  double decode1BestInner(Lattice lattice,  NBestWordInfo[] winfo, 
 			int maxWords, Set<String> ignoreWords, 
 			int contextLen, 
 			double logP_floor, 
@@ -121,6 +151,7 @@ public class LatticeDecoder
 				finalPosition, nodeinfo);
 		return result;
 	}
+	
 /**
  * We do not really use this.... NBest lists are not useful right now.
  * @param winfo
@@ -130,6 +161,7 @@ public class LatticeDecoder
  * @param nodeinfo
  * @return
  */
+	
 	protected double buildNBestInfoList(NBestWordInfo[] winfo, int maxWords,
 			Set<String> ignoreWords, int finalPosition, NodePathInfo[] nodeinfo)
 	{
@@ -178,15 +210,19 @@ public class LatticeDecoder
 				wi.wordPosterior = wi.transPosterior = 1.0;
 				if (this.variantLexicon != null)
 				{
-					List<Variant> l = this.variantLexicon.getVariantsFromNormalForm(node.word);
-					System.err.println(l);
+					List<Variant> l = this.variantLexicon.getVariantsFromNormalForm(wi.word);
+					//System.err.println(l);
 					if (l != null && l.size() >= node.v)
-						wi.word = l.get(node.v-1).variantForm;
-					else
-						System.err.println(wi.word + " v=" + node.v + " not in lexicon!");
+					{
+						String variant = l.get(node.v-1).variantForm;
+						if (variant != null && variant.length() > 0)
+							wi.word = variant;
+					}
+					else;
+						//System.err.println(wi.word + " v=" + node.v + " not in lexicon!");
 				}  else
 				{
-					System.err.println("dit is niet zo");
+					//System.err.println("dit is niet zo");
 				}
 				//System.err.println("set wi.word to " + wi.word);
 			}
@@ -325,9 +361,9 @@ public class LatticeDecoder
 			{
 				// System.err.println("Path at  n= " + n + " with context: " + ldp.m_Context);
 				info.m_PList[I++] = ldp;
-				if (nbest != 0 && maxFanIn != 0)
+				if (nbest != 0 && getMaxFanIn() != 0)
 				{
-					ldp.truncLinks(maxFanIn);
+					ldp.truncLinks(getMaxFanIn());
 				}
 			}
 			info.m_PHash.clear();
@@ -397,7 +433,7 @@ public class LatticeDecoder
 	/**
 	 * Determine prob and gprob from previous path, language model score and current transition.
 	 * I do not understand the old LM score stuff. If we do it this way, one could remove the old weight before processing.
-	 * Besides, I am now adding it instead of subtracting.... which means we interpolate ....
+	 * Besides, I am now adding it instead of subtracting.... which means we interpolate old and new rather than substracting  ....
 	 * @param node
 	 * @param word
 	 * @param oldlmscore
@@ -440,7 +476,7 @@ public class LatticeDecoder
 	}
 
 	/*
-	 * Todo hier klopt geen barst van
+	 * Todo check boundary conditions (no context)
 	 */
 	private void shiftContext(String word, boolean nolmword,
 			LatticeDecodePath path, LatticeDecodePath newpath)
@@ -453,7 +489,7 @@ public class LatticeDecoder
 		} else 
 		{
 			newpath.m_Context.clear();
-		 // HM... moet eigenlijk omgekeerd...
+		
 			for (int j=1; j < contextLen; j++)
 				newpath.m_Context.add(path.m_Context.get(j));
 			newpath.m_Context.add(word);
@@ -476,10 +512,10 @@ public class LatticeDecoder
 
 	boolean ignoreWord(String word)
 	{
-		return this.ignoreWords.contains(word);
+		return this.getIgnoreWords().contains(word);
 	}
 
-	Set<String> getIgnoreWords()
+	public Set<String> getIgnoreWords()
 	{
 		return ignoreWords;
 	}
@@ -489,25 +525,37 @@ public class LatticeDecoder
 		this.ignoreWords = ignoreWords;
 	}
 
-	public static void decodeLatticeFile(String fileName, NgramLanguageModel<String> lm, VariantLexicon v)
+	
+	public void decodeLatticeFile(String fileName)
 	{
 		Lattice l = StandardLatticeFile.readLatticeFromFile(fileName);
-		l.addIncomingArcs(); 
-		LatticeDecoder d = new LatticeDecoder();
-		d.setVariantLexicon(v);
+		this.resetTransient();
 		
-		d.setLanguageModel(lm);
 		long s = System.currentTimeMillis();
 		
-		List<String> decoded = d.decode(l);
+		List<String> decoded = this.decode(l);
 		String sentence = StringUtils.join(decoded, " ");
 		System.out.println("<" + fileName +  "> " + sentence);
 		long e =  System.currentTimeMillis();
 		System.err.printf("decode time in milliseconds for %s: " + (e-s)  + "\n", fileName);
 	}
 	
+	public static void decodeLatticeFile(String fileName, NgramLanguageModel<String> lm, VariantLexicon v)
+	{
+		//Lattice l = StandardLatticeFile.readLatticeFromFile(fileName);		
+		LatticeDecoder d = new LatticeDecoder();
+		d.setVariantLexicon(v);
+		
+		d.setLanguageModel(lm);
+		d.decodeLatticeFile(fileName);
+	}
+	
 	public static void decodeFilesInFolder(String dirname, NgramLanguageModel<String> lm, VariantLexicon v)
 	{
+		LatticeDecoder decoder = new LatticeDecoder();
+		
+		decoder.setVariantLexicon(v);
+		decoder.setLanguageModel(lm);
 		File d = new File(dirname);
 		
 		FilenameFilter fi = new FilenameFilter()
@@ -528,7 +576,7 @@ public class LatticeDecoder
 				try
 				{
 					String p = f.getCanonicalPath();
-					decodeLatticeFile(p, lm, v);
+					decoder.decodeLatticeFile(p);
 				} catch (IOException e)
 				{
 					// TODO Auto-generated catch block
@@ -543,35 +591,49 @@ public class LatticeDecoder
 	}
 	
 
-	double getLmscale()
+	public double getLmscale()
 	{
 		return lmscale;
 	}
 
-	void setLmscale(double lmscale)
+	public void setLmscale(double lmscale)
 	{
 		this.lmscale = lmscale;
 	}
 
-	private VariantLexicon getVariantLexicon()
+	public  VariantLexicon getVariantLexicon()
 	{
 		return variantLexicon;
 	}
 
-	private void setVariantLexicon(VariantLexicon variantLexicon)
+	public void setVariantLexicon(VariantLexicon variantLexicon)
 	{
 		this.variantLexicon = variantLexicon;
+	}
+	
+
+	int getMaxFanIn()
+	{
+		return maxFanIn;
+	}
+
+	void setMaxFanIn(int maxFanIn)
+	{
+		this.maxFanIn = maxFanIn;
 	}
 	
 	public static void main(String[] args)
 	{
 		NgramLanguageModel<String> lm = null;
 		
-		String languageModel =  "resources/exampleData/trigramModel.lm";
-		languageModel = null;
+		String languageModel =  "data/trigramModel.lm.bin";
+		//languageModel = null;
 		if (languageModel != null)
 		{
-		  lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
+			if (!languageModel.endsWith(".bin"))
+				lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
+			else
+		     lm = LmReaders.readLmBinary(languageModel);
 			System.err.println("finished reading LM");
 		}
 		VariantLexicon v = null;

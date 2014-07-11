@@ -90,6 +90,10 @@ public class StandardLatticeFile
 						{
 							lattice.lmscale = Double.parseDouble(m.get("lmscale"));
 						}
+						if (m.get("acscale") != null)
+						{
+							lattice.acscale = Double.parseDouble(m.get("acscale"));
+						}
 						if (m.get("wdpenalty") != null)
 						{
 							lattice.wdpenalty = Double.parseDouble(m.get("wdpenalty"));
@@ -130,9 +134,13 @@ public class StandardLatticeFile
 
 					Node startNode = lattice.getNode(m.get("S"));
 					Node endNode = lattice.getNode(m.get("E"));
+					
 					arc.acoustic = Double.parseDouble(m.get("a"));
 					arc.language = Double.parseDouble(m.get("l"));
 
+					// acscale * acoustic + lmscale * language + wdpenalty
+					arc.setWeight(lattice.acscale, lattice.lmscale, lattice.wdpenalty);
+					
 					if (startNode != null && endNode != null)
 					{
 						arc.source = startNode;

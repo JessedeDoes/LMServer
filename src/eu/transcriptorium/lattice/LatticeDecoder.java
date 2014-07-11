@@ -434,6 +434,7 @@ public class LatticeDecoder
 	 * Determine prob and gprob from previous path, language model score and current transition.
 	 * I do not understand the old LM score stuff. If we do it this way, one could remove the old weight before processing.
 	 * Besides, I am now adding it instead of subtracting.... which means we interpolate old and new rather than substracting  ....
+	 * SRI appears 
 	 * @param node
 	 * @param word
 	 * @param oldlmscore
@@ -449,6 +450,9 @@ public class LatticeDecoder
 		
 		double oldArcLMScore = a.language * oldLmScale;
 		// System.err.println("OLD LM: "  + a.language + " * " + oldLmScale + "= " + oldArcLMScore);
+		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
+		// which means that we would add AND subtract the old lm score..... (?)
+		
 		probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
 
 		probs. gprob = LogP_One;

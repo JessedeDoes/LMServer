@@ -24,7 +24,9 @@ public class Lattice implements Serializable, Cloneable
 	Map<String, String> properties = new HashMap<String,String>();
 	int N = 0; // number of nodes
 	int L = 0; // number of arcs
+	
 	public double lmscale = 1.0;
+	public double acscale = 1.0;
 	public double wdpenalty = 0.0;
 
 	public Node getStartNode()

@@ -31,7 +31,7 @@ N=128  L=487
 public class StandardLatticeFile
 {
 	static enum State {prologue, nodes, arcs};
-
+	static double htkLogScale = 1; // 1/Math.log(10);
 	public static void printLattice(PrintStream p, Lattice l)
 	{
 		Map<String,String> m = l.properties;
@@ -135,8 +135,8 @@ public class StandardLatticeFile
 					Node startNode = lattice.getNode(m.get("S"));
 					Node endNode = lattice.getNode(m.get("E"));
 					
-					arc.acoustic = Double.parseDouble(m.get("a"));
-					arc.language = Double.parseDouble(m.get("l"));
+					arc.acoustic = htkLogScale * Double.parseDouble(m.get("a"));
+					arc.language = htkLogScale * Double.parseDouble(m.get("l"));
 
 					// acscale * acoustic + lmscale * language + wdpenalty
 					arc.setWeight(lattice.acscale, lattice.lmscale, lattice.wdpenalty);

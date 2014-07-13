@@ -44,7 +44,7 @@ public class LatticeDecoder
 	private int maxFanIn = 0;
 	private int maxPaths = Integer.MAX_VALUE ;
 	
-	//private int maxWords;
+	// private int maxWords;
 	
 	private Set<String> ignoreWords = new HashSet<String>();
 	
@@ -453,11 +453,11 @@ public class LatticeDecoder
 		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
 		// which means that we would add AND subtract the old lm score..... (?)
 		
-		boolean emulateSRI = true;
+		boolean emulateSRI = false;
 		if (!emulateSRI)
-		probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
+			probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
 		else
-			probs.prob = path.m_Prob + a.weight - oldArcLMScore ;
+			probs.prob = path.m_Prob + a.weight -  oldArcLMScore;
 			
 		probs. gprob = LogP_One;
 

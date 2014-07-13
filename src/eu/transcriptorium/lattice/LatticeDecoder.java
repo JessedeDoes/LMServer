@@ -453,8 +453,12 @@ public class LatticeDecoder
 		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
 		// which means that we would add AND subtract the old lm score..... (?)
 		
+		boolean emulateSRI = true;
+		if (!emulateSRI)
 		probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
-
+		else
+			probs.prob = path.m_Prob + a.weight - oldArcLMScore ;
+			
 		probs. gprob = LogP_One;
 
 		if (uselm) 

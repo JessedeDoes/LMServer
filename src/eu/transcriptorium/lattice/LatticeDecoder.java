@@ -447,13 +447,14 @@ public class LatticeDecoder
 			double oldlmscore, boolean uselm, Arc a, LatticeDecodePath path,
 			Probabilities probs)
 	{
+		boolean emulateSRI = false;
 		
-		double oldArcLMScore = a.language * oldLmScale;
+		double oldArcLMScore = a.language * (emulateSRI?lmscale:oldLmScale); // SRI uses new LM score?
 		// System.err.println("OLD LM: "  + a.language + " * " + oldLmScale + "= " + oldArcLMScore);
 		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
 		// which means that we would add AND subtract the old lm score..... (?)
 		
-		boolean emulateSRI = false;
+
 		if (!emulateSRI)
 			probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
 		else

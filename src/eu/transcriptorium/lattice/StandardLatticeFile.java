@@ -31,7 +31,7 @@ N=128  L=487
 public class StandardLatticeFile
 {
 	static enum State {prologue, nodes, arcs};
-	static double htkLogScale = 1; // 1/Math.log(10);
+	static double htkLogScale = 1; // 1/Math.log(10); // 1/Math.log(10);
 	public static void printLattice(PrintStream p, Lattice l)
 	{
 		Map<String,String> m = l.properties;

@@ -29,9 +29,23 @@ public class Lattice implements Serializable, Cloneable
 	public double acscale = 1.0;
 	public double wdpenalty = 0.0;
 
+    Node startNode = null;
+   
 	public Node getStartNode()
 	{
-		return getNode("0"); // HM.
+		 if (startNode != null)
+			 return startNode;
+		 else // unreachable arcs should be removed except for the start state....
+		 {
+			 this.addIncomingArcs();
+			 for (Node n: getNodes())
+				 if (n.incomingArcs.size() == 0)
+				 {
+					 this.startNode = n;
+					 return n;
+				 }
+		 }
+		return getNode("0"); // HM. THIS IS WRONG
 	}
 
 	public Node getNode(String id)
@@ -322,4 +336,12 @@ public class Lattice implements Serializable, Cloneable
 			checkReachable(reachable, a.destination);
 	}
 	
+	// SRILM uses the NEW scales to compute the arc weight
+	void resetArcWeights(double acscale, double lmscale, double wdpenalty)
+	{
+		for (Node n: getNodes())
+			for (Arc a: n.arcs)
+				a.setWeight(acscale, lmscale, wdpenalty);
+		this.addIncomingArcs(); // should I?
+	}
 }

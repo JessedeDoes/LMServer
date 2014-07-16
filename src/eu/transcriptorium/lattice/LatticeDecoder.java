@@ -30,8 +30,13 @@ import java.util.*;
 public class LatticeDecoder
 {
 	private NgramLanguageModel<String> lm = null;
+	
 	private double beamWidth = 0;
-	private double lmscale = 20;
+	
+	private double lmscale = 15;
+	private double acscale=1.0;
+	private double wdpenalty=-26;
+	
 	private VariantLexicon variantLexicon = null;
 	
 	static final double LogP_Zero = Double.NEGATIVE_INFINITY;
@@ -52,7 +57,9 @@ public class LatticeDecoder
 	transient private NodePathInfo [] nodeinfo = null;
 	transient private List<Node> sortedNodes = null;
 	transient private int finalPosition = -1;
-
+	private boolean emulateSRI = true;
+	private boolean traceDecoder = true;
+	
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
@@ -66,6 +73,8 @@ public class LatticeDecoder
 	public List<String> decode(Lattice lattice)
 	{
 		lattice.addIncomingArcs(); 
+		lattice.resetArcWeights(acscale, lmscale, wdpenalty);
+		
 		this.resetTransient();
 		int maxWords = lattice.getSize(); // meer dan dat kunnen er niet uitkomen
 		List<String> words = new ArrayList<String>();
@@ -447,41 +456,46 @@ public class LatticeDecoder
 			double oldlmscore, boolean uselm, Arc a, LatticeDecodePath path,
 			Probabilities probs)
 	{
-		boolean emulateSRI = false;
+		double lmscore = LogP_One;
 		
-		double oldArcLMScore = a.language * (emulateSRI?lmscale:oldLmScale); // SRI uses new LM score?
+		double oldArcLMScore = a.language * (emulateSRI?getLmScale():oldLmScale); // SRI uses new LM score?
 		// System.err.println("OLD LM: "  + a.language + " * " + oldLmScale + "= " + oldArcLMScore);
 		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
 		// which means that we would add AND subtract the old lm score..... (?)
 		
-
+		
 		if (!emulateSRI)
 			probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
 		else
-			probs.prob = path.m_Prob + a.weight -  oldArcLMScore;
+			probs.prob = path.m_Prob + a.weight -  (uselm?oldArcLMScore:0);
 			
 		probs. gprob = LogP_One;
 
 		if (uselm) 
 		{
-			double lmscore = LogP_One;
-			probs.gprob = wordProb(lm, word, path.m_Context); // call the LM
+			//double lmscore = LogP_One;
+			probs.gprob = wordProb(lm, word, path.m_Context); 
+			// call the LM
+			// here we go wrong on !NULL <s>
 			if (probs.gprob < logP_floor) 	
 				probs.gprob = logP_floor;
 			lmscore = 	
 					probs.gprob * getLmscale();
 			probs.prob  += lmscore; 
-		} else // use a.language here?
+		} else // use a.language here??
 		{
 			probs.gprob = a.language;
 
-			if (!Double.isNaN(node.nodeLanguageScore)) // is never the case, remove....
+			if (!Double.isNaN(node.nodeLanguageScore)) // is never the case if we do not add null nodes, remove....
 			{
 				System.err.println("Node lm score found, exiting ");
 				System.exit(1);
 				probs.gprob = node.nodeLanguageScore ;
 			}
 		}
+		if (traceDecoder) 
+			System.err.println(node.word +  " prob= "  + probs.prob + " weight= "  + a.weight + " "  
+		+ " old lm score: " +  oldArcLMScore + " a.language= " +  a.language  +  "  lmscore = "  + lmscore + " context =  " +  path.m_Context + " old prob= " +  path.m_Prob);
 	}
 
 	/*
@@ -511,6 +525,9 @@ public class LatticeDecoder
 			List<String> m_Context)
 	{
 		// TODO Auto-generated method stub
+		if (word.equals(Lattice.sentenceStartSymbol)) // dangerous....
+			return LogP_One;
+		
 		m_Context.add(word);
 		
 		double d =   lm.getLogProb(m_Context);
@@ -521,7 +538,7 @@ public class LatticeDecoder
 
 	boolean ignoreWord(String word)
 	{
-		return this.getIgnoreWords().contains(word);
+		return word.equals(Lattice.nullWordSymbol) || this.getIgnoreWords().contains(word);
 	}
 
 	public Set<String> getIgnoreWords()
@@ -538,7 +555,7 @@ public class LatticeDecoder
 	public void decodeLatticeFile(String fileName)
 	{
 		Lattice l = StandardLatticeFile.readLatticeFromFile(fileName);
-		this.resetTransient();
+		this.resetTransient(); // maybe this does not quite work?
 		
 		long s = System.currentTimeMillis();
 		
@@ -602,12 +619,12 @@ public class LatticeDecoder
 
 	public double getLmscale()
 	{
-		return lmscale;
+		return getLmScale();
 	}
 
 	public void setLmscale(double lmscale)
 	{
-		this.lmscale = lmscale;
+		this.setLmScale(lmscale);
 	}
 
 	public  VariantLexicon getVariantLexicon()
@@ -655,5 +672,25 @@ public class LatticeDecoder
 			decodeLatticeFile("resources/exampleData/115_070_002_02_18.lattice", lm, v);
 		else
 			decodeFilesInFolder(args[0],lm, v);
+	}
+
+	private double getLmScale()
+	{
+		return lmscale;
+	}
+
+	private void setLmScale(double lmscale)
+	{
+		this.lmscale = lmscale;
+	}
+
+	private double getWordInsertionPenalty()
+	{
+		return wdpenalty;
+	}
+
+	private void setWordInsertionPenalty(double wdpenalty)
+	{
+		this.wdpenalty = wdpenalty;
 	}
 }

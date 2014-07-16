@@ -28,10 +28,11 @@ vocab=dic
 N=128  L=487  
  *</pre>
  */
+
 public class StandardLatticeFile
 {
 	static enum State {prologue, nodes, arcs};
-	static double htkLogScale = 1; // 1/Math.log(10); // 1/Math.log(10);
+	static double htkLogScale =  1/Math.log(10);
 	public static void printLattice(PrintStream p, Lattice l)
 	{
 		Map<String,String> m = l.properties;
@@ -60,6 +61,11 @@ public class StandardLatticeFile
 		}
 	}
 
+	/**
+	 * ! SRILM uses the new lm score and wd penalty to compute weights.....
+	 * @param fileName
+	 * @return
+	 */
 	public static Lattice readLatticeFromFile(String fileName)
 	{
 		State scanState = State.prologue;
@@ -138,13 +144,17 @@ public class StandardLatticeFile
 					arc.acoustic = htkLogScale * Double.parseDouble(m.get("a"));
 					arc.language = htkLogScale * Double.parseDouble(m.get("l"));
 
+					//System.err.println("arc from " + startNode + " to  " + endNode);
 					// acscale * acoustic + lmscale * language + wdpenalty
-					arc.setWeight(lattice.acscale, lattice.lmscale, lattice.wdpenalty);
+					// System.err.println("Endnode: " + endNode);
+					
+					
 					
 					if (startNode != null && endNode != null)
 					{
 						arc.source = startNode;
 						arc.destination = endNode;
+						arc.setWeight(lattice.acscale, lattice.lmscale, lattice.wdpenalty);
 						arc.source.arcs.add(arc);
 						//System.err.println(arc);
 					} else
@@ -159,6 +169,7 @@ public class StandardLatticeFile
 			e.printStackTrace();
 		}
 		lattice.rebuildArcList();
+	   lattice.getStartNode();
 		return lattice;
 	}
 

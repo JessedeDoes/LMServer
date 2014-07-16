@@ -19,7 +19,14 @@ public class Arc  implements Serializable
 	
 	public void setWeight(double acscale, double lmscale, double wdpenalty)
 	{
-		this.weight = acscale*this.acoustic + lmscale*this.language + wdpenalty;
+		if (this.source.word.equals(Lattice.nullWordSymbol) && this.destination.word.equals(Lattice.sentenceStartSymbol)) // HACK! better remove silly nodes
+		{
+			//System.err.println("Silly arc from  " +  this.source + "  to " + this.destination);
+			this.weight = 0.0;
+		}
+		else
+			this.weight = acscale*this.acoustic + lmscale*this.language + wdpenalty;
+		// System.err.printf("Set weight: weight=%f, acscale=%f lmscale=%f wdpenalty=%f acoustic=%f language=%f\n" , weight, acscale, lmscale, wdpenalty, acoustic, language);
 		// what about pron?
 	}
 	

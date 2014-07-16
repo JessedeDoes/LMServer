@@ -16,13 +16,15 @@ import java.util.*;
 
 
 /**
- * This is (almost) a java clone of the SRI lattice decoder
+ * This is (almost) a java clone of the SRI lattice decoder.
+ * Finally appears to work a bit now. Results for the test set are almost the same as SRILM. 
+ * Still need to check nonzero word penalty case.
  * <p>
  * Why is it needed?
  * <ul>
- * <li>Hyphenated models
- * <li>Output of non-normalized words (? is that really impossible with SRI)
- * <li>To be added: evaluation with ground truth, so we can use this to optimize parameters
+ * <li>Hyphenation-aware language models (this is silly, but requires some extra manipulation)
+ * <li>Output of non-normalized words (? is that really impossible with SRI/ CHECK)
+ * <li>To be added: evaluation with ground truth, so we can use this to optimize parameters iteratively 
  * </ul>
  * @author does
  *
@@ -33,9 +35,9 @@ public class LatticeDecoder
 	
 	private double beamWidth = 0;
 	
-	private double lmscale = 15;
+	private double lmscale = 20;
 	private double acscale=1.0;
-	private double wdpenalty=-26;
+	private double wdpenalty=0;
 	
 	private VariantLexicon variantLexicon = null;
 	
@@ -57,8 +59,9 @@ public class LatticeDecoder
 	transient private NodePathInfo [] nodeinfo = null;
 	transient private List<Node> sortedNodes = null;
 	transient private int finalPosition = -1;
+	
 	private boolean emulateSRI = true;
-	private boolean traceDecoder = true;
+	private boolean traceDecoder = false;
 	
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
@@ -578,11 +581,11 @@ public class LatticeDecoder
 	
 	public static void decodeFilesInFolder(String dirname, NgramLanguageModel<String> lm, VariantLexicon v)
 	{
-		LatticeDecoder decoder = new LatticeDecoder();
 		
+		File d = new File(dirname);
+		LatticeDecoder decoder = new LatticeDecoder();
 		decoder.setVariantLexicon(v);
 		decoder.setLanguageModel(lm);
-		File d = new File(dirname);
 		
 		FilenameFilter fi = new FilenameFilter()
 		{
@@ -601,6 +604,7 @@ public class LatticeDecoder
 			{
 				try
 				{
+
 					String p = f.getCanonicalPath();
 					decoder.decodeLatticeFile(p);
 				} catch (IOException e)
@@ -648,6 +652,27 @@ public class LatticeDecoder
 		this.maxFanIn = maxFanIn;
 	}
 	
+
+	private double getLmScale()
+	{
+		return lmscale;
+	}
+
+	private void setLmScale(double lmscale)
+	{
+		this.lmscale = lmscale;
+	}
+
+	private double getWordInsertionPenalty()
+	{
+		return wdpenalty;
+	}
+
+	private void setWordInsertionPenalty(double wdpenalty)
+	{
+		this.wdpenalty = wdpenalty;
+	}
+	
 	public static void main(String[] args)
 	{
 		NgramLanguageModel<String> lm = null;
@@ -669,28 +694,12 @@ public class LatticeDecoder
 			v.loadFromFile(args[1]);
 		}
 		if (args.length == 0)
+		{
+			//for (int i=0; i < 10; i++)
 			decodeLatticeFile("resources/exampleData/115_070_002_02_18.lattice", lm, v);
+		}
 		else
 			decodeFilesInFolder(args[0],lm, v);
 	}
 
-	private double getLmScale()
-	{
-		return lmscale;
-	}
-
-	private void setLmScale(double lmscale)
-	{
-		this.lmscale = lmscale;
-	}
-
-	private double getWordInsertionPenalty()
-	{
-		return wdpenalty;
-	}
-
-	private void setWordInsertionPenalty(double wdpenalty)
-	{
-		this.wdpenalty = wdpenalty;
-	}
 }

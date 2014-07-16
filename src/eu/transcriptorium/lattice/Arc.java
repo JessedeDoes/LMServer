@@ -22,7 +22,7 @@ public class Arc  implements Serializable
 		if (this.source.word.equals(Lattice.nullWordSymbol) && this.destination.word.equals(Lattice.sentenceStartSymbol)) // HACK! better remove silly nodes
 		{
 			//System.err.println("Silly arc from  " +  this.source + "  to " + this.destination);
-			this.weight = 0.0;
+			this.weight = acscale*this.acoustic; // nee . geen nul...  er kan nog steeds een acoustic in zitten .... belangrijkste is dat je de wdpenalty niet meeneemt
 		}
 		else
 			this.weight = acscale*this.acoustic + lmscale*this.language + wdpenalty;

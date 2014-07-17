@@ -105,6 +105,7 @@ public class Lattice implements Serializable, Cloneable
 				a.destination = l.getNode(a.destination.id);
 			}
 		}
+		l.getStartNode();
 		return l;
 	}
 

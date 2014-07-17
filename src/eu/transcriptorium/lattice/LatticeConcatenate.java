@@ -133,6 +133,7 @@ public class LatticeConcatenate
 	
 				for (Arc a0: n.incomingArcs)
 				{
+					a0.sentenceFinal = true;
 					Node n0 = a0.source;
 					n0.lastInLine = true; // do we really have to rewrite the decoder in java ... kwilnie! ....
 					

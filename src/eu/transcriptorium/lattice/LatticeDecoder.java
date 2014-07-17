@@ -328,7 +328,8 @@ public class LatticeDecoder
 			double probBwd = info.m_ProbBwd;
 
 			// go through all in-transitions
-
+			// TODO here check stuff related to hyphenated words
+			
 			for (Arc a: node.incomingArcs) 
 			{
 				Node fromNode =a.source;

@@ -11,6 +11,7 @@ public class Arc  implements Serializable
 	double acoustic; // acoustice prob
 	double language; // lm prob
 	double weight; // weight score as computed by SRI from lattice
+	boolean sentenceFinal = false;
 	
 	public String toString()
 	{
@@ -39,6 +40,7 @@ public class Arc  implements Serializable
 		a.destination = this.destination;
 		a.source = this.source;
 		a.weight = this.weight;
+		a.sentenceFinal = this.sentenceFinal;
 		return a;
 	}
 }

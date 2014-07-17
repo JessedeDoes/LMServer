@@ -178,10 +178,10 @@ public class StandardLatticeFile
 		StandardLatticeFile slf = new StandardLatticeFile();
 		Lattice l = slf.readLatticeFromFile("resources/exampleData/115_070_002_02_18.lattice");
 		//System.err.println("l:" + l.getSize());
-		Lattice ll = Lattice.concatenate(l, l);
-		Lattice lll = Lattice.concatenate(ll, ll);
-		Lattice llll = Lattice.concatenate(lll, lll);
-		Lattice lllll = Lattice.concatenate(llll, llll);
+		Lattice ll = LatticeConcatenate.concatenate(l, l);
+		Lattice lll = LatticeConcatenate.concatenate(ll, ll);
+		Lattice llll = LatticeConcatenate.concatenate(lll, lll);
+		Lattice lllll = LatticeConcatenate.concatenate(llll, llll);
 		slf.printLattice(System.out,lllll);
 		//System.err.println(ll.getSize());
 	}

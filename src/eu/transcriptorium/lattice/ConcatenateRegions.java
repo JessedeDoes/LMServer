@@ -66,8 +66,8 @@ public class ConcatenateRegions
 			   lattices.add(StandardLatticeFile.readLatticeFromFile(l));
 			}
 			
-			Lattice c = Lattice.concatenate(lattices);
-			c.removeLinebreaks(); // AHEM? why does this work in windows and NOT in linux??????
+			Lattice c = LatticeConcatenate.concatenate(lattices);
+			LatticeConcatenate.removeLinebreaks(c); // AHEM? why does this work in windows and NOT in linux??????
 	
 			System.err.println("Region " + r + ", " + lines.size() + " lines " + c.N + "  states");
 			

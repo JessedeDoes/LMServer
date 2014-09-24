@@ -63,6 +63,8 @@ public class LatticeDecoder
 	private boolean emulateSRI = true;
 	private boolean traceDecoder = false;
 	
+	private boolean expandVariants = true;
+	
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
@@ -220,7 +222,7 @@ public class LatticeDecoder
 					// wi.languageScore = path->m_GProb; // this is cumulative score
 				}
 				wi.wordPosterior = wi.transPosterior = 1.0;
-				if (this.variantLexicon != null)
+				if (this.variantLexicon != null) // if lattice already expanded, do nothing! Nee want je moet hier pas woorden expanderen of LM werkt niet
 				{
 					List<Variant> l = this.variantLexicon.getVariantsFromNormalForm(wi.word);
 					//System.err.println(l);
@@ -559,6 +561,11 @@ public class LatticeDecoder
 	public void decodeLatticeFile(String fileName)
 	{
 		Lattice l = StandardLatticeFile.readLatticeFromFile(fileName);
+		
+		if (expandVariants && this.variantLexicon != null)
+		{
+			LatticeVariantExpansion.expand(l, this.variantLexicon, false);
+		}
 		this.resetTransient(); // maybe this does not quite work?
 		
 		long s = System.currentTimeMillis();

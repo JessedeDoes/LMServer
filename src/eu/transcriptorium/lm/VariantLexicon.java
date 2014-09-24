@@ -38,11 +38,25 @@ public class VariantLexicon
 		return this.normalFormF2VariantsMap.get(n);
 	}
 	
+	public Variant getVariantFromNormalForm(String n, int v)
+	{
+		 List<Variant> l = 
+				 this.normalFormF2VariantsMap.get(n);
+		 if (l == null)
+		 {
+			// System.err.println("No variants for: " + n);
+			 return null;
+		 }
+		 if (l.size() > v)
+			 return l.get(v);
+		 else return null;
+	}
+	
 	public static class Variant
 	{
 		public String variantForm;
 		public String normalForm;
-		double probability = 0; // relative frequency of variantForm in normalForm
+		public double probability = 0; // relative frequency of variantForm in normalForm
 		int absoluteFrequency=0;
 		
 		List<String> composingCharacters;

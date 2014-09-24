@@ -144,11 +144,9 @@ public class StandardLatticeFile
 					arc.acoustic = htkLogScale * Double.parseDouble(m.get("a"));
 					arc.language = htkLogScale * Double.parseDouble(m.get("l"));
 
-					//System.err.println("arc from " + startNode + " to  " + endNode);
+					// System.err.println("arc from " + startNode + " to  " + endNode);
 					// acscale * acoustic + lmscale * language + wdpenalty
 					// System.err.println("Endnode: " + endNode);
-					
-					
 					
 					if (startNode != null && endNode != null)
 					{

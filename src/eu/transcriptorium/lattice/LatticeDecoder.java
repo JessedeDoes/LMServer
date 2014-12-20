@@ -270,7 +270,7 @@ public class LatticeDecoder
 		return x;
 	}
 
-	private NodePathInfo[] mainDecodingLoop(Lattice lattice, int nbest)
+	protected NodePathInfo[] mainDecodingLoop(Lattice lattice, int nbest)
 	{
 		int nn = lattice.getSize();
 		nodeinfo = new NodePathInfo[nn];
@@ -708,6 +708,12 @@ public class LatticeDecoder
 		}
 		else
 			decodeFilesInFolder(args[0],lm, v);
+	}
+
+	public NodePathInfo[] mainDecodingLoop(Lattice lattice, int i,
+			NodePathInfo[] nodePathInfos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

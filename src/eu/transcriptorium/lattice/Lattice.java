@@ -16,7 +16,8 @@ public class Lattice implements Serializable, Cloneable
 	public static String sentenceStartSymbol = "<s>";
 	public static String sentenceEndSymbol = "</s>";
 	public static String nullWordSymbol = "!NULL";
-
+	public static String interLatticeGlue = "PLAK!PLAK!PLAK!";
+	
 	private static final long serialVersionUID = 1L;
 	Map<String,Node> nodes = new HashMap<String,Node>();
 	List<Arc> arcs = new ArrayList<Arc>();

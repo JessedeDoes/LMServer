@@ -57,6 +57,7 @@ public class LatticeDecoder
 	
 	transient private double oldLmScale = Double.NaN;
 	transient private NodePathInfo [] nodeinfo = null;
+	transient private NodePathInfo [] previousNodeinfo = null;
 	transient private List<Node> sortedNodes = null;
 	transient private int finalPosition = -1;
 	
@@ -426,6 +427,11 @@ public class LatticeDecoder
 		return thresh;
 	}
 
+	/** ToDo: hier informatie uit de
+	 * vorige lattice inhangen als je een lijst decodeert
+	 * moet met een ignore woord met a=1 lukken (?)
+	 * @param lattice
+	 */
 	protected void setInitialNodePathInfo(Lattice lattice)
 	{
 		LatticeDecodePath  path0 = new LatticeDecodePath(); // this is dummy initial one

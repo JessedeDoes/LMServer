@@ -31,40 +31,40 @@ import java.util.*;
 public class LatticeDecoder
 {
 	private NgramLanguageModel<String> lm = null;
-	
+
 	private double beamWidth = 0;
-	
+
 	private double lmscale = 20;
 	private double acscale=1.0;
 	private double wdpenalty=0;
-	
+
 	private VariantLexicon variantLexicon = null;
-	
+
 	static final double LogP_Zero = Double.NEGATIVE_INFINITY;
 	static final double LogP_One = 0;
 	static final String Vocab_None = Lattice.nullWordSymbol; // CHECK....
-	
+
 	private double logP_floor = Double.NEGATIVE_INFINITY;
-	
+
 	private int contextLen = 2; // doe maar wat...
 	private int maxFanIn = 0;
 	private int maxPaths = Integer.MAX_VALUE ;
-	
+
 	// private int maxWords;
-	
+
 	private Set<String> ignoreWords = new HashSet<String>();
-	
+
 	transient private double oldLmScale = Double.NaN;
 	transient private NodePathInfo [] nodeinfo = null;
-	transient private NodePathInfo [] previousNodeinfo = null;
+	transient private NodePathInfo previousNodeinfo; // not used.....
 	transient private List<Node> sortedNodes = null;
 	transient private int finalPosition = -1;
-	
+
 	private boolean emulateSRI = true;
 	private boolean traceDecoder = false;
-	
+
 	private boolean expandVariants = true;
-	
+
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
@@ -79,11 +79,12 @@ public class LatticeDecoder
 	{
 		lattice.addIncomingArcs(); 
 		lattice.resetArcWeights(acscale, lmscale, wdpenalty);
-		
+
 		this.resetTransient();
 		int maxWords = lattice.getSize(); // meer dan dat kunnen er niet uitkomen
 		List<String> words = new ArrayList<String>();
-		this.decode1BestOuter(lattice, words, maxWords, getIgnoreWords(), lm, contextLen, beamWidth, Double.NEGATIVE_INFINITY, maxWords);
+		this.decode1BestOuter(lattice, words, maxWords, getIgnoreWords(), lm, 
+				contextLen, beamWidth, Double.NEGATIVE_INFINITY, maxWords);
 		return words;
 	}
 
@@ -96,7 +97,8 @@ public class LatticeDecoder
 		oldLmScale = Double.NaN;
 	}
 
-	private double decode1BestOuter(Lattice lattice, List<String> words, int maxWords, Set<String> ignoreWords,
+	private double decode1BestOuter(Lattice lattice, List<String> words, 
+			int maxWords, Set<String> ignoreWords,
 			NgramLanguageModel lm , int contextLen, double beamwidth, double  logP_floor, 
 			int maxPaths)
 	{
@@ -126,7 +128,7 @@ public class LatticeDecoder
 			{
 				String w = winfo[i].word;
 				if (!w.equals(Vocab_None))
-				    words.add(w);
+					words.add(w);
 				if (w == Vocab_None)
 					break;
 			}
@@ -146,8 +148,9 @@ public class LatticeDecoder
 		sortedNodes = new TopologicalSort().sortNodes(lattice, false);
 
 		this.logP_floor = logP_floor; 
-	
+
 		int numNodes = lattice.getSize();
+
 		for (int i=0; i < sortedNodes.size(); i++)
 		{
 			Node n = sortedNodes.get(i);
@@ -162,20 +165,20 @@ public class LatticeDecoder
 			return LogP_Zero;
 		}
 		double result = buildNBestInfoList(winfo, maxWords, ignoreWords,
-				finalPosition, nodeinfo);
+				getFinalPosition(), nodeinfo);
 		return result;
 	}
-	
-/**
- * We do not really use this.... NBest lists are not useful right now.
- * @param winfo
- * @param maxWords
- * @param ignoreWords
- * @param finalPosition
- * @param nodeinfo
- * @return
- */
-	
+
+	/**
+	 * We do not really use this.... NBest lists are not useful right now.
+	 * @param winfo
+	 * @param maxWords
+	 * @param ignoreWords
+	 * @param finalPosition
+	 * @param nodeinfo
+	 * @return
+	 */
+
 	protected double buildNBestInfoList(NBestWordInfo[] winfo, int maxWords,
 			Set<String> ignoreWords, int finalPosition, NodePathInfo[] nodeinfo)
 	{
@@ -200,7 +203,7 @@ public class LatticeDecoder
 				if (node.htkinfo == null) // only word label is available, e.g., when processing PFSGs
 				{
 					wi.word = node.word;
-				
+
 					wi.languageScore = path.m_GProb; // this is cumulative score
 				} else // find the time of the predecessor node 
 				{
@@ -233,7 +236,7 @@ public class LatticeDecoder
 							wi.word = variant;
 					}
 					else;
-						//System.err.println(wi.word + " v=" + node.v + " not in lexicon!");
+					//System.err.println(wi.word + " v=" + node.v + " not in lexicon!");
 				}  else
 				{
 					//System.err.println("dit is niet zo");
@@ -287,17 +290,17 @@ public class LatticeDecoder
 
 		if (this.beamWidth > 0)  // determine threshold value
 		{
-			threshold = determineThresholdForBeamSearch(sortedNodes, finalPosition, nodeinfo);
+			threshold = determineThresholdForBeamSearch(sortedNodes, getFinalPosition(), nodeinfo);
 		} else
 		{
-			for (int i = 0; i <= finalPosition; i++)
+			for (int i = 0; i <= getFinalPosition(); i++)
 				nodeinfo[i].m_ProbBwd = LogP_One;
 		}
 
 		// get old LM scores to correctly compute new transition weight
 		if (lm != null) 
 		{
-			for (int i = 0; i <= finalPosition; i++)
+			for (int i = 0; i <= getFinalPosition(); i++)
 			{
 				Node node = sortedNodes.get(i);
 				if (!Double.isNaN(node.nodeLanguageScore)) // ToDo: where do we get the node weights from??? this does not really work...
@@ -309,13 +312,16 @@ public class LatticeDecoder
 
 		numPaths = 1;
 		// for the initial node
-		setInitialNodePathInfo(lattice);
+		if (this.previousNodeinfo != null)
+			setInitialNodePathInfo(lattice, this.previousNodeinfo);
+		else
+			setInitialNodePathInfo(lattice);
 
 
 		// go through all the nodes, make all transitions
 		//NodeIndex n;
 
-		mainLoop: for (int n = 1 ; n <= finalPosition; n++) 
+		mainLoop: for (int n = 1 ; n <= getFinalPosition(); n++) 
 		{
 
 			Node  node = sortedNodes.get(n);
@@ -331,7 +337,7 @@ public class LatticeDecoder
 
 			// go through all in-transitions
 			// TODO here check stuff related to hyphenated words
-			
+
 			for (Arc a: node.incomingArcs) 
 			{
 				Node fromNode =a.source;
@@ -344,10 +350,10 @@ public class LatticeDecoder
 
 					getTransitionProbability(node, word, oldlmscore, uselm, a, path, probs);
 
-					if ((	probs.prob + probBwd) >= threshold) 
+					if ((probs.prob + probBwd) >= threshold) 
 					{
 						LatticeDecodePath  newpath = new LatticeDecodePath(node, path, probs);
-						
+
 						if (++numPaths > maxPaths) break mainLoop;
 
 						if (nbest != 0) 
@@ -356,7 +362,7 @@ public class LatticeDecoder
 						shiftContext(word, nolmword, path, newpath);  
 
 						LatticeDecodePath p;
-						
+
 						if ((p = info.m_PHash.get(newpath)) != null) 
 						{
 							p.merge(newpath, nbest);
@@ -387,7 +393,7 @@ public class LatticeDecoder
 
 		//FINAL (mainLoop broken)
 
-		NodePathInfo  pfinal = nodeinfo[finalPosition];
+		NodePathInfo  pfinal = nodeinfo[getFinalPosition()];
 
 		if (pfinal.m_NumPaths == 0) 
 		{
@@ -449,19 +455,19 @@ public class LatticeDecoder
 		nodeinfo[0].m_PList[0] = path0;
 		nodeinfo[0].m_NumPaths = 1;
 	}
-	
-	protected void setInitialNodePathInfo(Lattice lattice, NodePathInfo[] previousLineDecoding)
+
+	protected void setInitialNodePathInfo(Lattice lattice, NodePathInfo previous)
 	{
 		// weet je zeker dat die array helemaal gevuld is? Nee dus.
-		NodePathInfo previous = previousLineDecoding[previousLineDecoding.length -1];
 		int k=0;
 		LatticeDecodePath[] newPathList =  new LatticeDecodePath  [previous.m_PList.length];
 		nodeinfo[0].m_PList = newPathList;
 		nodeinfo[0].m_NumPaths = previous.m_NumPaths;
+
 		for (LatticeDecodePath p: previous.m_PList)
 		{
 			LatticeDecodePath  path = new LatticeDecodePath(); 
-			
+
 			path.node = lattice.getStartNode();
 			shiftContext(path.node.word, true, p, path);
 			path.m_Prev = p;
@@ -487,18 +493,18 @@ public class LatticeDecoder
 			Probabilities probs)
 	{
 		double lmscore = LogP_One;
-		
+
 		double oldArcLMScore = a.language * (emulateSRI?getLmScale():oldLmScale); // SRI uses new LM score?
 		// System.err.println("OLD LM: "  + a.language + " * " + oldLmScale + "= " + oldArcLMScore);
 		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
 		// which means that we would add AND subtract the old lm score..... (?)
-		
-		
+
+
 		if (!emulateSRI)
 			probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
 		else
 			probs.prob = path.m_Prob + a.weight -  (uselm?oldArcLMScore:0);
-			
+
 		probs. gprob = LogP_One;
 
 		if (uselm) 
@@ -525,7 +531,7 @@ public class LatticeDecoder
 		}
 		if (traceDecoder) 
 			System.err.println(node.word +  " prob= "  + probs.prob + " weight= "  + a.weight + " "  
-		+ " old lm score: " +  oldArcLMScore + " a.language= " +  a.language  +  "  lmscore = "  + lmscore + " context =  " +  path.m_Context + " old prob= " +  path.m_Prob);
+					+ " old lm score: " +  oldArcLMScore + " a.language= " +  a.language  +  "  lmscore = "  + lmscore + " context =  " +  path.m_Context + " old prob= " +  path.m_Prob);
 	}
 
 	/*
@@ -542,7 +548,7 @@ public class LatticeDecoder
 		} else 
 		{
 			newpath.m_Context.clear();
-		
+
 			for (int j=1; j < contextLen; j++)
 				newpath.m_Context.add(path.m_Context.get(j));
 			newpath.m_Context.add(word);
@@ -557,9 +563,9 @@ public class LatticeDecoder
 		// TODO Auto-generated method stub
 		if (word.equals(Lattice.sentenceStartSymbol)) // dangerous....
 			return LogP_One;
-		
+
 		m_Context.add(word);
-		
+
 		double d =   lm.getLogProb(m_Context);
 		//System.err.println("Lm prob for "  +m_Context + " = " + d );
 		m_Context.remove(word);
@@ -581,44 +587,44 @@ public class LatticeDecoder
 		this.ignoreWords = ignoreWords;
 	}
 
-	
+
 	public void decodeLatticeFile(String fileName)
 	{
 		Lattice l = StandardLatticeFile.readLatticeFromFile(fileName);
-		
+
 		if (expandVariants && this.variantLexicon != null)
 		{
 			LatticeVariantExpansion.expand(l, this.variantLexicon, false);
 		}
 		this.resetTransient(); // maybe this does not quite work?
-		
+
 		long s = System.currentTimeMillis();
-		
+
 		List<String> decoded = this.decode(l);
 		String sentence = StringUtils.join(decoded, " ");
 		System.out.println("<" + fileName +  "> " + sentence);
 		long e =  System.currentTimeMillis();
 		System.err.printf("decode time in milliseconds for %s: " + (e-s)  + "\n", fileName);
 	}
-	
+
 	public static void decodeLatticeFile(String fileName, NgramLanguageModel<String> lm, VariantLexicon v)
 	{
 		//Lattice l = StandardLatticeFile.readLatticeFromFile(fileName);		
 		LatticeDecoder d = new LatticeDecoder();
 		d.setVariantLexicon(v);
-		
+
 		d.setLanguageModel(lm);
 		d.decodeLatticeFile(fileName);
 	}
-	
+
 	public static void decodeFilesInFolder(String dirname, NgramLanguageModel<String> lm, VariantLexicon v)
 	{
-		
+
 		File d = new File(dirname);
 		LatticeDecoder decoder = new LatticeDecoder();
 		decoder.setVariantLexicon(v);
 		decoder.setLanguageModel(lm);
-		
+
 		FilenameFilter fi = new FilenameFilter()
 		{
 			public boolean accept(File dir, String name)
@@ -626,7 +632,7 @@ public class LatticeDecoder
 				return name.endsWith(".lattice");
 			}
 		};
-		
+
 		if (d.isDirectory())
 		{
 			File[] entries = d.listFiles(fi);
@@ -651,7 +657,7 @@ public class LatticeDecoder
 			System.err.println("Total decode time in milliseconds: " + (e-s)  + "  average " + average);
 		}
 	}
-	
+
 
 	public double getLmscale()
 	{
@@ -672,7 +678,7 @@ public class LatticeDecoder
 	{
 		this.variantLexicon = variantLexicon;
 	}
-	
+
 
 	int getMaxFanIn()
 	{
@@ -683,7 +689,7 @@ public class LatticeDecoder
 	{
 		this.maxFanIn = maxFanIn;
 	}
-	
+
 
 	private double getLmScale()
 	{
@@ -704,19 +710,30 @@ public class LatticeDecoder
 	{
 		this.wdpenalty = wdpenalty;
 	}
-	
+
+	public NodePathInfo[] getNodePathInfos()
+	{
+		return this.nodeinfo;
+	}
+
+	public NodePathInfo getLastPathInfo()
+	{
+		if (this.finalPosition > 0)
+			return nodeinfo[this.finalPosition-1];
+		else return null;
+	}
 	public static void main(String[] args)
 	{
 		NgramLanguageModel<String> lm = null;
-		
+
 		String languageModel =  "data/trigramModel.lm.bin";
-		//languageModel = null;
+		// languageModel = null;
 		if (languageModel != null)
 		{
 			if (!languageModel.endsWith(".bin"))
 				lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
 			else
-		     lm = LmReaders.readLmBinary(languageModel);
+				lm = LmReaders.readLmBinary(languageModel);
 			System.err.println("finished reading LM");
 		}
 		VariantLexicon v = null;
@@ -734,10 +751,16 @@ public class LatticeDecoder
 			decodeFilesInFolder(args[0],lm, v);
 	}
 
-	public NodePathInfo[] mainDecodingLoop(Lattice lattice, int i,
-			NodePathInfo[] nodePathInfos) {
-		// TODO Auto-generated method stub
-		return null;
+
+	protected int getFinalPosition() {
+		return finalPosition;
 	}
 
+	private NodePathInfo getPreviousNodeinfo() {
+		return previousNodeinfo;
+	}
+
+	protected void setPreviousNodeinfo(NodePathInfo previousNodeinfo) {
+		this.previousNodeinfo = previousNodeinfo;
+	}
 }

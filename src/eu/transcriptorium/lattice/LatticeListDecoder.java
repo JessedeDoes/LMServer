@@ -39,6 +39,7 @@ public class LatticeListDecoder
 			decoders.add(decoder);
 			decoder.setLanguageModel(lm);
 			decoder.setVariantLexicon(variantLexicon);
+			decoder.setIgnoreSentenceBoundaries(true);
 			
 			if (i==0)
 			{

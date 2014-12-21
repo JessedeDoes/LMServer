@@ -53,4 +53,9 @@ public class Node  implements Serializable
 		Node o = (Node) other;
 		return this.id.equals(o.id);
 	}
+	
+	public static abstract class Test
+	{
+		public abstract boolean test(Node n);
+	}
 }

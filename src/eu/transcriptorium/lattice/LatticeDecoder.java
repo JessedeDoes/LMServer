@@ -63,6 +63,7 @@ public class LatticeDecoder
 	private boolean emulateSRI = true;
 	private boolean traceDecoder = false;
 
+	private boolean ignoreSentenceBoundaries = false;
 	private boolean expandVariants = true;
 
 	public void setLanguageModel(NgramLanguageModel lm)
@@ -195,7 +196,7 @@ public class LatticeDecoder
 
 			// System.err.println("Along path: " + node);
 
-			if (!ignoreWord(node.word) && !ignoreWords.contains(node.word)) 
+			if (Lattice.isSentenceDelimiter(node.word) || !ignoreWord(node.word) && !ignoreWords.contains(node.word)) 
 			{
 				NBestWordInfo  wi = winfo[num++];
 				if (node.htkinfo == null && node.word.equals(Vocab_None))  
@@ -477,7 +478,7 @@ public class LatticeDecoder
 			path.m_Prob = p.m_Prob;
 			
 			shiftContext(path.node.word, true, p, path);
-			
+			System.err.println("Context now: " + path.m_Context);
 			path.m_Prev = p;
 			newPathList[k++] = path;
 		}
@@ -576,14 +577,17 @@ public class LatticeDecoder
 		m_Context.add(word);
 
 		double d =   lm.getLogProb(m_Context);
-		//System.err.println("Lm prob for "  +m_Context + " = " + d );
+		System.err.println("Lm prob for "  +m_Context + " = " + d );
 		m_Context.remove(word);
 		return d;
 	}
 
 	boolean ignoreWord(String word)
 	{
-		return word.equals(Lattice.nullWordSymbol) || this.getIgnoreWords().contains(word);
+		return word.equals(Lattice.nullWordSymbol) || 
+				(this.ignoreSentenceBoundaries && 
+						(word.equals(Lattice.sentenceStartSymbol) || word.equals(Lattice.sentenceEndSymbol))) || 
+				this.getIgnoreWords().contains(word);
 	}
 
 	public Set<String> getIgnoreWords()
@@ -773,5 +777,13 @@ public class LatticeDecoder
 		}
 		else
 			decodeFilesInFolder(args[0],lm, v);
+	}
+
+	public boolean isIgnoreSentenceBoundaries() {
+		return ignoreSentenceBoundaries;
+	}
+
+	public void setIgnoreSentenceBoundaries(boolean ignoreSentenceBoundaries) {
+		this.ignoreSentenceBoundaries = ignoreSentenceBoundaries;
 	}
 }

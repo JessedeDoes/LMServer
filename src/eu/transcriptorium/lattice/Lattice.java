@@ -154,7 +154,6 @@ public class Lattice implements Serializable, Cloneable
 		arc.language = l;
 	}
 
-
 	void deleteTransition(Node source, Node destination)
 	{
 		List<Arc> keep = new ArrayList<Arc>();
@@ -217,5 +216,56 @@ public class Lattice implements Serializable, Cloneable
 		}
 		this.nodes = newNodeMap;
 		this.rebuildArcList();
+	}
+
+	public void getFirstWords(Node n, Node.Test t, Set<String> S)
+	{
+		if (S.contains(n.word))
+			return;
+		if (t.test(n))
+		{
+			S.add(n.word);
+			return;
+		}
+		for (Arc a: n.arcs)
+		{
+			getFirstWords(a.destination,t,S);
+		}
+	}
+	
+	public Set<String> getFirstWords(Node.Test t)
+	{
+		Set<String> S = new HashSet<String>();
+		getFirstWords(this.getStartNode(), t, S);
+		return S;
+	}
+	
+	public void getLastWords(Node n, Node.Test t, Set<String> S)
+	{
+		if (S.contains(n.word))
+			return;
+		if (t.test(n))
+		{
+			S.add(n.word);
+			return;
+		}
+		for (Arc a: n.incomingArcs)
+		{
+			getLastWords(a.source,t,S);
+		}
+	}
+	
+	public Set<String> getLastWords(Node.Test t)
+	{
+		this.addIncomingArcs();
+		Set<String> S = new HashSet<String>();
+		for (Node n: this.getFinalNodes())
+		getLastWords(n, t, S);
+		return S;
+	}
+	
+	public static boolean isSentenceDelimiter(String word) {
+		// TODO Auto-generated method stub
+		return word.equals(Lattice.sentenceEndSymbol) || word.equals(Lattice.sentenceStartSymbol);
 	}
 }

@@ -164,8 +164,9 @@ public class LatticeDecoder
 		{
 			return LogP_Zero;
 		}
+		LatticeDecodePath  path = nodeinfo[finalPosition].m_PList[0];
 		double result = buildNBestInfoList(winfo, maxWords, ignoreWords,
-				getFinalPosition(), nodeinfo);
+				getFinalPosition(), path);
 		return result;
 	}
 
@@ -175,14 +176,14 @@ public class LatticeDecoder
 	 * @param maxWords
 	 * @param ignoreWords
 	 * @param finalPosition
-	 * @param nodeinfo
+	 * @param path
 	 * @return
 	 */
 
 	protected double buildNBestInfoList(NBestWordInfo[] winfo, int maxWords,
-			Set<String> ignoreWords, int finalPosition, NodePathInfo[] nodeinfo)
+			Set<String> ignoreWords, int finalPosition, LatticeDecodePath path)
 	{
-		LatticeDecodePath  path = nodeinfo[finalPosition].m_PList[0];
+		//LatticeDecodePath  path = nodeinfo[finalPosition].m_PList[0];
 		double result = path.m_Prob;
 		int num = 0;
 		double  gprob = LogP_One;

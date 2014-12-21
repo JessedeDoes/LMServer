@@ -28,6 +28,7 @@ import java.util.*;
  * @author does
  *
  */
+
 public class LatticeDecoder
 {
 	private NgramLanguageModel<String> lm = null;

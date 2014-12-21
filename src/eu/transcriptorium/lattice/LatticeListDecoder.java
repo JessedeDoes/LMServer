@@ -13,19 +13,21 @@ import eu.transcriptorium.lm.VariantLexicon;
 import eu.transcriptorium.util.StringUtils;
 
 /**
- * Attempt to solve the absence of context at line breaks for language modeling. 
+ * Attempt to solve the absence of part of the context at line breaks for language modeling. 
  * Instead of concatenating word graphs for a sequence of lines in a paragraph, 
  * we initialize a separate decoder for each line, with initial paths joined to the final path list of the previous
  * line.  
  * <p>
- * Results are not very encouraging as yet.<br/>
- * In the Bentham test set (860 lines) there are 283 errors in the first word. 
- * For 156, the correct word is a hypothesis in the word graph.<br/>
+ * Results are not very encouraging as yet - an improvement of the WER by 0.4% on the Bentham competition set. 
+ * Maybe this is just because we have not found the right data to work with.<br/>
+ * 
+ * In the Bentham test set (860 lines) there are 283 errors in the first word in our best bigram HTR. 
+ * For 156, the correct "word" is a hypothesis in the word graph.<br/>
  * This includes many uninteresting cases not at all related to LM, such as " at the start of a line, which is 
  * difficult for the HTR to pick up correctly.
  * <br/>
- * Whe we disregard punctuation, this becomes 141 errors and 46 promising hypotheses, which means that a better 
- * LM can improve the WER on real words by at most 46/7868 = 0.6%. 
+ * When we disregard punctuation, this becomes 141 errors and 46 promising hypotheses, which means that a better 
+ * LM can improve the WER on real words maximally by at most 46/7868 = 0.6%. 
  * @author jesse
  */
 

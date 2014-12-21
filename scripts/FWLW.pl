@@ -8,28 +8,68 @@ while(<>)
     $s =~ s/#//;
     my ($fws,$lws) = split(/#/,$s);
     my %fwh;
+    my %lwh;
     while ($fws =~ /[^\s,\]\[]+/g)
     {
-      $fwh{$&}++;
+      my $x = $&;
+      $x =~ s/\\//g;
+      $fwh{$x}++;
     } 
+    while ($lws =~ /[^\s,\]\[]+/g)
+    {
+      $lwh{$&}++;
+    }
+
     my ($gt,$htr) = split(/\s*\$\s*/,$f);
+
+    my $F="-";    
+    my $L="-";
+    my $printMe=0;
     if (firstWord($gt) ne firstWord($htr)) 
     {
-      my $P = defined($fwh{firstWord($gt)});
-      if ($P)
+      my $P=0;
+      $printMe=1;
+      if (firstWord($gt) =~ /[A-Z]/i)
       {
-        $re++;
-      } else
-      {
-        $P=0;
+        $P = defined($fwh{firstWord($gt)});
+        if ($P)
+        {
+          $re++;
+        } else
+        {
+          $P=0;
+        }
+        $e++;
       }
-      $e++;
-      print "$P // $_\n";
+      $F=$P;
+    }
+    if (lastWord($gt) ne lastWord($htr))
+    {
+      my $P;
+      if (lastWord($gt) =~ /[A-Z]/i)
+      {
+        $P = defined($lwh{lastWord($gt)});
+        if ($P)
+        {
+          $rel++;
+        } else
+        {
+          $P=0;
+        }
+        $el++;
+      }
+      $L=$P;
+      $printMe=1;
+#     print "$P // $_\n";
+    }
+    if ($printMe)
+    {
+      print "$F$L // $_\n";
     }
   }
 }
 
-warn "e=$e, re=$re\n";
+warn "e=$e, re=$re el=$el rel=$rel\n";
 sub firstWord
 {
   my $x = shift;

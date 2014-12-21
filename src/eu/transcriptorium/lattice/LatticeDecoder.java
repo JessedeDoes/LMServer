@@ -64,8 +64,11 @@ public class LatticeDecoder
 	private boolean traceDecoder = false;
 
 	private boolean ignoreSentenceBoundaries = false;
+	private boolean ignoreDQ = false;
 	private boolean expandVariants = true;
 
+	private boolean randomBackoffs = false; // silly testing setting
+	
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
@@ -574,17 +577,29 @@ public class LatticeDecoder
 		if (word.equals(Lattice.sentenceStartSymbol)) // dangerous....
 			return LogP_One;
 
-		m_Context.add(word);
+		double d;
+		
+		if (randomBackoffs && word.contains("A"))
+		{
+			List<String> l = new ArrayList<String>();
+			l.add(word);
+			d = lm.getLogProb(l);
+		}
+		else
+		{
+			m_Context.add(word);
 
-		double d =   lm.getLogProb(m_Context);
-		System.err.println("Lm prob for "  +m_Context + " = " + d );
-		m_Context.remove(word);
+			d =   lm.getLogProb(m_Context);
+			//System.err.println("Lm prob for "  +m_Context + " = " + d );
+			m_Context.remove(word);
+		}
 		return d;
 	}
 
 	boolean ignoreWord(String word)
 	{
-		return word.equals(Lattice.nullWordSymbol) || 
+		return word.equals(Lattice.nullWordSymbol) ||
+				(this.ignoreDQ && word.equals("\\\"")) || 
 				(this.ignoreSentenceBoundaries && 
 						(word.equals(Lattice.sentenceStartSymbol) || word.equals(Lattice.sentenceEndSymbol))) || 
 				this.getIgnoreWords().contains(word);

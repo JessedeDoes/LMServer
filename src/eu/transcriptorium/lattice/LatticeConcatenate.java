@@ -62,7 +62,6 @@ public class LatticeConcatenate
 				l1.properties.get("UTTERANCE") + ";" + 
 						l2.properties.get("UTTERANCE"));
 	
-	
 		return l;
 	}
 

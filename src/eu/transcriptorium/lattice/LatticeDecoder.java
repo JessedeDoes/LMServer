@@ -82,6 +82,7 @@ public class LatticeDecoder
 
 		this.resetTransient();
 		int maxWords = lattice.getSize(); // meer dan dat kunnen er niet uitkomen
+		maxWords = 3000;
 		List<String> words = new ArrayList<String>();
 		this.decode1BestOuter(lattice, words, maxWords, getIgnoreWords(), lm, 
 				contextLen, beamWidth, Double.NEGATIVE_INFINITY, maxWords);
@@ -103,7 +104,7 @@ public class LatticeDecoder
 			int maxPaths)
 	{
 		this.oldLmScale = lattice.lmscale;
-		NBestWordInfo[] winfo = new NBestWordInfo [ maxWords + 1];
+		NBestWordInfo[] winfo = new NBestWordInfo [ maxWords + 1]; // OK dit kan dus niet...
 		for (int i=0; i < maxWords+1; i++)
 			winfo[i] = new NBestWordInfo();
 
@@ -114,7 +115,7 @@ public class LatticeDecoder
 		try
 		{
 			result = decode1BestInner(lattice,  winfo, maxWords, ignoreWords,  contextLen, logP_floor, maxPaths);
-			System.err.println("Result=" + result);
+			//System.err.println("Result=" + result);
 		} catch (LatticeException e)
 		{
 			// TODO Auto-generated catch block
@@ -480,6 +481,7 @@ public class LatticeDecoder
 			path.m_Prev = p;
 			newPathList[k++] = path;
 		}
+		System.err.println("Initialized! " + newPathList);
 	}
 
 	/**
@@ -502,17 +504,17 @@ public class LatticeDecoder
 		double lmscore = LogP_One;
 
 		double oldArcLMScore = a.language * (emulateSRI?getLmScale():oldLmScale); // SRI uses new LM score?
+		
 		// System.err.println("OLD LM: "  + a.language + " * " + oldLmScale + "= " + oldArcLMScore);
 		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
 		// which means that we would add AND subtract the old lm score..... (?)
-
 
 		if (!emulateSRI)
 			probs.prob = path.m_Prob + a.acoustic + oldArcLMScore; // oldlmscore not used yet...
 		else
 			probs.prob = path.m_Prob + a.weight -  (uselm?oldArcLMScore:0);
 
-		probs. gprob = LogP_One;
+		probs.gprob = LogP_One;
 
 		if (uselm) 
 		{
@@ -729,6 +731,21 @@ public class LatticeDecoder
 			return nodeinfo[this.finalPosition-1];
 		else return null;
 	}
+	
+
+
+	protected int getFinalPosition() {
+		return finalPosition;
+	}
+
+	private NodePathInfo getPreviousNodeinfo() {
+		return previousNodeinfo;
+	}
+
+	protected void setPreviousNodeinfo(NodePathInfo previousNodeinfo) {
+		this.previousNodeinfo = previousNodeinfo;
+	}
+	
 	public static void main(String[] args)
 	{
 		NgramLanguageModel<String> lm = null;
@@ -756,18 +773,5 @@ public class LatticeDecoder
 		}
 		else
 			decodeFilesInFolder(args[0],lm, v);
-	}
-
-
-	protected int getFinalPosition() {
-		return finalPosition;
-	}
-
-	private NodePathInfo getPreviousNodeinfo() {
-		return previousNodeinfo;
-	}
-
-	protected void setPreviousNodeinfo(NodePathInfo previousNodeinfo) {
-		this.previousNodeinfo = previousNodeinfo;
 	}
 }

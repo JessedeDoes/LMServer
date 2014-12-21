@@ -10,6 +10,7 @@ import java.util.*;
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.io.LmReaders;
 import eu.transcriptorium.lm.VariantLexicon;
+import eu.transcriptorium.util.StringUtils;
 
 public class LatticeListDecoder 
 {
@@ -48,7 +49,7 @@ public class LatticeListDecoder
 			{
 				NodePathInfo prev = decoders.get(i-1).getLastPathInfo();
 				decoder.setPreviousNodeinfo(prev);
-				System.err.println("Hi there: " + prev);
+				//System.err.println("Hi there: " + prev);
 				decodingResult = decoder.decode(lattices.get(i));
 				endPoints.add(decoder.getLastPathInfo());
 			}
@@ -151,7 +152,9 @@ public class LatticeListDecoder
 			int k=0;
 			for (List<String> s: sentences)
 			{
-				System.out.println(lines.get(k) + "/" + k + ":" + s);
+				String sOut = StringUtils.join(s, " ");
+				//System.out.println(lines.get(k) + "/" + k + ":" + sOut);
+				System.out.println("<" + lines.get(k) +  "> " + sOut);
 				k++;
 			}
 			//System.out.println("DECODE: " + lattices.size() + " " + );

@@ -481,7 +481,7 @@ public class LatticeDecoder
 			path.m_Prev = p;
 			newPathList[k++] = path;
 		}
-		System.err.println("Initialized! " + newPathList);
+		//System.err.println("Initialized! " + newPathList);
 	}
 
 	/**

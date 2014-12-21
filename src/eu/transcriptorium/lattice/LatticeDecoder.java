@@ -34,7 +34,7 @@ public class LatticeDecoder
 
 	private double beamWidth = 0;
 
-	private double lmscale = 20;
+	private double lmscale = 20;// was 20
 	private double acscale=1.0;
 	private double wdpenalty=0;
 

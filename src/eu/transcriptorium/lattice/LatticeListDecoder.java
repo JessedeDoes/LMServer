@@ -23,13 +23,25 @@ public class LatticeListDecoder
 	NgramLanguageModel lm;
 	VariantLexicon variantLexicon;
 	
+	static class isRealWord extends Node.Test
+	{
+
+		@Override
+		public boolean test(Node n) {
+			// TODO Auto-generated method stub
+			return !(n.word.equals(Lattice.nullWordSymbol) 
+					|| Lattice.isSentenceDelimiter(n.word));
+		}
+	}
+
 	public LatticeListDecoder(NgramLanguageModel lm, VariantLexicon v) // nee dus, je moet er meerdere hebben
 	{
 		//this.decoder = d;
 		this.lm = lm;
 		this.variantLexicon = v;
 	}
-
+	
+	
 	public List<String> decode(List<Lattice> lattices)
 	{
 		List<String> decodingResult = null;
@@ -138,8 +150,13 @@ public class LatticeListDecoder
 			}
 		}
 		
-		for (String r: regions.keySet())
+		Set<String> keySet = regions.keySet();
+		List<String> sortedKeys = new ArrayList<String>();
+		sortedKeys.addAll(keySet);
+		Collections.sort(sortedKeys);
+		for (String r: sortedKeys)
 		{
+			System.out.println("<region>");
 			List<String> lines = regions.get(r);
 			Collections.sort(lines);
 			List<Lattice> lattices = new ArrayList<Lattice>();
@@ -154,10 +171,14 @@ public class LatticeListDecoder
 			for (List<String> s: sentences)
 			{
 				String sOut = StringUtils.join(s, " ");
+				Lattice l_k = lattices.get(k);
+				Set<String> fw = l_k.getFirstWords(new isRealWord());
+				Set<String> lw = l_k.getLastWords(new isRealWord());
 				//System.out.println(lines.get(k) + "/" + k + ":" + sOut);
-				System.out.println("<" + lines.get(k) +  "> " + sOut);
+				System.out.println("<" + lines.get(k) +  "> " + sOut + " # " + fw + " # " + lw);
 				k++;
 			}
+			System.out.println("</region>");
 			//System.out.println("DECODE: " + lattices.size() + " " + );
 		}
 	}

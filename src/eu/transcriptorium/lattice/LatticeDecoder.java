@@ -465,12 +465,18 @@ public class LatticeDecoder
 		nodeinfo[0].m_PList = newPathList;
 		nodeinfo[0].m_NumPaths = previous.m_NumPaths;
 
+		// TODO: scores! simply copy score from predecessors
 		for (LatticeDecodePath p: previous.m_PList)
 		{
 			LatticeDecodePath  path = new LatticeDecodePath(); 
 
 			path.node = lattice.getStartNode();
+			
+			path.m_GProb = p.m_GProb;
+			path.m_Prob = p.m_Prob;
+			
 			shiftContext(path.node.word, true, p, path);
+			
 			path.m_Prev = p;
 			newPathList[k++] = path;
 		}

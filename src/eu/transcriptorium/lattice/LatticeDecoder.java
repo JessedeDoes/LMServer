@@ -6,7 +6,6 @@ import eu.transcriptorium.lattice.TopologicalSort.LatticeException;
 import eu.transcriptorium.lm.VariantLexicon;
 import eu.transcriptorium.lm.VariantLexicon.Variant;
 import eu.transcriptorium.util.ArrayUtils;
-
 import eu.transcriptorium.util.StringUtils;
 
 import java.io.File;
@@ -449,6 +448,25 @@ public class LatticeDecoder
 		nodeinfo[0].m_PList = new LatticeDecodePath  [1];
 		nodeinfo[0].m_PList[0] = path0;
 		nodeinfo[0].m_NumPaths = 1;
+	}
+	
+	protected void setInitialNodePathInfo(Lattice lattice, NodePathInfo[] previousLineDecoding)
+	{
+		// weet je zeker dat die array helemaal gevuld is? Nee dus.
+		NodePathInfo previous = previousLineDecoding[previousLineDecoding.length -1];
+		int k=0;
+		LatticeDecodePath[] newPathList =  new LatticeDecodePath  [previous.m_PList.length];
+		nodeinfo[0].m_PList = newPathList;
+		nodeinfo[0].m_NumPaths = previous.m_NumPaths;
+		for (LatticeDecodePath p: previous.m_PList)
+		{
+			LatticeDecodePath  path = new LatticeDecodePath(); 
+			
+			path.node = lattice.getStartNode();
+			shiftContext(path.node.word, true, p, path);
+			path.m_Prev = p;
+			newPathList[k++] = path;
+		}
 	}
 
 	/**

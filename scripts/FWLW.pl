@@ -29,7 +29,7 @@ while(<>)
     {
       my $P=0;
       $printMe=1;
-      if (0 || firstWord($gt) =~ /[A-Z]/i)
+      if (1 || firstWord($gt) =~ /[A-Z]/i)
       {
         $P = defined($fwh{firstWord($gt)});
         if ($P)

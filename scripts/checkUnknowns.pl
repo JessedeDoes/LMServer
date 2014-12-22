@@ -1,4 +1,3 @@
-
 use Getopt::Std;
 
 my $args = join(" ", @ARGV);
@@ -21,6 +20,7 @@ my $fixDuplicates = 1;
 my $removeFunctionWords = 0;
 my $firstWordGedoe = 0;
 my $lumpFirstLast= $opt_l;
+
 my @fw = qw/which him let from up has had was were he is of a  in on me have the it their yes no on for their his her she hers might be/;
 
 if ($removeFunctionWords)

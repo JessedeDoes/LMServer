@@ -24,6 +24,9 @@ import eu.transcriptorium.util.StringUtils;
  * Results are not very encouraging as yet - an improvement of the WER by 0.4% on the Bentham competition set. 
  * Maybe this is partly just because we have not found the right data to work with:<br/>
  * 
+ * Our best trigram model gives an error rate of 17.17% (case sensitive) on the Bentham competion set.
+ * There were 280 errors
+ * 
  * In the Bentham test set (860 lines) there are 283 errors in the first word in our best bigram HTR. 
  * For 156 of them, the correct "word" (or punctuation symbol) is a hypothesis in the word graph.<br/>
  * This includes many uninteresting cases not at all related to LM, such as " at the start of a line, which is 

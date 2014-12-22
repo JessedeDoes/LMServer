@@ -13,7 +13,7 @@ import eu.transcriptorium.lm.VariantLexicon;
 import eu.transcriptorium.util.StringUtils;
 
 /**
- * This is an attempt to solve the absence of part of the context at line breaks for language modeling. 
+ * This is an attempt to compensate partially the absence of part of the context at line breaks for language modeling. 
  * Instead of concatenating word graphs for a sequence of lines in a paragraph, 
  * we initialize a separate decoder for each line.<br/>
  * Before outputting the one-best hypothesis, each decoder produces, as usual in Viterbi decoding, 
@@ -21,19 +21,19 @@ import eu.transcriptorium.util.StringUtils;
  * We can connect the intermediate objects between lines,  by joining initial points of paths to the final path list of the previous
  * line.  Then we simply follow the backward links from the last position of the last line to get the 1-best paragraph decoding.
  * <p>
- * Results are not very encouraging as yet - an improvement of the WER by 0.4% on the Bentham competition set. 
+ * Results are not very encouraging as yet - an improvement of the WER by 0.5% on the Bentham competition set. 
  * Maybe this is partly just because we have not found the right data to work with:<br/>
  * 
- * Our best trigram model gives an error rate of 17.17% (case sensitive) on the Bentham competion set.
- * There were 280 errors
- * 
- * In the Bentham test set (860 lines) there are 283 errors in the first word in our best bigram HTR. 
- * For 156 of them, the correct "word" (or punctuation symbol) is a hypothesis in the word graph.<br/>
- * This includes many uninteresting cases not at all related to LM, such as " at the start of a line, which is 
- * difficult for the HTR to pick up correctly.
+ * Our best line-level trigram model gives an error rate of 17.17% (case sensitive) on the Bentham competition set.
+   The paragraph-level decoder gives 16.65%.
+   <br/>
+ * There are 267 errors in the first word in the best line-by-line trigram decoder we have (and 186 in the last). 
+ * For only 72 of them, the correct "word" (or punctuation symbol) is a hypothesis in the word graph.<br/>
+ * This gives an upper bound for the improvement we can obtain from the first word, of about 0.91%.
+ * After applying the paragraph-based decoder, we get an error rate of 16.65 (improvement by 0.5%).
+ * Of this improvement (about 37 corrected errors), 7 errors were corrected in the first word, 16 were corrected in the last word.
  * <br/>
- * When we disregard punctuation, this dilutes to 141 errors and 46 correct hypotheses, which means that a better 
- * LM can improve the WER on real words maximally by at most 46/7868 = 0.6%. 
+  
  * @author jesse
  */
 

@@ -2,6 +2,7 @@ package eu.transcriptorium.lattice;
 
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.io.LmReaders;
+import eu.transcriptorium.lattice.LatticeListDecoder.isRealWord;
 import eu.transcriptorium.lattice.TopologicalSort.LatticeException;
 import eu.transcriptorium.lm.VariantLexicon;
 import eu.transcriptorium.lm.VariantLexicon.Variant;
@@ -631,7 +632,16 @@ public class LatticeDecoder
 
 		List<String> decoded = this.decode(l);
 		String sentence = StringUtils.join(decoded, " ");
-		System.out.println("<" + fileName +  "> " + sentence);
+		
+		boolean boemboem = true;
+		if (boemboem)
+		{
+			Set<String> fw = l.getFirstWords(new isRealWord());
+			Set<String> lw = l.getLastWords(new isRealWord());
+		//System.out.println(lines.get(k) + "/" + k + ":" + sOut);
+			System.out.println("<" + fileName +  "> " + sentence + " # " + fw + " # " + lw);
+		} else
+			System.out.println("<" + fileName +  "> " + sentence);
 		long e =  System.currentTimeMillis();
 		System.err.printf("decode time in milliseconds for %s: " + (e-s)  + "\n", fileName);
 	}

@@ -13,20 +13,23 @@ import eu.transcriptorium.lm.VariantLexicon;
 import eu.transcriptorium.util.StringUtils;
 
 /**
- * Attempt to solve the absence of part of the context at line breaks for language modeling. 
+ * This is an attempt to solve the absence of part of the context at line breaks for language modeling. 
  * Instead of concatenating word graphs for a sequence of lines in a paragraph, 
- * we initialize a separate decoder for each line, with initial paths joined to the final path list of the previous
- * line.  
+ * we initialize a separate decoder for each line.<br/>
+ * Before outputting the one-best hypothesis, each decoder produces, as usual in Viterbi decoding, 
+ * an intermediate object consisting of a set of hypotheses per position with backward links to previous positions. 
+ * We can connect the intermediate objects between lines,  by joining initial points of paths to the final path list of the previous
+ * line.  Then we simply follow the backward links from the last position of the last line to get the 1-best paragraph decoding.
  * <p>
  * Results are not very encouraging as yet - an improvement of the WER by 0.4% on the Bentham competition set. 
- * Maybe this is just because we have not found the right data to work with.<br/>
+ * Maybe this is partly just because we have not found the right data to work with:<br/>
  * 
  * In the Bentham test set (860 lines) there are 283 errors in the first word in our best bigram HTR. 
- * For 156, the correct "word" is a hypothesis in the word graph.<br/>
+ * For 156 of them, the correct "word" (or punctuation symbol) is a hypothesis in the word graph.<br/>
  * This includes many uninteresting cases not at all related to LM, such as " at the start of a line, which is 
  * difficult for the HTR to pick up correctly.
  * <br/>
- * When we disregard punctuation, this becomes 141 errors and 46 promising hypotheses, which means that a better 
+ * When we disregard punctuation, this dilutes to 141 errors and 46 correct hypotheses, which means that a better 
  * LM can improve the WER on real words maximally by at most 46/7868 = 0.6%. 
  * @author jesse
  */

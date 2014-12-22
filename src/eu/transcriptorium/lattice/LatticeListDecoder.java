@@ -18,8 +18,10 @@ import eu.transcriptorium.util.StringUtils;
  * we initialize a separate decoder for each line.<br/>
  * Before outputting the one-best hypothesis, each decoder produces, as usual in Viterbi decoding, 
  * an intermediate object consisting of a set of hypotheses per position with backward links to previous positions. 
- * We can connect the intermediate objects between lines,  by joining initial points of paths to the final path list of the previous
- * line.  Then we simply follow the backward links from the last position of the last line to get the 1-best paragraph decoding.
+ * We can connect the intermediate objects between lines,  by joining (before running decoder N), 
+ * the initial points of paths of decoder N,  to the final path list of decoder N-1 of the previous
+ * line.  Then, after running all decoders, 
+ * we simply follow the backward links from the last position of the last line to get the 1-best paragraph decoding.
  * <p>
  * Results are not very encouraging as yet - an improvement of the WER by 0.5% on the Bentham competition set. 
  * Maybe this is partly just because we have not found the right data to work with:<br/>

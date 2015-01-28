@@ -11,14 +11,22 @@ public class LatticeVariantExpansion
 			Variant v = lex.getVariantFromNormalForm(nw, n.v-1);
 			if (v != null)
 			{
-				// System.err.println(nw + "(" + n.v  + ") ->" + v.variantForm);
+				//System.err.println(nw + "(" + n.v  + ") ->" + v.variantForm);
 				// n.word = v.variantForm; // nee dit niet doen, alleen de probs! anders werkt LM niet!
 
 				if (adaptProbabilities)
-					for (Arc a: n.incomingArcs)
+				{
+					
+					for (Arc a: n.incomingArcs) // zijn die er all......
 					{
+						//System.err.println("applying alejandro weights... before: "  + a.acoustic + " :  " + v.probability);
 						a.acoustic += Math.log(v.probability); // of log2?
+						//System.err.println("applying alejandro weights... after: "  + a.acoustic);
 					}
+				}
+			} else
+			{
+				System.err.println("Could not get variants!!!");
 			}
 		}
 		//StandardLatticeFile.printLattice(System.err, lattice);

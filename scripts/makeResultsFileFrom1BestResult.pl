@@ -15,6 +15,9 @@ while(<>)
     my $reftxt;
     open(R,$ref);
     while(<R>) { chomp(); $reftxt .=  $_; };
+
+    $reftxt = trim($reftxt);
+    $text = trim($text);
     if ($insens)
     {
        $reftxt = uc $reftxt;
@@ -22,11 +25,19 @@ while(<>)
     }
     if ($extra)
     {
-      print "$reftxt \$  $text # $extra\n";
+      print "$reftxt \$ $text # $extra\n";
     } else
     {
-       print "$reftxt \$  $text\n";
+       print "$reftxt \$ $text\n";
     }
     close(R);
   }
+}
+
+sub trim
+{
+  my $x = shift;
+  $x =~ s/^\s+|\s+$//g;
+  $x =~ s/\s+/ /g;
+  return $x;
 }

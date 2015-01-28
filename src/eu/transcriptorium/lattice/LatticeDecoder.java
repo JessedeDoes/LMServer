@@ -40,7 +40,7 @@ public class LatticeDecoder
 	private double acscale=1.0;
 	private double wdpenalty=0;
 
-	private VariantLexicon variantLexicon = null;
+	VariantLexicon variantLexicon = null;
 
 	static final double LogP_Zero = Double.NEGATIVE_INFINITY;
 	static final double LogP_One = 0;
@@ -68,7 +68,7 @@ public class LatticeDecoder
 	private boolean ignoreSentenceBoundaries = false;
 	private boolean ignoreDQ = false;
 	private boolean expandVariants = true;
-
+     private boolean useAlejandroProbabilities = true;
 	private boolean randomBackoffs = false; // silly testing setting
 	
 	public void setLanguageModel(NgramLanguageModel lm)
@@ -624,7 +624,7 @@ public class LatticeDecoder
 
 		if (expandVariants && this.variantLexicon != null)
 		{
-			LatticeVariantExpansion.expand(l, this.variantLexicon, false);
+			LatticeVariantExpansion.expand(l, this.variantLexicon, useAlejandroProbabilities);
 		}
 		this.resetTransient(); // maybe this does not quite work?
 

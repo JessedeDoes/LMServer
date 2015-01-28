@@ -3,8 +3,11 @@ use Getopt::Std;
 my $args = join(" ", @ARGV);
 our $opt_i=0;
 our $opt_p=0;
-our $opt_l=0;
-getopts('ipl');
+our $opt_l=1;
+our $our_c=0;
+our  $opt_s='\$';
+
+getopts('ipcs:l:');
 my $insens=$opt_i;
 
 my $dic = shift;
@@ -14,13 +17,16 @@ my $noPunctuation  = $opt_p;
 my $onlyPunctuation = 0;
 my $minLength = 0;
 my $maxLength = 1e6;
-my $onlyLinesWithoutOOV = 0;
+my $onlyLinesWithoutOOV = $opt_c;
 my $caseInsensitive = $opt_i;
 my $fixDuplicates = 1;
 my $removeFunctionWords = 0;
 my $firstWordGedoe = 0;
 my $lumpFirstLast= $opt_l;
 
+
+my ($errorsFirst, $errorsLast, $errorsMid, $errsNoFirst, $errorsNoLast);
+my ($nFirst, $nLast, $nMid, $nNoFirst, $nNoLast);
 my @fw = qw/which him let from up has had was were he is of a  in on me have the it their yes no on for their his her she hers might be/;
 
 if ($removeFunctionWords)
@@ -33,10 +39,22 @@ if ($removeFunctionWords)
 
 while(<D>)
 {
-  my ($W,$w,$rest) = split(/\s+/,$_);
+  chomp();
+  my ($W,$w,$prob,$letters) = split(/\t/,$_);
   $w =~ s/^\[//;
   $w =~ s/\]$//;
-  $known{$w}++;
+  if ($w)
+  {
+    $known{$w}++;
+  } else
+  {
+#   my ($prob, $letters) = split(/\t/,$rest);
+    $W =~ s/^"//; $W =~ s/"$//;
+    $letters =~ s/ //g;
+    $letters =~ s/\@//g;
+#    warn "<$letters>";
+    $known{$W}++;
+  }
 }
 
 my $N=0;
@@ -66,7 +84,7 @@ while(<>)
   }
    
    
-  my ($gt,$htr) = split(/\s*\$\s*/,$_);
+  my ($gt,$htr) = split(/\s*$opt_s\s*/,$_);
   $gt =~ s/^s+//; $htr =~ s/^s+//;
   if ($firstWordGedoe)
   {
@@ -93,6 +111,7 @@ while(<>)
     push(@gtWords,$w); 
     my $k = $h1{$w};
     my $wx = $w;
+
     if ($k && $fixDuplicates)
     {
       $wx = $w . "_" . $k;
@@ -145,16 +164,43 @@ while(<>)
   foreach my $w (keys %h1)
   {
     my $d = $lumpFirstLast?min($position{$w}, $i - $position{$w}):$position{$w};
+    my $p = $position{$w};
+
     # $d = $position{$w};
+
     $nWordsAtPosition{$d}++;
     next if ($isNonContent{lc $w});
+    if ($p ==1) { $nFirst++ } else { $nNoFirst++ } ;
+    if ($p == $i-1)  { $nLast++ }  else { $nNoLast ++ };
+    if ($p > $1 && $p < $i-1) { $nMid++ };
+
     if (isWord($w) && !($h2{$w}))
     {
       $e++;
+
       if ($h1{$w} == 1)
       {
         $errorsAtPosition{$d}++;
       }
+
+      if ($p == $i-1)
+      {
+        $errorsLast++;
+      }  else
+      {
+        $errorsNoLast++;
+      }
+      if ($p == 1)
+      {
+        $errorsFirst++;
+      } else
+      {
+        $errorsNoFirst++;
+      }
+      if ($p > 1 && $p < $i-1)
+      {
+        $errorsMid++;
+      } 
       push(@missed, $w . "/" . $d . "($i)");
     }
   }
@@ -208,11 +254,18 @@ foreach my $x (sort {$a <=> $b} keys %errorsAtPosition)
   $dist .= "$x:$errorsAtPosition{$x} ($rap) ";
 }
 
+my $eFirst = $errorsFirst / $nFirst;
+my $eLast = $errorsLast / $nLast;
+my $eNoFirst = $errorsNoFirst / $nNoFirst;
+my $eNoLast = $errorsNoLast / $nNoLast;
+my $eMid = $errorsMid / $nMid;
+
 warn "OOV rate: $rate ($OOV / $N); ER=$er ($E $T); First letter CER=$flRate\n";
 warn "$nLines lines, $errorFreeLines without missed word\n";
 warn "$dist\n";
 
 print "######## Computed from $args #########\n";
 print "OOV rate: $rate ($OOV / $N); ER=$er ($E $T); First letter CER=$flRate\n";
+print "ER first: $eFirst; ER last: $eLast; ER without first: $eNoFirst; ER without last: $eNoLast; ER mid: $eMid\n";
 print "$nLines lines, $errorFreeLines without missed word\n";
 print "$dist\n";

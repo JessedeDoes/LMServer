@@ -51,6 +51,10 @@ public class LatticeListDecoder
 	List<NodePathInfo> endPoints = new ArrayList<NodePathInfo>();
 	NgramLanguageModel lm;
 	VariantLexicon variantLexicon;
+
+	private boolean expandVariants=true;
+
+	private boolean useAlejandroProbabilities=true;
 	
 	static class isRealWord extends Node.Test
 	{
@@ -82,6 +86,10 @@ public class LatticeListDecoder
 			decoder.setVariantLexicon(variantLexicon);
 			decoder.setIgnoreSentenceBoundaries(true);
 			
+			if (expandVariants && this.variantLexicon != null)
+			{
+				LatticeVariantExpansion.expand(lattices.get(i), decoder.variantLexicon, useAlejandroProbabilities);
+			}
 			if (i==0)
 			{
 				decodingResult = decoder.decode(lattices.get(0));
@@ -107,8 +115,22 @@ public class LatticeListDecoder
 	{
 		NgramLanguageModel<String> lm = null;
 
-		String languageModel =  "data/trigramModel.lm.bin";
+		String languageModel =  "data/trigramModel.lm.bin"; // niet mee eens....
+		String lex = null;
+		String latticeDir = null;
+		
+		languageModel = args[0];
+		
+		lex = args[1];
+		
+		latticeDir = args[2];
+		
+		if (languageModel.equals("-"))
+		{
+			languageModel = "data/trigramModel.lm.bin";
+		}
 		// languageModel = null;
+		
 		if (languageModel != null)
 		{
 			if (!languageModel.endsWith(".bin"))
@@ -117,24 +139,15 @@ public class LatticeListDecoder
 				lm = LmReaders.readLmBinary(languageModel);
 			System.err.println("finished reading LM");
 		}
+		
 		VariantLexicon v = null;
-		if (args.length > 1)
+		if (!(lex.equals("-")))
 		{
 			v = new VariantLexicon();
-			v.loadFromFile(args[1]);
+			v.loadFromFile(lex);
 		}
-		String dir = "./Lattices";
-		if (args.length == 0)
-		{
-			//for (int i=0; i < 10; i++)
-			//decodeLatticeFile("resources/exampleData/115_070_002_02_18.lattice", lm, v);
-		}
-		
-		else
-		{
-			dir = args[0];
-		};
-		decodeFilesInFolder(dir,lm, v);
+
+		decodeFilesInFolder(latticeDir,lm, v);
 	}
 
 	private static void decodeFilesInFolder(String dirname,
@@ -161,7 +174,7 @@ public class LatticeListDecoder
 				String key = f.getName();
 				key = key.replaceAll("_[0-9]+.lattice", "" );
 				List<String> l = regions.get(key);
-				
+				System.err.println(key + " : " + f.getName());
 				if (l == null)
 				{
 					System.err.println(key);

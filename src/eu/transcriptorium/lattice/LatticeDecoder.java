@@ -74,6 +74,8 @@ public class LatticeDecoder
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
+		this.contextLen = lm.getLmOrder()-1; // ahem? will this work?
+		System.err.println("context length set to " + contextLen);
 	}
 
 	public void setBeamWidth(double b)

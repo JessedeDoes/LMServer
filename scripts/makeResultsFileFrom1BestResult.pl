@@ -7,13 +7,14 @@ my $insens=$opt_i;
 
 while(<>)
 {
-  if (/^(.*)\.(lattice|fea).*<s>(.*)<\/s>(.*)/)
+  if (/^(.*)\.(lattice|fea).*<s>(.*)<\/s>(.*)/i)
   {
     my ($line,$text,$extra) = ($1,$3,$4); 
     $line =~ s/.*\///;
     my $ref = "./data/Transcription/$line.txt";
+##    warn "REF=$ref";
     my $reftxt;
-    open(R,$ref);
+    open(R,$ref) || die "Could not open transcription for $ref";
     while(<R>) { chomp(); $reftxt .=  $_; };
 
     $reftxt = trim($reftxt);

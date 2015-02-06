@@ -747,7 +747,7 @@ public class LatticeDecoder
 		return wdpenalty;
 	}
 
-	private void setWordInsertionPenalty(double wdpenalty)
+	public void setWordInsertionPenalty(double wdpenalty)
 	{
 		this.wdpenalty = wdpenalty;
 	}

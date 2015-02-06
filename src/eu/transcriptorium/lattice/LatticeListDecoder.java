@@ -43,6 +43,12 @@ public class LatticeListDecoder
 {
 	//LatticeDecoder decoder;
 	
+	private double lmscale = 20;// was 20
+
+	private double wdpenalty=0;
+	
+	private boolean setWeights = false;
+	
 	List<LatticeDecoder> decoders = new ArrayList<LatticeDecoder>();
 	
 	//List<NodePathInfo[]> partialPaths = new ArrayList<NodePathInfo[]>();
@@ -75,12 +81,17 @@ public class LatticeListDecoder
 	}
 	
 	
-	public List<String> decode(List<Lattice> lattices)
+	public List<String> decode(List<Lattice> lattices) // probleem: gewichten moeten al bekend zijn bij inlezen??
 	{
 		List<String> decodingResult = null;
 		for (int i=0; i < lattices.size(); i++)
 		{
 			LatticeDecoder decoder = new LatticeDecoder();
+			if (this.setWeights)
+			{
+				decoder.setLmscale(this.lmscale);
+				decoder.setWordInsertionPenalty(this.wdpenalty);
+			}
 			decoders.add(decoder);
 			decoder.setLanguageModel(lm);
 			decoder.setVariantLexicon(variantLexicon);
@@ -245,5 +256,31 @@ public class LatticeListDecoder
 			currentSentence.add(s);
 		}
 		return r;
+	}
+
+
+	public double getWdpenalty()
+	{
+		return wdpenalty;
+	}
+
+
+	public void setWdpenalty(double wdpenalty)
+	{
+		this.wdpenalty = wdpenalty;
+		this.setWeights = true;
+	}
+
+
+	public double getLmscale()
+	{
+		return lmscale;
+	}
+
+
+	public void setLmscale(double lmscale)
+	{
+		this.lmscale = lmscale;
+		this.setWeights = true;
 	}
 }

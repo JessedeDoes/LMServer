@@ -475,6 +475,7 @@ public class LatticeDecoder
 		nodeinfo[0].m_NumPaths = previous.m_NumPaths;
 
 		// TODO: scores! simply copy score from predecessors
+		
 		for (LatticeDecodePath p: previous.m_PList)
 		{
 			LatticeDecodePath  path = new LatticeDecodePath(); 
@@ -485,7 +486,7 @@ public class LatticeDecoder
 			path.m_Prob = p.m_Prob;
 			
 			shiftContext(path.node.word, true, p, path);
-			System.err.println("Context now: " + path.m_Context);
+			System.err.println("Context now: " + k + " "+ path.m_Context);
 			path.m_Prev = p;
 			newPathList[k++] = path;
 		}
@@ -553,6 +554,7 @@ public class LatticeDecoder
 
 	/*
 	 * Todo check boundary conditions (no context)
+	 * Todo: something with hyphenations -- joining words instead of adding them
 	 */
 	private void shiftContext(String word, boolean nolmword,
 			LatticeDecodePath path, LatticeDecodePath newpath)
@@ -591,11 +593,22 @@ public class LatticeDecoder
 		}
 		else
 		{
-			m_Context.add(word);
-
-			d =   lm.getLogProb(m_Context);
+			if (word.contains("<EXPECTING>"))
+			{
+				String w1 = word.replaceAll("<EXPECTING>","");
+				m_Context.add(w1);
+				System.err.println("Hyphenation case: " + m_Context + " " + word);
+				d =   lm.getLogProb(m_Context);
+				m_Context.remove(w1); 
+				
+			} else
+			{
+				m_Context.add(word);
+			
+				d =   lm.getLogProb(m_Context);
 			//System.err.println("Lm prob for "  +m_Context + " = " + d );
-			m_Context.remove(word);
+				m_Context.remove(word); // TODO dit is fout voor dubbele woorden...
+			}
 		}
 		return d;
 	}

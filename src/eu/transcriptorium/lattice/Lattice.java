@@ -217,7 +217,55 @@ public class Lattice implements Serializable, Cloneable
 		this.nodes = newNodeMap;
 		this.rebuildArcList();
 	}
+	
 
+	public void getFirstNodes(Node n, Node.Test t, Set<Node> S)
+	{
+		if (S.contains(n))
+			return;
+		if (t.test(n))
+		{
+			S.add(n);
+			return;
+		}
+		for (Arc a: n.arcs)
+		{
+			getFirstNodes(a.destination,t,S);
+		}
+	}
+	
+	public Set<Node> getFirstNodes(Node.Test t)
+	{
+		Set<Node> S = new HashSet<Node>();
+		getFirstNodes(this.getStartNode(), t, S);
+		return S;
+	}
+
+	
+	public void getLastNodes(Node n, Node.Test t, Set<Node> S)
+	{
+		if (S.contains(n))
+			return;
+		if (t.test(n))
+		{
+			S.add(n);
+			return;
+		}
+		for (Arc a: n.incomingArcs)
+		{
+			getLastNodes(a.source,t,S);
+		}
+	}
+	
+	public Set<Node> getLastNodes(Node.Test t)
+	{
+		this.addIncomingArcs();
+		Set<Node> S = new HashSet<Node>();
+		for (Node n: this.getFinalNodes())
+		getLastNodes(n, t, S);
+		return S;
+	}
+	
 	public void getFirstWords(Node n, Node.Test t, Set<String> S)
 	{
 		if (S.contains(n.word))

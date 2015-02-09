@@ -2,6 +2,9 @@ package eu.transcriptorium.lattice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import eu.transcriptorium.hyphen.HyphenationDictionary;
 
 public class LatticeConcatenate
 {
@@ -139,11 +142,11 @@ public class LatticeConcatenate
 					double A0 = a0.acoustic;
 					double L0 = a0.language;
 					
-					l.deleteTransition(n0,n);
+					l.deleteTransition(n0, n);
 					
 					for (Arc a: arcsToNextLine)
 					{
-						double A = A0 + a.acoustic ;
+						double A = A0 + a.acoustic;
 						double L = L0 + a.language;
 						l.addArc(a0.source, a.destination, A, L);
 					}
@@ -153,5 +156,34 @@ public class LatticeConcatenate
 		l.removeUnreachableNodes();
 		l.rebuildArcList();
 	}
-
+	
+	public static void addHyphenHypotheses(Lattice l1, Lattice l2, String hyphenRegex, HyphenationDictionary h)
+	{
+		Set<Node> N1 = l1.getLastNodes(new LatticeListDecoder.isRealWord());
+		Set<Node> N2 = l2.getFirstNodes(new LatticeListDecoder.isRealWord());
+		
+		for (Node n1: N1)
+		{
+			for (Node n2: N2)
+			{
+				String p1 = n1.word.replaceAll(hyphenRegex,"");
+				String p2 = n2.word;
+				String w =  p1 + n2.word;
+				
+				System.err.println("Check hyphenation possibility " + n1.word + "..." + n2.word);
+				double p = h.getHyphenationProbability(w, n1.word, p2);
+				if (p > 0)
+				{
+					// clone nodes .... .. bleuh
+					Node nNew = n1.clone(true); // add incoming as well, also connect predecessors...
+					nNew.word = p1  + "<EXPECTING>" + n2.word;
+					nNew.id = n1.id + "-" + n2.id;
+					
+					System.err.println("Adding hyph node " + nNew.word);
+					l1.nodes.put(nNew.id, nNew);
+				}
+			}
+		}
+		//l1.removeUnreachableNodes();
+	}
 }

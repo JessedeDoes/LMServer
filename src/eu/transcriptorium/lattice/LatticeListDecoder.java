@@ -9,6 +9,7 @@ import java.util.*;
 
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.io.LmReaders;
+import eu.transcriptorium.hyphen.HyphenDictionaryFromLM;
 import eu.transcriptorium.lm.VariantLexicon;
 import eu.transcriptorium.util.StringUtils;
 
@@ -49,6 +50,8 @@ public class LatticeListDecoder
 	
 	private boolean setWeights = false;
 	
+	private boolean handleHyphenations = true;
+	
 	List<LatticeDecoder> decoders = new ArrayList<LatticeDecoder>();
 	
 	//List<NodePathInfo[]> partialPaths = new ArrayList<NodePathInfo[]>();
@@ -62,7 +65,7 @@ public class LatticeListDecoder
 
 	private boolean useAlejandroProbabilities=true;
 	
-	static class isRealWord extends Node.Test
+	public static class isRealWord extends Node.Test
 	{
 
 		@Override
@@ -84,6 +87,15 @@ public class LatticeListDecoder
 	public List<String> decode(List<Lattice> lattices) // probleem: gewichten moeten al bekend zijn bij inlezen??
 	{
 		List<String> decodingResult = null;
+		
+		if (handleHyphenations)
+		{
+			for (int i=0; i < lattices.size()-1; i++)
+			{
+				LatticeConcatenate.addHyphenHypotheses(lattices.get(i), lattices.get(i+1), "-$", new HyphenDictionaryFromLM(this.lm));
+			}
+		}
+		
 		for (int i=0; i < lattices.size(); i++)
 		{
 			LatticeDecoder decoder = new LatticeDecoder();
@@ -101,6 +113,7 @@ public class LatticeListDecoder
 			{
 				LatticeVariantExpansion.expand(lattices.get(i), decoder.variantLexicon, useAlejandroProbabilities);
 			}
+			
 			if (i==0)
 			{
 				decodingResult = decoder.decode(lattices.get(0));
@@ -112,7 +125,7 @@ public class LatticeListDecoder
 				decoder.setPreviousNodeinfo(prev);
 				//System.err.println("Hi there: " + prev);
 				decodingResult = decoder.decode(lattices.get(i));
-				endPoints.add(decoder.getLastPathInfo());
+				endPoints.add(decoder.getLastPathInfo()); // is this used in any way?
 			}
 		}
 		return decodingResult;

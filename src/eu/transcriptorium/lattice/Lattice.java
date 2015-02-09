@@ -120,6 +120,7 @@ public class Lattice implements Serializable, Cloneable
 		int  J=0;
 		for (Node n: this.getNodes())
 		{
+			//System.err.println("Adding arcs for node " + n);
 			for (Arc a: n.arcs)
 			{
 				a.id = J + "";

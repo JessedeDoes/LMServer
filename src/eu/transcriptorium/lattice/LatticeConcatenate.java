@@ -162,28 +162,32 @@ public class LatticeConcatenate
 		Set<Node> N1 = l1.getLastNodes(new LatticeListDecoder.isRealWord());
 		Set<Node> N2 = l2.getFirstNodes(new LatticeListDecoder.isRealWord());
 		
+		int k = l1.getSize();
+		
 		for (Node n1: N1)
 		{
 			for (Node n2: N2)
 			{
-				String p1 = n1.word.replaceAll(hyphenRegex,"");
+				String p1 = n1.word.replaceAll(h.getHyphenationRegex(),"");
 				String p2 = n2.word;
 				String w =  p1 + n2.word;
 				
-				System.err.println("Check hyphenation possibility " + n1.word + "..." + n2.word);
+				// System.err.println("Check hyphenation possibility " + n1.word + "..." + n2.word);
 				double p = h.getHyphenationProbability(w, n1.word, p2);
 				if (p > 0)
 				{
 					// clone nodes .... .. bleuh
 					Node nNew = n1.clone(true); // add incoming as well, also connect predecessors...
 					nNew.word = p1  + "<EXPECTING>" + n2.word;
-					nNew.id = n1.id + "-" + n2.id;
+					nNew.id = k++ + "" ;
 					
-					System.err.println("Adding hyph node " + nNew.word);
-					l1.nodes.put(nNew.id, nNew);
+					System.err.println("Adding hyph node " + nNew.word +  " "  + nNew);
+					l1.nodes.put(nNew.id,  nNew);
 				}
 			}
 		}
+		l1.rebuildArcList();
+		//StandardLatticeFile.printLattice(System.out, l1);
 		//l1.removeUnreachableNodes();
 	}
 }

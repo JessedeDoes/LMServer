@@ -24,4 +24,17 @@ public class SimpleHyphenationDictionary implements HyphenationDictionary
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getHyphenationRegex()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getSecondPartHyphenationRegex()
+	{
+		// TODO Auto-generated method stub
+		return "^=";
+	}
 }

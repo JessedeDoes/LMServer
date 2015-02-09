@@ -41,7 +41,10 @@ public class Node  implements Serializable
 		for (Arc a: this.arcs)
 		{
 			Arc a1 = a.clone();
+			a1.source = n;
 			n.arcs.add(a1);
+			 
+			// System.err.println("Connecting  new version of " +  n.id +  ": "  + a1);
 			if (connect)
 			{
 				Arc a2 = a.clone();

@@ -2,6 +2,8 @@ package eu.transcriptorium.lattice;
 
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.io.LmReaders;
+import eu.transcriptorium.hyphen.HyphenDictionaryFromLM;
+import eu.transcriptorium.hyphen.HyphenationDictionary;
 import eu.transcriptorium.lattice.LatticeListDecoder.isRealWord;
 import eu.transcriptorium.lattice.TopologicalSort.LatticeException;
 import eu.transcriptorium.lm.VariantLexicon;
@@ -32,6 +34,8 @@ import java.util.*;
 
 public class LatticeDecoder
 {
+	public static final String partSplittingSymbol = "<EXPECTING>";
+
 	private NgramLanguageModel<String> lm = null;
 
 	private double beamWidth = 0;
@@ -71,11 +75,13 @@ public class LatticeDecoder
      private boolean useAlejandroProbabilities = true;
 	private boolean randomBackoffs = false; // silly testing setting
 	
+	HyphenationDictionary hyphenationDictionary  = null;
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
 		this.contextLen = lm.getLmOrder()-1; // ahem? will this work?
 		System.err.println("context length set to " + contextLen);
+		this.hyphenationDictionary = new HyphenDictionaryFromLM(lm);
 	}
 
 	public void setBeamWidth(double b)
@@ -566,8 +572,13 @@ public class LatticeDecoder
 			newpath.m_Context.addAll(path.m_Context);
 		} else 
 		{
+			List<String> C = newpath.m_Context;
 			newpath.m_Context.clear();
-
+			String wordBefore =  C.get(C.size()-1);
+			if (wordBefore.contains(partSplittingSymbol))
+			{
+				String[] parts  = wordBefore.split(partSplittingSymbol);
+			}
 			for (int j=1; j < contextLen; j++)
 				newpath.m_Context.add(path.m_Context.get(j));
 			newpath.m_Context.add(word);
@@ -593,9 +604,9 @@ public class LatticeDecoder
 		}
 		else
 		{
-			if (word.contains("<EXPECTING>"))
+			if (word.contains(partSplittingSymbol))
 			{
-				String w1 = word.replaceAll("<EXPECTING>","");
+				String w1 = word.replaceAll(partSplittingSymbol,""); // OK ...
 				m_Context.add(w1);
 				System.err.println("Hyphenation case: " + m_Context + " " + word);
 				d =   lm.getLogProb(m_Context);

@@ -34,8 +34,6 @@ import java.util.*;
 
 public class LatticeDecoder
 {
-	public static final String partSplittingSymbol = "<EXPECTING>";
-
 	private NgramLanguageModel<String> lm = null;
 
 	private double beamWidth = 0;
@@ -44,6 +42,7 @@ public class LatticeDecoder
 	private double acscale=1.0;
 	private double wdpenalty=0;
 
+	HyphenationDictionary hyphenationDictionary  = null;
 	VariantLexicon variantLexicon = null;
 
 	static final double LogP_Zero = Double.NEGATIVE_INFINITY;
@@ -67,7 +66,7 @@ public class LatticeDecoder
 	transient private int finalPosition = -1;
 
 	private boolean emulateSRI = true;
-	private boolean traceDecoder = false;
+	private boolean traceDecoder = true;
 
 	private boolean ignoreSentenceBoundaries = false;
 	private boolean ignoreDQ = false;
@@ -75,7 +74,7 @@ public class LatticeDecoder
      private boolean useAlejandroProbabilities = true;
 	private boolean randomBackoffs = false; // silly testing setting
 	
-	HyphenationDictionary hyphenationDictionary  = null;
+	
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
@@ -245,8 +244,8 @@ public class LatticeDecoder
 				{
 					List<Variant> l = this.variantLexicon.getVariantsFromNormalForm(wi.word);
 					//System.err.println(l);
-					if (l != null && l.size() >= node.v)
-					{
+					if (l != null && l.size() >= node.v && !wi.word.contains("<EXPECTING>")) // dit moet anders...
+					{ 
 						String variant = l.get(node.v-1).variantForm;
 						if (variant != null && variant.length() > 0)
 							wi.word = variant;
@@ -260,7 +259,6 @@ public class LatticeDecoder
 				//System.err.println("set wi.word to " + wi.word);
 			}
 			path = path.m_Prev;
-
 		}
 
 		//System.err.println("Num = "  + num);
@@ -574,10 +572,19 @@ public class LatticeDecoder
 		{
 			List<String> C = newpath.m_Context;
 			newpath.m_Context.clear();
-			String wordBefore =  C.get(C.size()-1);
-			if (wordBefore.contains(partSplittingSymbol))
+			if (C.size() > 0)
 			{
-				String[] parts  = wordBefore.split(partSplittingSymbol);
+				String wordBefore =  C.get(C.size()-1);
+				if (wordBefore.contains(HyphenationDictionary.partSplittingSymbol))
+				{
+					String[] parts  = wordBefore.split(HyphenationDictionary.partSplittingSymbol);
+					String w2 = word.replace(hyphenationDictionary.getSecondPartHyphenationRegex(),"");
+					if (w2.equals(parts[1]))
+					{
+						C.set(C.size()-1, parts[0] + parts[1]);
+						return;
+					}
+				}
 			}
 			for (int j=1; j < contextLen; j++)
 				newpath.m_Context.add(path.m_Context.get(j));
@@ -604,14 +611,13 @@ public class LatticeDecoder
 		}
 		else
 		{
-			if (word.contains(partSplittingSymbol))
+			if (word.contains(HyphenationDictionary.partSplittingSymbol))
 			{
-				String w1 = word.replaceAll(partSplittingSymbol,""); // OK ...
+				String w1 = word.replaceAll(HyphenationDictionary.partSplittingSymbol,""); // OK ...
 				m_Context.add(w1);
 				System.err.println("Hyphenation case: " + m_Context + " " + word);
 				d =   lm.getLogProb(m_Context);
 				m_Context.remove(w1); 
-				
 			} else
 			{
 				m_Context.add(word);

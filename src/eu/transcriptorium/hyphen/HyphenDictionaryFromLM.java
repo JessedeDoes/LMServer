@@ -50,7 +50,7 @@ public class HyphenDictionaryFromLM implements HyphenationDictionary
 	public String getHyphenationRegex()
 	{
 		// TODO Auto-generated method stub
-		return "[=-]$";
+		return "[=¬-]$";
 	}
 	@Override
 	public String getSecondPartHyphenationRegex()

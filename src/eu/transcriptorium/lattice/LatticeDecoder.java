@@ -66,15 +66,15 @@ public class LatticeDecoder
 	transient private int finalPosition = -1;
 
 	private boolean emulateSRI = true;
-	private boolean traceDecoder = true;
+	private boolean traceDecoder = false;
 
 	private boolean ignoreSentenceBoundaries = false;
 	private boolean ignoreDQ = false;
 	private boolean expandVariants = true;
-     private boolean useAlejandroProbabilities = true;
+	private boolean useAlejandroProbabilities = true;
 	private boolean randomBackoffs = false; // silly testing setting
-	
-	
+
+
 	public void setLanguageModel(NgramLanguageModel lm)
 	{
 		this.lm = lm;
@@ -366,23 +366,29 @@ public class LatticeDecoder
 
 					if ((probs.prob + probBwd) >= threshold) 
 					{
-						LatticeDecodePath  newpath = new LatticeDecodePath(node, path, probs);
+						List<String> newContext = new ArrayList<String>();
+						boolean contextShiftOK  = shiftContext(word, nolmword, path, newContext);  
 
-						if (++numPaths > maxPaths) break mainLoop;
-
-						if (nbest != 0) 
-							newpath.addLink(path, probs.prob - path.m_Prob); // beware: implement this later if we are interested in nbest anyway
-
-						shiftContext(word, nolmword, path, newpath);  
-
-						LatticeDecodePath p;
-
-						if ((p = info.m_PHash.get(newpath)) != null) 
+						if (contextShiftOK)
 						{
-							p.merge(newpath, nbest);
-						} else 
-						{
-							info.m_PHash.put(newpath, newpath);
+							LatticeDecodePath  newpath = new LatticeDecodePath(node, path, probs);
+							newpath.m_Context = newContext;
+							
+							if (++numPaths > maxPaths) break mainLoop;
+
+							if (nbest != 0) 
+								newpath.addLink(path, probs.prob - path.m_Prob); // beware: implement this later if we are interested in nbest anyway
+
+
+							LatticeDecodePath p;
+
+							if ((p = info.m_PHash.get(newpath)) != null) 
+							{
+								p.merge(newpath, nbest);
+							} else 
+							{
+								info.m_PHash.put(newpath, newpath);
+							}
 						}
 					} 
 				}
@@ -479,17 +485,17 @@ public class LatticeDecoder
 		nodeinfo[0].m_NumPaths = previous.m_NumPaths;
 
 		// TODO: scores! simply copy score from predecessors
-		
+
 		for (LatticeDecodePath p: previous.m_PList)
 		{
 			LatticeDecodePath  path = new LatticeDecodePath(); 
 
 			path.node = lattice.getStartNode();
-			
+
 			path.m_GProb = p.m_GProb;
 			path.m_Prob = p.m_Prob;
-			
-			shiftContext(path.node.word, true, p, path);
+
+			shiftContext(path.node.word, true, p, path.m_Context);
 			System.err.println("Context now: " + k + " "+ path.m_Context);
 			path.m_Prev = p;
 			newPathList[k++] = path;
@@ -517,7 +523,7 @@ public class LatticeDecoder
 		double lmscore = LogP_One;
 
 		double oldArcLMScore = a.language * (emulateSRI?getLmScale():oldLmScale); // SRI uses new LM score?
-		
+
 		// System.err.println("OLD LM: "  + a.language + " * " + oldLmScale + "= " + oldArcLMScore);
 		// SRI: path.m_Prob + a.weight - oldArcLMScore [ of zoiets]
 		// which means that we would add AND subtract the old lm score..... (?)
@@ -560,36 +566,55 @@ public class LatticeDecoder
 	 * Todo check boundary conditions (no context)
 	 * Todo: something with hyphenations -- joining words instead of adding them
 	 */
-	private void shiftContext(String word, boolean nolmword,
-			LatticeDecodePath path, LatticeDecodePath newpath)
+	private boolean shiftContext(String word, boolean nolmword,
+			LatticeDecodePath path, List<String> C)
 	{
 		//if (true) return;  // TODO fix this
+		//List<String> C = newpath.m_Context;
 		if (nolmword) // copy from path if word is skipped by LM
 		{
-			newpath.m_Context.clear();
-			newpath.m_Context.addAll(path.m_Context);
+			C.clear();
+			C.addAll(path.m_Context);
+			return true;
 		} else 
 		{
-			List<String> C = newpath.m_Context;
-			newpath.m_Context.clear();
-			if (C.size() > 0)
+			C.clear();
+			List<String> C0 = path.m_Context;
+			
+			if (C0.size() > 0)
 			{
-				String wordBefore =  C.get(C.size()-1);
+				String wordBefore =  C0.get(C0.size()-1);
 				if (wordBefore.contains(HyphenationDictionary.partSplittingSymbol))
 				{
+					System.err.println( "shiftContext: Hyphenation case in " +  wordBefore);
 					String[] parts  = wordBefore.split(HyphenationDictionary.partSplittingSymbol);
 					String w2 = word.replace(hyphenationDictionary.getSecondPartHyphenationRegex(),"");
 					if (w2.equals(parts[1]))
 					{
+						for (int j=0; j < contextLen; j++)
+							C.add(C0.get(j));
 						C.set(C.size()-1, parts[0] + parts[1]);
-						return;
+						return true;
+					} else
+					{
+						System.err.println("DOINK! " + wordBefore +  " NO_MATCH "  + word);
+						return false;
 					}
 				}
 			}
+		
 			for (int j=1; j < contextLen; j++)
-				newpath.m_Context.add(path.m_Context.get(j));
-			newpath.m_Context.add(word);
-			//newpath.m_Context.set(contextLen - 1, Vocab_None);
+				C.add(C0.get(j));
+			
+			C.add(word);
+			
+			if (word.contains(HyphenationDictionary.partSplittingSymbol))
+			{
+				System.err.println("Shifted  hyph"  + word +  " onto  " + C );
+			}
+			
+			return true;
+			// newpath.m_Context.set(contextLen - 1, Vocab_None);
 		}
 		//System.err.println("Shifted context with word " + word + " from " + path.m_Context + " to " + newpath.m_Context);
 	}
@@ -602,7 +627,7 @@ public class LatticeDecoder
 			return LogP_One;
 
 		double d;
-		
+
 		if (randomBackoffs && word.contains("A"))
 		{
 			List<String> l = new ArrayList<String>();
@@ -621,10 +646,10 @@ public class LatticeDecoder
 			} else
 			{
 				m_Context.add(word);
-			
+
 				d =   lm.getLogProb(m_Context);
-			//System.err.println("Lm prob for "  +m_Context + " = " + d );
-				m_Context.remove(word); // TODO dit is fout voor dubbele woorden...
+				//System.err.println("Lm prob for "  +m_Context + " = " + d );
+				m_Context.remove(word);  // TODO dit is fout voor dubbele woorden...
 			}
 		}
 		return d;
@@ -636,7 +661,7 @@ public class LatticeDecoder
 				(this.ignoreDQ && word.equals("\\\"")) || 
 				(this.ignoreSentenceBoundaries && 
 						(word.equals(Lattice.sentenceStartSymbol) || word.equals(Lattice.sentenceEndSymbol))) || 
-				this.getIgnoreWords().contains(word);
+						this.getIgnoreWords().contains(word);
 	}
 
 	public Set<String> getIgnoreWords()
@@ -664,13 +689,13 @@ public class LatticeDecoder
 
 		List<String> decoded = this.decode(l);
 		String sentence = StringUtils.join(decoded, " ");
-		
+
 		boolean boemboem = true;
 		if (boemboem)
 		{
 			Set<String> fw = l.getFirstWords(new isRealWord());
 			Set<String> lw = l.getLastWords(new isRealWord());
-		//System.out.println(lines.get(k) + "/" + k + ":" + sOut);
+			//System.out.println(lines.get(k) + "/" + k + ":" + sOut);
 			System.out.println("<" + fileName +  "> " + sentence + " # " + fw + " # " + lw);
 		} else
 			System.out.println("<" + fileName +  "> " + sentence);
@@ -793,7 +818,7 @@ public class LatticeDecoder
 			return nodeinfo[this.finalPosition-1];
 		else return null;
 	}
-	
+
 
 
 	protected int getFinalPosition() {
@@ -807,7 +832,7 @@ public class LatticeDecoder
 	protected void setPreviousNodeinfo(NodePathInfo previousNodeinfo) {
 		this.previousNodeinfo = previousNodeinfo;
 	}
-	
+
 	public static void main(String[] args)
 	{
 		NgramLanguageModel<String> lm = null;

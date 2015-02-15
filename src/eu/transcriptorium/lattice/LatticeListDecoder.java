@@ -50,7 +50,7 @@ public class LatticeListDecoder
 	
 	private boolean setWeights = false;
 	
-	private boolean handleHyphenations = true;
+	private boolean handleHyphenations = false;
 	
 	List<LatticeDecoder> decoders = new ArrayList<LatticeDecoder>();
 	
@@ -69,7 +69,8 @@ public class LatticeListDecoder
 	{
 
 		@Override
-		public boolean test(Node n) {
+		public boolean test(Node n) 
+		{
 			// TODO Auto-generated method stub
 			return !(n.word.equals(Lattice.nullWordSymbol) 
 					|| Lattice.isSentenceDelimiter(n.word));

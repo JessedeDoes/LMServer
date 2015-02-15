@@ -52,7 +52,8 @@ test()
   CIWER=`tasas $TEMP/listDecoder.result.ci -ie -f "$" -s " "`
   CSWER=`tasas $TEMP/listDecoder.result.cs -ie -f "$" -s " "`
   DETAILS=`bash scripts/tasasWithOptions.sh $TEMP/listDecoder.result.cs`
-  echo "CS: $CSWER, CI: $CIWER, DETAILED: $DETAILS"
+  DETAILSCI=`bash scripts/tasasWithOptions.sh $TEMP/listDecoder.result.ci`
+  echo "CS: $CSWER, CI: $CIWER, DETAILS: $DETAILS, DETAILSCI: $DETAILSCI"
 }
 
 

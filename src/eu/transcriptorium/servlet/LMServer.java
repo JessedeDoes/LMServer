@@ -4,7 +4,11 @@ import javax.servlet.http.*;
 
 
 
+import edu.berkeley.nlp.lm.NgramLanguageModel;
+import edu.berkeley.nlp.lm.collections.Counter;
+import edu.berkeley.nlp.lm.io.LmReaders;
 import eu.transcriptorium.lm.ScoreWordSubstitutions;
+import eu.transcriptorium.suggest.Suggest;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,17 +33,52 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 	private String[][] lmLocations = 
 		{
-			{"Sonar",  basePath + "Sonar.lm.gz"},
-			{"Bentham", basePath + "Bentham.bigram.lm"},
+			// {"Sonar",  basePath + "Sonar.lm.gz"},
+			{"MNL",  basePath + "cdrom_mnl.lm"},
+			{"Bentham", basePath + "trigramModel.lm.bin"},
+			{"Reichsgericht",  basePath + "ReichsGericht.lm"},
+			{"Plantas",  basePath + "PlantasGutenberg.lm"},
 		};
 
 	enum Action 
 	{
 		NONE,
 		SUBSTITUTION,
+		EVALUATION,
+		COMPLETION,
+		SUGGESTION
 	};
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
+	private Map<String,Suggest> suggesterMap = new HashMap<String,Suggest>();
+	private Map<String,NgramLanguageModel> modelMap = new HashMap<String,NgramLanguageModel>();
+
+	private NgramLanguageModel getModel(String name)
+	{
+		NgramLanguageModel lm = null;
+		if ((lm = modelMap.get(name)) != null)
+		{
+			return lm;
+		}
+		String languageModel = null;
+		for (int i=0; i < lmLocations.length; i++)
+		{
+			if (lmLocations[i][0].equalsIgnoreCase(name))
+			{
+				languageModel = lmLocations[i][1];
+			}
+		}
+		if (languageModel != null)
+		{
+			if (!languageModel.endsWith(".bin"))
+				lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
+			else
+				lm = LmReaders.readLmBinary(languageModel);
+			System.err.println("finished reading LM");
+			modelMap.put(name,lm);
+		}
+		return lm;
+	}
 
 	private ScoreWordSubstitutions getScoreWordSubstitutions(String name)
 	{
@@ -104,8 +143,24 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 		switch(action)
 		{
+		case SUGGESTION: // bijvoorbeeld http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
+			Suggest s = this.getSuggester(parameterMap.get("lm"));
+			String max = parameterMap.get("number");
+			int maxSuggestions = 10;
+			if (max != null)
+			{
+				try
+				{
+					maxSuggestions = Integer.parseInt(max);
+				} catch (Exception e) {};
+			}
+			if (s != null)
+			{
+				Counter<String> c = s.getDistributionOverContextWords(parameterMap.get("left"), parameterMap.get("right"), parameterMap.get("pattern"));
+				out.println(Suggest.counterToJSON(c, maxSuggestions));
+			}
+			break;
 		case SUBSTITUTION:
-		{
 			try
 			{
 				ScoreWordSubstitutions sws = this.getScoreWordSubstitutions(parameterMap.get("lm"));
@@ -132,18 +187,30 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				e.printStackTrace();
 			}
 			break;
-		}
-
-
 		default:
-		{
 			out.println("No valid action specified. Doing nothing!");
-		}
 		}
 
 	}
 
 
+
+	private Suggest getSuggester(String lmName)
+	{
+		// TODO Auto-generated method stub
+		Suggest s = null;
+		s = this.suggesterMap.get(lmName);
+		if (s != null)
+			return s;
+		NgramLanguageModel lm = this.getModel(lmName);
+		if (lm != null)
+		{
+			s = new Suggest(lm);
+			this.suggesterMap.put(lmName, s);
+			return s;
+		}
+		return null;
+	}
 
 	public void init()
 	{

@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--
+Look at
+https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?csw=1
+-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Simple corpus statistics</title>
+<style type="text/css">
+td { padding: 4pt } 
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<script type="text/javaScript">
+
+var svg;
+
+
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%y").parse;
+
+//var x = d3.time.scale().range([0, width]);
+var x = d3.scale.linear().range([0,width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) { return x(d.time); })
+    .y(function(d) { return y(d.normalizedFrequency); });
+
+function makeGraph()
+{
+   return;
+   svg = d3.select("#j3graph").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+}
+
+
+var k=0;
+function drawFrequencies(data)
+{
+  if (k > 0)
+  {
+    d3.select("#theLine").remove(); 
+    d3.select("#xas").remove();
+    d3.select("#yas").remove();
+  }
+  k++;
+  x.domain(d3.extent(data, function(d) { return d.time; }));
+  y.domain(d3.extent(data, function(d) { return d.normalizedFrequency; }));
+
+  svg.append("g")
+      .attr("id", "xas")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("id", "yas")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Frequentie per miljoen");
+
+  svg.append("path")
+//    .datum(data)
+      .attr("id","theLine")
+      .attr("class", "line")
+      .attr("d", line(data));
+ 
+}
+
+</script>
+<script type="text/JavaScript">
+
+function hide_element(element_id)
+{
+  var h = document.getElementById(element_id);
+  h.style.display = 'none';
+}
+
+function show_element(element_id)
+{
+  var h = document.getElementById(element_id);
+  h.style.display = 'block';
+}
+
+function toggle_element(element_id)
+{
+  var h = document.getElementById(element_id);
+  if (h.style.display == 'block')
+  {
+    h.style.display = 'none';
+  } else
+  {
+    h.style.display = 'block';
+  }
+}
+
+function makeTable(data, dataIncludingTrends)
+{
+  var item0 = data[0];
+  var multiple = false;
+  var showTrend = true;
+  var query = document.getElementById('query').value;
+  var parts = query.split(";");
+  var table = [['Year', 'frequency of ' + query]];
+  if (showTrend)
+  {
+     table = [['Year', 'frequency of ' + query, 'Trend line']];
+  }
+
+  if (item0.multiple)
+  {
+     var row0 = ['Year'];
+     var k=0;
+     $.each(item0.frequencies, function(i,f) { row0.push(parts[k++]); });
+     table = [row0];
+     multiple = true;
+  }
+  $.each(data, function(index,item)
+  {
+      if (!multiple)
+      {
+        var predicted = dataIncludingTrends.intercept + dataIncludingTrends.slope * item.time;
+        var row = [item.time, item.normalizedFrequency, predicted]; 
+        table.push(row);
+      } else
+      {
+        var row = [item.time];
+        $.each(item.frequencies, function(i,f) { row.push(1000000 * f / item.totalNumberOfTokens); });
+        table.push(row);
+      }
+  });
+  drawChart(table);
+  var td = document.getElementById("trend_div");
+  td.innerHTML = "Kendall tau: " + dataIncludingTrends.test + " Slope: " + dataIncludingTrends.slope + " Intercept " + dataIncludingTrends.intercept;
+  return table;
+}
+
+function frequency()
+{
+  var queryString  = $('form').serialize();
+  var displayTable =  document.getElementById('displayTable');
+  var x ="";
+  $.getJSON("http://svprre02:8080/Statistics/CorpusStatistics?"  + queryString, function(data) 
+  {
+    var items = [];
+    var development = data.development;
+    $.each( development, function(key, val) 
+    {
+      var y = val.time;
+      var frequency = val.frequency;
+      if (val.multiple)
+        frequency = val.frequencies;
+      items.push(val);
+      x += "<tr><td>" + y + "</td><td>" + frequency + "</td><td>" + val.totalNumberOfTokens + "</td><td>"
+                                + val.normalizedFrequency + "</td></tr>"; 
+  });
+  var header = "<tr><td>jaar</td><td>Frequentie</td><td>Subcorpusomvang</td><td>Frequentie per miljoen</td></tr>";
+  displayTable.innerHTML = "<table>" + header + x + "</table>";
+ 
+  //drawFrequencies(items);
+  makeTable(items,data);
+});
+}
+</script>
+
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      //google.setOnLoadCallback(drawIt);
+      var myTable = [
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ];
+      function drawChart(tabularData) {
+        var data = google.visualization.arrayToDataTable(tabularData);
+        var options = {
+          title: 'Frequency per million tokens'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      function drawIt()
+       {
+          drawChart(myTable);
+       }
+    </script>
+
+</head>
+<body style="background-color:#aaaaff; font-family: Verdana" onLoad="makeGraph()">
+<form accept-charset="UTF-8" method="POST" target="_blank" enctype="multipart/form-data" action="http://svprre02:8080/Statistics/CorpusStatistics">
+Corpus: <input type="text" name="corpus" value="CHN"><br>
+Eenheid van tijd: 
+<select name="scale">
+<option value="year">Jaar</option>
+<option value="month">Maand</option>
+<option value="day">Dag</option>
+</select>
+<br>
+Periode: van <input type="text" name="lower" value="1980"> tot en met <input type="text" name="upper" value="2014">
+<p>
+<select name="action">
+<option value="FrequencyDevelopment">Frequentie per jaar</option>
+<option value="Keywords">Keywords</option>
+<option value="wordList">Frequentielijst</option>
+</select>
+</p>
+<p>
+Type regressie<select name="regression">
+<option value="TheilSen">Theil Sen regressie (median of slopes of all pairs)</option>
+<option value="Linear">Linear regression</option>
+</select>
+</p>
+<p>
+CQL Query (of meerdere gescheiden door ";")
+<br>
+<textarea name="query" id="query" rows=3 cols=100>
+</textarea>
+<p>
+Metadatafilter (in lucene syntax: name:value)
+<br>
+<textarea name="filter" id="query" rows=1 cols=100>
+</textarea>
+<br>
+<input type="file" name="blacklist"> 
+<br>
+<input type="submit" value="Submit form">
+</form>
+
+
+<span onClick="frequency()" style="border:inset; color:blue">Go! (frequency line chart)</span>
+<table>
+<tr valign="top">
+<td>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div id="trend_div"></div>
+</td>
+<td>
+<div id="j3graph"></div>
+</td>
+<td>
+<table style="border-collapse:collapse; background-color:white; padding:4pt" border="border" id="displayTable"></table>
+</td>
+</tr>
+</table>
+</body>
+</html>

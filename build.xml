@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE project>
+<project name="CorpusLMServer" default="dist" basedir=".">
+	<!-- Projectgegevens -->
+	<property name="project.name" value="LMServer" />
+	<property name="project.version" value="0.1" />
+	<property name="dist" value="dist" />
+	<property name="warfile"  value="${dist}/lib/${project.name}.war"/>
+	<!-- Directories -->
+	<property name="src" value="src" />
+	<property name="build" value="build" />
+
+	<property name="deployment.dir" value="/var/lib/tomcat7/webapps"/>
+
+	<property name="libOrigLocation" value="/mnt/Projecten/Automatisering/Applicatieontwikkeling/javalibs" />
+	<property name="lib" value="/mnt/Projecten/Taalbank/CL-Tools/javalibs" />
+	
+	<!-- Sla timestamp op en maak de build directory -->
+	<target name="init">
+		<echo message="----- Building ${project.name} -----" />
+		<tstamp />
+		<mkdir dir="${build}/WEB-INF/classes" />
+	</target>
+	
+	<target name="WoordenboekenZoeken">
+		<ant dir="../WoordenboekenZoeken" inheritall="false" />
+	</target>
+
+	<!-- Compileer de sources -->
+	<target name="compile" depends="init">
+		<javac encoding="utf-8" target="1.5" debug="true" debuglevel="lines,vars,source" srcdir="${src}" destdir="${build}/classes">
+			<!-- Het te gebruiken classpath voor compileren -->
+			<classpath>
+                                <pathElement path="lib/commons-fileupload-1.3.jar"/>
+				<pathElement path="lib/commons-cli-1.2.jar"/>
+				<pathElement path="lib/commons-collections-3.2.1.jar"/>
+				<pathElement path="lib/commons-io-2.1.jar"/>
+				<pathElement path="lib/commons-logging-1.1.1.jar"/>
+				<pathElement path="lib/junit-4.6.jar"/>
+				<pathElement path="lib/spellingvariation.jar"/>
+				<pathElement path="lib/servlet-api.jar"/>
+				<pathElement path="lib/javax.json-1.0.4.jar"/>
+				<pathelement path="${java.class.path}/"/>
+			</classpath>
+		</javac>
+
+		<!-- Kopieer de resources uit de src boom -->
+<!--
+		<copy todir="${build}">
+			<fileset dir="." includes="META-INF/*" />
+			<fileset dir="." includes="WEB-INF/*" excludes="WEB-INF/web.xml" />
+			<fileset dir="." includes="WEB-INF/lib/*" />
+			<fileset dir="." includes="img/*" />
+			<fileset dir="." includes="*.css" />
+			<fileset dir="." includes="*.js" />
+			<fileset dir="." includes="*.html" />
+			<fileset dir="." includes="*.txt" />
+		</copy>
+-->
+	
+<!--	
+		<mkdir dir="${build}/WEB-INF/classes/conf" />
+		
+	<copy todir="${build}/WEB-INF/classes/conf">
+			<fileset dir="WEB-INF/src/conf" includes="login.html" />
+		</copy>
+-->
+	
+	</target>
+
+	<!-- Bouw de jar file -->
+	<target name="dist" depends="compile">
+		<mkdir dir="${dist}/lib" />
+		<copy todir="WebContent/WEB-INF/classes">
+			<fileset dir="build/classes"/>
+		</copy>
+		<war warfile="${warfile}" webxml="WebContent/WEB-INF/web.xml" basedir="WebContent" />
+	</target>
+
+	<target name="deploy" depends="dist">
+<!--
+	   <delete dir="${deployment.dir}/NER"/>
+-->
+	   <copy todir="${deployment.dir}"><fileset dir="dist/lib" includes="*.war"/></copy>
+	</target>
+
+	<!-- Ruim de gegenereerde files op -->
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+</project>

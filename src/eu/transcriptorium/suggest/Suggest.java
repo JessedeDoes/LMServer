@@ -25,6 +25,7 @@ public class Suggest
 	
 	Counter<String> vocabulary ;
 
+	
 	public static String counterToJSON(Counter<String> c, int max)
 	{
 		StringWriter  strw = new StringWriter();

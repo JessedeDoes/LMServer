@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+    <display-name>Simple Corpus stats with BlackLab</display-name>
+    <description>
+	Some simple counting and listing stuff
+    </description>
+
+ 
+	<servlet>
+   		<servlet-name>LMServer</servlet-name>
+   		<servlet-class>eu.transcriptorium.servlet.LMServer</servlet-class>
+   		<init-param>
+   			<param-name>taggers</param-name>
+   			<param-value><!--stanford-ner-kbkranten impact-tagger-lemmatizer-dutch-sonar-->impact-ner stanford-ner-english text2tei word2tei epub2tei html2tei</param-value>
+   		</init-param>
+	</servlet>
+	<context-param> 
+		    <description>Location to store uploaded file</description> 
+		    <param-name>file-upload</param-name> 
+		    <param-value>/var/lib/tomcat5/webapps/uploadedFiles/</param-value> 
+	</context-param>
+	<context-param> 
+		    <description>Stylesheet location for display of TEI text</description> 
+		    <param-name>stylesheet-location</param-name> 
+		    <param-value>/var/lib/tomcat5/webapps/NER/XSL/namescape.xsl</param-value> 
+	</context-param>
+     <servlet-mapping>
+   <servlet-name>LMServer</servlet-name>
+   <url-pattern>/LMServer</url-pattern>
+</servlet-mapping>
+</web-app>

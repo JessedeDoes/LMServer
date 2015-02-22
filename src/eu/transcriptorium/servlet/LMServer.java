@@ -1,8 +1,12 @@
 package eu.transcriptorium.servlet;
+import javax.json.Json;
+import javax.json.stream.JsonGenerator;
+import javax.json.stream.JsonGeneratorFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-
+import org.apache.commons.fileupload.FileUploadBase;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.collections.Counter;
@@ -10,9 +14,11 @@ import edu.berkeley.nlp.lm.io.LmReaders;
 import eu.transcriptorium.lm.ScoreWordSubstitutions;
 import eu.transcriptorium.suggest.Suggest;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.*;
 
 //import json.JSONObjects;
@@ -34,25 +40,28 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private String[][] lmLocations = 
 		{
 			// {"Sonar",  basePath + "Sonar.lm.gz"},
-			{"MNL",  basePath + "cdrom_mnl.lm"},
-			{"Bentham", basePath + "trigramModel.lm.bin"},
-			{"Reichsgericht",  basePath + "ReichsGericht.lm"},
-			{"Plantas",  basePath + "PlantasGutenberg.lm"},
-                        {"SpanishGutenberg", basePath + "SpanishGutenberg.lm.gz"}
+			{"MNL",  basePath + "cdrom_mnl.lm", "Middelnederlands"},
+			{"Bentham", basePath + "trigramModel.lm.bin", "Bentham with ECCO"},
+			{"Reichsgericht",  basePath + "ReichsGericht.lm", "Reichsgericht"},
+			{"Plantas",  basePath + "PlantasGutenberg.lm", "Plantas with Gutenberg Spanish"},
+            {"SpanishGutenberg", basePath + "SpanishGutenberg.lm.gz", "Spanish Gutenberg"}
 		};
 
 	enum Action 
 	{
 		NONE,
+		LIST_LMS,
 		SUBSTITUTION,
 		EVALUATION,
 		COMPLETION,
-		SUGGESTION
+		SUGGESTION,
+		BUILD_LM
 	};
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
 	private Map<String,Suggest> suggesterMap = new HashMap<String,Suggest>();
 	private Map<String,NgramLanguageModel> modelMap = new HashMap<String,NgramLanguageModel>();
+	private Map<String, String> modelDescriptionMap = new HashMap<String,String>();
 
 	private NgramLanguageModel getModel(String name)
 	{
@@ -121,14 +130,18 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException 
 	{
-
+		//FileUploadBase.
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 
 		Map<String,String> parameterMap = cloneParameterMap(request);
-
-
+		MultipartFormData mpfd = null;
+		if (ServletFileUpload.isMultipartContent(request))
+		{
+			mpfd = new MultipartFormData(request); 
+			parameterMap = mpfd.getFields();
+		}
 		java.io.PrintWriter out = response.getWriter( );
 
 
@@ -144,6 +157,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 		switch(action)
 		{
+		case LIST_LMS:
+			out.println(mapToJSON(this.modelDescriptionMap));
+			break;
 		case SUGGESTION: // bijvoorbeeld http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
 			Suggest s = this.getSuggester(parameterMap.get("lm"));
 			String max = parameterMap.get("number");
@@ -159,6 +175,28 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			{
 				Counter<String> c = s.getDistributionOverContextWords(parameterMap.get("left"), parameterMap.get("right"), parameterMap.get("pattern"));
 				out.println(Suggest.counterToJSON(c, maxSuggestions));
+			}
+			break;
+		case BUILD_LM:
+			
+			String name = mpfd.getFields().get("name");
+			System.err.println("Building model named "+ name);
+			String description = mpfd.getFields().get("description");
+			if (description == null)
+			{
+				description = " undocumented ";
+			}
+			String newLMFileName = new LMBuilder().buildLM(3, mpfd.getNamesOfUploadedfiles());
+			if (newLMFileName != null)
+			{
+				NgramLanguageModel lm = null;
+				if (!newLMFileName.endsWith(".bin"))
+					lm = LmReaders.readArrayEncodedLmFromArpa(newLMFileName,false);
+				else
+					lm = LmReaders.readLmBinary(newLMFileName);
+				System.err.println("finished reading LM");
+				modelMap.put(name,lm);
+				this.modelDescriptionMap.put(name, description);
 			}
 			break;
 		case SUBSTITUTION:
@@ -215,9 +253,42 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 	public void init()
 	{
-
+		for (String [] x: this.lmLocations)
+		{
+			this.modelDescriptionMap.put(x[0], x[2]);
+		}
 	}
 
+	public static String mapToJSON(Map<String,String> map)
+	{
+		StringWriter  strw = new StringWriter();
+		BufferedWriter sw = new BufferedWriter(strw);
+		Map<String, Object> properties = new HashMap<String, Object>(1);
+		properties.put(JsonGenerator.PRETTY_PRINTING, false); // dit heeft dus geen invloed ...
+
+		JsonGeneratorFactory jgf = Json.createGeneratorFactory(properties);
+		JsonGenerator jg = jgf.createGenerator(sw);
+
+		jg = jg.writeStartObject();
+		int i=0;
+
+		for (Map.Entry<String, String> e: 	map.entrySet())
+		{
+			//System.err.println(sw.toString());
+			System.err.println(e);
+			jg = jg.write(e.getKey(), e.getValue());
+
+			
+		}
+
+		jg = jg.writeEnd();
+	
+
+		jg.close();
+
+		return strw.getBuffer().toString();
+	}
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException 
 			{

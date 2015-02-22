@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--
+Look at
+https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?csw=1
+-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>LM server demo</title>
+<style type="text/css">
+td { padding: 4pt } 
+.datatable {border-style:solid; border-collapse:collapse; background-color:white; padding:4pt }
+</style>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/JavaScript">
+
+function hide_element(element_id)
+{
+  var h = document.getElementById(element_id);
+  h.style.display = 'none';
+}
+
+function show_element(element_id)
+{
+  var h = document.getElementById(element_id);
+  h.style.display = 'block';
+}
+
+function toggle_element(element_id)
+{
+  var h = document.getElementById(element_id);
+  if (h.style.display == 'block')
+  {
+    h.style.display = 'none';
+  } else
+  {
+    h.style.display = 'block';
+  }
+}
+
+
+function getData()
+{
+  var queryString  = $('form').serialize();
+   
+  $.ajax(
+  {
+    type:"GET",
+    dataType: "text",
+    contentType: "text/plain",
+    url: "http://svprre02:8080/LMServer/LMServer?"  + queryString, 
+    success: function(data) { handleResponse(data); },
+    error: function(xhr, statusText) { alert(statusText); },
+  });
+}
+
+function handleResponse(data)
+{
+  var rLines = data.split("\n");
+  var tLines = document.getElementById("text").value.split("\n");
+  var response = document.getElementById('response');
+  response.innerHTML="";
+  $.each(rLines, function (k, line)
+  {
+     var tLine = tLines[k];
+     var rparts = line.split("\|");
+     var id=rparts[0];
+     var tparts = tLine.split("\|");
+     var candidates = rparts[1].split(" ");
+     //alert(tLine + " " + line);
+     response.innerHTML += id + ": " + tparts[1] + " <i>{" + candidates + "}</i><br>";
+  });
+}
+
+function reloadModelList()
+{
+
+   var lmList = document.getElementById("lm");
+   lmList.innerHTML = "";
+   var jsonURL = "http://svprre02:8080/LMServer/LMServer?action=LIST_LMS";
+   $.ajax(
+   {
+     type:"GET",
+     dataType: "json",
+     contentType: "application/json",
+     url: jsonURL,
+
+     success: function(data) 
+     {
+        var s = "";
+        //alert(data); 
+        $.each(data, function(k,e)
+        {
+          var opt = document.createElement('option');
+            opt.name = k,
+            opt.value = k;
+            opt.innerHTML = e;
+            lmList.appendChild(opt);
+        });
+     },
+     error: function(xhr, statusText) { alert(statusText); },
+   }); 
+} 
+
+function getSuggestions(left, pattern)
+{
+   var lm = document.getElementById("lm").value;
+    var jsonURL = "http://svprre02:8080/LMServer/LMServer?action=SUGGESTION&lm=" + lm + "&left="  + left + "&pattern=" + pattern + ".*";
+   $.ajax(
+   {
+     type:"GET",
+     dataType: "json",
+     contentType: "application/json",
+     url: jsonURL,
+
+     success: function(data) 
+     {
+        var s = "";
+        //alert(data); 
+        $.each(data.entries, function(k,e)
+        {
+          if (e.word.match(/[A-Za-z0-9-]/) && !e.word.match(/</))
+             s += e.word.toLowerCase() + "<br>"; 
+        });
+         
+        document.getElementById('response').innerHTML = s;
+        document.getElementById('url').setAttribute('href', jsonURL);
+     },
+     error: function(xhr, statusText) { alert(statusText); },
+   }); 
+}
+
+function suggest()
+{
+  var t = document.getElementById('text');
+  var s = t.selectionStart;
+  var txt = t.value;
+  var before = txt.substring(0,s);
+  var parts = before.split(/\s+/);
+  //alert('<' + before + '>: ' + parts);
+
+  var last = parts[parts.length-1];
+  var leftContext = parts.slice(0,parts.length-1); 
+  var left = leftContext.join(" ");
+
+  getSuggestions(left,last);
+}
+</script>
+</head>
+
+<body style="background-color:#ddddff; font-family: Verdana">
+<h4>LM-based suggestion demo</h4>
+
+<form id='theform' accept-charset="UTF-8" method="POST" target="_blank" action="http://svprre02:8080/LMServer/LMServer">
+LM: <select id="lm" name="lm">
+<option value="Bentham">Bentham with ECCO out-of-domain data</option>
+<option value="Reichsgericht">Reichsgericht (including OCR of book)</option>
+<option value="Plantas">Plantas weakly interpolated with Gutenberg Spanish</option>
+<option value="SpanishGutenberg">Gutenberg Spanish books</option>
+<option value="MNL">General (literary) Middle Dutch Corpus</option>
+</select>
+<span onclick="reloadModelList()">refresh Model List</span>
+<p>
+<!--
+<select  name="action">
+<option value="SUGGESTION">suggest</option>
+<option value="SUBSTITUTION">substitutie</option>
+</select>
+-->
+</p>
+<p>
+<!--
+(formaat per regel id|zinnetje|woorden)
+-->
+<br>
+<table>
+<tr valign='top'>
+<td width='100px'>
+<div id='response' width='100px' style='background-color: #eeeeff; text-transformation: lowercase'></div>
+</td>
+<td>
+<textarea onkeyup="suggest()" name="text" id="text" rows=10 cols=100> </textarea>
+</td>
+</tr>
+</table>
+<div id='showUrl'><a target="_blank" id='url'>Show JSON</a></div>
+<p>
+<p>
+<!--
+(<input type="submit" value="Submit form to see response text">)
+-->
+<p>
+</form>
+
+<hr>
+<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="_blank">
+<input type='hidden' name='action' value='BUILD_LM'>
+<input type='file' name='sourceFile'>
+<input name='name' type='text' value='myUpload'>
+<input type='text' name='description' value=' -- please describe --'>
+<input type="submit" value="Submit form to build model">
+</form>
+
+<!--
+<button onClick="getData()">Go!</button>
+-->
+
+</body>
+</html>

@@ -30,7 +30,7 @@ public class Suggest
 		StringWriter  strw = new StringWriter();
 		BufferedWriter sw = new BufferedWriter(strw);
 		Map<String, Object> properties = new HashMap<String, Object>(1);
-		properties.put(JsonGenerator.PRETTY_PRINTING, false);
+		properties.put(JsonGenerator.PRETTY_PRINTING, false); // dit heeft dus geen invloed ...
 
 		JsonGeneratorFactory jgf = Json.createGeneratorFactory(properties);
 		JsonGenerator jg = jgf.createGenerator(sw);

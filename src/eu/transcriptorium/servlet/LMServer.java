@@ -38,6 +38,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			{"Bentham", basePath + "trigramModel.lm.bin"},
 			{"Reichsgericht",  basePath + "ReichsGericht.lm"},
 			{"Plantas",  basePath + "PlantasGutenberg.lm"},
+                        {"SpanishGutenberg", basePath + "SpanishGutenberg.lm.gz"}
 		};
 
 	enum Action 
@@ -94,7 +95,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				try
 				{
 					String location = lmLocations[i][1];
-					System.err.println("Opening from " + location);
+					System.err.println("Opening  LM from " + location);
 					s = new ScoreWordSubstitutions(lmLocations[i][1]);
 					ScoreWordSubstitutionsMap.put(name, s);
 					return s;

@@ -1,13 +1,15 @@
 use Getopt::Std;
-
+use utf8;
+binmode(stdin,":encoding(utf8)");
 my $args = join(" ", @ARGV);
 our $opt_i=0;
 our $opt_p=0;
 our $opt_l=1;
 our $our_c=0;
+our $opt_a=0;
 our  $opt_s='\$';
 our $opt_r='first';
-getopts('ipcs:l:r:');
+getopts('aipcs:l:r:');
 my $insens=$opt_i;
 
 
@@ -22,6 +24,25 @@ my $removeFunctionWords = 0;
 my $firstWordGedoe = 0;
 my $lumpFirstLast= $opt_l;
 my $remove=$opt_r;
+
+my %diacritics = 
+(
+  "Í"=>"I",
+  "Ó"=>"O",
+  "Ú"=>"U",
+  "á"=>"a",
+  "â"=>"a",
+  "Ç"=>"C",
+  "ç"=>"c",
+  "è"=>"e",
+  "é"=>"e",
+  "ê"=>"e",
+  "í"=>"i",
+  "ñ"=>"n",
+  "ó"=>"o",
+  "ú"=>"u",
+  "ü"=>"u"
+);
 
 my ($errorsFirst, $errorsLast, $errorsMid, $errsNoFirst, $errorsNoLast);
 my ($nFirst, $nLast, $nMid, $nNoFirst, $nNoLast);
@@ -42,22 +63,31 @@ while(<>)
 {
   chomp();
 
+  if ($opt_a)
+  {
+    $_ = removeDiacritics($_);
+  }
+
   if ($caseInsensitive)
   {
     $_ = uc $_; # ahem ????
   }
 
-  if ($noPunctuation)
-  {
-    s/(^|\s+)\p{P}+(\s+|\$|$)/$1$2/g;
-    s/_//g;
-  } elsif ($onlyPunctuation)
-  {
-    s/\p{L}//g;
-  }
-   
   my ($gt,$htr) = split(/\s*$opt_s\s*/,$_);
 
+  if ($noPunctuation)
+  {
+    $gt =~ s/(^|\s+)\p{P}+(\s+|\$|$)/$1$2/g;
+    $gt =~ s/_//g;
+    $htr =~ s/(^|\s+)\p{P}+(\s+|\$|$)/$1$2/g;
+    $htr =~ s/_//g;
+
+  } elsif ($onlyPunctuation)
+  {
+    $gt =~ s/\p{L}//g;
+    $htr =~ s/\p{L}//g;
+  }
+   
   $gt =~ s/^\s+//; $htr =~ s/^\s+//;
 
   if ($firstWordGedoe)
@@ -116,12 +146,33 @@ while(<>)
     @htrWords = (pop @htrWords);
   }
 
-  print OUT join(" ", @gtWords) . " \$ " . join(" ", @htrWords) . "\n";
+  print OUT join(" ", @gtWords) . " $opt_s " . join(" ", @htrWords) . "\n";
 }
 
 close(OUT);
 
-my $tasas = `tasas /tmp/simplified.txt -ie -s " "  -f "\$"`;
+my $cmd = "tasas /tmp/simplified.txt -ie -s \" \"  -f \"$opt_s\"";
+warn $cmd;
+my $tasas = `tasas /tmp/simplified.txt -ie -s " "  -f "$opt_s"`;
 
 print "$tasas\n";
+
+
+sub noDiac
+{
+  my $x = shift;
+  if ($diacritics{$x})
+  {
+    return $diacritics{$x};
+  }
+  return $x;
+}
+
+sub removeDiacritics
+{
+  my $x = shift;
+  $x =~ s/./&noDiac($&)/eg;
+  return $x;
+}
+
 

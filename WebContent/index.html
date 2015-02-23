@@ -8,14 +8,30 @@ https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?c
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>LM server demo</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 <style type="text/css">
-td { padding: 4pt } 
+.modelTable { padding: 4pt; border-style: solid; border-collapse: collapse; border-width: 1px } 
 .datatable {border-style:solid; border-collapse:collapse; background-color:white; padding:4pt }
+.button-link {
+    [...]
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: solid 1px #20538D;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
 </style>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 
 <script type="text/JavaScript">
+ $(function() {
+$( "#tabs" ).tabs();
+});
 
 function hide_element(element_id)
 {
@@ -41,7 +57,7 @@ function toggle_element(element_id)
   }
 }
 
-
+/*
 function getData()
 {
   var queryString  = $('form').serialize();
@@ -74,12 +90,30 @@ function handleResponse(data)
      response.innerHTML += id + ": " + tparts[1] + " <i>{" + candidates + "}</i><br>";
   });
 }
+*/
+
+function buildAndListModels()
+{
+  var queryString  = $('uploadForm').serialize();
+  alert(queryString); 
+  $.ajax(
+  {
+    type:"POST",
+    dataType: "json",
+    contentType: "application/json",
+    url: "http://svprre02:8080/LMServer/LMServer?"  + queryString, 
+    success: function(data) { reloadModelList(); },
+    error: function(xhr, statusText) { alert(statusText); },
+  });
+}
 
 function reloadModelList()
 {
 
    var lmList = document.getElementById("lm");
+   var modelTable = document.getElementById("modelTable");
    lmList.innerHTML = "";
+   modelTable.innerHTML="";
    var jsonURL = "http://svprre02:8080/LMServer/LMServer?action=LIST_LMS";
    $.ajax(
    {
@@ -99,6 +133,15 @@ function reloadModelList()
             opt.value = k;
             opt.innerHTML = e;
             lmList.appendChild(opt);
+          var row = document.createElement('tr');
+            var col1 = document.createElement('td');
+            var col2 = document.createElement('td');
+            col1.setAttribute('class','modelTable') ;
+            col2.setAttribute('class','modelTable'); 
+            modelTable.appendChild(row);
+            row.appendChild(col1); 
+            row.appendChild(col2); 
+            col1.innerHTML = k; col2.innerHTML = e;
         });
      },
      error: function(xhr, statusText) { alert(statusText); },
@@ -108,7 +151,7 @@ function reloadModelList()
 function getSuggestions(left, pattern)
 {
    var lm = document.getElementById("lm").value;
-    var jsonURL = "http://svprre02:8080/LMServer/LMServer?action=SUGGESTION&lm=" + lm + "&left="  + left + "&pattern=" + pattern + ".*";
+   var jsonURL = "http://svprre02:8080/LMServer/LMServer?action=SUGGESTION&lm=" + lm + "&left="  + left + "&pattern=" + pattern + ".*";
    $.ajax(
    {
      type:"GET",
@@ -152,8 +195,14 @@ function suggest()
 </head>
 
 <body style="background-color:#ddddff; font-family: Verdana">
-<h4>LM-based suggestion demo</h4>
+<div id="tabs">
+<ul>
+  <li><a href="#tabs-1">Try out model</a>
+  <li><a href="#tabs-2">Build model</a>
+  <li><a href="#tabs-3">Decode word graph</a>
+</ul>
 
+<div id="tabs-1">
 <form id='theform' accept-charset="UTF-8" method="POST" target="_blank" action="http://svprre02:8080/LMServer/LMServer">
 LM: <select id="lm" name="lm">
 <option value="Bentham">Bentham with ECCO out-of-domain data</option>
@@ -162,20 +211,10 @@ LM: <select id="lm" name="lm">
 <option value="SpanishGutenberg">Gutenberg Spanish books</option>
 <option value="MNL">General (literary) Middle Dutch Corpus</option>
 </select>
-<span onclick="reloadModelList()">refresh Model List</span>
-<p>
 <!--
-<select  name="action">
-<option value="SUGGESTION">suggest</option>
-<option value="SUBSTITUTION">substitutie</option>
-</select>
+<span onclick="reloadModelList()">Refresh Model List</span>
 -->
-</p>
 <p>
-<!--
-(formaat per regel id|zinnetje|woorden)
--->
-<br>
 <table>
 <tr valign='top'>
 <td width='100px'>
@@ -186,16 +225,10 @@ LM: <select id="lm" name="lm">
 </td>
 </tr>
 </table>
-<div id='showUrl'><a target="_blank" id='url'>Show JSON</a></div>
-<p>
-<p>
-<!--
-(<input type="submit" value="Submit form to see response text">)
--->
-<p>
+<span class='button-link' id='showUrl'><a target="_blank" id='url'>Show JSON</a></span>
 </form>
-
-<hr>
+</div>
+<div id="tabs-2">
 <form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="_blank">
 <input type='hidden' name='action' value='BUILD_LM'>
 <input type='file' name='sourceFile'>
@@ -203,10 +236,25 @@ LM: <select id="lm" name="lm">
 <input type='text' name='description' value=' -- please describe --'>
 <input type="submit" value="Submit form to build model">
 </form>
+<table id='modelTable'>
+</table>
+</div>
+<div id="tabs-3">
+<form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="_blank">
+LM: <select id="lm2" name="lm">
+<option value="Bentham">Bentham with ECCO out-of-domain data</option>
+<option value="Reichsgericht">Reichsgericht (including OCR of book)</option>
+<option value="Plantas">Plantas weakly interpolated with Gutenberg Spanish</option>
+<option value="SpanishGutenberg">Gutenberg Spanish books</option>
+<option value="MNL">General (literary) Middle Dutch Corpus</option>
+</select>
+<input type='hidden' name='action' value='DECODE_WG'>
+<input type='file' name='lattice' multiple='multiple'>
+<input type="submit" value="Submit form to decode">
+</form>
+</div>
 
-<!--
-<button onClick="getData()">Go!</button>
--->
-
+</div>
+<button onClick="reloadModelList()">Refresh Model List</button>
 </body>
 </html>

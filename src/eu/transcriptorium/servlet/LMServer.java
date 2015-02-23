@@ -11,6 +11,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.collections.Counter;
 import edu.berkeley.nlp.lm.io.LmReaders;
+import eu.transcriptorium.lattice.Lattice;
+import eu.transcriptorium.lattice.LatticeDecoder;
+import eu.transcriptorium.lattice.LatticeToDot;
+import eu.transcriptorium.lattice.StandardLatticeFile;
 import eu.transcriptorium.lm.ScoreWordSubstitutions;
 import eu.transcriptorium.suggest.Suggest;
 
@@ -55,7 +59,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		EVALUATION,
 		COMPLETION,
 		SUGGESTION,
-		BUILD_LM
+		BUILD_LM,
+		DECODE_WG
 	};
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
@@ -198,6 +203,21 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				modelMap.put(name,lm);
 				this.modelDescriptionMap.put(name, description);
 			}
+			break;
+		case DECODE_WG:
+			response.setContentType("text/html");
+			String lmName = parameterMap.get("lm");
+			NgramLanguageModel lm = this.getModel(lmName);
+			LatticeDecoder decoder = new LatticeDecoder();
+			decoder.setLanguageModel(lm);
+			for (String l: mpfd.getNamesOfUploadedfiles())
+			{
+				Lattice lat = StandardLatticeFile.readLatticeFromFile(l);
+				List<String> sentence = decoder.decode(lat);
+				out.println(sentence);
+				out.print(LatticeToDot.latticeToSVG(lat));
+			}
+			
 			break;
 		case SUBSTITUTION:
 			try

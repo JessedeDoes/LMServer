@@ -225,11 +225,11 @@ LM: <select id="lm" name="lm">
 </td>
 </tr>
 </table>
-<span class='button-link' id='showUrl'><a target="_blank" id='url'>Show JSON</a></span>
+<span class='button-link' id='showUrl'><a target="console" id='url'>Show JSON</a></span>
 </form>
 </div>
 <div id="tabs-2">
-<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="_blank">
+<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
 <input type='hidden' name='action' value='BUILD_LM'>
 <input type='file' name='sourceFile'>
 <input name='name' type='text' value='myUpload'>
@@ -240,7 +240,7 @@ LM: <select id="lm" name="lm">
 </table>
 </div>
 <div id="tabs-3">
-<form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="_blank">
+<form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
 LM: <select id="lm2" name="lm">
 <option value="Bentham">Bentham with ECCO out-of-domain data</option>
 <option value="Reichsgericht">Reichsgericht (including OCR of book)</option>
@@ -257,5 +257,9 @@ Show word graphs: <input type='checkbox' name='showWG'><br>
 
 </div>
 <button onClick="reloadModelList()">Refresh Model List</button>
+
+<div width='100%' style='background-color: white'> 
+<iframe width='100%' height='800px' name='console'></iframe>
+</div>
 </body>
 </html>

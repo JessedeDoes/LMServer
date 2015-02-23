@@ -1,4 +1,6 @@
 package eu.transcriptorium.servlet;
+
+
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonGeneratorFactory;
@@ -17,6 +19,7 @@ import eu.transcriptorium.lattice.LatticeToDot;
 import eu.transcriptorium.lattice.StandardLatticeFile;
 import eu.transcriptorium.lm.ScoreWordSubstitutions;
 import eu.transcriptorium.suggest.Suggest;
+import eu.transcriptorium.util.StringUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -210,12 +213,20 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			NgramLanguageModel lm = this.getModel(lmName);
 			LatticeDecoder decoder = new LatticeDecoder();
 			decoder.setLanguageModel(lm);
+			out.println("<html><head><script type='text/javascript' src='JS/toggle.js'></script></head><body>");
+			int k=0;
+			String template = "<div>_S <span onclick=\"toggle_element('_ID')\">[Show word graph]</span><div id='_ID' style='display:none; background-color:pink'>_G</div></div><br>";
 			for (String l: mpfd.getNamesOfUploadedfiles())
 			{
 				Lattice lat = StandardLatticeFile.readLatticeFromFile(l);
 				List<String> sentence = decoder.decode(lat);
-				out.println(sentence);
-				out.print(LatticeToDot.latticeToSVG(lat));
+				String sent = StringUtils.join(sentence, " ");
+				sent = sent.replaceAll("<.*?>", "");
+				String svg = LatticeToDot.latticeToSVG(lat);
+				String id = "g_" + k;
+				String inst = template.replaceAll("_S", sent).replaceAll("_ID", id).replaceAll("_G", svg);
+				out.println(inst);
+				k++;
 			}
 			
 			break;

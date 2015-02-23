@@ -213,9 +213,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			NgramLanguageModel lm = this.getModel(lmName);
 			LatticeDecoder decoder = new LatticeDecoder();
 			decoder.setLanguageModel(lm);
-			out.println("<html><head><script type='text/javascript' src='JS/toggle.js'></script></head><body>");
+			out.println("<html><head><style type='text/css'>svg { width: 1400px} \n g { background-color: pink }  </style>" + 
+			"<script type='text/javascript' src='JS/toggle.js'></script></head><body>");
 			int k=0;
-			String template = "<div>_S <span onclick=\"toggle_element('_ID')\">[Show word graph]</span><div id='_ID' style='display:none; background-color:pink'>_G</div></div><br>";
+			String template = "<div>_S <span onclick=\"toggle_element('_ID')\">[Show word graph]</span><div id='_ID' style='display:none; border-style: solid'>_G</div></div><br>";
 			for (String l: mpfd.getNamesOfUploadedfiles())
 			{
 				Lattice lat = StandardLatticeFile.readLatticeFromFile(l);

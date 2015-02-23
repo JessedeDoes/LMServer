@@ -10,7 +10,7 @@ public class LatticeToDot
 		out.println("digraph graphname {");
 		for (Node n: l.nodes.values())
 		{
-			out.println("N"+ n.id + " [label=\"" + n.word + "\"];");
+			out.println("N"+ n.id + " [style=filled fillcolor=pink label=\"" + n.word + "\"];");
 		}
 		for (Arc a: l.arcs)
 		{

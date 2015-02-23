@@ -4,6 +4,25 @@ function hide_element(element_id)
   h.style.display = 'none';
 }
 
+function zoom_in(element_id)
+{
+  var e = document.getElementById(element_id);
+  var w = e.offsetWidth;
+  var h = e.offsetHeight; 
+  // alert(element_id + ": " + h + ",  " + w);
+  e.style.width = 1.4 * w;
+  e.style.height = 1.4 * h; 
+}
+
+function zoom_out(element_id)
+{
+  var e = document.getElementById(element_id);
+  var w = e.offsetWidth;
+  var h = e.offsetHeight; 
+  e.style.width =  0.7 * w;
+  e.style.height = 0.7 * h; 
+}
+
 function show_element(element_id)
 {
   var h = document.getElementById(element_id);

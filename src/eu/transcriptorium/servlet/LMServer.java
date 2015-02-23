@@ -144,6 +144,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		response.setContentType("application/json");
 
 		Map<String,String> parameterMap = cloneParameterMap(request);
+		
 		MultipartFormData mpfd = null;
 		if (ServletFileUpload.isMultipartContent(request))
 		{
@@ -210,23 +211,35 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		case DECODE_WG:
 			response.setContentType("text/html");
 			String lmName = parameterMap.get("lm");
+			boolean showWordGraphs  = false; 
+			String swg = parameterMap.get("showWG");
+			if (swg != null) showWordGraphs = swg.matches("yes|true|checked|on");
 			NgramLanguageModel lm = this.getModel(lmName);
 			LatticeDecoder decoder = new LatticeDecoder();
 			decoder.setLanguageModel(lm);
-			out.println("<html><head><style type='text/css'>svg { width: 1400px} \n g { background-color: pink }  </style>" + 
+			out.println("<html><head><style type='text/css'>.zoom { font-size: 14pt} \n svg {width: 100%; border-style: solid; border-width: 1px; border-color: pink} \n g { background-color: pink }  </style>" + 
 			"<script type='text/javascript' src='JS/toggle.js'></script></head><body>");
 			int k=0;
-			String template = "<div>_S <span onclick=\"toggle_element('_ID')\">[Show word graph]</span><div id='_ID' style='display:none; border-style: solid'>_G</div></div><br>";
+			String template = "<div>_S <span style='color: blue' onclick=\"toggle_element('div_ID')\">[Show word graph]</span>" + 
+						"<div style='display: none' id='div_ID'><span class='zoom' onclick=\"zoom_in('_ID')\">+</span> <span cass='zoom' onclick=\"zoom_out('_ID')\">-</span><br> _G</div></div><br>";
 			for (String l: mpfd.getNamesOfUploadedfiles())
 			{
 				Lattice lat = StandardLatticeFile.readLatticeFromFile(l);
 				List<String> sentence = decoder.decode(lat);
 				String sent = StringUtils.join(sentence, " ");
 				sent = sent.replaceAll("<.*?>", "");
-				String svg = LatticeToDot.latticeToSVG(lat);
-				String id = "g_" + k;
-				String inst = template.replaceAll("_S", sent).replaceAll("_ID", id).replaceAll("_G", svg);
-				out.println(inst);
+				
+				if (showWordGraphs)
+				{
+					String svg = LatticeToDot.latticeToSVG(lat);
+					String id = "g_" + k;
+					svg = svg.replaceAll("<svg", "<svg id='" + id + "'");
+					String inst = template.replaceAll("_S", sent).replaceAll("_ID", id).replaceAll("_G", svg);
+					out.println(inst);
+				} else
+				{
+					out.println(sent + "<br>");
+				}
 				k++;
 			}
 			

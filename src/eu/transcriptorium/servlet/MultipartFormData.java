@@ -148,6 +148,7 @@ public class MultipartFormData
 				String fieldvalue = fi.getString();
 
 				addField(fieldname, fieldvalue);
+				System.err.println(fieldname + " -> " + fieldvalue);
 			} else 
 			{
 				// Get the uploaded file parameters

@@ -209,12 +209,39 @@ function suggest()
 
 <div id="tabs">
 <ul>
-  <li><a href="#tabs-1">Try out model</a>
-  <li><a href="#tabs-2">Build model</a>
-  <li><a href="#tabs-3">Decode word graph</a>
+  <li><a href="#tabs-1">Build model</a>
+  <li><a href="#tabs-2">Decode word graph</a>
+  <li><a href="#tabs-3">Try out model</a>
 </ul>
 
 <div id="tabs-1">
+<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
+<input type='hidden' name='action' value='BUILD_LM'>
+<input type='file' name='sourceFile'>
+<input name='name' type='text' value='myUpload'>
+<input type='text' name='description' value=' -- please describe --'>
+<input type="submit" value="Submit form to build model">
+</form>
+<table id='modelTable'>
+</table>
+</div>
+<div id="tabs-2">
+<form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
+LM: <select id="lm2" name="lm">
+<option value="Bentham">Bentham with ECCO out-of-domain data</option>
+<option value="Reichsgericht">Reichsgericht (including OCR of book)</option>
+<option value="Plantas">Plantas weakly interpolated with Gutenberg Spanish</option>
+<option value="SpanishGutenberg">Gutenberg Spanish books</option>
+<option value="MNL">General (literary) Middle Dutch Corpus</option>
+</select><br>
+<input type='hidden' name='action' value='DECODE_WG'><br>
+<input type='file' name='lattice' multiple='multiple'><br>
+Show word graphs: <input type='checkbox' name='showWG'><br>
+<input type="submit" value="Decode">
+</form>
+</div>
+
+<div id="tabs-3">
 <form id='theform' accept-charset="UTF-8" method="POST" target="_blank" action="http://svprre02:8080/LMServer/LMServer">
 LM: <select id="lm" name="lm">
 <option value="Bentham">Bentham with ECCO out-of-domain data</option>
@@ -240,33 +267,6 @@ LM: <select id="lm" name="lm">
 <span class='button-link' id='showUrl'><a target="console" id='url'>Show JSON</a></span>
 </form>
 </div>
-<div id="tabs-2">
-<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
-<input type='hidden' name='action' value='BUILD_LM'>
-<input type='file' name='sourceFile'>
-<input name='name' type='text' value='myUpload'>
-<input type='text' name='description' value=' -- please describe --'>
-<input type="submit" value="Submit form to build model">
-</form>
-<table id='modelTable'>
-</table>
-</div>
-<div id="tabs-3">
-<form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
-LM: <select id="lm2" name="lm">
-<option value="Bentham">Bentham with ECCO out-of-domain data</option>
-<option value="Reichsgericht">Reichsgericht (including OCR of book)</option>
-<option value="Plantas">Plantas weakly interpolated with Gutenberg Spanish</option>
-<option value="SpanishGutenberg">Gutenberg Spanish books</option>
-<option value="MNL">General (literary) Middle Dutch Corpus</option>
-</select><br>
-<input type='hidden' name='action' value='DECODE_WG'><br>
-<input type='file' name='lattice' multiple='multiple'><br>
-Show word graphs: <input type='checkbox' name='showWG'><br>
-<input type="submit" value="Decode">
-</form>
-</div>
-
 </div>
 <button onClick="reloadModelList()">Refresh Model List</button>
 

@@ -71,7 +71,7 @@ public class TranskribusClient
 	String password="inl2014";
 	String user="inl";
 	String host = "dbis-faxe.uibk.ac.at";
-	String application = "TrpServerTesting";
+	String application = "TrpServer";
 	String service = "https://" + host + "/" + application;
 	String sessionId;
 
@@ -154,6 +154,54 @@ public class TranskribusClient
 		return list;
 	}
 	
+	public void downloadTranscripts(String folderName, String documentId)
+	{
+		File d = new File(folderName + "/doc." + documentId);
+		d.mkdir();
+		List<String> urls = getTranscriptURLS(documentId);
+		int k=1;
+		for (String u: urls)
+		{
+			try {
+				downloadTranscript(d, u, k++);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void downloadTranscript(File saveTo, String url, int k)
+	{
+		try
+		{
+			URL u = new URL(url);
+			URLConnection c = u.openConnection();
+			String s = c.getHeaderField("content-disposition");
+			System.err.println(s);
+			int i1 = s.indexOf("filename=\"") + "filename=.".length() ;
+			int i2 = s.lastIndexOf("\"");
+			String sub = s.substring(i1,i2);
+			System.err.println(sub);
+			File f = new File(saveTo.getCanonicalPath() +  "/" + sub + "." + k); 
+		    if (f.createNewFile())
+		    {
+		    	BufferedWriter fw = new BufferedWriter(new FileWriter(f));
+		    	InputStream istr = c.getInputStream();
+				BufferedReader b = new BufferedReader( new InputStreamReader(istr));
+				String l;
+				while ((l = b.readLine())!= null)
+				{
+					fw.write(l + "\n");
+				}
+				fw.close();
+		    }
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public Document executeRequest(String request) throws Exception 
 	{
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
@@ -175,8 +223,8 @@ public class TranskribusClient
 			
 			try 
 			{
-				System.out.println("----------------------------------------");
-				System.out.println(response.getStatusLine());
+				
+				System.err.println(response.getStatusLine());
 				InputStream s = response.getEntity().getContent();
 				BufferedReader b = new BufferedReader( new InputStreamReader(s));
 				String xml= "";
@@ -203,7 +251,7 @@ public class TranskribusClient
 	{
 		TranskribusClient c = new TranskribusClient();
 		c.login();
-		c.getTranscriptURLS("62");
+		c.downloadTranscripts("/tmp", "31");
 		//Document d = c.testIt("docs/62/fulldoc.xml");
 		//System.out.println(XML.documentToString(d));
 	}

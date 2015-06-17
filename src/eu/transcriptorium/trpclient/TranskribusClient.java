@@ -68,11 +68,11 @@ Philip
  */
 public class TranskribusClient 
 {
-	String password="inl2014";
-	String user="inl";
-	String host = "dbis-faxe.uibk.ac.at";
-	String application = "TrpServer";
-	String service = "https://" + host + "/" + application;
+	private String password="inl2014";
+	private String user="inl";
+	private String host = "dbis-faxe.uibk.ac.at";
+	private String application = "TrpServer";
+	String service = "https://" + getHost() + "/" + getApplication();
 	String sessionId;
 
 	public TranskribusClient()
@@ -82,7 +82,7 @@ public class TranskribusClient
 
 	public void authenticate(HttpsURLConnection uc)
 	{
-		String userpass = user + ":" + password;
+		String userpass = getUser() + ":" + getPassword();
 
 		String basicAuth = "Basic " + new String(Base64.encode(userpass.getBytes()));
 
@@ -94,7 +94,7 @@ public class TranskribusClient
 	{
 		try 
 		{
-			URL u = new URL(service + "/rest/auth/login_debug?user=" + user + "&pw=" + password);
+			URL u = new URL(service + "/rest/auth/login_debug?user=" + getUser() + "&pw=" + getPassword());
 			HttpsURLConnection connection = (HttpsURLConnection) u.openConnection();
 
 			InputStream s = connection.getInputStream();
@@ -124,7 +124,7 @@ public class TranskribusClient
 		{
 			protected PasswordAuthentication getPasswordAuthentication() {
 				System.err.println("eek");
-				return new PasswordAuthentication (user, password.toCharArray());
+				return new PasswordAuthentication (getUser(), getPassword().toCharArray());
 			}
 		});
 	}
@@ -162,9 +162,11 @@ public class TranskribusClient
 		int k=1;
 		for (String u: urls)
 		{
-			try {
+			try 
+			{
 				downloadTranscript(d, u, k++);
-			} catch (Exception e) {
+			} catch (Exception e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -206,14 +208,14 @@ public class TranskribusClient
 	{
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(
-				new AuthScope(host, 443),
-				new UsernamePasswordCredentials(user, password));
+				new AuthScope(getHost(), 443),
+				new UsernamePasswordCredentials(getUser(), getPassword()));
 		CloseableHttpClient httpclient = HttpClients.custom()
 				.setDefaultCredentialsProvider(credsProvider)
 				.build();
 		try 
 		{
-			URL u = new URL(service + "/rest/auth/login_debug?user=" + user + "&pw=" + password);
+			URL u = new URL(service + "/rest/auth/login_debug?user=" + getUser() + "&pw=" + getPassword());
 			HttpGet httpget = new HttpGet(service + "/rest/" + request);
 			
 			httpget.setHeader("Cookie",  "JSESSIONID=" + sessionId);
@@ -251,8 +253,42 @@ public class TranskribusClient
 	{
 		TranskribusClient c = new TranskribusClient();
 		c.login();
-		c.downloadTranscripts("/tmp", "31");
+		c.downloadTranscripts("/tmp", "37");
+		
 		//Document d = c.testIt("docs/62/fulldoc.xml");
 		//System.out.println(XML.documentToString(d));
+	}
+
+	String getPassword() {
+		return password;
+	}
+
+	void setPassword(String password) {
+		this.password = password;
+	}
+
+	String getUser() {
+		return user;
+	}
+
+	void setUser(String user) 
+	{
+		this.user = user;
+	}
+
+	String getHost() {
+		return host;
+	}
+
+	void setHost(String host) {
+		this.host = host;
+	}
+
+	String getApplication() {
+		return application;
+	}
+
+	void setApplication(String application) {
+		this.application = application;
 	}
 }

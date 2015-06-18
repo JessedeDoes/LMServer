@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import eu.transcriptorium.page.ExtractText;
 import eu.transcriptorium.util.*;
 
 import org.apache.http.auth.AuthScope;
@@ -239,6 +240,7 @@ public class TranskribusClient
 				}
 				fw.close();
 			}
+			ExtractText.printText(f.getCanonicalPath());
 		} catch (Exception e)
 		{
 			e.printStackTrace();

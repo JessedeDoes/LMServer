@@ -83,12 +83,13 @@ public class TranskribusClient
 	public void authenticate(HttpsURLConnection uc)
 	{
 		String userpass = getUser() + ":" + getPassword();
-
 		String basicAuth = "Basic " + new String(Base64.encode(userpass.getBytes()));
-
 		uc.setRequestProperty ("Authorization", basicAuth);
 	}
 
+	/**
+	 * Get the session id from XML response to login
+	 */
 
 	public void login()
 	{
@@ -110,7 +111,7 @@ public class TranskribusClient
 			org.w3c.dom.Element r = d.getDocumentElement();
 			Element e = XML.getElementByTagname(r, "sessionId");
 			this.sessionId = e.getTextContent();
-			System.err.println("Session id:" +sessionId);
+			System.err.println("Logged in with session id " +sessionId);
 		} catch (Exception e) 
 		{
 			// TODO Auto-generated catch block
@@ -130,22 +131,39 @@ public class TranskribusClient
 	}
 
 	// docs/62/fulldoc.xml
-	// Content-disposition: attachment; filename="035_328_001.xml"
-	
-	
-	public List<String> getTranscriptURLS(String documentId)
+
+
+
+	public List<String> getTranscriptURLs(String documentId)
 	{
 		List<String> list = new ArrayList<String>();
 		try 
 		{
 			Document d = executeRequest("docs/" + documentId + "/fulldoc.xml");
 			Element r = d.getDocumentElement();
-			List<Element> l = XML.getElementsByTagname(r, "transcripts", false);
-			for (Element t: l)
+			// get list of pages
+			List<Element> pages = XML.getElementsByTagname(r, "pages", false);
+			for (Element p: pages)
 			{
-				Element u = XML.getElementByTagname(t, "url");
-				list.add(u.getTextContent());
-				System.err.println(u.getTextContent());
+				// try to fetch the latest transcript for the page (most recent timestamp)
+				List<Element> transcripts = XML.getElementsByTagname(p, "transcripts", false);
+				// choose most recent???
+				String url = "";
+				String bestTime = null;
+				for (Element t: transcripts)
+				{
+					Element u = XML.getElementByTagname(t, "url");
+					String u1 = u.getTextContent();
+					Element ts =  XML.getElementByTagname(t, "timestamp");
+					String timestamp = ts.getTextContent();
+					if (bestTime == null || bestTime.compareTo(timestamp)  < 0)
+					{
+						// System.err.println("Update from " + bestTime + " to " + timestamp);
+						url = u1;
+						bestTime = timestamp;
+					}
+				}
+				list.add(url);
 			}
 		} catch (Exception e) 
 		{
@@ -153,43 +171,66 @@ public class TranskribusClient
 		}
 		return list;
 	}
-	
-	public void downloadTranscripts(String folderName, String documentId)
+
+	public void downloadTranscripts(String baseFolderName, String documentId)
 	{
-		File d = new File(folderName + "/doc." + documentId);
-		d.mkdir();
-		List<String> urls = getTranscriptURLS(documentId);
-		int k=1;
-		for (String u: urls)
+		File d = new File(baseFolderName + "/doc." + documentId);
+		if (d.exists())
 		{
-			try 
+			try
 			{
-				downloadTranscript(d, u, k++);
-			} catch (Exception e) 
+				System.err.println("deleting existing directory!!!:"  + d.getCanonicalPath());
+				deleteFolder(d);
+				//d.delete();
+			} catch (Exception e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		if (d.mkdir())
+		{
+			List<String> urls = getTranscriptURLs(documentId);
+			int k=1;
+			for (String u: urls)
+			{
+				try 
+				{
+					downloadTranscript(d, u, k++);
+				} catch (Exception e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}  else
+		{
+			System.err.println("Unable to create directory for " + documentId);
+		}
 	}
-	
-	public void downloadTranscript(File saveTo, String url, int k)
+
+	/**
+	 * 	
+	 * @param folderToSaveTo
+	 * @param url
+	 * @param k
+	 * 
+	 * 
+	 * <br/>
+	 * 
+	 */
+	public void downloadTranscript(File folderToSaveTo, String url, int k)
 	{
 		try
 		{
 			URL u = new URL(url);
 			URLConnection c = u.openConnection();
-			String s = c.getHeaderField("content-disposition");
-			System.err.println(s);
-			int i1 = s.indexOf("filename=\"") + "filename=.".length() ;
-			int i2 = s.lastIndexOf("\"");
-			String sub = s.substring(i1,i2);
-			System.err.println(sub);
-			File f = new File(saveTo.getCanonicalPath() +  "/" + sub + "." + k); 
-		    if (f.createNewFile())
-		    {
-		    	BufferedWriter fw = new BufferedWriter(new FileWriter(f));
-		    	InputStream istr = c.getInputStream();
+			String fileName = guessFilename(c);
+			System.err.println("file name: " + fileName);
+			File f = new File(folderToSaveTo.getCanonicalPath() +  "/" + fileName); //  + "." + k); 
+			if (f.createNewFile())
+			{
+				BufferedWriter fw = new BufferedWriter(new FileWriter(f));
+				InputStream istr = c.getInputStream();
 				BufferedReader b = new BufferedReader( new InputStreamReader(istr));
 				String l;
 				while ((l = b.readLine())!= null)
@@ -197,13 +238,28 @@ public class TranskribusClient
 					fw.write(l + "\n");
 				}
 				fw.close();
-		    }
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Content-disposition: attachment; filename="035_328_001.xml"
+	 * @param c
+	 * @return
+	 */
+	public String guessFilename(URLConnection c)
+	{
+		String s = c.getHeaderField("content-disposition");
+		// System.err.println(s);
+		int i1 = s.indexOf("filename=\"") + "filename=.".length() ;
+		int i2 = s.lastIndexOf("\"");
+		String fileName = s.substring(i1,i2);
+		return fileName;
+	}
+
 	public Document executeRequest(String request) throws Exception 
 	{
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
@@ -215,17 +271,16 @@ public class TranskribusClient
 				.build();
 		try 
 		{
-			URL u = new URL(service + "/rest/auth/login_debug?user=" + getUser() + "&pw=" + getPassword());
+			//URL u = new URL(service + "/rest/auth/login_debug?user=" + getUser() + "&pw=" + getPassword());
 			HttpGet httpget = new HttpGet(service + "/rest/" + request);
-			
+
 			httpget.setHeader("Cookie",  "JSESSIONID=" + sessionId);
 			System.out.println("Executing request " + httpget.getRequestLine());
-			
+
 			CloseableHttpResponse response = httpclient.execute(httpget);
-			
+
 			try 
 			{
-				
 				System.err.println(response.getStatusLine());
 				InputStream s = response.getEntity().getContent();
 				BufferedReader b = new BufferedReader( new InputStreamReader(s));
@@ -233,7 +288,7 @@ public class TranskribusClient
 				String l;
 				while ((l = b.readLine()) != null)
 				{
-					System.out.println(l);
+					// System.out.println(l);
 					xml += l;
 				}
 				Document d = XML.parseString(xml);
@@ -249,15 +304,7 @@ public class TranskribusClient
 		}
 	}
 
-	public static  void main(String[] args) throws Exception
-	{
-		TranskribusClient c = new TranskribusClient();
-		c.login();
-		c.downloadTranscripts("/tmp", "37");
-		
-		//Document d = c.testIt("docs/62/fulldoc.xml");
-		//System.out.println(XML.documentToString(d));
-	}
+	
 
 	String getPassword() {
 		return password;
@@ -290,5 +337,34 @@ public class TranskribusClient
 
 	void setApplication(String application) {
 		this.application = application;
+	}
+	
+	public static void deleteFolder(File folder) 
+	{
+	    File[] files = folder.listFiles();
+	    if (files!=null) 
+	    { //some JVMs return null for empty dirs
+	        for(File f: files) 
+	        {
+	            if(f.isDirectory()) 
+	            {
+	                deleteFolder(f);
+	            } else 
+	            {
+	                f.delete();
+	            }
+	        }
+	    }
+	    folder.delete();
+	}
+	
+	public static  void main(String[] args) throws Exception
+	{
+		TranskribusClient c = new TranskribusClient();
+		c.login();
+		c.downloadTranscripts("/tmp", args[0]);
+
+		//Document d = c.testIt("docs/62/fulldoc.xml");
+		//System.out.println(XML.documentToString(d));
 	}
 }

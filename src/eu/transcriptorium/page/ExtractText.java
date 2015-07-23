@@ -25,9 +25,11 @@ public class ExtractText
 				ContentType type = r.getType();
 				Class c = r.getClass();
 				System.out.println(r.getId() + ":" + c.getName()  + ":" + r.getRegionCount());
+				
 				if (r instanceof TextRegion)
 				{
 					TextRegion tr = (TextRegion) r;
+					
 					//tr.ge
 					//tr.get
 					
@@ -49,5 +51,10 @@ public class ExtractText
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args)
+	{
+		ExtractText.printText(args[0]);
 	}
 }

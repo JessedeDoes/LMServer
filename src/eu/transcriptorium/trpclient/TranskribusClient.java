@@ -55,6 +55,7 @@ https://dbis-faxe.uibk.ac.at/TrpServerTesting/rest/docs/62/fulldoc.xml
 https://dbis-faxe.uibk.ac.at/TrpServerTesting/rest/docs/62/1
 
 -List HTR results for page 1 (HTR results are only available for document 62 at the moment):
+
 https://dbis-faxe.uibk.ac.at/TrpServerTesting/rest/docs/62/1/wordgraphs
 
 The full webapp description with all methods can be found here:

@@ -74,8 +74,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private NgramLanguageModel getModel(String name)
 	{
 		NgramLanguageModel lm = null;
+		System.err.println("requesting model for " + name);
 		if ((lm = modelMap.get(name)) != null)
 		{
+			System.err.println("lm already loaded for " + name + ":" + lm);
 			return lm;
 		}
 		String languageModel = null;
@@ -88,12 +90,22 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		}
 		if (languageModel != null)
 		{
-			if (!languageModel.endsWith(".bin"))
-				lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
-			else
-				lm = LmReaders.readLmBinary(languageModel);
+			System.err.println("attempt to read model from " + languageModel);
+			try
+			{
+				if (!languageModel.endsWith(".bin"))
+					lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
+				else
+					lm = LmReaders.readLmBinary(languageModel);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			System.err.println("finished reading LM");
 			modelMap.put(name,lm);
+		} else
+		{
+			System.err.println("no model found for: " + name);
 		}
 		return lm;
 	}
@@ -170,6 +182,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			out.println(mapToJSON(this.modelDescriptionMap));
 			break;
 		case SUGGESTION: // bijvoorbeeld http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
+			System.err.println("suggestion action requested....");
 			Suggest s = this.getSuggester(parameterMap.get("lm"));
 			String max = parameterMap.get("number");
 			int maxSuggestions = 10;
@@ -285,7 +298,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		Suggest s = null;
 		s = this.suggesterMap.get(lmName);
 		if (s != null)
+		{
+			System.err.println("found suggester"  + s);
 			return s;
+		}
 		NgramLanguageModel lm = this.getModel(lmName);
 		if (lm != null)
 		{

@@ -37,6 +37,7 @@ public class LineFromBaseLine implements SimpleInputOutputProcess
 			e.printStackTrace();
 		}
 	}
+	
 	public void addLineShapes(Document d)
 	{
 		Element root = d.getDocumentElement();

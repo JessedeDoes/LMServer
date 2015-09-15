@@ -57,7 +57,7 @@ public class VariantLexicon
 		public String variantForm;
 		public String normalForm;
 		public double probability = 0; // relative frequency of variantForm in normalForm
-		int absoluteFrequency=0;
+		int absoluteFrequency = 0;
 		
 		List<String> composingCharacters;
 		

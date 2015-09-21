@@ -14,8 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Dit is WDic.jar in de laatste versie 
- * 
+/** Dit is WDic.jar in de laatste versie (jafar's HTR dictionary building command).
+ * The name is wrong: it builds from previously constructed word lists.
+ * TODO: make this flexible WRT the way whitespace etc is handled
  * Argumenten: 
  * 1. word list file (gewoon 1 genormalizeerd woord per regel)
  * 2. frequentielijst (ongenormalizeerd woord, met syntax <woord> tab tab <frequentie>

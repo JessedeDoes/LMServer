@@ -34,12 +34,12 @@ public class AgreementLearning
 		while (Iter < Iterations && T < Thresholds)
 		{
 
-			LanguageBuliding LmIn = new LanguageBuliding();
+			LanguageModelBuilding LmIn = new LanguageModelBuilding();
 
 			LmIn.Output = args[3];
 			LmIn.Cutoff = "0";
 
-			LanguageBuliding LmOut = new LanguageBuliding();
+			LanguageModelBuilding LmOut = new LanguageModelBuilding();
 
 			LmOut.Output = args[4];
 			LmOut.Cutoff = "0";

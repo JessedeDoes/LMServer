@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 public class LanguageModelingPrompt
 {
 
+	/**
+	 * This wraps the basic commands for language modeling in java
+	 */
 	public static void main(String[] args) throws IOException
 	{
 		// TODO Auto-generated method stub

@@ -2,7 +2,7 @@ package eu.transcriptorium.jafar.cotraining;
 
 import java.io.IOException;
 
-public class LanguageBuliding extends Thread
+public class LanguageModelBuilding extends Thread
 {
 	public String Output;
 	public String Cutoff;

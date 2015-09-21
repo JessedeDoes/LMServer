@@ -33,12 +33,12 @@ public class CoTraining
 		while (Iter < Iterations && T < Thresholds)
 		{
 
-			LanguageBuliding LmIn = new LanguageBuliding();
+			LanguageModelBuilding LmIn = new LanguageModelBuilding();
 
 			LmIn.Output = "/mnt/Projecten/transcriptorium/Tools/languagemodeling/TestSampleSelection/InBentham";
 			LmIn.Cutoff = "0";
 
-			LanguageBuliding LmOut = new LanguageBuliding();
+			LanguageModelBuilding LmOut = new LanguageModelBuilding();
 
 			LmOut.Output = "/mnt/Projecten/transcriptorium/Tools/languagemodeling/TestSampleSelection/OutBentham";
 			LmOut.Cutoff = "0";

@@ -55,12 +55,12 @@ public class AgreementLearningwithParameter {
 		    double T=0;
 			while( Iter<Integer.parseInt(args[1]) && T<Double.parseDouble(args[2]) ){
 				
-				LanguageBuliding LmIn=new LanguageBuliding();
+				LanguageModelBuilding LmIn=new LanguageModelBuilding();
 				
 				LmIn.Output=args[3]; 
 				LmIn.Cutoff="0";
 				
-	            LanguageBuliding LmOut=new LanguageBuliding();
+	            LanguageModelBuilding LmOut=new LanguageModelBuilding();
 				
 	            LmOut.Output=args[4];
 	            LmOut.Cutoff="0";

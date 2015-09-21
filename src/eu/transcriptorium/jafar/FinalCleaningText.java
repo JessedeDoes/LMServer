@@ -41,7 +41,6 @@ public class FinalCleaningText
 
 	public static void main(String[] args) throws IOException
 	{
-
 		if (args == null)
 		{
 			System.out.println("please identy the parameters.....");

@@ -1,5 +1,5 @@
 /*  Last changes in June 2014 */
-package eu.transcriptorium.jafar;
+package eu.transcriptorium.jafar.original;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -186,7 +186,7 @@ public class WordFrequencySort
 	public static void printMap(Map<String, Integer> map,
 			PrintWriter sortoutput, int num)
 	{
-		// sortoutput.println("W.List" + "\t\t" + "W.Frequency"); // do not print a header....
+		sortoutput.println("W.List" + "\t\t" + "W.Frequency");
 		// sortoutput.println("!ENTER"+"\t\t"+"1");
 		// sortoutput.println("!EXIT"+"\t\t"+"1");
 		// sortoutput.println("<s>"+"\t\t"+"1");

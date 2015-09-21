@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Dits is jafar's WFreq.jar
+ * This is jafar's WFreq.jar
  * 
  * @author does
  *

@@ -1,5 +1,4 @@
-/*  Last changes in June 2014 */
-package eu.transcriptorium.jafar;
+package eu.transcriptorium.jafar.original;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,32 +17,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
 
 /**
+ * Dits is jafar's WFreq.jar
  * 
- * @author jafar Dits is WList.jar
+ * @author does
+ *
  */
-
-public class WordFrequencySort
+public class WordFrequencyCount
 {
 
-	/**
-	 * @param args
-	 */
+	private static final int N = 1;
+
 	public static void main(String args[]) throws Exception
 	{
 
@@ -68,8 +54,8 @@ public class WordFrequencySort
 					&& (args[4].contains("-n")) && (args[6].contains("-s"))))
 			{
 				String filePath = args[1];
-				// PrintWriter out = new PrintWriter(new BufferedWriter(new
-				// FileWriter("d:/tanha.txt")));
+				PrintWriter out = new PrintWriter(new BufferedWriter(
+						new FileWriter("tanha.txt")));
 				PrintWriter output = new PrintWriter(new BufferedWriter(
 						new FileWriter(args[3])));
 				PrintWriter sortoutput = new PrintWriter(new BufferedWriter(
@@ -128,22 +114,68 @@ public class WordFrequencySort
 						}
 					}
 				}
-
+				// System.out.println(m);
+				out.println(m);
+				out.close();
 				in.close();
+
+				BufferedReader br = new BufferedReader(new FileReader(
+						"tanha.txt"));
+				String line = br.readLine();
+				String result = "", freq = "", str = "";
 				int Num = Integer.parseInt(args[5]);
+				List<String> lineList = new ArrayList<String>();
+				int flag = 0;
+				sortoutput.println("W.Frequency" + "\t\t" + "W.list");
+				if (line != null)
+				{
+					// String [] words=line.split(" ");
+					for (String Word : line.split(" "))
+					{
+						// System.out.println(Word);
+						int index = Word.lastIndexOf("=");
+						if (index > 0)
+						{
+							if (flag == 0)
+							{
+								result = Word.substring(1, index);
+								flag = 1;
+							} else
+								result = Word.substring(0, index);// +"\t"+Word.substring(index+1,Word.length()-1);
+							freq = Word.substring(index + 1, Word.length() - 1);
+						} else
+							System.out
+									.println("Error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						// System.out.println("frequency of the words== "+freq+"  related wprd== "+result);
+						int number = Integer.parseInt(freq);
+						// System.out.println("number=========="+number);
+						str = freq + '\t' + '\t' + result;
+						if (number >= Num)
+						{
+							output.println(result);
+							result = "";
+						} else
+						{
+							result = "";
+							System.out
+									.println("lessssssss frequentttttttttttttttttttttttttttttt");
+						}
 
-				Map<String, Integer> unsortlits = new HashMap<String, Integer>();
+						lineList.add(str);
+					}
+					Collections.sort(lineList);
 
-				unsortlits = printMapHash(m, output, Num);
+					for (String outputLine : lineList)
+					{
+						sortoutput.println(outputLine);
+					}
 
-				output.close();
-
-				Map<String, Integer> sorted = sortByValues(unsortlits);
-
-				printMap(sorted, sortoutput, Num);
-
+				} else
+					System.out
+							.println("The file is empty!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				br.close();
 				sortoutput.close();
-
+				output.close();
 			} else
 			{
 				System.out.println("You have used wrong paramters!");
@@ -154,74 +186,5 @@ public class WordFrequencySort
 		}
 		System.out.println("\n\n The process was finished!");
 
-	}
-
-	public static <K extends Comparable, V extends Comparable> Map<K, V> sortByValues(
-			Map<K, V> map)
-	{
-		List<Map.Entry<K, V>> entries = new LinkedList<Map.Entry<K, V>>(
-				map.entrySet());
-
-		Collections.sort(entries, new Comparator<Map.Entry<K, V>>() {
-
-			@Override
-			public int compare(Entry<K, V> o1, Entry<K, V> o2)
-			{
-				return o1.getValue().compareTo(o2.getValue());
-			}
-		});
-
-		// LinkedHashMap will keep the keys in the order they are inserted
-		// which is currently sorted on natural ordering
-		Map<K, V> sortedMap = new LinkedHashMap<K, V>();
-
-		for (Map.Entry<K, V> entry : entries)
-		{
-			sortedMap.put(entry.getKey(), entry.getValue());
-		}
-
-		return sortedMap;
-	}
-
-	public static void printMap(Map<String, Integer> map,
-			PrintWriter sortoutput, int num)
-	{
-		// sortoutput.println("W.List" + "\t\t" + "W.Frequency"); // do not print a header....
-		// sortoutput.println("!ENTER"+"\t\t"+"1");
-		// sortoutput.println("!EXIT"+"\t\t"+"1");
-		// sortoutput.println("<s>"+"\t\t"+"1");
-		// sortoutput.println("</s>"+"\t\t"+"1");
-
-		for (Map.Entry<String, Integer> entry : map.entrySet())
-		{
-			// System.out.println("Key : " + entry.getKey() + " Value : "
-			// + entry.getValue());
-			int freq = entry.getValue();
-			if (freq > num)
-				sortoutput.println(entry.getKey() + "\t\t" + entry.getValue());
-		}
-	}
-
-	public static Map<String, Integer> printMapHash(Map<String, Integer> map,
-			PrintWriter sortoutput, int num)
-	{
-		// sortoutput.println("!ENTER");
-		// sortoutput.println("!EXIT");
-		// sortoutput.println("<s>");
-		// sortoutput.println("</s>");
-
-		Map<String, Integer> unsortlits = new HashMap<String, Integer>();
-
-		for (Map.Entry<String, Integer> entry : map.entrySet())
-		{
-			// System.out.println("Key : " + entry.getKey() + " Value : " +
-			// entry.getValue());
-			String st = (String) entry.getKey();
-			int freq = entry.getValue();
-			unsortlits.put(st, freq);
-			if (freq > num)
-				sortoutput.println(entry.getKey());
-		}
-		return unsortlits;
 	}
 }

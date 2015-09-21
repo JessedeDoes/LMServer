@@ -43,12 +43,10 @@ public class FinalCleaningText
 			
 			String line;
 			
-			while ((line = br.readLine()) != null)
+			while ((line = br.readLine()) != null) // we should have the tokenizer in here....
 			{
 				for (String w: line.split("\\s+"))
 				{
-					//String[] chars = characterSet.wordToModelNames(w);
-					//System.err.println(Arrays.asList(chars));
 					String cleaned = characterSet.cleanWord(w);
 					if (cleaned != null && cleaned.length() > 0)
 					{

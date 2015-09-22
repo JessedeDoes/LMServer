@@ -4,7 +4,8 @@ FILE=/mnt/Projecten/transcriptorium/Data/Corpora/Bentham/LPL/NotBatch1.lpl.newto
 #FILE=Test/Input/justATest.txt
 OUTPUT=./Test
 
-java -classpath ./bin eu.transcriptorium.jafar.FinalCleaningText $FILE resources/CharacterSets/AuxHMMsList  Test/test.out.clean Test/normalizedText.txt
+java -classpath `pwd`/build/WEB-INF/classes eu.transcriptorium.jafar.FinalCleaningText $FILE resources/CharacterSets/AuxHMMsList  Test/test.out.clean Test/normalizedText.txt
+exit
 java -classpath ./bin eu.transcriptorium.jafar.WordFrequencySort -i Test/test.out.clean -o Test/csWordList.txt -n 0 -s Test/csSortedWordList.txt
 
 perl -pe 's/.*/uc $&/eg' $OUTPUT/csWordList.txt | sort -u >  $OUTPUT/ciWordList.txt

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -197,7 +197,8 @@ public class BuildDictionaryFromOriginalText
 		DecimalFormat numberFormat = new DecimalFormat("#.000000000");
 		String frequency = numberFormat.format(num);
 		
-		if (unescaped.contains("<gap/>")) // this should be inside the character processing class
+		String gap = "<gap/>";
+		if (unescaped.contains(gap)) // this should be inside the character processing class
 		{
 			out.print("[" + unescaped + "]" + "\t" + frequency + "\t" + "<GAP>" + " ");
 		} else

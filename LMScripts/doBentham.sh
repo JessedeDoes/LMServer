@@ -1,9 +1,10 @@
 #FILE=/mnt/tsdata/INL/EnglishCorpora/BenthamTranscriptionsNotBatch1.lpl.txt
 FILE=Test/Input/BenthamTranscriptionsNotBatch1.lpl.txt
+FILE=Test/Input/justATest.txt
 OUTPUT=./Test
 
 java -classpath ./bin eu.transcriptorium.jafar.FinalCleaningText $FILE resources/CharacterSets/AuxHMMsList  Test/test.out.clean Test/normalizedText.txt
-java -classpath ./bin eu.transcriptorium.jafar.WordFrequencySort -i Test/test.out.clean -o Test/csWordList.txt -n 3 -s Test/csSortedWordList.txt
+java -classpath ./bin eu.transcriptorium.jafar.WordFrequencySort -i Test/test.out.clean -o Test/csWordList.txt -n 0 -s Test/csSortedWordList.txt
 
 perl -pe 's/.*/uc $&/eg' $OUTPUT/csWordList.txt | sort -u >  $OUTPUT/ciWordList.txt
 

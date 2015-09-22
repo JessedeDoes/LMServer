@@ -58,10 +58,12 @@ public class FinalCleaningText
 				cleanedOutput.println();
 				normalizedOutput.println();
 			}
+			cleanedOutput.close();
+			normalizedOutput.close();
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public static void main(String[] args) throws IOException

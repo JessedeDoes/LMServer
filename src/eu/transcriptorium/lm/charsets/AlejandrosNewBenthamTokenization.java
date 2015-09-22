@@ -1,10 +1,14 @@
 package eu.transcriptorium.lm.charsets;
 
+import eu.transcriptorium.util.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
+
+import eu.transcriptorium.util.SimpleTokenizer;
 
 public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.CharacterSet
 {
@@ -15,14 +19,18 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 				{"*", "\\*", "\\\\\\*"},
 	};
 
+	SimpleTokenizer tokenizer = new SimpleTokenizer();
 	Map<Character,String> characterNames = new HashMap<Character,String>();
 	static Map<Character,String> escapeMap = new HashMap<Character,String>();
 	
 	static String sentenceStart = "<BS>";
 	static String sentenceEnd = "<ES>";
-	static String internalSpace = "<is>";
-	static String externalSpace = "<es>";
+	static String initialSpace = "<is>";
+	static String finalSpace = "<fs>";
 
+	static char hasInitialSpaceOnlyMarker =  '<'; // '前'; // problem if accepted by charset
+	static char  hasFinalSpaceOnlyMarker = '>'; // '后'; //  problem if accepted by charset
+	
 	static boolean[] characterAccepted = new boolean[Character.MAX_CODE_POINT+1];
 
 	static
@@ -42,7 +50,14 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		char[] characters = w.toCharArray();
 		List<String> l = new ArrayList<String>();
 		String name;
+		boolean normalWord = true;
 		
+		if (w.startsWith(hasInitialSpaceOnlyMarker+""))
+		{
+			l.add(initialSpace);
+			normalWord = false;
+		}
+	
 		for (Character c: characters)
 		{
 			if (characterAccepted[c])
@@ -55,6 +70,20 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			}
 		}
 		
+		if (w.endsWith(hasFinalSpaceOnlyMarker+""))
+		{
+			l.add(finalSpace);
+			normalWord = false;
+		}
+		if (normalWord)
+		{
+			boolean isNumber = w.matches("^[0-9]+$");
+			List<String> l1 = new ArrayList<String>();
+			if (!isNumber) l1.add(initialSpace);
+			l1.addAll(l);
+			if (!isNumber) l1.add(finalSpace);
+			l = l1;
+		}
 		String[] a = new String[l.size()];
 		return l.toArray(a);
 	}
@@ -63,6 +92,46 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	public String cleanWord(String w)
 	{
 		// TODO Auto-generated method stub
+		System.err.println(w);
+		tokenizer.tokenize(w);
+		List<String> parts = new ArrayList<String>();
+		if (tokenizer.prePunctuation.length() > 0)
+		{
+			parts.add( hasInitialSpaceOnlyMarker + cleanOneToken(tokenizer.prePunctuation));
+		}
+		if (tokenizer.trimmedToken.length() > 0)
+		{
+			if (tokenizer.trimmedToken.matches("^[0-9]+$")) // gedoe met getalletjes. lelijk.
+			{
+				char[] characters = w.toCharArray();
+				for (int i=0; i < characters.length; i++)
+				{
+					if (i==0)
+					{
+					   if (i==characters.length-1)
+						   parts.add("" + hasInitialSpaceOnlyMarker + characters[i] + hasFinalSpaceOnlyMarker  );
+					   else
+						   parts.add("" + hasInitialSpaceOnlyMarker + characters[i]);
+					} else
+					{
+						if (i==characters.length-1)
+							parts.add("" + characters[i] + hasFinalSpaceOnlyMarker  );
+						else
+							parts.add( "" + characters[i]);
+					}
+				}
+			}  else
+				parts.add(cleanOneToken(tokenizer.trimmedToken));
+		}
+		if (tokenizer.postPunctuation.length() > 0)
+		{
+			parts.add( cleanOneToken(tokenizer.postPunctuation) + hasFinalSpaceOnlyMarker );
+		}
+		return StringUtils.join(parts, " ");
+	}
+	
+	public String cleanOneToken(String w)
+	{
 		char[] characters = w.toCharArray();
 		StringBuffer b = new StringBuffer();
 		String esc;
@@ -124,13 +193,20 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	public String unescapeWord(String w) 
 	{
 		// TODO Auto-generated method stub
+		
+		w = w.replaceAll(hasFinalSpaceOnlyMarker +  "", w);
+		w = w.replaceAll("" + hasInitialSpaceOnlyMarker, w);
+		
 		if (!w.contains("\\"))
 			return w;
 		for (String[] e: escapes)
 		{
 			w = w.replaceAll(e[2], e[0]);
 		}
-		//System.err.println("UNESCAPED: " + w);
+		
+	
+		
+		System.err.println("UNESCAPED: " + w);
 		return w;
 	}
 }

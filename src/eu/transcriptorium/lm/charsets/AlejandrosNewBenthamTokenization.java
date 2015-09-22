@@ -194,8 +194,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	{
 		// TODO Auto-generated method stub
 		
-		w = w.replaceAll(hasFinalSpaceOnlyMarker +  "", w);
-		w = w.replaceAll("" + hasInitialSpaceOnlyMarker, w);
+		w = w.replaceAll(hasFinalSpaceOnlyMarker +  "$", "");
+		w = w.replaceAll("^" + hasInitialSpaceOnlyMarker, "");
 		
 		if (!w.contains("\\"))
 			return w;

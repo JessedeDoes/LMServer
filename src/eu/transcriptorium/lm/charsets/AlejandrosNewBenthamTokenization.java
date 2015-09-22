@@ -92,7 +92,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	public String cleanWord(String w)
 	{
 		// TODO Auto-generated method stub
-		System.err.println(w);
+		
 		tokenizer.tokenize(w);
 		List<String> parts = new ArrayList<String>();
 		if (tokenizer.prePunctuation.length() > 0)
@@ -206,7 +206,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		
 	
 		
-		System.err.println("UNESCAPED: " + w);
+		//System.err.println("UNESCAPED: " + w);
 		return w;
 	}
 }

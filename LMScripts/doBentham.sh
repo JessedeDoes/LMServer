@@ -1,6 +1,7 @@
 #FILE=/mnt/tsdata/INL/EnglishCorpora/BenthamTranscriptionsNotBatch1.lpl.txt
-FILE=Test/Input/BenthamTranscriptionsNotBatch1.lpl.txt
-FILE=Test/Input/justATest.txt
+FILE=/mnt/Projecten/transcriptorium/Data/Corpora/Bentham/LPL/NotBatch1.lpl.newtok.txt
+#FILE=Test/Input/BenthamTranscriptionsNotBatch1.lpl.txt
+#FILE=Test/Input/justATest.txt
 OUTPUT=./Test
 
 java -classpath ./bin eu.transcriptorium.jafar.FinalCleaningText $FILE resources/CharacterSets/AuxHMMsList  Test/test.out.clean Test/normalizedText.txt
@@ -13,8 +14,10 @@ echo "</s>" >> $OUTPUT/ciWordList.txt
 
 java -classpath ./bin eu.transcriptorium.jafar.BuildDictionaryFromOriginalText resources/CharacterSets/AuxHMMsList $OUTPUT/csWordList.txt $OUTPUT/csSortedWordList.txt $OUTPUT/dictionary.txt
 
+
 export SRILM_HOME=/home/jesse/Tools/srilm
-export PATH=/home/jesse/Tools/srilm/bin/i686-m64/:/home/jesse/Tools/srilm/bin/:$PATH
+export SRILM_HOME=/mnt/Projecten/transcriptorium/Tools/SRILM
+export PATH=$SRILM_HOME/bin:/$SRILM_HOME/bin/i686-m64/:/usr/bin/:$PATH
 
 echo "Start language modeling \n"
 

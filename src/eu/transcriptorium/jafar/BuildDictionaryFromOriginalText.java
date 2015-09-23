@@ -49,7 +49,7 @@ public class BuildDictionaryFromOriginalText
 		this.characterSet = cs;
 	}
 	
-	public void processFiles(String frequencyList, String outFile)
+	public void processFiles(String frequencyList, String outFile, String normalizedWordListOut)
 	{
 		try
 		{
@@ -63,6 +63,12 @@ public class BuildDictionaryFromOriginalText
 				readFrequencyList(frequencylistReader);
 				frequencylistReader.close();
 				printDictionary(out);
+				if (normalizedWordListOut != null)
+				{
+					PrintWriter wout = new PrintWriter(new BufferedWriter( new FileWriter(normalizedWordListOut)));
+					this.writeNormalizedWordList(wout);
+					wout.close();
+				}
 				out.flush();
 				out.close();
 			} finally
@@ -88,14 +94,19 @@ public class BuildDictionaryFromOriginalText
 		out.println("\"" + "</s>" + "\"" + "\t" + "[" + "]" + "\t" + "<ES>");
 	}
 
-	/**
-	 * Reads in (unnormalized!) word list and outputs variants
-	 * Dictionary sorting is a bit strange this way...
-	 * @param wordlistReader
-	 * @param out
-	 * @throws IOException
-	 */
-
+	
+	private void writeNormalizedWordList(PrintWriter out)
+	{
+		out.println("< s>");
+		out.println("</s>");
+		List<String> normalizedWords = new ArrayList<String>();
+		normalizedWords.addAll(normalized2Variants.keySet());
+		Collections.sort(normalizedWords);
+		for (String norm: normalizedWords)
+		{
+			out.println(norm);
+		}
+	}
 
 	 private  void printDictionary(PrintWriter out) throws IOException 
 	{
@@ -127,7 +138,7 @@ public class BuildDictionaryFromOriginalText
 						outputVariant(v,num,out);
 					}
 				} 
-				normalized2Variants.remove(norm);
+				
 			}
 		}
 	/**
@@ -169,7 +180,8 @@ public class BuildDictionaryFromOriginalText
 			CharacterSet cs = new AlejandrosNewBenthamTokenization();
 			cs.loadFromHMMList(args[0]);
 			BuildDictionaryFromOriginalText db = new BuildDictionaryFromOriginalText(cs);
-			db.processFiles(args[2], args[3]);
+			String arg3 = args.length > 3?args[3]:null;
+			db.processFiles(args[1], args[2], arg3);
 		}
 	}
 

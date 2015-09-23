@@ -71,10 +71,10 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		boolean normalWord = true;
 		
 		// System.err.println(w);
-		if (w.contains(">") || w.contains("<"))
-		{
-			System.err.println(w);
-		}
+		//if (w.contains(">") || w.contains("<"))
+		//{
+			//System.err.println(w);
+		//}
 		
 		if (w.startsWith(hasInitialSpaceOnlyMarker+""))
 		{
@@ -100,10 +100,10 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			normalWord = false;
 		}
 		
-		if (!normalWord)
-		{
-			System.err.println(w + "--->"  + l);
-		}
+		//if (!normalWord)
+		//{
+		//	System.err.println(w + "--->"  + l);
+		// }
 		
 		if (normalWord)
 		{

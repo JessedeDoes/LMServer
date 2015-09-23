@@ -2,6 +2,7 @@
 package eu.transcriptorium.jafar;
 
 import eu.transcriptorium.lm.CharacterSet;
+import eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization;
 import eu.transcriptorium.util.StringUtils;
 
 import java.io.BufferedReader;
@@ -20,6 +21,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -39,8 +41,8 @@ import java.util.TreeMap;
  * 
  * @author jafar this is WList.jar
  * 
- * This is the main class in Jafar's WList.jar
- * Produces a word frequency list from running text
+ *         This is the main class in Jafar's WList.jar Produces a word frequency
+ *         list from running text
  * 
  */
 
@@ -53,23 +55,31 @@ public class WordFrequencySort
 		return st[st.length - 1].getClassName();
 	}
 
-	CharacterSet characterSet;
-	
+	CharacterSet characterSet = null;
+
 	public WordFrequencySort(CharacterSet cs)
 	{
 		this.characterSet = cs;
 	}
-	
+
 	public static void main(String args[]) throws Exception
 	{
-		CharacterSet cs = null;
-		new WordFrequencySort(cs).process(args);
+		CharacterSet cs = new AlejandrosNewBenthamTokenization();
+		if (args.length > 2 && args[0].equals("-c"))
+		{
+			cs.loadFromHMMList(args[1]);
+			String[] args1 = Arrays.copyOfRange(args, 2, args.length);
+			new WordFrequencySort(cs).process(args1);
+		} else
+		{
+			new WordFrequencySort(null).process(args);
+		}
 	}
-	
+
 	/**
 	 * @param args
 	 */
-	
+
 	public void process(String args[]) throws Exception
 	{
 
@@ -96,21 +106,22 @@ public class WordFrequencySort
 				String filePath = args[1];
 				// PrintWriter out = new PrintWriter(new BufferedWriter(new
 				// FileWriter("d:/tanha.txt")));
-				PrintWriter output = new PrintWriter(new BufferedWriter(
-						new FileWriter(args[3])));
-				PrintWriter sortoutput = new PrintWriter(new BufferedWriter(
-						new FileWriter(args[7])));
+				PrintWriter output = new PrintWriter(new BufferedWriter( new FileWriter(args[3])));
+				PrintWriter sortoutput = new PrintWriter(new BufferedWriter(new FileWriter(args[7])));
+				
+				PrintWriter normalizedOutput = null;
+				if (this.characterSet != null)
+					normalizedOutput = new PrintWriter(new BufferedWriter(new FileWriter(args[7] + ".norm")));
 
 				System.out.println(" Starting " + getTopClass()
 						+ StringUtils.join(args, " "));
-				
+
 				// Map File from filename to byte buffer
 
 				FileInputStream in = new FileInputStream(filePath);
 				FileChannel filech = in.getChannel();
 				int fileLen = (int) filech.size();
-				MappedByteBuffer buf = filech.map(
-						FileChannel.MapMode.READ_ONLY, 0, fileLen);
+				MappedByteBuffer buf = filech.map(FileChannel.MapMode.READ_ONLY, 0, fileLen);
 
 				// Convert to character buffer
 				Charset chars = Charset.forName("UTF-8");

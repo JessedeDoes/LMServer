@@ -1,6 +1,9 @@
 /*  Last changes in June 2014 */
 package eu.transcriptorium.jafar;
 
+import eu.transcriptorium.lm.CharacterSet;
+import eu.transcriptorium.util.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -22,7 +25,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -35,16 +37,40 @@ import java.util.TreeMap;
 
 /**
  * 
- * @author jafar Dits is WList.jar
+ * @author jafar this is WList.jar
+ * 
+ * This is the main class in Jafar's WList.jar
+ * Produces a word frequency list from running text
+ * 
  */
 
 public class WordFrequencySort
 {
 
+	public static String getTopClass()
+	{
+		StackTraceElement[] st = Thread.currentThread().getStackTrace();
+		return st[st.length - 1].getClassName();
+	}
+
+	CharacterSet characterSet;
+	
+	public WordFrequencySort(CharacterSet cs)
+	{
+		this.characterSet = cs;
+	}
+	
+	public static void main(String args[]) throws Exception
+	{
+		CharacterSet cs = null;
+		new WordFrequencySort(cs).process(args);
+	}
+	
 	/**
 	 * @param args
 	 */
-	public static void main(String args[]) throws Exception
+	
+	public void process(String args[]) throws Exception
 	{
 
 		if (args == null)
@@ -56,7 +82,7 @@ public class WordFrequencySort
 		} else if (args.length < 8)
 		{
 			System.out
-					.println("please identy the parameters. The guidelnie is as follow:");
+					.println("please identy the parameters. The guideline is as follow:");
 			System.out
 					.println("-i input file name \n -o output file name, which is the word list\n -n number of frequency \n -s sorted file name. ");
 
@@ -75,7 +101,9 @@ public class WordFrequencySort
 				PrintWriter sortoutput = new PrintWriter(new BufferedWriter(
 						new FileWriter(args[7])));
 
-				System.out.println(" The process was started!\n\n");
+				System.out.println(" Starting " + getTopClass()
+						+ StringUtils.join(args, " "));
+				
 				// Map File from filename to byte buffer
 
 				FileInputStream in = new FileInputStream(filePath);
@@ -146,13 +174,14 @@ public class WordFrequencySort
 
 			} else
 			{
-				System.out.println("You have used wrong paramters!");
+				System.out.println("You have used wrong parameters!");
 				System.out.println("please identy the parameters.....");
 				System.out
 						.println("-i input file name \n -o output file name, which is the word list\n -n number of frequency \n -s sorted file name.\n ");
 			}
 		}
-		System.out.println("\n\n The process was finished!");
+
+		System.out.println(" Finished " + getTopClass());
 
 	}
 
@@ -186,7 +215,8 @@ public class WordFrequencySort
 	public static void printMap(Map<String, Integer> map,
 			PrintWriter sortoutput, int num)
 	{
-		// sortoutput.println("W.List" + "\t\t" + "W.Frequency"); // do not print a header....
+		// sortoutput.println("W.List" + "\t\t" + "W.Frequency"); // do not
+		// print a header....
 		// sortoutput.println("!ENTER"+"\t\t"+"1");
 		// sortoutput.println("!EXIT"+"\t\t"+"1");
 		// sortoutput.println("<s>"+"\t\t"+"1");

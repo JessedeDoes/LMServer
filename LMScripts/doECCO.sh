@@ -1,18 +1,8 @@
-CORPUS=/mnt/Projecten/transcriptorium/Data/Corpora/Bentham/LPL/NotBatch1.lpl.newtok.txt
-CORPUS=Test/Input/justATest.txt
-OUTPUT=BenthamNewTokenization/Bentham_bigram
-CUTOFF=0
-
-############################3
-
-#CORPUS=Test/Input/BenthamTranscriptionsNotBatch1.lpl.txt
-#CORPUS=Test/Input/justATest.txt
-
-CLASSPATH=./bin
+CORPUS=BenthamNewTokenization/selectedECCOtext.txt
+OUTPUT=BenthamNewTokenization/ECCO_bigram
+CLASSPATH=./build/classes
 java -classpath $CLASSPATH eu.transcriptorium.jafar.FinalCleaningText $CORPUS resources/CharacterSets/AuxHMMsList  $OUTPUT/test.out.clean $OUTPUT/normalizedText.txt
-java -classpath $CLASSPATH eu.transcriptorium.jafar.WordFrequencySort -i $OUTPUT/test.out.clean -o $OUTPUT/csWordList.txt -n $CUTOFF -s $OUTPUT/csSortedWordList.txt
-
-# onderstaand is twijfelachtig voor hoge asciis
+java -classpath $CLASSPATH eu.transcriptorium.jafar.WordFrequencySort -i $OUTPUT/test.out.clean -o $OUTPUT/csWordList.txt -n 2 -s $OUTPUT/csSortedWordList.txt
 
 perl -pe 's/.*/uc $&/eg' $OUTPUT/csWordList.txt | sort -u >  $OUTPUT/ciWordList.txt
 
@@ -21,7 +11,6 @@ echo "</s>" >> $OUTPUT/ciWordList.txt
 
 java -classpath $CLASSPATH eu.transcriptorium.jafar.BuildDictionaryFromOriginalText resources/CharacterSets/AuxHMMsList $OUTPUT/csWordList.txt $OUTPUT/csSortedWordList.txt $OUTPUT/dictionary.txt
 
-###########################################################
 
 export SRILM_HOME=/home/jesse/Tools/srilm
 export SRILM_HOME=/mnt/Projecten/transcriptorium/Tools/SRILM
@@ -34,8 +23,6 @@ $SRILM_HOME/bin/i686-m64/ngram-count -sort -order 2 -text $OUTPUT/normalizedText
 echo "finished counting"
 
 $SRILM_HOME/bin/make-big-lm -read $OUTPUT/count.txt.gz -name $OUTPUT/normalizedText.txt -order 2  -gt1min 0 -gt2min 0 -kndiscount -lm $OUTPUT/languageModel.lm -limit-vocab -vocab $OUTPUT/ciWordList.txt -interpolate
-
-#############################################################################
 
 export HTK=/home/jesse/Tools/htk3-4-Atros/bin.linux/
 export HTK=/usr/local/bin

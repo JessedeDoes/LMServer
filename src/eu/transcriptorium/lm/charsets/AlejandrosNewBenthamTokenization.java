@@ -18,9 +18,19 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 				{"\"", "\\\"", "\\\\\""},
 				{"*", "\\*", "\\\\\\*"},
 	};
-
+	
+	static Character[][] mappings = 
+	{
+		{'\u201d', '"'},
+		{'\u2014', '-'},
+		{ '\u201c', '"'},
+		{ '\u2018', '\''},
+		{ '\u2019', '\''},
+	};
+	
 	SimpleTokenizer tokenizer = new SimpleTokenizer();
 	Map<Character,String> characterNames = new HashMap<Character,String>();
+	static Map<Character,Character> characterMappings = new HashMap<Character,Character>();
 	static Map<Character,String> escapeMap = new HashMap<Character,String>();
 	
 	static String sentenceStart = "<BS>";
@@ -41,16 +51,30 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		{
 			escapeMap.put(e[0].charAt(0), e[1]);
 		}
+		for (Character[] e: mappings)
+		{
+			// System.err.println("mapping character:"  + e[0] + "-->" + e[1]);
+			characterMappings.put(e[0], e[1]);
+		}
 	};
 	
 	@Override
 	public String[] wordToModelNames(String w)
 	{
 		// TODO Auto-generated method stub
+		//System.err.println("to models: " + w);
+		w = removeEscapes(w);
+		
 		char[] characters = w.toCharArray();
 		List<String> l = new ArrayList<String>();
 		String name;
 		boolean normalWord = true;
+		
+		// System.err.println(w);
+		if (w.contains(">") || w.contains("<"))
+		{
+			System.err.println(w);
+		}
 		
 		if (w.startsWith(hasInitialSpaceOnlyMarker+""))
 		{
@@ -75,15 +99,24 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			l.add(finalSpace);
 			normalWord = false;
 		}
+		
+		if (!normalWord)
+		{
+			System.err.println(w + "--->"  + l);
+		}
+		
 		if (normalWord)
 		{
 			boolean isNumber = w.matches("^[0-9]+$");
 			List<String> l1 = new ArrayList<String>();
-			if (!isNumber) l1.add(initialSpace);
+			if (!isNumber) 
+				l1.add(initialSpace);
 			l1.addAll(l);
-			if (!isNumber) l1.add(finalSpace);
+			if (!isNumber) 
+				l1.add(finalSpace);
 			l = l1;
 		}
+		
 		String[] a = new String[l.size()];
 		return l.toArray(a);
 	}
@@ -94,6 +127,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		// TODO Auto-generated method stub
 		
 		tokenizer.tokenize(w);
+		boolean somethingHappened = !(tokenizer.trimmedToken.equals(w));
+
 		List<String> parts = new ArrayList<String>();
 		if (tokenizer.prePunctuation.length() > 0)
 		{
@@ -103,7 +138,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		{
 			if (tokenizer.trimmedToken.matches("^[0-9]+$")) // gedoe met getalletjes. lelijk.
 			{
-				char[] characters = w.toCharArray();
+				char[] characters = tokenizer.trimmedToken.toCharArray();
 				for (int i=0; i < characters.length; i++)
 				{
 					if (i==0)
@@ -127,6 +162,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		{
 			parts.add( cleanOneToken(tokenizer.postPunctuation) + hasFinalSpaceOnlyMarker );
 		}
+        // if (somethingHappened) System.err.println(w + " ::: " + parts);
 		return StringUtils.join(parts, " ");
 	}
 	
@@ -134,15 +170,26 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	{
 		char[] characters = w.toCharArray();
 		StringBuffer b = new StringBuffer();
-		String esc;
+		String esc; Character c1;
 		for (char c: characters)
 		{
 			if (characterAccepted[c])
 			{
 				b.append(c);
-			} else if ((esc = escapeMap.get(c)) != null) // no -- do not escape here yet, only after tokenization.....
+			} else if ((c1 = characterMappings.get(c)) != null)
+			{ 
+				c = c1;
+			} 
+			if ((esc = escapeMap.get(c)) != null) // no -- do not escape here yet, only after tokenization.....
 			{
 				b.append(esc);
+			} else if ((esc = characterNames.get(c)) != null)
+			{
+				//System.err.println("OK! " + esc);
+			    b.append(c);	
+			} else
+			{
+				//System.err.println("Discarding:" + c);
 			}
 		}
 		if (b.length() == 0)
@@ -180,7 +227,10 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 				{
 					String[] parts = line.split("\\t");
 					if (parts.length > 1 && parts[0].length() > 0)
+					{
+						// System.err.println("mapping:" + parts[0].charAt(0) + " -- "  + parts[1] );
 						characterNames.put(parts[0].charAt(0), parts[1]);
+					}
 				}
 			}
 		} catch (Exception e)
@@ -189,24 +239,27 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 	}
 
+	/**
+	 * Produces the variant in printable form
+	 */
 	@Override
 	public String unescapeWord(String w) 
-	{
-		// TODO Auto-generated method stub
-		
+	{	
 		w = w.replaceAll(hasFinalSpaceOnlyMarker +  "$", "");
 		w = w.replaceAll("^" + hasInitialSpaceOnlyMarker, "");
 		
+		
+		return removeEscapes(w);
+	}
+	
+	public String removeEscapes(String w) 
+	{	
 		if (!w.contains("\\"))
 			return w;
 		for (String[] e: escapes)
 		{
 			w = w.replaceAll(e[2], e[0]);
 		}
-		
-	
-		
-		//System.err.println("UNESCAPED: " + w);
 		return w;
 	}
 }

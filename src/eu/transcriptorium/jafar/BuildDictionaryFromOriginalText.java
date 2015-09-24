@@ -97,7 +97,7 @@ public class BuildDictionaryFromOriginalText
 	
 	private void writeNormalizedWordList(PrintWriter out)
 	{
-		out.println("< s>");
+		out.println("<s>");
 		out.println("</s>");
 		List<String> normalizedWords = new ArrayList<String>();
 		normalizedWords.addAll(normalized2Variants.keySet());

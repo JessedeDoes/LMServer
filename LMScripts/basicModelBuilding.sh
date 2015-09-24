@@ -33,6 +33,8 @@ languageModeling()
   $SRILM_HOME/bin/make-big-lm -read $OUTPUT/count.txt.gz -name $OUTPUT/normalizedText.txt -order 2  -gt1min 0 -gt2min 0 -kndiscount -lm $MODEL -limit-vocab -vocab $VOCAB -interpolate
 }
 
+########################################################################################################################################
+
 languageModeling $OUTPUT/normalizedText.txt $OUTPUT/normalizedWordList.txt $OUTPUT/languageModel.lm
 
 echo "start HBuild"

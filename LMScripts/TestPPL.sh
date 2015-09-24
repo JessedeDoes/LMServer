@@ -8,12 +8,13 @@ MODEL1=$2
 MODEL2=$3
 
 
+echo "TEXT=$TEXT"
+echo "MODEL1=$MODEL1"
+echo "MODEL2=$MODEL2"
 
 export SRILM_HOME=/mnt/Projecten/transcriptorium/Tools/SRILM
 export PATH=$PATH:$SRILM_HOME/bin:$SRILM_HOME/bin/i686-m64/
 export PATH=$PATH:/opt/jdk1.7.0/bin/
-
-
 
 ngram -debug 2 -order 2  -lm $MODEL1/languageModel.lm  -cache 0 -ppl $TEXT > $MODEL2
 

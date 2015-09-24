@@ -16,6 +16,9 @@ java $OPT -jar WList.jar -i $MODEL3/cleanedText.txt -o $MODEL3/csWordList.txt -n
 java $OPT -jar WNorm.jar $MODEL3/cleanedText.txt $MODEL3/normalizedText.txt
 
 
+# build dictionary and vocab for combined text...
+# which means you have to combine texts first.
+
 perl -pe 's/.*/uc $&/eg' $MODEL3/csWordList.txt | sort -u >  $MODEL3/ciWordList.txt
 
 echo "<s>" >> $MODEL3/ciWordList.txt

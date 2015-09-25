@@ -1,7 +1,7 @@
 CHARSET=resources/CharacterSets/AuxHMMsList
 CORPUS=/mnt/Projecten/transcriptorium/Data/Corpora/Bentham/LPL/NotBatch1.lpl.newtok.txt
 OUTPUT=BenthamNewTokenization/Bentham_bigram
-CUTOFF=0
+CUTOFF=1
 
 export CLASSPATH=./build/classes
 

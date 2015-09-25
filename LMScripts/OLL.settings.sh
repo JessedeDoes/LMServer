@@ -1,7 +1,7 @@
 CORPUS=/mnt/Projecten/transcriptorium/Data/Corpora/Bentham/OLL/LPLNewPunctuation/all.txt
 OUTPUT=BenthamNewTokenization/OLL_bigram
 CHARSET=resources/CharacterSets/AuxHMMsList
-CUTOFF=2
+CUTOFF=1
 
 export CLASSPATH=./build/classes
 

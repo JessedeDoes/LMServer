@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 import eu.transcriptorium.util.SimpleTokenizer;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.CharacterSet
 {
@@ -30,8 +32,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	
 	SimpleTokenizer tokenizer = new SimpleTokenizer();
 	Map<Character,String> characterNames = new HashMap<Character,String>();
-	static Map<Character,Character> characterMappings = new HashMap<Character,Character>();
-	static Map<Character,String> escapeMap = new HashMap<Character,String>();
+	Map<Character,Character> characterMappings = new HashMap<Character,Character>();
+	Map<Character,String> escapeMap = new HashMap<Character,String>();
 	
 	static String sentenceStart = "<BS>";
 	static String sentenceEnd = "<ES>";
@@ -40,13 +42,27 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 
 	static char hasInitialSpaceOnlyMarker =  '<'; // '前'; // problem if accepted by charset
 	static char  hasFinalSpaceOnlyMarker = '>'; // '后'; //  problem if accepted by charset
-	
-	static boolean[] characterAccepted = new boolean[Character.MAX_CODE_POINT+1];
+	Map<Character,Character> accentStripper = new HashMap<Character,Character>();
+	boolean[] characterAccepted = new boolean[Character.MAX_CODE_POINT+1];
 
-	static
+	public void init()
 	{
-		for (int i=0; i < characterAccepted.length; i++)
+		
+		for (int j=0; j < characterAccepted.length; j++)
+		{
+			char i = (char) j;
 			characterAccepted[i] = false;
+			if (i < 3000)
+			{
+				Character c1 = deAccent(i);
+				if (c1 != null && ((char) c1 != i))
+				{
+					//System.err.println(i + "!= "+ c1);
+					accentStripper.put(i,c1);
+				}
+			}
+		}
+	
 		for (String[] e: escapes)
 		{
 			escapeMap.put(e[0].charAt(0), e[1]);
@@ -56,7 +72,54 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			// System.err.println("mapping character:"  + e[0] + "-->" + e[1]);
 			characterMappings.put(e[0], e[1]);
 		}
+	
 	};
+	
+	public void postInit()
+	{
+		for (int j=0; j < characterAccepted.length; j++)
+		{
+			char i = (char) j;
+		
+			if (i < 3000)
+			{
+				Character c1 =  Character.toLowerCase(i);
+				if (c1 != null && ((char) c1 != i) && !characterAccepted[i])
+				{
+					//System.err.println(i + "!= "+ c1);
+					if (characterAccepted[c1] && !(characterAccepted[i]))
+						accentStripper.put(i,c1);
+					else
+					{
+						char c2 = deAccent(c1);
+						if (characterAccepted[c2])
+							accentStripper.put(i,c2);
+					}
+				}
+			}
+		}
+	
+	}
+	public AlejandrosNewBenthamTokenization()
+	{
+		init();
+	}
+	public static String deAccent(String str) 
+	{
+	    String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
+	    Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+	    return pattern.matcher(nfdNormalizedString).replaceAll("");
+	}
+	
+	public static Character deAccent(Character c) 
+	{
+	    String nfdNormalizedString = Normalizer.normalize(c+"", Normalizer.Form.NFD); 
+	    Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+	    String s1 =  pattern.matcher(nfdNormalizedString).replaceAll("");
+	    if (s1.length() > 0)
+	     return s1.charAt(0);
+	    return null;
+	}
 	
 	@Override
 	public String[] wordToModelNames(String w)
@@ -187,7 +250,12 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			{
 				//System.err.println("OK! " + esc);
 			    b.append(c);	
-			} else
+			} else 
+			{
+				Character c2 = accentStripper.get(c);
+				if (c2 != null && characterAccepted[c2])
+					b.append(c2);
+			}
 			{
 				//System.err.println("Discarding:" + c);
 			}
@@ -237,6 +305,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		{
 			e.printStackTrace();
 		}
+		postInit();
 	}
 
 	/**

@@ -1,0 +1,1 @@
+bash /datalokaal/tranScriptorium/SVNRepository/tranScriptorium/pub/deliverables/D4.1/D4.1.1/LatticeFromLM.sh train_0_plus_hattem.txt /datalokaal/Scratch/HTR/Leiden_HTR/EXP-AbbrevExpand/Models/Lista_Modelos_Train.abbr `pwd` 0

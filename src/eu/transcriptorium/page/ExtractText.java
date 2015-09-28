@@ -13,23 +13,37 @@ import java.io.*;
 
 public class ExtractText
 {
-	public static void printText(String fileName)
+	public  void printText(String fileName)
+	{
+		PrintWriter sout = new PrintWriter(new OutputStreamWriter(System.out));
+		printText(fileName, sout);
+		sout.close();
+	}
+	
+	public  void printLabels(String fileName, PrintWriter out)
+	{
+		
+	}
+	
+	public  void printText(String fileName, PrintWriter out)
 	{
 		try
 		{
 			Page page = PageXmlInputOutput.readPage(fileName);
 			PageLayout l = page.getLayout();
-			List<Region> regions = l.getRegionsSorted();
+			List<Region> regions = l.getRegionsSorted(); // by what???
+			
 			for (Region r: regions)
 			{
 				ContentType type = r.getType();
 				Class c = r.getClass();
-				System.out.println(r.getId() + ":" + c.getName()  + ":" + r.getRegionCount());
 				
+				//out.println(r.getId() + ":" + c.getName()  + ":" + r.getRegionCount());
+			
 				if (r instanceof TextRegion)
 				{
 					TextRegion tr = (TextRegion) r;
-					
+					String regionId = tr.getId().toString();
 					//tr.ge
 					//tr.get
 					
@@ -38,7 +52,7 @@ public class ExtractText
 					{
 						if (to instanceof TextLine)
 						{
-							System.out.println(to.getId() + ": " + to.getText());
+							out.println(to.getId() + ": " + to.getText());
 						} else
 						{
 							System.err.println("This is not a line:  " + to.getId() + ": " + to.getText());
@@ -55,6 +69,6 @@ public class ExtractText
 	
 	public static void main(String[] args)
 	{
-		ExtractText.printText(args[0]);
+		new ExtractText().printText(args[0]);
 	}
 }

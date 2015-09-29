@@ -737,4 +737,13 @@ public class XML extends Object
 				p.appendChild(c);
 		}
 	}
+	
+	public static List<Node> getChildren(Node n)
+	{
+		List<Node> r = new ArrayList<Node>();
+		NodeList nl = n.getChildNodes();
+		for (int i=0; i < nl.getLength(); i++)
+			r.add(nl.item(i));
+		return r;
+	}
 }

@@ -42,6 +42,16 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 
 	static char hasInitialSpaceOnlyMarker =  '<'; // '前'; // problem if accepted by charset
 	static char  hasFinalSpaceOnlyMarker = '>'; // '后'; //  problem if accepted by charset
+	
+	public char getInitialSpaceOnlyMarker()
+	{
+		return hasInitialSpaceOnlyMarker;
+	}
+	public char getFinalSpaceOnlyMarker()
+	{
+		return hasFinalSpaceOnlyMarker;
+	}
+	
 	Map<Character,Character> accentStripper = new HashMap<Character,Character>();
 	boolean[] characterAccepted = new boolean[Character.MAX_CODE_POINT+1];
 
@@ -331,7 +341,33 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 		return w;
 	}
+	protected  String characterOrName(Character c)
+	{
+		String name;
+		if (characterAccepted[c])
+		{
+			return c.toString();
+		} else if ((name = characterNames.get(c)) != null)
+		{
+			// System.err.println(name);
+			return name;
+		}
+		return null;
+	}
+	@Override
+	public void setAcceptAll()
+	{
+		// TODO Auto-generated method stub
+		for (int j=0; j < characterAccepted.length; j++)
+		{
+			char i = (char) j;
+			if (i != this.getFinalSpaceOnlyMarker() && i != this.getInitialSpaceOnlyMarker())
+				characterAccepted[i] = true;
+		}
+	}
 }
+
+
 
 /**
  * New Tokenization rules:

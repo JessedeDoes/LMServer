@@ -159,18 +159,25 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	
 	/**
 	 * Normalization always uses the expansions only....
+	 * This ensures that different abbreviation conventions still
+	 * can use common language models
 	 */
 	
 	@Override
 	public String normalize(String w)
 	{
 		// TODO Auto-generated method stub
+		String r="";
 		List<Symbol> symbols = decompose(w);
 		for (Symbol s: symbols)
 		{
-			
+			switch (s.type)
+			{
+			case normal: r += s.character; break;
+			case abbreviation: r += s.expansion; break; 
+			}
 		}
-		return w.toUpperCase();
+		return r.toUpperCase();
 	}
 	
 	public String[] wordToModelNames(String w)

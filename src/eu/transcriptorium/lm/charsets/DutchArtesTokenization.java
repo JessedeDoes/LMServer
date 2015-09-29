@@ -113,6 +113,9 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		return l;
 	}
 	
+	/** this should also use the symbol decomposition bla
+	 * 
+	 */
 	public String cleanOneToken(String w)
 	{
 		char[] characters = w.toCharArray();
@@ -162,6 +165,11 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	public String normalize(String w)
 	{
 		// TODO Auto-generated method stub
+		List<Symbol> symbols = decompose(w);
+		for (Symbol s: symbols)
+		{
+			
+		}
 		return w.toUpperCase();
 	}
 	

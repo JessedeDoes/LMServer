@@ -278,7 +278,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 					break;
 				case BOTH:
 					
-				}
+				} 
 			};
 		}
 		
@@ -312,6 +312,11 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		String test = "hallo <ẽ:ende> ic gheloof, dat het niet can";
 		for (String w: test.split("\\s+"))
 		{
+			String cleaned = dat.cleanWord(w);
+			for (String tok: cleaned.split("\\s+"))
+			{
+				String norm = dat.normalize(tok); 
+			}
 			System.out.println(w + " " + dat.cleanWord(w) +  " " + dat.normalize(w) + " --> "  + StringUtils.join(dat.wordToModelNames(w), ","));
 		}
 	}

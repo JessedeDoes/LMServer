@@ -13,8 +13,9 @@ import eu.transcriptorium.util.StringUtils;
  */
 public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 {
-	static char hasInitialSpaceOnlyMarker =  '前'; // problem if accepted by charset
-	static char hasFinalSpaceOnlyMarker = '后'; //  problem if accepted by charset
+	// ↵ ↳
+	static char hasInitialSpaceOnlyMarker =  '↳'; // problem if accepted by charset
+	static char hasFinalSpaceOnlyMarker = '↵'; //  problem if accepted by charset
 	static char startSpecial = '<';
 	static char endSpecial= '>';
 	static char separator=':';
@@ -308,10 +309,10 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	
 	public static void main(String[] args)
 	{
-		CharacterSet dat = new DutchArtesTokenization();
+		CharacterSet dat = new AlejandrosNewBenthamTokenization();
 		dat.setAcceptAll();
 		
-		String test = "hallo! <ẽ:ende> ic gheloof, dat i 'het' niet en can";
+		String test = "hallo! <ẽ:ende> ic gheloof, dat i 'het' niet en can 123";
 		for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);

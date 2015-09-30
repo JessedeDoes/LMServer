@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
+import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.util.SimpleTokenizer;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
@@ -40,13 +41,17 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	static String initialSpace = "<is>";
 	static String finalSpace = "<fs>";
 
-	static char hasInitialSpaceOnlyMarker =  '<'; // '前'; // problem if accepted by charset
-	static char  hasFinalSpaceOnlyMarker = '>'; // '后'; //  problem if accepted by charset
+	//static char hasInitialSpaceOnlyMarker =  '<'; // '前'; // problem if accepted by charset
+	//static char  hasFinalSpaceOnlyMarker = '>'; // '后'; //  problem if accepted by charset
+	
+	static char hasInitialSpaceOnlyMarker =  '↳'; // problem if accepted by charset
+	static char hasFinalSpaceOnlyMarker = '↵'; //  problem if accepted by charset
 	
 	public char getInitialSpaceOnlyMarker()
 	{
 		return hasInitialSpaceOnlyMarker;
 	}
+	
 	public char getFinalSpaceOnlyMarker()
 	{
 		return hasFinalSpaceOnlyMarker;
@@ -135,7 +140,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	public String[] wordToModelNames(String w)
 	{
 		// TODO Auto-generated method stub
-		//System.err.println("to models: " + w);
+		System.err.println("to models: " + w);
 		w = removeEscapes(w);
 		
 		char[] characters = w.toCharArray();
@@ -395,6 +400,25 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			char i = (char) j; // BUT do not accept the escapes?
 			if (!(escapeMap.get(i) != null)) if (i != this.getFinalSpaceOnlyMarker() && i != this.getInitialSpaceOnlyMarker())
 				characterAccepted[i] = true;
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		CharacterSet dat = new AlejandrosNewBenthamTokenization();
+		dat.setAcceptAll();
+		
+		String test = "In 1724 the (local) Government, \"in Tunisia\"";
+		for (String w: test.split("\\s+"))
+		{
+			String cleaned = dat.cleanWord(w);
+			System.err.println("cleaned " + cleaned);
+			for (String tok: cleaned.split("\\s+"))
+			{
+				System.err.println("Tok: " + tok);
+				String norm = dat.normalize(tok); 
+			    System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(dat.unescapeWord(tok)), " "));
+			}
 		}
 	}
 }

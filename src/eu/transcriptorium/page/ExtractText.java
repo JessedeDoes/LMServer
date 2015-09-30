@@ -137,7 +137,6 @@ public class ExtractText
 			PageLayout l = page.getLayout();
 			List<Region> regions = l.getRegionsSorted(); // by what???
 			
-			
 			for (Region r: regions)
 			{
 				ContentType type = r.getType();
@@ -177,7 +176,7 @@ public class ExtractText
 	}
 	
 	@Deprecated
-	public  void printText(String fileName, PrintWriter out) // no: print lines in separate directories...
+	public  void printText(String fileName, PrintWriter out) // no: print lines in separate directories ...
 	{
 		try
 		{
@@ -192,7 +191,6 @@ public class ExtractText
 				Class c = r.getClass();
 
 				
-
 				if (r instanceof TextRegion)
 				{
 					TextRegion tr = (TextRegion) r;

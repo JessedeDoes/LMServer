@@ -19,26 +19,26 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	static char startSpecial = '<';
 	static char endSpecial= '>';
 	static char separator=':';
-	
+
 	enum type
 	{
 		EXPANSIONS,
 		ABBREVIATIONS,
 		BOTH
 	}  ;
-	
+
 	type abbreviationHandling = type.EXPANSIONS;
-	
+
 	public char getInitialSpaceOnlyMarker()
 	{
 		return hasInitialSpaceOnlyMarker;
 	}
-	
+
 	public char getFinalSpaceOnlyMarker()
 	{
 		return hasFinalSpaceOnlyMarker;
 	}
-	
+
 	static class Symbol
 	{
 		enum SymbolType
@@ -50,20 +50,20 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		char character;
 		String abbreviation; // should not be longer that 1?
 		String expansion;
-		
+
 		Symbol(char c)
 		{
 			type=SymbolType.NORMAL;
 			character = c;
 		}
-		
+
 		Symbol(String abbreviation, String expansion)
 		{
 			type=SymbolType.ABBREVIATION;
 			this.abbreviation=abbreviation;
 			this.expansion=expansion;
 		}
-		
+
 		public String toString()
 		{
 			if (type == SymbolType.NORMAL)
@@ -71,51 +71,51 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 			return "(" + abbreviation + ","  + expansion + ")";
 		}
 	}
-	
+
 	static enum State
 	{
-		normal,
-		inAbbreviation,
-		inExpansion
+		START,
+		IN_ABBREVIATION,
+		IN_EXPANSION
 	};
-	
+
 	private List<Symbol> decompose(String w)
 	{
 		List<Symbol> l = new ArrayList<Symbol>();
 		String a="";
 		String e ="";
 		char[] chars = w.toCharArray();
-		State state = State.normal;
+		State state = State.START;
 		for (int i=0; i < chars.length; i++)
 		{
 			char c = chars[i];
 			switch(state)
 			{
-			case normal: 
+			case START: 
 				if (c == startSpecial)
-					state = State.inAbbreviation;
+					state = State.IN_ABBREVIATION;
 				else l.add(new Symbol(c));
 				break;
-			case inAbbreviation:
+			case IN_ABBREVIATION:
 				if (c==endSpecial)
 				{
 					l.add(new Symbol(a,e));
 					a=e="";
-				   state = State.normal;
+					state = State.START;
 				} else if (c==separator)
 				{
-					state = state.inExpansion;
+					state = state.IN_EXPANSION;
 				} else
 				{
 					a += c;
 				}
 				break;
-			case inExpansion:
+			case IN_EXPANSION:
 				if (c==endSpecial)
 				{
 					l.add(new Symbol(a,e));
 					a=e="";
-				   state = State.normal;
+					state = State.START;
 				} else
 				{
 					e += c;
@@ -125,7 +125,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		}
 		return l;
 	}
-	
+
 	/** this should also use the symbol decomposition
 	 * BUT: if normalized is a function of cleaned
 	 * we always need to keep BOTH...
@@ -135,7 +135,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	{
 		StringBuffer b = new StringBuffer();
 		List<Symbol> symbols = decompose(w); // unescape first? mormalized has escapes...
-		
+
 		for (Symbol s: symbols)
 		{
 			switch (s.type)
@@ -150,14 +150,14 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 			case ABBREVIATION: // ahem....
 				Character a0 = null;
 				String e = s.expansion;
-				
+
 				if (s.abbreviation.length() > 0)
 				{
 					a0 = s.abbreviation.charAt(0);
 				}
-				
+
 				b.append(startSpecial);
-				
+
 				if (a0 != null)
 				{
 					z = oneCharacterEscaped(a0);
@@ -172,13 +172,13 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 					if (x != null)
 						b.append(x);
 				}
-				
+
 				b.append(endSpecial);
 			}		
 		}
-		
-		
-		
+
+
+
 		if (b.length() == 0)
 		{
 			//System.err.println("no result for " + w);
@@ -188,13 +188,13 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		}
 		return b.toString();
 	}
-	
+
 	/**
 	 * Normalization always uses the expansions only....
 	 * This ensures that different abbreviation conventions still
 	 * can use common language models
 	 */
-	
+
 	@Override
 	public String normalize(String w)
 	{
@@ -219,28 +219,28 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		r = r.replaceAll("ck", "k");
 		return r.toUpperCase();
 	}
-	
+
 	@Override
 	public String[] wordToModelNames(String w)
 	{
 		// TODO Auto-generated method stub
 		//System.err.println("expand to models: " + w);
 		w = removeEscapes(w);
-		
+
 		List<Symbol> symbols = decompose(w);
 		//System.err.println(symbols);
 		char[] characters = w.toCharArray();
 		List<String> l = new ArrayList<String>();
 		String name;
 		boolean normalWord = true;
-		
-		
+
+
 		if (w.startsWith(hasInitialSpaceOnlyMarker+""))
 		{
 			l.add(initialSpace);
 			normalWord = false;
 		}
-	
+
 		for (Symbol s: symbols)
 		{
 			switch (s.type)
@@ -281,17 +281,17 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 					}
 					break;
 				case BOTH:
-					
+
 				} 
 			};
 		}
-		
+
 		if (w.endsWith(hasFinalSpaceOnlyMarker+""))
 		{
 			l.add(finalSpace);
 			normalWord = false;
 		}
-		
+
 		if (normalWord)
 		{
 			boolean isNumber = w.matches("^[0-9]+$");
@@ -303,16 +303,16 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 				l1.add(finalSpace);
 			l = l1;
 		}
-		
+
 		String[] a = new String[l.size()];
 		return l.toArray(a);
 	}
-	
+
 	public static void main(String[] args)
 	{
 		CharacterSet dat = new DutchArtesTokenization();
 		dat.setAcceptAll();
-		
+
 		String test = "hallo! <ẽ:ende> ic gheloof, dat i 'het' niet en can 123";
 		for (String w: test.split("\\s+"))
 		{
@@ -320,7 +320,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 			for (String tok: cleaned.split("\\s+"))
 			{
 				String norm = dat.normalize(tok); 
-			    System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(tok), " "));
+				System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(tok), " "));
 			}
 		}
 	}
@@ -332,4 +332,4 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
         $text =~ s/§/<PARA>/g;
         $text =~ s/\/\//<HYPHEN>/g;
         $text =~ s/\//<SLASH>/g;
-*/
+ */

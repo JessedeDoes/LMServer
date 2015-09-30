@@ -66,7 +66,7 @@ public class ExtractText
 				ContentType type = r.getType();
 				Class c = r.getClass();
 
-				//out.println(r.getId() + ":" + c.getName()  + ":" + r.getRegionCount());
+				
 
 				if (r instanceof TextRegion)
 				{
@@ -103,8 +103,7 @@ public class ExtractText
 							}
 							out.println(characterSet.getLineEndSymbol());
 							out.println(".");
-							//System.err.println(to.getText());
-							//out.println(to.getId() + ": " + text);
+							
 						} else
 						{
 							System.err.println("This is not a line:  " + to.getId() + ": " + to.getText());
@@ -147,8 +146,6 @@ public class ExtractText
 				{
 					TextRegion tr = (TextRegion) r;
 					String regionId = tr.getId().toString();
-					
-
 					List <LowLevelTextObject> textObjects = tr.getTextObjectsSorted();
 					for (LowLevelTextObject to: textObjects)
 					{
@@ -172,7 +169,6 @@ public class ExtractText
 						}
 					}
 				}
-				//if (type == ContentType.)
 			}
 		} catch (Exception e)
 		{
@@ -195,14 +191,13 @@ public class ExtractText
 				ContentType type = r.getType();
 				Class c = r.getClass();
 
-				//out.println(r.getId() + ":" + c.getName()  + ":" + r.getRegionCount());
+				
 
 				if (r instanceof TextRegion)
 				{
 					TextRegion tr = (TextRegion) r;
 					String regionId = tr.getId().toString();
-					//tr.ge
-					//tr.get
+					
 
 					List <LowLevelTextObject> textObjects = tr.getTextObjectsSorted();
 					for (LowLevelTextObject to: textObjects)
@@ -216,7 +211,6 @@ public class ExtractText
 						}
 					}
 				}
-				//if (type == ContentType.)
 			}
 		} catch (Exception e)
 		{

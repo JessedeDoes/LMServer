@@ -82,7 +82,7 @@ public class TEITextDecoder implements XMLTextDecoder
 		} catch (Exception e)
 		{
 			System.err.println("error extracting text from " + taggedString);
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return extractedText;
 	}

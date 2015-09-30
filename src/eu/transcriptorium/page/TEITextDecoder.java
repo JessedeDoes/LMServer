@@ -10,14 +10,14 @@ import eu.transcriptorium.util.XML.NodeAction;
 public class TEITextDecoder implements XMLTextDecoder
 {
 	String extractedText = "";
-	
+
 	enum type
 	{
 		EXPANSIONS,
 		ABBREVIATIONS,
 		BOTH
 	}  ;
-	
+
 	type extractionType = type.BOTH;
 
 	public boolean  extractText(Node n)
@@ -73,13 +73,20 @@ public class TEITextDecoder implements XMLTextDecoder
 	public String decodeXML(String taggedString)
 	{
 		// TODO Auto-generated method stub
-		String plus = "<root>"  + taggedString + "</root>";
-		Document d = XML.parseString(plus);
 		extractedText = "";
-		extractText(d.getDocumentElement());
+		String plus = "<root>"  + taggedString + "</root>";
+		try
+		{
+			Document d = XML.parseString(plus);
+			extractText(d.getDocumentElement());
+		} catch (Exception e)
+		{
+			System.err.println("error extracting text from " + taggedString);
+			e.printStackTrace();
+		}
 		return extractedText;
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TEITextDecoder ttd = new TEITextDecoder();

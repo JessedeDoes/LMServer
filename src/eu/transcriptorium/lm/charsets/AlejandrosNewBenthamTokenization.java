@@ -351,7 +351,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		{
 			// System.err.println(name);
 			return name;
-		}
+		} else  if ((name = escapeMap.get(c)) != null)
+			return c.toString();
 		return null;
 	}
 	
@@ -368,7 +369,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		} 
 		if ((esc = escapeMap.get(c)) != null) // no -- do not escape here yet, only after tokenization.....
 		{
-		return esc;
+			return esc;
 		} else if ((esc = characterNames.get(c)) != null)
 		{
 			// System.err.println("OK! " + esc);
@@ -391,8 +392,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		// TODO Auto-generated method stub
 		for (int j=0; j < characterAccepted.length; j++)
 		{
-			char i = (char) j;
-			if (i != this.getFinalSpaceOnlyMarker() && i != this.getInitialSpaceOnlyMarker())
+			char i = (char) j; // BUT do not accept the escapes?
+			if (!(escapeMap.get(i) != null)) if (i != this.getFinalSpaceOnlyMarker() && i != this.getInitialSpaceOnlyMarker())
 				characterAccepted[i] = true;
 		}
 	}

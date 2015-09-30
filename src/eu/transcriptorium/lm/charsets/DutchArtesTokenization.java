@@ -1,6 +1,7 @@
 package eu.transcriptorium.lm.charsets;
 import java.util.*;
 
+import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.util.StringUtils;
 
 /**
@@ -13,7 +14,7 @@ import eu.transcriptorium.util.StringUtils;
 public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 {
 	static char hasInitialSpaceOnlyMarker =  '前'; // problem if accepted by charset
-	static char  hasFinalSpaceOnlyMarker = '后'; //  problem if accepted by charset
+	static char hasFinalSpaceOnlyMarker = '后'; //  problem if accepted by charset
 	static char startSpecial = '<';
 	static char endSpecial= '>';
 	static char separator=':';
@@ -141,6 +142,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 			case NORMAL: 
 				Character c = s.character;
 				String z = oneCharacterEscaped(c);
+				//System.err.println(z);
 				if (z != null)
 					b.append(z);
 				break;
@@ -306,18 +308,18 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	
 	public static void main(String[] args)
 	{
-		DutchArtesTokenization dat = new DutchArtesTokenization();
+		CharacterSet dat = new DutchArtesTokenization();
 		dat.setAcceptAll();
 		
-		String test = "hallo <ẽ:ende> ic gheloof, dat het niet can";
+		String test = "hallo! <ẽ:ende> ic gheloof, dat i 'het' niet en can";
 		for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);
 			for (String tok: cleaned.split("\\s+"))
 			{
 				String norm = dat.normalize(tok); 
+			    System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(dat.unescapeWord(tok)), " "));
 			}
-			System.out.println(w + " " + dat.cleanWord(w) +  " " + dat.normalize(w) + " --> "  + StringUtils.join(dat.wordToModelNames(w), ","));
 		}
 	}
 }

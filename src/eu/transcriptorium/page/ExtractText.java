@@ -10,6 +10,7 @@ import  org.primaresearch.dla.page.*;
 
 import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.lm.charsets.DutchArtesTokenization;
+import eu.transcriptorium.util.StringUtils;
 
 import java.util.*;
 import java.io.*;
@@ -26,8 +27,15 @@ public class ExtractText
 		sout.close();
 	}
 	
+	public  void printLabels(String fileName)
+	{
+		PrintWriter sout = new PrintWriter(new OutputStreamWriter(System.out));
+		printLabels(fileName, sout);
+		sout.close();
+	}
 	public  void printLabels(String fileName, PrintWriter out)
 	{
+		characterSet.setAcceptAll();
 		try
 		{
 			Page page = PageXmlInputOutput.readPage(fileName);
@@ -51,12 +59,26 @@ public class ExtractText
 					{
 						if (to instanceof TextLine)
 						{
+							String labelId = to.getId().toString();
+							out.println("\"*/" + labelId + ".lab\"");
+							out.println(characterSet.getLineStartSymbol());
 							String text = xmlStripper.decodeXML(to.getText());
 							for (String w: text.split("\\s+"))
 							{
+								String cleanedWord = characterSet.cleanWord(w);
+								String normalizedWord = characterSet.normalize(cleanedWord);
+								String[] models = characterSet.wordToModelNames(cleanedWord);
 								
+								for (String x: models)
+								{
+									out.println(x);
+								}
+								//System.err.println(w + " | "  + cleanedWord + " | " + normalizedWord + " | " + StringUtils.join(models, " "));
 							}
-							out.println(to.getId() + ": " + to.getText());
+							out.println(characterSet.getLineEndSymbol());
+							out.println(".");
+							//System.err.println(to.getText());
+							//out.println(to.getId() + ": " + text);
 						} else
 						{
 							System.err.println("This is not a line:  " + to.getId() + ": " + to.getText());
@@ -115,6 +137,6 @@ public class ExtractText
 	
 	public static void main(String[] args)
 	{
-		new ExtractText().printText(args[0]);
+		new ExtractText().printLabels(args[0]);
 	}
 }

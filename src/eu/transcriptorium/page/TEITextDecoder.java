@@ -38,7 +38,7 @@ public class TEITextDecoder implements XMLTextDecoder
 				Element expan = XML.getElementByTagname(e, "expan");
 				if (expan != null)
 					exp = expan.getTextContent();
-				Element abbr = XML.getElementByTagname(e, "abbr");
+				Element abbr = XML.getElementByTagname(e, "abbrev");
 				if (abbr != null)
 					abr = abbr.getTextContent();
 				else 

@@ -220,10 +220,11 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		return r.toUpperCase();
 	}
 	
+	@Override
 	public String[] wordToModelNames(String w)
 	{
 		// TODO Auto-generated method stub
-		//System.err.println("to models: " + w);
+		//System.err.println("expand to models: " + w);
 		w = removeEscapes(w);
 		
 		List<Symbol> symbols = decompose(w);
@@ -309,7 +310,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	
 	public static void main(String[] args)
 	{
-		CharacterSet dat = new AlejandrosNewBenthamTokenization();
+		CharacterSet dat = new DutchArtesTokenization();
 		dat.setAcceptAll();
 		
 		String test = "hallo! <ẽ:ende> ic gheloof, dat i 'het' niet en can 123";
@@ -319,8 +320,16 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 			for (String tok: cleaned.split("\\s+"))
 			{
 				String norm = dat.normalize(tok); 
-			    System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(dat.unescapeWord(tok)), " "));
+			    System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(tok), " "));
 			}
 		}
 	}
 }
+
+/**
+ * Denk ook aan:
+ *         $text =~ s/$pilcrow/<ESP>/g;
+        $text =~ s/§/<PARA>/g;
+        $text =~ s/\/\//<HYPHEN>/g;
+        $text =~ s/\//<SLASH>/g;
+*/

@@ -20,6 +20,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 				{"'", "\\'", "\\\\'"},
 				{"\"", "\\\"", "\\\\\""},
 				{"*", "\\*", "\\\\\\*"},
+				{".", "\\.", "\\\\\\."}
 	};
 	
 	static Character[][] mappings = 
@@ -140,7 +141,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	public String[] wordToModelNames(String w)
 	{
 		// TODO Auto-generated method stub
-		System.err.println("to models: " + w);
+		//System.err.println("to models: " + w);
 		w = removeEscapes(w);
 		
 		char[] characters = w.toCharArray();
@@ -336,6 +337,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		return removeEscapes(w);
 	}
 	
+	// difference with unescape: the boundary symbols
+	
 	public String removeEscapes(String w) 
 	{	
 		if (!w.contains("\\"))
@@ -358,6 +361,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			return name;
 		} else  if ((name = escapeMap.get(c)) != null)
 			return c.toString();
+		//System.err.println("Nothing for + " + c);
 		return null;
 	}
 	
@@ -412,14 +416,26 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);
-			System.err.println("cleaned " + cleaned);
+			//System.err.println("cleaned " + cleaned);
 			for (String tok: cleaned.split("\\s+"))
 			{
-				System.err.println("Tok: " + tok);
+				//System.err.println("Tok: " + tok);
 				String norm = dat.normalize(tok); 
-			    System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(dat.unescapeWord(tok)), " "));
+			    System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(tok), " "));
 			}
 		}
+	}
+
+	@Override
+	public String getLineStartSymbol() 
+	{
+		return sentenceStart;
+	}
+
+	@Override
+	public String getLineEndSymbol() 
+	{
+		return sentenceEnd;
 	}
 }
 

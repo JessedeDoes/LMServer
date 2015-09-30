@@ -19,5 +19,7 @@ public interface  CharacterSet
 	public String unescapeWord(String w); // remove slashes etc added before language modeling
 	public String normalize(String w); // often just uppercasing. mostly AFTER cleaning! (but not in plantas...)
 	public void loadFromHMMList(String fileName);
+	public String getLineStartSymbol();
+	public String getLineEndSymbol();
 	public void setAcceptAll();
 }

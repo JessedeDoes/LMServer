@@ -320,7 +320,8 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 			for (String tok: cleaned.split("\\s+"))
 			{
 				String norm = dat.normalize(tok); 
-				System.out.println(w + " " + tok +  " " + dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(tok), " "));
+				System.out.println(w + " " + tok +  " " + 
+						dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(tok), " "));
 			}
 		}
 	}

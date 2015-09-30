@@ -12,6 +12,7 @@ import  org.primaresearch.dla.page.*;
 import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.lm.charsets.DutchArtesTokenization;
 import eu.transcriptorium.util.StringUtils;
+import eu.transcriptorium.util.*;
 
 import java.util.*;
 import java.io.*;
@@ -20,6 +21,7 @@ public class ExtractText
 {
 	CharacterSet  characterSet = new DutchArtesTokenization();
 	XMLTextDecoder xmlStripper = new TEITextDecoder();
+	Counter<String> modelNameCounter = new Counter<String>();
 
 	public  void printText(String fileName)
 	{
@@ -42,15 +44,23 @@ public class ExtractText
 			return id.toString();
 		String imageFileName = page.getImageFilename();
 		if (imageFileName != null)
+		{
+			imageFileName = imageFileName.replaceAll("\\.(jpg|JPG|png|PNG|tif|TIF|tiff|TIFF)$", "");
 			return imageFileName;
+		}
 		return fileName;
 	}
-	
+
 	public String getLineId(String pageId, String regionId, String lineId)
 	{
-		return pageId + ":" + lineId;
+		return pageId + "." + lineId;
 	}
-	
+
+	public void startLabelFile(PrintWriter out)
+	{
+		out.println("#!MLF!#");
+	}
+
 	public  void printLabels(String fileName, PrintWriter out)
 	{
 		characterSet.setAcceptAll();
@@ -66,7 +76,7 @@ public class ExtractText
 				ContentType type = r.getType();
 				Class c = r.getClass();
 
-				
+
 
 				if (r instanceof TextRegion)
 				{
@@ -80,7 +90,7 @@ public class ExtractText
 						if (to instanceof TextLine)
 						{
 							String labelId = getLineId(pageId, regionId, to.getId().toString());
-							out.println(to.getText());
+							//out.println(to.getText());
 							out.println("\"*/" + labelId + ".lab\"");
 							out.println(characterSet.getLineStartSymbol());
 							String text = xmlStripper.decodeXML(to.getText());
@@ -92,18 +102,19 @@ public class ExtractText
 									String normalizedWord = characterSet.normalize(tok);
 									String[] models = characterSet.wordToModelNames(tok);
 
-									//out.println(w + " | "  + tok + " | " + normalizedWord + " | " + StringUtils.join(models, " "));
+									// out.println(w + " | "  + tok + " | " + normalizedWord + " | " + StringUtils.join(models, " "));
 
 									for (String x: models)
 									{
 										out.println(x);
+										modelNameCounter.increment(x);
 									}
 
 								}
 							}
 							out.println(characterSet.getLineEndSymbol());
 							out.println(".");
-							
+
 						} else
 						{
 							System.err.println("This is not a line:  " + to.getId() + ": " + to.getText());
@@ -118,6 +129,30 @@ public class ExtractText
 		}
 	}
 
+	public void printLabelFileFromDirectory(String dirName, PrintWriter out)
+	{
+		File f = new File(dirName);
+		String[] entries = f.list();
+		startLabelFile(out);
+		for (String fn: entries)
+		{
+			printLabels(dirName + "/" + fn, out);
+		}
+	}
+
+	public void printLabelFileFromDirectory(String dirName, String outFile)
+	{
+		try 
+		{
+			PrintWriter out = new PrintWriter(new FileWriter(outFile));
+			printLabelFileFromDirectory(dirName, out);
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public void printTextLinesFromDirectory(String dirName, String toDirName)
 	{
 		File f = new File(dirName);
@@ -127,7 +162,7 @@ public class ExtractText
 			printTextLines(dirName + "/" + fn, toDirName);
 		}
 	}
-	
+
 	public void printTextLines(String fileName, String directoryName)
 	{
 		try
@@ -136,7 +171,7 @@ public class ExtractText
 			String pageId = getPageId(fileName,page);
 			PageLayout l = page.getLayout();
 			List<Region> regions = l.getRegionsSorted(); // by what???
-			
+
 			for (Region r: regions)
 			{
 				ContentType type = r.getType();
@@ -174,6 +209,24 @@ public class ExtractText
 			e.printStackTrace();
 		}
 	}
+
+	public void printStatistics(String fn)
+	{
+		try
+		{
+			PrintWriter out = new PrintWriter(new FileWriter(fn));
+			List<String> models = modelNameCounter.keyList();
+			Collections.sort(models);
+			for (String m: models)
+			{
+				out.println(m + "\t" + modelNameCounter.get(m));
+			}
+			out.close();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	@Deprecated
 	public  void printText(String fileName, PrintWriter out) // no: print lines in separate directories ...
@@ -190,12 +243,12 @@ public class ExtractText
 				ContentType type = r.getType();
 				Class c = r.getClass();
 
-				
+
 				if (r instanceof TextRegion)
 				{
 					TextRegion tr = (TextRegion) r;
 					String regionId = tr.getId().toString();
-					
+
 
 					List <LowLevelTextObject> textObjects = tr.getTextObjectsSorted();
 					for (LowLevelTextObject to: textObjects)
@@ -218,6 +271,10 @@ public class ExtractText
 
 	public static void main(String[] args)
 	{
-		new ExtractText().printTextLinesFromDirectory(args[0].replaceAll("/[^/]*$", ""), "./Test/testLines");
+		String dir = args[0].replaceAll("/[^/]*$", "");
+		new ExtractText().printTextLinesFromDirectory(dir, "./Test/testLines");
+		ExtractText et = new ExtractText();
+		et.printLabelFileFromDirectory(dir, "./Test/test.mlf");
+		et.printStatistics("./Test/test.stats");
 	}
 }

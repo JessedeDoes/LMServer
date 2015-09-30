@@ -149,7 +149,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			//System.err.println(w);
 		//}
 		
-		if (w.startsWith(hasInitialSpaceOnlyMarker+""))
+		if (w.startsWith(getInitialSpaceOnlyMarker()+""))
 		{
 			l.add(initialSpace);
 			normalWord = false;
@@ -167,7 +167,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			}
 		}
 		
-		if (w.endsWith(hasFinalSpaceOnlyMarker+""))
+		if (w.endsWith(getFinalSpaceOnlyMarker()+""))
 		{
 			l.add(finalSpace);
 			normalWord = false;
@@ -205,7 +205,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		List<String> parts = new ArrayList<String>();
 		if (tokenizer.prePunctuation.length() > 0)
 		{
-			parts.add( hasInitialSpaceOnlyMarker + cleanOneToken(tokenizer.prePunctuation));
+			parts.add( getInitialSpaceOnlyMarker() + cleanOneToken(tokenizer.prePunctuation));
 		}
 		if (tokenizer.trimmedToken.length() > 0)
 		{
@@ -217,13 +217,13 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 					if (i==0)
 					{
 					   if (i==characters.length-1)
-						   parts.add("" + hasInitialSpaceOnlyMarker + characters[i] + hasFinalSpaceOnlyMarker  );
+						   parts.add("" + getInitialSpaceOnlyMarker() + characters[i] + getFinalSpaceOnlyMarker()  );
 					   else
-						   parts.add("" + hasInitialSpaceOnlyMarker + characters[i]);
+						   parts.add("" + getInitialSpaceOnlyMarker() + characters[i]);
 					} else
 					{
 						if (i==characters.length-1)
-							parts.add("" + characters[i] + hasFinalSpaceOnlyMarker  );
+							parts.add("" + characters[i] + getFinalSpaceOnlyMarker()  );
 						else
 							parts.add( "" + characters[i]);
 					}
@@ -233,7 +233,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 		if (tokenizer.postPunctuation.length() > 0)
 		{
-			parts.add( cleanOneToken(tokenizer.postPunctuation) + hasFinalSpaceOnlyMarker );
+			parts.add( cleanOneToken(tokenizer.postPunctuation) + getFinalSpaceOnlyMarker() );
 		}
         // if (somethingHappened) System.err.println(w + " ::: " + parts);
 		return StringUtils.join(parts, " ");
@@ -324,8 +324,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	@Override
 	public String unescapeWord(String w) 
 	{	
-		w = w.replaceAll(hasFinalSpaceOnlyMarker +  "$", "");
-		w = w.replaceAll("^" + hasInitialSpaceOnlyMarker, "");
+		w = w.replaceAll(getFinalSpaceOnlyMarker() +  "$", "");
+		w = w.replaceAll("^" + getInitialSpaceOnlyMarker(), "");
 		
 		
 		return removeEscapes(w);
@@ -354,6 +354,37 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 		return null;
 	}
+	
+	protected String oneCharacterEscaped(Character c)
+	{
+		Character c1 = null;
+		String esc=null;
+		if (characterAccepted[c])
+		{
+			return c.toString();
+		} else if ((c1 = characterMappings.get(c)) != null)
+		{ 
+			c = c1;
+		} 
+		if ((esc = escapeMap.get(c)) != null) // no -- do not escape here yet, only after tokenization.....
+		{
+		return esc;
+		} else if ((esc = characterNames.get(c)) != null)
+		{
+			// System.err.println("OK! " + esc);
+		    return c.toString();
+		} else 
+		{
+			Character c2 = accentStripper.get(c);
+			if (c2 != null && characterAccepted[c2])
+				return c2.toString();
+		}
+		{
+			//System.err.println("Discarding:" + c);
+		}
+		return null;
+	}
+	
 	@Override
 	public void setAcceptAll()
 	{

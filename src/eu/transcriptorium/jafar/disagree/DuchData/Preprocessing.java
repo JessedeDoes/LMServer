@@ -1,4 +1,4 @@
-package DuchData;
+package eu.transcriptorium.jafar.disagree.DuchData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

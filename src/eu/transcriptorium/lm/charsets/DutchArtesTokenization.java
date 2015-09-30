@@ -1,6 +1,8 @@
 package eu.transcriptorium.lm.charsets;
 import java.util.*;
 
+import eu.transcriptorium.util.StringUtils;
+
 /**
  * This is rather messy
  * Normalized strings should only use expansions....
@@ -14,7 +16,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	static char  hasFinalSpaceOnlyMarker = '后'; //  problem if accepted by charset
 	static char startSpecial = '<';
 	static char endSpecial= '>';
-	static char separator=';';
+	static char separator=':';
 	
 	enum type
 	{
@@ -23,7 +25,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		BOTH
 	}  ;
 	
-	type abbreviationHandling = type.ABBREVIATIONS;
+	type abbreviationHandling = type.EXPANSIONS;
 	
 	public char getInitialSpaceOnlyMarker()
 	{
@@ -39,23 +41,32 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	{
 		enum SymbolType
 		{
-			normal,
-			abbreviation
+			NORMAL,
+			ABBREVIATION
 		};
-		SymbolType type = SymbolType.normal;
+		SymbolType type = SymbolType.NORMAL;
 		char character;
 		String abbreviation; // should not be longer that 1?
 		String expansion;
+		
 		Symbol(char c)
 		{
-			type=SymbolType.normal;
+			type=SymbolType.NORMAL;
 			character = c;
 		}
+		
 		Symbol(String abbreviation, String expansion)
 		{
-			type=SymbolType.abbreviation;
+			type=SymbolType.ABBREVIATION;
 			this.abbreviation=abbreviation;
 			this.expansion=expansion;
+		}
+		
+		public String toString()
+		{
+			if (type == SymbolType.NORMAL)
+				return character + "";
+			return "(" + abbreviation + ","  + expansion + ")";
 		}
 	}
 	
@@ -113,40 +124,58 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		return l;
 	}
 	
-	/** this should also use the symbol decomposition bla
-	 * 
+	/** this should also use the symbol decomposition
+	 * BUT: if normalized is a function of cleaned
+	 * we always need to keep BOTH...
+	 * so cleaning is just removal of unrecognizable characters.
 	 */
 	public String cleanOneToken(String w)
 	{
-		char[] characters = w.toCharArray();
 		StringBuffer b = new StringBuffer();
-		String esc; Character c1;
-		for (char c: characters)
+		List<Symbol> symbols = decompose(w); // unescape first? mormalized has escapes...
+		
+		for (Symbol s: symbols)
 		{
-			if (characterAccepted[c])
+			switch (s.type)
 			{
-				b.append(c);
-			} else if ((c1 = characterMappings.get(c)) != null)
-			{ 
-				c = c1;
-			} 
-			if ((esc = escapeMap.get(c)) != null) // no -- do not escape here yet, only after tokenization.....
-			{
-				b.append(esc);
-			} else if ((esc = characterNames.get(c)) != null)
-			{
-				// System.err.println("OK! " + esc);
-			    b.append(c);	
-			} else 
-			{
-				Character c2 = accentStripper.get(c);
-				if (c2 != null && characterAccepted[c2])
-					b.append(c2);
-			}
-			{
-				//System.err.println("Discarding:" + c);
-			}
+			case NORMAL: 
+				Character c = s.character;
+				String z = oneCharacterEscaped(c);
+				if (z != null)
+					b.append(z);
+				break;
+			case ABBREVIATION: // ahem....
+				Character a0 = null;
+				String e = s.expansion;
+				
+				if (s.abbreviation.length() > 0)
+				{
+					a0 = s.abbreviation.charAt(0);
+				}
+				
+				b.append(startSpecial);
+				
+				if (a0 != null)
+				{
+					z = oneCharacterEscaped(a0);
+					if (z != null)
+						b.append(z);
+				}
+				b.append(separator);
+				char[] expchars = e.toCharArray();
+				for (char ce: expchars)
+				{
+					String x = oneCharacterEscaped(ce);
+					if (x != null)
+						b.append(x);
+				}
+				
+				b.append(endSpecial);
+			}		
 		}
+		
+		
+		
 		if (b.length() == 0)
 		{
 			//System.err.println("no result for " + w);
@@ -173,10 +202,18 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		{
 			switch (s.type)
 			{
-			case normal: r += s.character; break;
-			case abbreviation: r += s.expansion; break; 
+			case NORMAL: r += s.character; break;
+			case ABBREVIATION: r += s.expansion; break; 
 			}
 		}
+		r = r.replaceAll("v", "u");
+		r = r.replaceAll("gh", "g");
+		r = r.replaceAll("ae", "aa");
+		r = r.replaceAll("ca", "ka");
+		r = r.replaceAll("co", "ko");
+		r = r.replaceAll("cu", "ku");
+		r = r.replaceAll("c$", "k");
+		r = r.replaceAll("ck", "k");
 		return r.toUpperCase();
 	}
 	
@@ -185,7 +222,9 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		// TODO Auto-generated method stub
 		//System.err.println("to models: " + w);
 		w = removeEscapes(w);
+		
 		List<Symbol> symbols = decompose(w);
+		//System.err.println(symbols);
 		char[] characters = w.toCharArray();
 		List<String> l = new ArrayList<String>();
 		String name;
@@ -202,13 +241,13 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		{
 			switch (s.type)
 			{
-			case normal: 
+			case NORMAL: 
 				Character c = s.character;
 				String z = characterOrName(c);
 				if (z != null)
 					l.add(z);
 				break;
-			case abbreviation: // ahem....
+			case ABBREVIATION: // ahem....
 				Character a0 = null;
 				String e = s.expansion;
 				if (s.abbreviation.length() > 0)
@@ -263,5 +302,17 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		
 		String[] a = new String[l.size()];
 		return l.toArray(a);
+	}
+	
+	public static void main(String[] args)
+	{
+		DutchArtesTokenization dat = new DutchArtesTokenization();
+		dat.setAcceptAll();
+		
+		String test = "hallo <ẽ:ende> ic gheloof, dat het niet can";
+		for (String w: test.split("\\s+"))
+		{
+			System.out.println(w + " " + dat.cleanWord(w) +  " " + dat.normalize(w) + " --> "  + StringUtils.join(dat.wordToModelNames(w), ","));
+		}
 	}
 }

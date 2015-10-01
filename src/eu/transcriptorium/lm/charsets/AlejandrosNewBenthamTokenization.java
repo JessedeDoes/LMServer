@@ -437,6 +437,18 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	{
 		return sentenceEnd;
 	}
+
+	@Override
+	public String cleanLine(String l) 
+	{
+		// TODO Auto-generated method stub
+		List<String> L = new ArrayList<String>();
+		for (String w: l.split("\\s+"))
+		{
+			L.add(cleanWord(w));
+		}
+		return StringUtils.join(L, " ");
+	}
 }
 
 

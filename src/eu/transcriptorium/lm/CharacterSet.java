@@ -16,6 +16,7 @@ public interface  CharacterSet
 {
 	public String[] wordToModelNames(String w); // possibly null if word totally refused
 	public String cleanWord(String w); // may omit or replace some characters or return null
+	public String cleanLine(String w);
 	public String unescapeWord(String w); // remove slashes etc added before language modeling
 	public String normalize(String w); // often just uppercasing. mostly AFTER cleaning! (but not in plantas...)
 	public void loadFromHMMList(String fileName);

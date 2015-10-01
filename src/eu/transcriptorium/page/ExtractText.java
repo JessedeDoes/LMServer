@@ -61,6 +61,7 @@ public class ExtractText
 		out.println("#!MLF!#");
 	}
 
+	// this prints from XML
 	public  void printLabels(String fileName, PrintWriter out)
 	{
 		characterSet.setAcceptAll();
@@ -75,8 +76,6 @@ public class ExtractText
 			{
 				ContentType type = r.getType();
 				Class c = r.getClass();
-
-
 
 				if (r instanceof TextRegion)
 				{
@@ -153,6 +152,44 @@ public class ExtractText
 		}
 	}
 
+	public void stripXMLFromTextLines(String inDirName, String outDirName) throws IOException
+	{
+		File f = new File(inDirName);
+		String[] entries = f.list();
+		for (String fn: entries)
+		{
+			BufferedReader r = new BufferedReader(new FileReader(inDirName + "/"  + fn));
+			PrintWriter out = new PrintWriter(new FileWriter(outDirName + "/" + fn));
+			String s;
+			while ((s = r.readLine()) != null)
+			{
+				String t = xmlStripper.decodeXML(s);
+				out.println(t);
+			}
+			out.close();
+			//printTextLines(dirName + "/" + fn, toDirName);
+		}
+	}
+	
+	public void stripXMLFromTextLinesAndClean(String inDirName, String outDirName) throws IOException
+	{
+		File f = new File(inDirName);
+		String[] entries = f.list();
+		for (String fn: entries)
+		{
+			BufferedReader r = new BufferedReader(new FileReader(inDirName + "/"  + fn));
+			PrintWriter out = new PrintWriter(new FileWriter(outDirName + "/" + fn));
+			String s;
+			while ((s = r.readLine()) != null)
+			{
+				String t = characterSet.cleanLine(xmlStripper.decodeXML(s));
+				out.println(t);
+			}
+			out.close();
+			//printTextLines(dirName + "/" + fn, toDirName);
+		}
+	}
+	
 	public void printTextLinesFromDirectory(String dirName, String toDirName)
 	{
 		File f = new File(dirName);

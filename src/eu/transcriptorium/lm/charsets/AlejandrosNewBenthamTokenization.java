@@ -402,7 +402,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		for (int j=0; j < characterAccepted.length; j++)
 		{
 			char i = (char) j; // BUT do not accept the escapes?
-			if (!(escapeMap.get(i) != null)) if (i != this.getFinalSpaceOnlyMarker() && i != this.getInitialSpaceOnlyMarker())
+			if (!(escapeMap.get(i) != null)) if 
+			(i != this.getFinalSpaceOnlyMarker() && i != this.getInitialSpaceOnlyMarker())
 				characterAccepted[i] = true;
 		}
 	}

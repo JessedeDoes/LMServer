@@ -319,7 +319,6 @@ public class ExtractText
 					TextRegion tr = (TextRegion) r;
 					String regionId = tr.getId().toString();
 
-
 					List <LowLevelTextObject> textObjects = tr.getTextObjectsSorted();
 					for (LowLevelTextObject to: textObjects)
 					{

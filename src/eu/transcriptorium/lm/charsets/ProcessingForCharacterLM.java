@@ -96,7 +96,7 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		CharacterSet dat = new ProcessingForCharacterLM();
 		dat.setAcceptAll();
 		
-		String test = "Dogs are remarkable animals";
+		String test = "Dogs are, indeed, remarkable animals";
 		for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);

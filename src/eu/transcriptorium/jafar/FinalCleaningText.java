@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization;
+import eu.transcriptorium.lm.charsets.ProcessingForCharacterLM;
 
 /**
  * Dit is WProc.jar

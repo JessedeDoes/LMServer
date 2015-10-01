@@ -90,29 +90,9 @@ public class ExtractText
 						{
 							String labelId = getLineId(pageId, regionId, to.getId().toString());
 							//out.println(to.getText());
-							out.println("\"*/" + labelId + ".lab\"");
-							out.println(characterSet.getLineStartSymbol());
-							String text = xmlStripper.decodeXML(to.getText());
-							for (String w: text.split("\\s+"))
-							{
-								String cleanedWord = characterSet.cleanWord(w);
-								for (String tok: cleanedWord.split("\\s+"))
-								{
-									String normalizedWord = characterSet.normalize(tok);
-									String[] models = characterSet.wordToModelNames(tok);
-
-									// out.println(w + " | "  + tok + " | " + normalizedWord + " | " + StringUtils.join(models, " "));
-
-									for (String x: models)
-									{
-										out.println(x);
-										modelNameCounter.increment(x);
-									}
-
-								}
-							}
-							out.println(characterSet.getLineEndSymbol());
-							out.println(".");
+							String txt = to.getText();
+							
+							printLabelsForLine(out, labelId, txt);
 
 						} else
 						{
@@ -126,6 +106,33 @@ public class ExtractText
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private void printLabelsForLine(PrintWriter out, String labelId, String txt) {
+		out.println("\"*/" + labelId + ".lab\"");
+		out.println(characterSet.getLineStartSymbol());
+
+		String text = xmlStripper.decodeXML(txt);
+		for (String w: text.split("\\s+"))
+		{
+			String cleanedWord = characterSet.cleanWord(w);
+			for (String tok: cleanedWord.split("\\s+"))
+			{
+				String normalizedWord = characterSet.normalize(tok);
+				String[] models = characterSet.wordToModelNames(tok);
+
+				// out.println(w + " | "  + tok + " | " + normalizedWord + " | " + StringUtils.join(models, " "));
+
+				for (String x: models)
+				{
+					out.println(x);
+					modelNameCounter.increment(x);
+				}
+
+			}
+		}
+		out.println(characterSet.getLineEndSymbol());
+		out.println(".");
 	}
 
 	public void printLabelFileFromDirectory(String dirName, PrintWriter out)
@@ -147,6 +154,32 @@ public class ExtractText
 			printLabelFileFromDirectory(dirName, out);
 			out.close();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, String outFile)
+	{
+		try 
+		{
+			PrintWriter out = new PrintWriter(new FileWriter(outFile));
+			File f = new File(dirName);
+			String[] entries = f.list();
+			startLabelFile(out);
+			for (String fn: entries)
+			{
+				BufferedReader b = new BufferedReader(new FileReader(dirName + "/"  + fn));
+				String l;
+				fn = fn.replaceAll(".txt$", "");
+				while ((l = b.readLine()) != null)
+				{
+					this.printLabelsForLine(out, fn, l);
+				}
+			}
+			out.close();
+		} catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

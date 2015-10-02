@@ -14,7 +14,7 @@ import eu.transcriptorium.util.SimpleTokenizer;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
-public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.CharacterSet
+public class AlejandrosNewBenthamTokenizationXX implements eu.transcriptorium.lm.CharacterSet
 {
 	static String[][] escapes =
 	{
@@ -43,8 +43,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	static String initialSpace = "<is>";
 	static String finalSpace = "<fs>";
 
-	//static char hasInitialSpaceOnlyMarker =  '<'; // '前'; // problem if accepted by charset
-	//static char  hasFinalSpaceOnlyMarker = '>'; // '后'; //  problem if accepted by charset
+	// static char hasInitialSpaceOnlyMarker =  '<'; // '前'; // problem if accepted by charset
+	// static char  hasFinalSpaceOnlyMarker = '>'; // '后'; //  problem if accepted by charset
 	
 	static char hasInitialSpaceOnlyMarker =  '↳'; // problem if accepted by charset
 	static char hasFinalSpaceOnlyMarker = '↵'; //  problem if accepted by charset
@@ -117,7 +117,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 	
 	}
-	public AlejandrosNewBenthamTokenization()
+	public AlejandrosNewBenthamTokenizationXX()
 	{
 		init();
 	}
@@ -143,7 +143,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	{
 		// TODO Auto-generated method stub
 		//System.err.println("to models: " + w);
-		w = removeEscapes(w);
+		//w = removeEscapes(w);
 		
 		char[] characters = w.toCharArray();
 		List<String> l = new ArrayList<String>();
@@ -164,16 +164,13 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	
 		for (Character c: characters)
 		{
-			if (characterAccepted[c])
+			if (characterAccepted[c] || escapeMap.get(c) != null)
 			{
 				l.add(c.toString());
 			} else if ((name = characterModelNames.get(c)) != null)
 			{
 				// System.err.println(name);
 				l.add(name);
-			}  else if (escapeMap.get(c) != null)// escape characters not in handled here?
-			{
-				l.add(c.toString());
 			}
 		}
 		
@@ -262,9 +259,9 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			} else if ((c1 = characterMappings.get(c)) != null)
 			{ 
 				c = c1;
-			}  else if ((esc = escapeMap.get(c)) != null) // no -- do not escape here yet, only after tokenization.....
+			} else if ((esc = escapeMap.get(c)) != null) // no -- do not escape here yet, only after tokenization.....
 			{
-				b.append(esc);
+				b.append(c);
 			} else if ((esc = characterModelNames.get(c)) != null)
 			{
 				//System.err.println("OK! " + esc);
@@ -406,17 +403,19 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		{
 			char i = (char) j; // BUT do not accept the escapes?
 			if (!(escapeMap.get(i) != null)) if 
-			(i != this.getFinalSpaceOnlyMarker() && i != this.getInitialSpaceOnlyMarker())
+			 	(i != this.getFinalSpaceOnlyMarker() 
+			 	&& i != this.getInitialSpaceOnlyMarker())
 				characterAccepted[i] = true;
 		}
 	}
 	
 	public static void main(String[] args)
 	{
-		CharacterSet dat = new AlejandrosNewBenthamTokenization();
+		CharacterSet dat = new AlejandrosNewBenthamTokenizationXX();
 		dat.setAcceptAll();
 		
-		String test = "In 1724 the (local) Government, \"in Tunisia\"";
+		String test = "In 1724 the. (local) Government, \"in Tunisia\"";
+		
 		for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);

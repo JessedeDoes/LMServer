@@ -185,11 +185,36 @@ public class BuildDictionaryFromOriginalText
 		}
 	}
 
+	@Deprecated
+	private  void outputVariantX(String unnormalizedWord, double num, PrintWriter out)
+	{
+		String normalized = characterSet.normalize(unnormalizedWord);
+		out.print("\"" + characterSet.escapeWord(normalized) + "\"" + "\t");
+		
+		// do we need to escape the square brackets?
+		
+		String unescaped =unnormalizedWord ; //.unescapeWord(unnormalizedWord);
+		
+		String gap = "<gap/>";
+		
+		if (unescaped.contains(gap)) // this should be inside the character processing class
+		{
+			out.print("[" + unescaped + "]" + "\t" + numberFormat.format(num) + "\t" + "<GAP>" + " ");
+		} else
+		{	
+			String[] modelNames = characterSet.wordToModelNames(unnormalizedWord);
+			out.print("[" + unescaped + "]" + "\t" + numberFormat.format(num)
+					+ "\t" + eu.transcriptorium.util.StringUtils.join(modelNames, " "));
+		}	
+		out.println();
+	}
+
 	private  void outputVariant(String unnormalizedWord, double num, PrintWriter out)
 	{
 		out.print("\"" + characterSet.normalize(unnormalizedWord) + "\"" + "\t");
 		
 		String unescaped = characterSet.unescapeWord(unnormalizedWord);
+		
 		String gap = "<gap/>";
 		
 		if (unescaped.contains(gap)) // this should be inside the character processing class

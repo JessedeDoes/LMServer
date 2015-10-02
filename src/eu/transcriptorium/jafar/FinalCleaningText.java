@@ -49,6 +49,7 @@ public class FinalCleaningText
 				for (String w: line.split("\\s+"))
 				{
 					String cleaned = characterSet.cleanWord(w);
+					//System.err.println(cleaned);
 					if (cleaned != null && cleaned.length() > 0)
 					{
 						cleanedOutput.print(cleaned +  " ");

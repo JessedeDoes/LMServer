@@ -62,7 +62,7 @@ public class SyllableTokenization extends AlejandrosNewBenthamTokenization
 			if (characterAccepted[c])
 			{
 				l.add(c.toString());
-			} else if ((name = characterNames.get(c)) != null)
+			} else if ((name = characterModelNames.get(c)) != null)
 			{
 				// System.err.println(name);
 				l.add(name);

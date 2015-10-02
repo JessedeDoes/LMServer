@@ -15,14 +15,33 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 {
 	public String cleanWord(String w)
 	{
-		String s = super.cleanWord(w);
-		if (s == null)
-			return s;
-		String individualCharacters = StringUtils.join(s.split(""), " "); 
 		
-		return AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + 
-			individualCharacters + 
-			AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker;
+		tokenizer.tokenize(w);
+		
+		String pre = cleanOneToken(tokenizer.prePunctuation);
+		String main = cleanOneToken(tokenizer.trimmedToken);
+		String post =  cleanOneToken(tokenizer.postPunctuation);
+		
+		List<String> R = new ArrayList<String>();
+		String r = "";
+		
+		if (pre != null && pre.length() > 0)
+		{
+			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(pre.split(""), " ") ); 
+		}
+		
+		if (main != null && main.length() > 0)
+		{
+			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(main.split(""), " ") +   
+					   AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker); 
+		}
+		
+		if (post != null && post.length() > 0)
+		{
+			R.add( StringUtils.join(post.split(""), " ") +   
+					   AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker) ; 
+		}
+		return StringUtils.join(R, " ");
 	}
 	
 	
@@ -96,7 +115,7 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		CharacterSet dat = new ProcessingForCharacterLM();
 		dat.setAcceptAll();
 		
-		String test = "Dogs are, indeed, remarkable animals";
+		String test = "Dogs are, indeed, 'remarkable' animals";
 		for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);

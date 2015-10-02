@@ -7,11 +7,13 @@ import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.util.StringUtils;
 
 /**
- * Not quite clear this will work
+ * Good syllable splitting does not really matter here..
+ * Ideally - split in such a way that LM is best....
+ * Or just preprocess corpus with syllable splitter
  * @author jesse
  *
  */
-public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
+public class SyllableTokenization extends AlejandrosNewBenthamTokenization
 {
 	public String cleanWord(String w)
 	{
@@ -25,6 +27,11 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 			AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker;
 	}
 	
+	
+	public List<String> syllabify(String w)
+	{
+		return null;
+	}
 	
 	@Override
 	public String[] wordToModelNames(String w)
@@ -93,7 +100,7 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 
 	public static void main(String[] args)
 	{
-		CharacterSet dat = new ProcessingForCharacterLM();
+		CharacterSet dat = new SyllableTokenization();
 		dat.setAcceptAll();
 		
 		String test = "Dogs are, indeed, remarkable animals";

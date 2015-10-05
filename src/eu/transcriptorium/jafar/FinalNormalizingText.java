@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 /**
  * 
  * @author jafar Dit (=WNorm.jar) lijkt gewoon te uppercasen, bovendien niet op
- *         een correctie manier (UTF 8 gaat fout) Wat had ik hiermee ook alweer
+ *         een correctie manier (karakters met diacritische tekens gaan fout) Wat had ik hiermee ook alweer
  *         gedaan voor de Reichsgericht etc data? Gewoon vervangen door  simpele uppercaser
   */
 public class FinalNormalizingText

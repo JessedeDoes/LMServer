@@ -13,9 +13,22 @@ import eu.transcriptorium.util.StringUtils;
  */
 public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 {
+	/*
+	 * unescape, split, escape.
+	 */
+	public String[] splitInCharacters(String s)
+	{
+		s = unescapeWord(s);
+		String[] p = s.split("");
+		
+		for (int i=0; i < p.length; i++)
+		{
+			p[i] = escapeWord(p[i]);
+		}
+		return p;
+	}
 	public String cleanWord(String w)
 	{
-		
 		tokenizer.tokenize(w);
 		
 		String pre = cleanOneToken(tokenizer.prePunctuation);
@@ -27,18 +40,18 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		
 		if (pre != null && pre.length() > 0)
 		{
-			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(pre.split(""), " ") ); 
+			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(splitInCharacters(pre), " ") ); 
 		}
 		
 		if (main != null && main.length() > 0)
 		{
-			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(main.split(""), " ") +   
+			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(splitInCharacters(main), " ") +   
 					   AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker); 
 		}
 		
 		if (post != null && post.length() > 0)
 		{
-			R.add( StringUtils.join(post.split(""), " ") +   
+			R.add( StringUtils.join(splitInCharacters(post), " ") +   
 					   AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker) ; 
 		}
 		return StringUtils.join(R, " ");
@@ -52,6 +65,7 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		//System.err.println("to models: " + w);
 		w = removeEscapes(w);
 		
+		//System.err.println("unescaped: " + w);
 		char[] characters = w.toCharArray();
 		List<String> l = new ArrayList<String>();
 		String name;
@@ -71,12 +85,15 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 	
 		for (Character c: characters)
 		{
-			if (characterAccepted[c])
+			if (characterAccepted[c]) // 
 			{
 				l.add(c.toString());
-			} else if ((name = characterModelNames.get(c)) != null)
+			} else if ((name = characterModelNames.get(c)) != null) // escape characters should have names?
 			{
 				// System.err.println(name);
+				l.add(name);
+			} else if ((name = escapeMap.get(c)) != null)
+			{
 				l.add(name);
 			}
 		}
@@ -124,8 +141,8 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 			{
 				//System.err.println("Tok: " + tok);
 				String norm = dat.normalize(tok); 
-			    System.out.println(w + " " + tok +  " " + 
-			    		dat.normalize(tok) + " --> "  + StringUtils.join(dat.wordToModelNames(tok), " "));
+			    System.out.println("word:  " + w +  " cleaned:  " + cleaned + " token: {" + tok +  "} normalized:  " + 
+			    		dat.normalize(tok) + " --> ["  + StringUtils.join(dat.wordToModelNames(tok), " ")  + "]");
 			}
 		}
 	}

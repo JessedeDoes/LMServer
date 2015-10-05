@@ -1,3 +1,14 @@
+
+TextAndLexicalProcessing2()
+{
+   CORPUS=$1
+   CLASS_CHARSET=$2
+   CHARSET=$3
+   OUTPUT=$5
+   CUTOFF=$4
+   java -classpath $CLASSPATH eu.transcriptorium.jafar.TextAndLexicalProcessing $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
+}
+
 ##################################################################################################
 
 TextAndLexicalProcessing()

@@ -352,6 +352,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 		return w;
 	}
+	
 	protected  String characterOrName(Character c)
 	{
 		String name;

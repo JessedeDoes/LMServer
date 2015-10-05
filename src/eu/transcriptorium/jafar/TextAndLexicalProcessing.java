@@ -15,16 +15,29 @@ public class TextAndLexicalProcessing
 	{
 		try
 		{
-			Class c = Class.forName(className);
-			Object o  = c.newInstance();
-			CharacterSet cs = (CharacterSet) o;
+			CharacterSet cs = instanceOfCharacterSet(className);
 			System.err.println("Character set: " + cs);
-			cs.loadFromHMMList(fileName);
+			if (fileName != null)
+				cs.loadFromHMMList(fileName);
 			this.characterSet = cs;
 		} catch (Exception  e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public TextAndLexicalProcessing(CharacterSet cs)
+	{
+		this.characterSet = cs;
+	}
+	
+	public static CharacterSet instanceOfCharacterSet(String className)
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException 
+	{
+		Class c = Class.forName(className);
+		Object o  = c.newInstance();
+		CharacterSet cs = (CharacterSet) o;
+		return cs;
 	}
 	
 	public void processPlainCorpusText(String inputFileName, String outputFolder, int cutoff)

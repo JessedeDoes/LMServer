@@ -18,7 +18,7 @@ public class TEITextDecoder implements XMLTextDecoder
 		BOTH
 	}  ;
 
-	type extractionType = type.BOTH;
+	type extractionType = type.EXPANSIONS;
 
 	public boolean  extractText(Node n)
 	{
@@ -55,7 +55,7 @@ public class TEITextDecoder implements XMLTextDecoder
 					extractedText +=  "<" + abr + ":"  + exp + ">";
 					break;
 				case EXPANSIONS:
-					extractedText += expan;
+					extractedText += exp;
 					break;
 				case ABBREVIATIONS:
 					extractedText += abr;

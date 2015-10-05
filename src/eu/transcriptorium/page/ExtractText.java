@@ -19,7 +19,7 @@ import java.io.*;
 
 public class ExtractText
 {
-	CharacterSet  characterSet = new DutchArtesTokenization();
+	private CharacterSet  characterSet = new DutchArtesTokenization();
 	XMLTextDecoder xmlStripper = new TEITextDecoder();
 	Counter<String> modelNameCounter = new Counter<String>();
 
@@ -33,7 +33,7 @@ public class ExtractText
 	public  void printLabels(String fileName)
 	{
 		PrintWriter sout = new PrintWriter(new OutputStreamWriter(System.out));
-		printLabels(fileName, sout);
+		printLabelsFromPAGEXML(fileName, sout);
 		sout.close();
 	}
 
@@ -62,9 +62,9 @@ public class ExtractText
 	}
 
 	// this prints from XML
-	public  void printLabels(String fileName, PrintWriter out)
+	public  void printLabelsFromPAGEXML(String fileName, PrintWriter out)
 	{
-		characterSet.setAcceptAll();
+		getCharacterSet().setAcceptAll();
 		try
 		{
 			Page page = PageXmlInputOutput.readPage(fileName);
@@ -92,7 +92,7 @@ public class ExtractText
 							//out.println(to.getText());
 							String txt = to.getText();
 							
-							printLabelsForLine(out, labelId, txt);
+							printLabelsForLine(null, out, labelId, txt);
 
 						} else
 						{
@@ -108,31 +108,37 @@ public class ExtractText
 		}
 	}
 
-	private void printLabelsForLine(PrintWriter out, String labelId, String txt) {
-		out.println("\"*/" + labelId + ".lab\"");
-		out.println(characterSet.getLineStartSymbol());
+	private void printLabelsForLine(PrintWriter textFileWriter, PrintWriter labelFileWriter, String labelId, String txt) {
+		labelFileWriter.println("\"*/" + labelId + ".lab\"");
+		labelFileWriter.println(getCharacterSet().getLineStartSymbol());
 
 		String text = xmlStripper.decodeXML(txt);
+		
+		if (textFileWriter != null)
+		{
+			textFileWriter.println(text);
+		}
+		
 		for (String w: text.split("\\s+"))
 		{
-			String cleanedWord = characterSet.cleanWord(w);
+			String cleanedWord = getCharacterSet().cleanWord(w);
 			for (String tok: cleanedWord.split("\\s+"))
 			{
-				String normalizedWord = characterSet.normalize(tok);
-				String[] models = characterSet.wordToModelNames(tok);
+				String normalizedWord = getCharacterSet().normalize(tok);
+				String[] models = getCharacterSet().wordToModelNames(tok);
 
 				// out.println(w + " | "  + tok + " | " + normalizedWord + " | " + StringUtils.join(models, " "));
 
 				for (String x: models)
 				{
-					out.println(x);
+					labelFileWriter.println(x);
 					modelNameCounter.increment(x);
 				}
 
 			}
 		}
-		out.println(characterSet.getLineEndSymbol());
-		out.println(".");
+		labelFileWriter.println(getCharacterSet().getLineEndSymbol());
+		labelFileWriter.println(".");
 	}
 
 	public void printLabelFileFromDirectory(String dirName, PrintWriter out)
@@ -142,7 +148,7 @@ public class ExtractText
 		startLabelFile(out);
 		for (String fn: entries)
 		{
-			printLabels(dirName + "/" + fn, out);
+			printLabelsFromPAGEXML(dirName + "/" + fn, out);
 		}
 	}
 
@@ -159,14 +165,16 @@ public class ExtractText
 		}
 	}
 	
-	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, String outFile)
+	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, String textFilename, 
+			String labelFilename)
 	{
 		try 
 		{
-			PrintWriter out = new PrintWriter(new FileWriter(outFile));
+			PrintWriter labelFileWriter = new PrintWriter(new FileWriter(labelFilename));
+			PrintWriter textFileWriter = new PrintWriter(new FileWriter(textFilename));
 			File f = new File(dirName);
 			String[] entries = f.list();
-			startLabelFile(out);
+			startLabelFile(labelFileWriter);
 			for (String fn: entries)
 			{
 				BufferedReader b = new BufferedReader(new FileReader(dirName + "/"  + fn));
@@ -174,10 +182,11 @@ public class ExtractText
 				fn = fn.replaceAll(".txt$", "");
 				while ((l = b.readLine()) != null)
 				{
-					this.printLabelsForLine(out, fn, l);
+					this.printLabelsForLine(textFileWriter, labelFileWriter, fn, l);
 				}
 			}
-			out.close();
+			labelFileWriter.close();
+			textFileWriter.close();
 		} catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
@@ -215,7 +224,7 @@ public class ExtractText
 			String s;
 			while ((s = r.readLine()) != null)
 			{
-				String t = characterSet.cleanLine(xmlStripper.decodeXML(s));
+				String t = getCharacterSet().cleanLine(xmlStripper.decodeXML(s));
 				out.println(t);
 			}
 			out.close();
@@ -345,5 +354,13 @@ public class ExtractText
 		ExtractText et = new ExtractText();
 		et.printLabelFileFromDirectory(dir, "./Test/test.mlf");
 		et.printStatistics("./Test/test.stats");
+	}
+
+	public CharacterSet getCharacterSet() {
+		return characterSet;
+	}
+
+	public void setCharacterSet(CharacterSet characterSet) {
+		this.characterSet = characterSet;
 	}
 }

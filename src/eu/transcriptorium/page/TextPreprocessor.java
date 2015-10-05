@@ -7,7 +7,7 @@ public class TextPreprocessor
 	public static void main(String[] args) throws IOException
 	{
 		ExtractText t = new ExtractText();
-		t.characterSet.setAcceptAll();
+		t.getCharacterSet().setAcceptAll();
 		t.stripXMLFromTextLinesAndClean(args[0], args[1]);
 	}
 }

@@ -135,7 +135,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 	{
 		StringBuffer b = new StringBuffer();
 		List<Symbol> symbols = decompose(w); // unescape first? mormalized has escapes...
-
+		//System.err.println(symbols);
 		for (Symbol s: symbols)
 		{
 			switch (s.type)
@@ -186,6 +186,7 @@ public class DutchArtesTokenization extends AlejandrosNewBenthamTokenization
 		{
 			//System.err.println("word " + w  + " truncated to " + b);
 		}
+		// System.err.println("cleaned: " + w + " --> " + b);
 		return b.toString();
 	}
 

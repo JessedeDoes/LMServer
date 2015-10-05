@@ -22,9 +22,11 @@ import java.util.List;
 /**
  * This is jafar's WFreq.jar
  * 
+ * Currently not in use
  * @author does
  *
  */
+@Deprecated
 public class WordFrequencyCount
 {
 

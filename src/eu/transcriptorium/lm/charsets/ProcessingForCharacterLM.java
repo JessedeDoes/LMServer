@@ -41,21 +41,21 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		
 		if (pre != null && pre.length() > 0)
 		{
-			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + 
+			R.add(hasInitialSpaceOnlyMarker + 
 					StringUtils.join(splitInCharacters(pre), " ") ); 
 		}
 		
 		if (main != null && main.length() > 0)
 		{
-			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + 
+			R.add(hasInitialSpaceOnlyMarker + 
 					StringUtils.join(splitInCharacters(main), " ") +   
-					AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker); 
+					hasFinalSpaceOnlyMarker); 
 		}
 		
 		if (post != null && post.length() > 0)
 		{
 			R.add(StringUtils.join(splitInCharacters(post), " ") +   
-					   AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker) ; 
+					   hasFinalSpaceOnlyMarker) ; 
 		}
 		return StringUtils.join(R, " ");
 	}
@@ -64,21 +64,16 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 	@Override
 	public String[] wordToModelNames(String w)
 	{
-		// TODO Auto-generated method stub
-		//System.err.println("to models: " + w);
+		
 		w = removeEscapes(w);
 		
-		//System.err.println("unescaped: " + w);
+		
 		char[] characters = w.toCharArray();
 		List<String> l = new ArrayList<String>();
 		String name;
 		boolean normalWord = true;
 		
-		// System.err.println(w);
-		//if (w.contains(">") || w.contains("<"))
-		//{
-			//System.err.println(w);
-		//}
+		
 		
 		if (w.startsWith(getInitialSpaceOnlyMarker()+""))
 		{
@@ -93,7 +88,6 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 				l.add(c.toString());
 			} else if ((name = characterModelNames.get(c)) != null) // escape characters should have names?
 			{
-				// System.err.println(name);
 				l.add(name);
 			} else if ((name = escapeMap.get(c)) != null)
 			{
@@ -107,24 +101,6 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 			normalWord = false;
 		}
 		
-		//if (!normalWord)
-		//{
-		//	System.err.println(w + "--->"  + l);
-		// }
-		
-		if (normalWord)
-		{
-			/*// don't do all this...
-			boolean isNumber = w.matches("^[0-9]+$");
-			List<String> l1 = new ArrayList<String>();
-			if (!isNumber) 
-				l1.add(initialSpace);
-			l1.addAll(l);
-			if (!isNumber) 
-				l1.add(finalSpace);
-			l = l1;
-			*/
-		}
 		
 		String[] a = new String[l.size()];
 		return l.toArray(a);

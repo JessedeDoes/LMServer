@@ -11,15 +11,21 @@ public class TEITextDecoder implements XMLTextDecoder
 {
 	String extractedText = "";
 
-	enum type
+	public enum type
 	{
 		EXPANSIONS,
 		ABBREVIATIONS,
 		BOTH
 	}  ;
 
-	type extractionType = type.EXPANSIONS;
+	private type extractionType = type.EXPANSIONS;
 
+	
+	public TEITextDecoder(type t)
+	{
+		this.extractionType = t;
+	}
+	
 	public boolean  extractText(Node n)
 	{
 		// TODO Auto-generated method stub
@@ -49,7 +55,7 @@ public class TEITextDecoder implements XMLTextDecoder
 							abr += c.getTextContent();
 					}
 				}
-				switch (extractionType)
+				switch (getExtractionType())
 				{
 				case BOTH:
 					extractedText +=  "<" + abr + ":"  + exp + ">";
@@ -89,8 +95,16 @@ public class TEITextDecoder implements XMLTextDecoder
 
 	public static void main(String[] args)
 	{
-		TEITextDecoder ttd = new TEITextDecoder();
+		TEITextDecoder ttd = new TEITextDecoder(type.BOTH);
 		String  s= "aap noot <choose><abbr>abr</abbr><expan>abbreviation</expan></choose> mies <choose>a<expan>b</expan></choose>";
 		System.out.println(s + " ---> " + ttd.decodeXML(s));
+	}
+
+	public type getExtractionType() {
+		return extractionType;
+	}
+
+	public void setExtractionType(type extractionType) {
+		this.extractionType = extractionType;
 	}
 }

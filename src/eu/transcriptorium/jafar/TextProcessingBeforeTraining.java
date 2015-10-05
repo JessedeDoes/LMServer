@@ -2,6 +2,8 @@ package eu.transcriptorium.jafar;
 
 import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.page.ExtractText;
+import eu.transcriptorium.page.TEITextDecoder;
+import eu.transcriptorium.page.XMLTextDecoder;
 
 public class TextProcessingBeforeTraining 
 {
@@ -21,7 +23,9 @@ public class TextProcessingBeforeTraining
 		dictionaryFileName = outputFolder + "/"  + "dictionary.txt";
 		HMMListFileName = outputFolder + "/" + "HMMs.list";
 		trainingCorpusFileName = outputFolder + "/" + "trainingCorpus.txt";
-
+		XMLTextDecoder xtd = new TEITextDecoder(TEITextDecoder.type.EXPANSIONS);
+		
+		textExtraction.setXmlStripper(xtd);
 		try 
 		{
 			characterSet = TextAndLexicalProcessing.instanceOfCharacterSet(characterProcessingClassName);

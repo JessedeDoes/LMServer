@@ -11,6 +11,7 @@ import  org.primaresearch.dla.page.*;
 
 import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.lm.charsets.DutchArtesTokenization;
+import eu.transcriptorium.page.TEITextDecoder.type;
 import eu.transcriptorium.util.StringUtils;
 import eu.transcriptorium.util.*;
 
@@ -20,7 +21,7 @@ import java.io.*;
 public class ExtractText
 {
 	private CharacterSet  characterSet = new DutchArtesTokenization();
-	XMLTextDecoder xmlStripper = new TEITextDecoder();
+	private XMLTextDecoder xmlStripper = new TEITextDecoder(type.BOTH);
 	Counter<String> modelNameCounter = new Counter<String>();
 
 	public  void printText(String fileName)
@@ -112,7 +113,7 @@ public class ExtractText
 		labelFileWriter.println("\"*/" + labelId + ".lab\"");
 		labelFileWriter.println(getCharacterSet().getLineStartSymbol());
 
-		String text = xmlStripper.decodeXML(txt);
+		String text = getXmlStripper().decodeXML(txt);
 		
 		if (textFileWriter != null)
 		{
@@ -205,7 +206,7 @@ public class ExtractText
 			String s;
 			while ((s = r.readLine()) != null)
 			{
-				String t = xmlStripper.decodeXML(s);
+				String t = getXmlStripper().decodeXML(s);
 				out.println(t);
 			}
 			out.close();
@@ -224,7 +225,7 @@ public class ExtractText
 			String s;
 			while ((s = r.readLine()) != null)
 			{
-				String t = getCharacterSet().cleanLine(xmlStripper.decodeXML(s));
+				String t = getCharacterSet().cleanLine(getXmlStripper().decodeXML(s));
 				out.println(t);
 			}
 			out.close();
@@ -270,7 +271,7 @@ public class ExtractText
 							{
 								lineFile.createNewFile();
 								PrintWriter out = new PrintWriter(new FileWriter(lineFile));
-								out.println(xmlStripper.decodeXML(to.getText()));
+								out.println(getXmlStripper().decodeXML(to.getText()));
 								out.close();
 							} catch (Exception e)
 							{
@@ -362,5 +363,13 @@ public class ExtractText
 
 	public void setCharacterSet(CharacterSet characterSet) {
 		this.characterSet = characterSet;
+	}
+
+	public XMLTextDecoder getXmlStripper() {
+		return xmlStripper;
+	}
+
+	public void setXmlStripper(XMLTextDecoder xmlStripper) {
+		this.xmlStripper = xmlStripper;
 	}
 }

@@ -5,9 +5,7 @@ import eu.transcriptorium.lm.CharacterSet;
 public class TextAndLexicalProcessing
 {
 	CharacterSet characterSet;
-	
-	//  java -classpath $CLASSPATH eu.transcriptorium.jafar.WordFrequencySort -i $OUTPUT/cleanedText.txt -o $OUTPUT/not_used_list.txt -n $CUTOFF -s $OUTPUT/wordFrequencyList.txt
-
+		
 	public TextAndLexicalProcessing(String className, String fileName)
 	{
 		try
@@ -24,7 +22,7 @@ public class TextAndLexicalProcessing
 		}
 	}
 	
-	public void processing(String inputFileName, String outputFolder, int cutoff)
+	public void processPlainCorpusText(String inputFileName, String outputFolder, int cutoff)
 	{
 		FinalCleaningText tc = new FinalCleaningText(characterSet);
 		String cleanedFileName = outputFolder + "/"  + "cleanedText.txt";
@@ -37,23 +35,21 @@ public class TextAndLexicalProcessing
 		
 		WordFrequencySort s = new WordFrequencySort(characterSet);
 		
-		String[] sortArgs = 
+		String[] frequencyListArgs = 
 			{
-				"-i",  cleanedFileName,
+				"-i", cleanedFileName,
 				"-o", outputFolder + "/not_used_list.txt",
 				"-n", new Integer(cutoff).toString(),
 				"-s", frequencyListFileName
 			};
 		try
 		{
-			s.process(sortArgs);
+			s.process(frequencyListArgs);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		// java -classpath $CLASSPATH eu.transcriptorium.jafar.BuildDictionaryFromOriginalText 
-		// $CHARSET $OUTPUT/wordFrequencyList.txt $OUTPUT/dictionary.txt $OUTPUT/normalizedWordList.txt
-
+		
 		BuildDictionaryFromOriginalText  db = new BuildDictionaryFromOriginalText(characterSet);
 		db.processFiles(frequencyListFileName, dictionaryFileName, normalizedWordListFileName);
 	}
@@ -62,6 +58,6 @@ public class TextAndLexicalProcessing
 	{
 		TextAndLexicalProcessing talp = new TextAndLexicalProcessing(args[0], args[1]);
 		int cutoff = Integer.parseInt(args[3]);
-		talp.processing(args[2], args[4], cutoff);
+		talp.processPlainCorpusText(args[2], args[4], cutoff);
 	}
 }

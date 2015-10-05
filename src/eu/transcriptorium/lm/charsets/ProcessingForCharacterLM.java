@@ -27,6 +27,7 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		}
 		return p;
 	}
+	
 	public String cleanWord(String w)
 	{
 		tokenizer.tokenize(w);
@@ -40,18 +41,20 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		
 		if (pre != null && pre.length() > 0)
 		{
-			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(splitInCharacters(pre), " ") ); 
+			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + 
+					StringUtils.join(splitInCharacters(pre), " ") ); 
 		}
 		
 		if (main != null && main.length() > 0)
 		{
-			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + StringUtils.join(splitInCharacters(main), " ") +   
-					   AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker); 
+			R.add(AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + 
+					StringUtils.join(splitInCharacters(main), " ") +   
+					AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker); 
 		}
 		
 		if (post != null && post.length() > 0)
 		{
-			R.add( StringUtils.join(splitInCharacters(post), " ") +   
+			R.add(StringUtils.join(splitInCharacters(post), " ") +   
 					   AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker) ; 
 		}
 		return StringUtils.join(R, " ");

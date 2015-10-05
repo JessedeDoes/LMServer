@@ -2,6 +2,11 @@ package eu.transcriptorium.jafar;
 
 import eu.transcriptorium.lm.CharacterSet;
 
+/**
+ * This one is for text processing after training of the HTR system
+ * @author jesse
+ *
+ */
 public class TextAndLexicalProcessing
 {
 	CharacterSet characterSet;

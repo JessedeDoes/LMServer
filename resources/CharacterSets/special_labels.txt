@@ -1,0 +1,5 @@
+/	<slash>
+'	<quote>
+"	<dquote>
+#	<alm>
+¶	<ESP>

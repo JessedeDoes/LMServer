@@ -13,97 +13,31 @@ import eu.transcriptorium.util.StringUtils;
  * @author jesse
  *
  */
-public class SyllableTokenization extends AlejandrosNewBenthamTokenization
+public class SyllableTokenization extends ProcessingForCharacterLM
 {
-	public String cleanWord(String w)
-	{
-		String s = super.cleanWord(w);
-		if (s == null)
-			return s;
-		String individualCharacters = StringUtils.join(s.split(""), " "); 
-		
-		return AlejandrosNewBenthamTokenization.hasInitialSpaceOnlyMarker + 
-			individualCharacters + 
-			AlejandrosNewBenthamTokenization.hasFinalSpaceOnlyMarker;
-	}
-	
-	
-	public List<String> syllabify(String w)
-	{
-		return null;
-	}
+	public static String splitMark = "_";
 	
 	@Override
-	public String[] wordToModelNames(String w)
+	public String[] splitInCharacters(String s)
 	{
-		// TODO Auto-generated method stub
-		//System.err.println("to models: " + w);
-		w = removeEscapes(w);
+		s = unescapeWord(s);
+		String[] p = s.split(splitMark);
 		
-		char[] characters = w.toCharArray();
-		List<String> l = new ArrayList<String>();
-		String name;
-		boolean normalWord = true;
-		
-		// System.err.println(w);
-		//if (w.contains(">") || w.contains("<"))
-		//{
-			//System.err.println(w);
-		//}
-		
-		if (w.startsWith(getInitialSpaceOnlyMarker()+""))
+		for (int i=0; i < p.length; i++)
 		{
-			l.add(initialSpace);
-			normalWord = false;
+			p[i] = escapeWord(p[i]);
 		}
-	
-		for (Character c: characters)
-		{
-			if (characterAccepted[c])
-			{
-				l.add(c.toString());
-			} else if ((name = characterModelNames.get(c)) != null)
-			{
-				// System.err.println(name);
-				l.add(name);
-			}
-		}
-		
-		if (w.endsWith(getFinalSpaceOnlyMarker()+""))
-		{
-			l.add(finalSpace);
-			normalWord = false;
-		}
-		
-		//if (!normalWord)
-		//{
-		//	System.err.println(w + "--->"  + l);
-		// }
-		
-		if (normalWord)
-		{
-			/*// don't do all this...
-			boolean isNumber = w.matches("^[0-9]+$");
-			List<String> l1 = new ArrayList<String>();
-			if (!isNumber) 
-				l1.add(initialSpace);
-			l1.addAll(l);
-			if (!isNumber) 
-				l1.add(finalSpace);
-			l = l1;
-			*/
-		}
-		
-		String[] a = new String[l.size()];
-		return l.toArray(a);
+		return p;
 	}
-
+	
+	
+	
 	public static void main(String[] args)
 	{
 		CharacterSet dat = new SyllableTokenization();
 		dat.setAcceptAll();
 		
-		String test = "Dogs are, indeed, remarkable animals";
+		String test = "Dogs are, in_deed, re_mar_ka_ble ani_mals";
 		for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);

@@ -23,9 +23,11 @@ public class TextProcessingBeforeTraining
 		dictionaryFileName = outputFolder + "/"  + "dictionary.txt";
 		HMMListFileName = outputFolder + "/" + "HMMs.list";
 		trainingCorpusFileName = outputFolder + "/" + "trainingCorpus.txt";
+		
 		XMLTextDecoder xtd = new TEITextDecoder(TEITextDecoder.type.EXPANSIONS);
 		
 		textExtraction.setXmlStripper(xtd);
+		
 		try 
 		{
 			characterSet = TextAndLexicalProcessing.instanceOfCharacterSet(characterProcessingClassName);
@@ -33,7 +35,9 @@ public class TextProcessingBeforeTraining
 		{
 			e.printStackTrace();
 		}
-		characterSet.loadFromHMMList(specialLabelFile);
+		
+		if (specialLabelFile != null)
+			characterSet.loadFromHMMList(specialLabelFile);
 		characterSet.setAcceptAll();
 		textExtraction.setCharacterSet(characterSet);
 		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, 

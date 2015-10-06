@@ -135,3 +135,11 @@ interleave()
 }
 
 ######################################################################
+
+SYLDIR=/mnt/Projecten/Taalbank/CL-Tools/Lettergreepsplitsing
+syllableSplitting()
+{
+  INPUT=$1;
+  SYL_OUTPUT=$2;
+  (cd $SYLDIR; perl scripts/sylsplit_corpus.pl $INPUT > $SYL_OUTPUT);
+}

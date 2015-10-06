@@ -3,8 +3,9 @@ source $1
 rm -rf $OUTPUT/*
 source LMScripts/LMBuildingFunctions.sh
 
-
-TextAndLexicalProcessing2 $CORPUS $CLASS_CHARSET $CHARSET $CUTOFF $OUTPUT
+SYLCORPUS=/tmp/split_corpus.txt
+syllableSplitting $CORPUS $SYLCORPUS
+TextAndLexicalProcessing2 $SYLCORPUS $CLASS_CHARSET $CHARSET $CUTOFF $OUTPUT
 
 LanguageModelingWithoutBigLM $OUTPUT/normalizedText.txt $OUTPUT/normalizedWordList.txt $OUTPUT/languageModel.lm
 

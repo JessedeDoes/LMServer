@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 
 public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.CharacterSet
 {
+	public boolean splitNumbers = true;
+	
 	static String[][] escapes =
 	{
 				{"'", "\\'", "\\\\'"},
@@ -89,7 +91,6 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 			// System.err.println("mapping character:"  + e[0] + "-->" + e[1]);
 			characterMappings.put(e[0], e[1]);
 		}
-	
 	};
 	
 	public void postInit()
@@ -115,8 +116,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 				}
 			}
 		}
-	
 	}
+	
 	public AlejandrosNewBenthamTokenization()
 	{
 		init();
@@ -192,10 +193,10 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		{
 			boolean isNumber = w.matches("^[0-9]+$");
 			List<String> l1 = new ArrayList<String>();
-			if (!isNumber) 
+			if (!isNumber || !splitNumbers) 
 				l1.add(initialSpace);
 			l1.addAll(l);
-			if (!isNumber) 
+			if (!isNumber || !splitNumbers) 
 				l1.add(finalSpace);
 			l = l1;
 		}
@@ -219,7 +220,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 		if (tokenizer.trimmedToken.length() > 0)
 		{
-			if (tokenizer.trimmedToken.matches("^[0-9]+$")) // gedoe met getalletjes. lelijk.
+			if (splitNumbers && tokenizer.trimmedToken.matches("^[0-9]+$")) // gedoe met getalletjes. lelijk.
 			{
 				char[] characters = tokenizer.trimmedToken.toCharArray();
 				for (int i=0; i < characters.length; i++)

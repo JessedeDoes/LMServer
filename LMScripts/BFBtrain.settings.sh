@@ -1,7 +1,7 @@
 CORPUS=BenthamNewTokenization/BenthamTrain/training.untokenized.txt
 OUTPUT=BenthamNewTokenization/Bentham_train_bigram
-#CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
-CLASS_CHARSET=eu.transcriptorium.lm.charsets.ProcessingForCharacterLM
+CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
+#CLASS_CHARSET=eu.transcriptorium.lm.charsets.ProcessingForCharacterLM
 
 CHARSET=resources/CharacterSets/AuxHMMsList
 CUTOFF=1

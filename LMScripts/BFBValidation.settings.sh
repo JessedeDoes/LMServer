@@ -1,4 +1,5 @@
 CHARSET=resources/CharacterSets/AuxHMMsList
+CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 CORPUS=BenthamNewTokenization/BenthamValidation/bentham_validation.txt
 OUTPUT=BenthamNewTokenization/Bentham_validation_bigram
 CUTOFF=2

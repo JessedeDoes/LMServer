@@ -1,5 +1,5 @@
 CORPUS=`pwd`/BenthamNewTokenization/BenthamTrain/training.untokenized.txt
-OUTPUT=BenthamNewTokenization/Bentham_train_bigram
+OUTPUT=BenthamNewTokenization/Bentham_train_bigram_syl
 #CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 CLASS_CHARSET=eu.transcriptorium.lm.charsets.SyllableTokenization
 

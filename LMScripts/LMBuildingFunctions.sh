@@ -84,7 +84,14 @@ ComputeComponentPerplexities()
   do
     LM="$x/languageModel.lm"
     echo "Compute perplexity of text $TEXT with respect to LM $LM"
+    # syllable splitting of TEXT if LM is a syllable model / TODO remove hack
+    if [[ $x == *"_syl"* ]]
+    then
+       OTHERTEXT=`echo $TEXT | perl -pe   's/bigram/bigram_syl/'`;
+       ngram -debug 2 -order 2 -lm $LM -cache 0 -ppl $OTHERTEXT > $x/linePerplexities.txt
+    else
     ngram -debug 2 -order 2 -lm $LM -cache 0 -ppl $TEXT > $x/linePerplexities.txt
+    fi
   done
 }
 
@@ -137,7 +144,7 @@ interleave()
 ######################################################################
 
 SYLDIR=/mnt/Projecten/Taalbank/CL-Tools/Lettergreepsplitsing
-SYLDIR=/home/jesse/Tools/Lettergreepsplitsing
+#SYLDIR=/home/jesse/Tools/Lettergreepsplitsing
 syllableSplitting()
 {
   INPUT=$1;

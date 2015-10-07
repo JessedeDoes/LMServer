@@ -1,6 +1,9 @@
 package eu.transcriptorium.util;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class StringUtils 
@@ -74,5 +77,18 @@ public class StringUtils
 			}
 		}
 		return sb.toString();
+	}
+	
+	public static List<String> readStringList(String fileName) throws IOException
+	{
+		String l;
+		BufferedReader b = new BufferedReader(new FileReader(fileName));
+
+		List<String> L = new ArrayList<String>();
+		while ((l = b.readLine()) != null)
+		{
+			L.add(l);
+		}
+		return L;
 	}
 }

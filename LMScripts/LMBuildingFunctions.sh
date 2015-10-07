@@ -143,8 +143,8 @@ interleave()
 
 ######################################################################
 
-SYLDIR=/mnt/Projecten/Taalbank/CL-Tools/Lettergreepsplitsing
-#SYLDIR=/home/jesse/Tools/Lettergreepsplitsing
+#SYLDIR=/mnt/Projecten/Taalbank/CL-Tools/Lettergreepsplitsing
+SYLDIR=/home/jesse/Tools/Lettergreepsplitsing
 syllableSplitting()
 {
   INPUT=$1;

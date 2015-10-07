@@ -166,18 +166,35 @@ public class ExtractText
 		}
 	}
 	
-	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, String textFilename, 
-			String labelFilename)
+	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, String trainingPartitionFilename, String textFilename, 
+			 String labelFilename)
 	{
 		try 
 		{
 			PrintWriter labelFileWriter = new PrintWriter(new FileWriter(labelFilename));
 			PrintWriter textFileWriter = new PrintWriter(new FileWriter(textFilename));
+			List<String> trainingPartition = null;
+			if (trainingPartitionFilename != null) 
+			{
+				trainingPartition = StringUtils.readStringList(trainingPartitionFilename);
+				System.err.println(trainingPartition);
+			}
 			File f = new File(dirName);
 			String[] entries = f.list();
+			Arrays.sort(entries);
 			startLabelFile(labelFileWriter);
 			for (String fn: entries)
 			{
+				boolean isPartOfSet = true;
+				if (trainingPartition != null)
+				{
+					isPartOfSet = false;
+					for (String s: trainingPartition)
+					  if (fn.contains(s))
+						  isPartOfSet = true;
+				}
+				if (!isPartOfSet)
+					continue;
 				BufferedReader b = new BufferedReader(new FileReader(dirName + "/"  + fn));
 				String l;
 				fn = fn.replaceAll(".txt$", "");

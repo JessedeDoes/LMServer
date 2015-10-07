@@ -17,7 +17,8 @@ public class TextProcessingBeforeTraining
 
 	int cutoff = 0;
 
-	public void processText(String characterProcessingClassName, String specialLabelFile, String textLineDir, String outputFolder)
+	public void processText(String characterProcessingClassName, 
+			String specialLabelFile, String textLineDir, String trainingPartitionList, String outputFolder)
 	{
 		labelFileName = outputFolder + "/"  + "labelFile.mlf";
 		dictionaryFileName = outputFolder + "/"  + "dictionary.txt";
@@ -40,7 +41,7 @@ public class TextProcessingBeforeTraining
 			characterSet.loadFromHMMList(specialLabelFile);
 		characterSet.setAcceptAll();
 		textExtraction.setCharacterSet(characterSet);
-		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, 
+		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, trainingPartitionList,
 				trainingCorpusFileName,
 				labelFileName);
 		textExtraction.printStatistics(HMMListFileName);
@@ -53,14 +54,15 @@ public class TextProcessingBeforeTraining
 				"eu.transcriptorium.lm.charsets.DutchArtesTokenization",
 				"/home/jesse/TUTORIAL-HTR/conf/DutchArtes.special.labels.txt",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions",
+				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst",
 				"/tmp/MMTest"
 		};
 
 	public static void main(String[] args)
 	{
 		TextProcessingBeforeTraining tpbt = new TextProcessingBeforeTraining();
-		if (args.length != 3)
+		if (args.length != 4)
 			args = defaultArgs;
-		tpbt.processText(args[0], args[1], args[2], args[3]);
+		tpbt.processText(args[0], args[1], args[2], args[3], args[4]);
 	}
 }

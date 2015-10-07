@@ -166,13 +166,16 @@ public class ExtractText
 		}
 	}
 	
-	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, String trainingPartitionFilename, String textFilename, 
-			 String labelFilename)
+	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, 
+			String trainingPartitionFilename, String trainingLinesFile, 
+			String textFilename, 
+			String labelFilename)
 	{
 		try 
 		{
 			PrintWriter labelFileWriter = new PrintWriter(new FileWriter(labelFilename));
 			PrintWriter textFileWriter = new PrintWriter(new FileWriter(textFilename));
+			PrintWriter trainingLinesWriter = new PrintWriter(new FileWriter(trainingLinesFile));
 			List<String> trainingPartition = null;
 			if (trainingPartitionFilename != null) 
 			{
@@ -191,7 +194,10 @@ public class ExtractText
 					isPartOfSet = false;
 					for (String s: trainingPartition)
 					  if (fn.contains(s))
+					  {
 						  isPartOfSet = true;
+						  trainingLinesWriter.println(fn);
+					  }
 				}
 				if (!isPartOfSet)
 					continue;
@@ -205,6 +211,7 @@ public class ExtractText
 			}
 			labelFileWriter.close();
 			textFileWriter.close();
+			trainingLinesWriter.close();
 		} catch (IOException e) 
 		{
 			// TODO Auto-generated catch block

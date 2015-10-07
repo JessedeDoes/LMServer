@@ -18,7 +18,7 @@ public class TextProcessingBeforeTraining
 	int cutoff = 0;
 
 	public void processText(String characterProcessingClassName, 
-			String specialLabelFile, String textLineDir, String trainingPartitionList, String outputFolder)
+			String specialLabelFile, String textLineDir, String trainingPartitionList, String trainingLinesFile, String outputFolder)
 	{
 		labelFileName = outputFolder + "/"  + "labelFile.mlf";
 		dictionaryFileName = outputFolder + "/"  + "dictionary.txt";
@@ -41,7 +41,7 @@ public class TextProcessingBeforeTraining
 			characterSet.loadFromHMMList(specialLabelFile);
 		characterSet.setAcceptAll();
 		textExtraction.setCharacterSet(characterSet);
-		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, trainingPartitionList,
+		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, trainingPartitionList, trainingLinesFile,
 				trainingCorpusFileName,
 				labelFileName);
 		textExtraction.printStatistics(HMMListFileName);
@@ -55,6 +55,7 @@ public class TextProcessingBeforeTraining
 				"/home/jesse/TUTORIAL-HTR/conf/DutchArtes.special.labels.txt",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst",
+				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x",
 				"/tmp/MMTest"
 		};
 
@@ -63,6 +64,6 @@ public class TextProcessingBeforeTraining
 		TextProcessingBeforeTraining tpbt = new TextProcessingBeforeTraining();
 		if (args.length != 4)
 			args = defaultArgs;
-		tpbt.processText(args[0], args[1], args[2], args[3], args[4]);
+		tpbt.processText(args[0], args[1], args[2], args[3], args[4], args[5]);
 	}
 }

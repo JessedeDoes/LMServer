@@ -3,3 +3,4 @@
 "	<dquote>
 #	<alm>
 ¶	<ESP>
+\	<backslash>

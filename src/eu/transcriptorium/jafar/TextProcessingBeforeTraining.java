@@ -16,7 +16,8 @@ public class TextProcessingBeforeTraining
 	String trainingCorpusFileName;
 
 	int cutoff = 0;
-
+	int numStates = 6;
+	
 	public void processText(String characterProcessingClassName, 
 			String specialLabelFile, String textLineDir, String trainingPartitionList, String trainingLinesFile, String outputFolder)
 	{
@@ -44,7 +45,7 @@ public class TextProcessingBeforeTraining
 		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, trainingPartitionList, trainingLinesFile,
 				trainingCorpusFileName,
 				labelFileName);
-		textExtraction.printStatistics(HMMListFileName);
+		textExtraction.printHMMList(HMMListFileName, numStates);
 		talp = new TextAndLexicalProcessing(characterSet);
 		talp.processPlainCorpusText(trainingCorpusFileName, outputFolder, cutoff);
 	}

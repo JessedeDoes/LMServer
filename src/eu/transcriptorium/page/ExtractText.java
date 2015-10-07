@@ -314,7 +314,7 @@ public class ExtractText
 		}
 	}
 
-	public void printStatistics(String fn)
+	public void printHMMList(String fn, int numStates)
 	{
 		try
 		{
@@ -323,7 +323,7 @@ public class ExtractText
 			Collections.sort(models);
 			for (String m: models)
 			{
-				out.println(m + "\t" + modelNameCounter.get(m));
+				out.println(m + "\t" + numStates); // modelNameCounter.get(m));
 			}
 			out.close();
 		} catch (Exception e)
@@ -378,7 +378,7 @@ public class ExtractText
 		new ExtractText().printTextLinesFromDirectory(dir, "./Test/testLines");
 		ExtractText et = new ExtractText();
 		et.printLabelFileFromDirectory(dir, "./Test/test.mlf");
-		et.printStatistics("./Test/test.stats");
+		et.printHMMList("./Test/test.stats",6);
 	}
 
 	public CharacterSet getCharacterSet() {

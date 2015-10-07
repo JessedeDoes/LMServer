@@ -316,7 +316,7 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 					String[] parts = line.split("\\t");
 					if (parts.length > 1 && parts[0].length() > 0)
 					{
-						// System.err.println("mapping:" + parts[0].charAt(0) + " -- "  + parts[1] );
+						System.err.println("mapping:" + parts[0].charAt(0) + " -- "  + parts[1] );
 						characterModelNames.put(parts[0].charAt(0), parts[1]);
 					}
 				}

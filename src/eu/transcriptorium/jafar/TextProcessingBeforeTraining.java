@@ -42,7 +42,9 @@ public class TextProcessingBeforeTraining
 			characterSet.loadFromHMMList(specialLabelFile);
 		characterSet.setAcceptAll();
 		textExtraction.setCharacterSet(characterSet);
-		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, trainingPartitionList, trainingLinesFile,
+		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, 
+				trainingPartitionList, 
+				trainingLinesFile,
 				trainingCorpusFileName,
 				labelFileName);
 		textExtraction.printHMMList(HMMListFileName, numStates);

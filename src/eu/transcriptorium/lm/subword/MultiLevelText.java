@@ -93,7 +93,14 @@ public class MultiLevelText
 		}
 		if (currentNode != null)
 			base.add(currentNode);
-		
+		for (Node n: base)
+		{
+			if (n.word.startsWith("↳") && n.word.endsWith("↵")) // UGLY....
+			{
+				n.word = n.word.replaceAll("[↳↵]", "");
+			}
+			levels.get(0).add(n.word);
+		}
 	}
 	
 
@@ -102,7 +109,7 @@ public class MultiLevelText
 	    MultiLevelText t = new MultiLevelText(2);
 	    ProcessingForCharacterLM p= new ProcessingForCharacterLM();
 	    p.setAcceptAll();
-	    String s = p.normalize(p.cleanLine("De hond, die is een ????uitermate opmerkelijk dier"));
+	    String s = p.normalize(p.cleanLine("De hond, die \"is\" een ????uitermate opmerkelijk dier"));
 	    t.parseFromString(s);
 	    System.err.println(t.base);
 	}

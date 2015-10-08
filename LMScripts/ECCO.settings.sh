@@ -1,4 +1,5 @@
 CHARSET=resources/CharacterSets/AuxHMMsList
+CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 CORPUS=BenthamNewTokenization/newSelectedECCOtext.txt
 OUTPUT=BenthamNewTokenization/ECCO_bigram
 CUTOFF=1

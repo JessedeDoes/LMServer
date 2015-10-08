@@ -19,15 +19,24 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 	public String[] splitInCharacters(String s)
 	{
 		s = unescapeWord(s);
-		String[] p = s.split("");
+		String[] p = splitChars(s);
 		
 		for (int i=0; i < p.length; i++)
 		{
 			p[i] = escapeWord(p[i]);
 		}
+		//System.err.println("p0:<" + p[0] + ">");
 		return p;
 	}
 	
+	public static String[] splitChars(String s)
+	{
+		char[] p = s.toCharArray();
+		String[] r = new String[p.length];
+		for (int i=0; i < p.length; i++)
+			r[i]  = p[i] + "";
+		return r;
+	}
 	public String cleanWord(String w)
 	{
 		tokenizer.tokenize(w);
@@ -47,9 +56,12 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		
 		if (main != null && main.length() > 0)
 		{
-			R.add(hasInitialSpaceOnlyMarker + 
+		
+			String x = hasInitialSpaceOnlyMarker + 
 					StringUtils.join(splitInCharacters(main), " ") +   
-					hasFinalSpaceOnlyMarker); 
+					hasFinalSpaceOnlyMarker;
+			//System.err.println("<" + main+  "> " + x); 
+			R.add(x); 
 		}
 		
 		if (post != null && post.length() > 0)
@@ -57,6 +69,7 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 			R.add(StringUtils.join(splitInCharacters(post), " ") +   
 					   hasFinalSpaceOnlyMarker) ; 
 		}
+		//System.err.println(R);
 		return StringUtils.join(R, " ");
 	}
 	
@@ -111,8 +124,10 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 		CharacterSet dat = new ProcessingForCharacterLM();
 		dat.setAcceptAll();
 		
-		String test = "Dogs are, indeed, 'remarkable' animals";
-		for (String w: test.split("\\s+"))
+		String test = "Dogs are, indeed, 'remarkable' animals. Yes!";
+		System.err.println(dat.cleanLine(test));
+		
+		if (false) for (String w: test.split("\\s+"))
 		{
 			String cleaned = dat.cleanWord(w);
 			//System.err.println("cleaned " + cleaned);

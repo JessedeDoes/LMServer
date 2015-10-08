@@ -5,17 +5,20 @@ import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization;
 import eu.transcriptorium.lm.charsets.ProcessingForCharacterLM;
 import eu.transcriptorium.lm.subword.MultiLevelText.Node;
+import eu.transcriptorium.util.Counter;
 import edu.berkeley.nlp.lm.ArrayEncodedNgramLanguageModel;
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.WordIndexer;
 import edu.berkeley.nlp.lm.collections.BoundedList;
 import edu.berkeley.nlp.lm.io.LmReaders;
 
+import java.io.*;
+
 public class InterpolationOfWordAndSubWordLM
 {
 	private NgramLanguageModel<String> wordLM = null;
 	private NgramLanguageModel<String> subWordLM = null;
-	private float lambda = (float) 0.3;
+	private float lambda = (float) 0.3; // weight of the word level LM
 	CharacterSet characterSet;
 	
 	public InterpolationOfWordAndSubWordLM(NgramLanguageModel<String> wordLM, 
@@ -23,42 +26,94 @@ public class InterpolationOfWordAndSubWordLM
 	{
 		this.wordLM  = wordLM;
 		this.subWordLM = subWordLM;
+		wordLM.setOovWordLogProb(Float.NEGATIVE_INFINITY);
 		characterSet = new ProcessingForCharacterLM();
-		characterSet.setAcceptAll();
+		characterSet.loadFromHMMList("resources/CharacterSets/AuxHMMsList");
+		//characterSet.setAcceptAll();
 	}
 	
-	void evaluate(String sentence)
+	double  evaluate(String sentence)
 	{
 		 String s = characterSet.normalize(characterSet.cleanLine(sentence));
 		 MultiLevelText t = new MultiLevelText(2);
 		  t.parseFromString(s);	
-		  evaluate(t);
+		  return evaluate(t);
 	}
 	
-	void evaluate(MultiLevelText txt)
+    void testFromFile(String fileName) throws IOException
+	{
+		BufferedReader b = new BufferedReader(new FileReader(fileName));
+		
+		String txt ="";
+		String l;
+		while ((l=b.readLine())!=null)
+		{
+			txt += " " + l;
+		}
+		testSomeLambdas(txt);
+	}
+	void  testSomeLambdas(String sentence)
+	{
+		 String s = characterSet.normalize(characterSet.cleanLine(sentence));
+		 MultiLevelText t = new MultiLevelText(2);
+		  t.parseFromString(s);	
+		  testSomeLambdas(t);
+	}
+	
+	void testSomeLambdas(MultiLevelText  txt)
+	{
+		for (lambda=(float) 0.001; lambda < 0.999; lambda+= 0.01)
+		{
+			double d = evaluate(txt);
+			System.err.println(lambda + " "  + d);
+		}
+	}
+	
+	double evaluate(MultiLevelText txt)
 	{
 		final List<String> wordList =  boundSentence(txt.levels.get(0), wordLM);
 		final List<String>  subWordList =  boundSentence(txt.levels.get(1), subWordLM);
 	    float[] subwordScores = scoreSentence(subWordList, subWordLM);
 	    float[] wordScores = scoreSentence(wordList, wordLM);
-	    
+	    Counter<String> OOVCounter = new   Counter<String>();
+	    int nOOV = 0;
+	    double p=0;
+	   // System.err.println(wordList);
 		for (Node n: txt.base)
 		{
 			float x = 0;
 			for (int i: n.children)
 				x += subwordScores[i];
 			n.oovProb = x;
+			//System.err.println(n + " ::: "  + n.oovProb);
 		}
 		for (int i=0; i < txt.base.size(); i++)
 		{
 			Node n = txt.base.get(i);
 			n.logProb = wordScores[i];
+			boolean oov=isOOV(wordLM,n.word);
+			if (oov) nOOV++;
+			//System.err.println("at node "  + i);
 			
-			if (isOOV(wordLM,n.word))
+			if (false && oov) // tja, zo maakt het dus niks uit voor de interpolatie...
+			{
+				//
 				n.combiProb = n.oovProb;
+			}
 			else
-				n.combiProb = lambda * n.logProb + (1-lambda) * n.oovProb;
+				n.combiProb = Math.log(lambda * Math.exp(n.logProb) + (1-lambda) * Math.exp(n.oovProb));
+			p += n.combiProb;
+			
+			if (oov)
+			{
+				//System.err.println("OOV:"  + n.word);
+				OOVCounter.increment(n.word);
+			    //System.err.println(n + " -> "  +String.format("p:%f, c:%f, w:%f (lambda=%f)", n.combiProb, n.oovProb, n.logProb, lambda));
+			}
 		}
+		System.err.println("words: " + wordList.size() + " nOOV: " + nOOV);
+		System.err.println("OOVs: " + OOVCounter.keyList());
+		return p;
 	}
 
 	public BoundedList<String> boundSentence(List<String> txt, NgramLanguageModel<String> lm)
@@ -116,12 +171,26 @@ public class InterpolationOfWordAndSubWordLM
 			return null;
 	}
 	
-	public static void main(String[] args)
+	static String[] defaultArgs =  // supercalifragilisticexpialidocious
+		{
+		"BenthamNewTokenization/Interpolation/languageModel.lm", //  Bentham_train_bigram
+		"BenthamNewTokenization/Bentham_train_bigram_char/languageModel.lm",
+		"It is clear \"that\" the supercalifragilisticexpialidocious one will do this. Besides, do you like dogs?",
+		"BenthamNewTokenization/BenthamValidation/bentham_validation.txt"
+		};
+	
+	public static void main(String[] args) throws IOException
 	{
+		if (args.length < 3)
+			args = defaultArgs;
+		
 		NgramLanguageModel wlm = readLM(args[0]);
 		NgramLanguageModel clm = readLM(args[1]);
+		String s = args[2];
 		InterpolationOfWordAndSubWordLM i = new InterpolationOfWordAndSubWordLM(wlm,clm);
-		i.evaluate("hallo meneer");
+		i.evaluate(s);
+		i.testFromFile(args[3]);
+		//i.testSomeLambdas(s);
 	}
 }
 

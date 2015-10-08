@@ -1,4 +1,5 @@
 CHARSET=resources/CharacterSets/AuxHMMsList
+CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 CORPUS=/mnt/Projecten/transcriptorium/Data/Corpora/Bentham/LPL/NotBatch1.lpl.newtok.txt
 OUTPUT=BenthamNewTokenization/Bentham_bigram
 CUTOFF=1

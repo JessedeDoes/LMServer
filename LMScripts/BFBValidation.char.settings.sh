@@ -1,7 +1,9 @@
-CORPUS=/mnt/Projecten/transcriptorium/Data/Corpora/Bentham/OLL/LPLNewPunctuation/all.txt
-OUTPUT=BenthamNewTokenization/OLL_bigram
+CORPUS=BenthamNewTokenization/BenthamValidation/bentham_validation.txt
+OUTPUT=BenthamNewTokenization/Bentham_validation_bigram_char
+#CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
+CLASS_CHARSET=eu.transcriptorium.lm.charsets.ProcessingForCharacterLM
+
 CHARSET=resources/CharacterSets/AuxHMMsList
-CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 CUTOFF=1
 
 export CLASSPATH=./build/classes

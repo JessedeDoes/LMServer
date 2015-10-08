@@ -4,5 +4,4 @@ bash LMScripts/MultipleInterpolation.sh\
 	 BenthamNewTokenization/ECCO_bigram/\
 	 BenthamNewTokenization/OLL_bigram/\
 	 BenthamNewTokenization/Bentham_train_bigram/\
-	 BenthamNewTokenization/Bentham_train_bigram_syl/\
 	 BenthamNewTokenization/Bentham_bigram/

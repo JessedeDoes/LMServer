@@ -480,6 +480,13 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 		}
 		return b.toString();
 	}
+
+	@Override
+	public Map<Character, String> getSpecialCharacterModelNameMap() 
+	{
+		// TODO Auto-generated method stub
+		return  this.characterModelNames;
+	}
 }
 
 

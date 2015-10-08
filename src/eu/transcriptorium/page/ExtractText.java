@@ -92,7 +92,7 @@ public class ExtractText
 							String labelId = getLineId(pageId, regionId, to.getId().toString());
 							//out.println(to.getText());
 							String txt = to.getText();
-							
+
 							printLabelsForLine(null, out, labelId, txt);
 
 						} else
@@ -114,12 +114,12 @@ public class ExtractText
 		labelFileWriter.println(getCharacterSet().getLineStartSymbol());
 
 		String text = getXmlStripper().decodeXML(txt);
-		
+
 		if (textFileWriter != null)
 		{
 			textFileWriter.println(text);
 		}
-		
+
 		for (String w: text.split("\\s+"))
 		{
 			String cleanedWord = getCharacterSet().cleanWord(w);
@@ -165,7 +165,7 @@ public class ExtractText
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, 
 			String trainingPartitionFilename, String trainingLinesFile, 
 			String textFilename, 
@@ -193,11 +193,11 @@ public class ExtractText
 				{
 					isPartOfSet = false;
 					for (String s: trainingPartition)
-					  if (fn.contains(s))
-					  {
-						  isPartOfSet = true;
-						  trainingLinesWriter.println(fn);
-					  }
+						if (fn.contains(s))
+						{
+							isPartOfSet = true;
+							trainingLinesWriter.println(fn);
+						}
 				}
 				if (!isPartOfSet)
 					continue;
@@ -237,7 +237,7 @@ public class ExtractText
 			//printTextLines(dirName + "/" + fn, toDirName);
 		}
 	}
-	
+
 	public void stripXMLFromTextLinesAndClean(String inDirName, String outDirName) throws IOException
 	{
 		File f = new File(inDirName);
@@ -256,7 +256,7 @@ public class ExtractText
 			//printTextLines(dirName + "/" + fn, toDirName);
 		}
 	}
-	
+
 	public void printTextLinesFromDirectory(String dirName, String toDirName)
 	{
 		File f = new File(dirName);
@@ -314,7 +314,7 @@ public class ExtractText
 		}
 	}
 
-	public void printHMMList(String fn, int numStates)
+	public void printHMMList(String fn, String charsetFileName, int numStates)
 	{
 		try
 		{
@@ -326,12 +326,31 @@ public class ExtractText
 				out.println(m + "\t" + numStates); // modelNameCounter.get(m));
 			}
 			out.close();
+
+			if (charsetFileName != null)
+			{
+				out = new PrintWriter(new FileWriter(charsetFileName));
+				Map<Character,String> m = characterSet.getSpecialCharacterModelNameMap();
+				for (Character c: m.keySet())
+				{
+					String n = m.get(c);
+					out.println(c + "\t" + n);
+					modelNameCounter.remove(n);
+				}
+				models = modelNameCounter.keyList();
+				Collections.sort(models);
+				for (String x: models)
+				{
+					out.println(x); // modelNameCounter.get(m));
+				}
+				out.close();
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Deprecated
 	public  void printText(String fileName, PrintWriter out) // no: print lines in separate directories ...
 	{
@@ -378,7 +397,7 @@ public class ExtractText
 		new ExtractText().printTextLinesFromDirectory(dir, "./Test/testLines");
 		ExtractText et = new ExtractText();
 		et.printLabelFileFromDirectory(dir, "./Test/test.mlf");
-		et.printHMMList("./Test/test.stats",6);
+		et.printHMMList("./Test/test.stats",null, 6);
 	}
 
 	public CharacterSet getCharacterSet() {

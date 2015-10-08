@@ -1,6 +1,6 @@
 
 CLASS_CHARSET=eu.transcriptorium.lm.charsets.DutchArtesTokenization
-SPECIAL_LABELS=/home/jesse/TUTORIAL-HTR/conf/DutchArtes.special.labels.txt
+SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
 TRANSCRIPTION_DIR=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions
 TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst
 TRAIN_LINES=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x
@@ -8,7 +8,7 @@ DESTINATION=/tmp/MMTest
 
 CORPUS=$DESTINATION/trainingCorpus.txt
 OUTPUT=./Test/Meermanno
-CHARSET=$SPECIAL_LABELS
+CHARSET=$DESTINATION/charset.txt
 CUTOFF=0
 
 ### path and classpath settings

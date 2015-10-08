@@ -13,6 +13,7 @@ public class TextProcessingBeforeTraining
 	String labelFileName;
 	String dictionaryFileName;
 	String HMMListFileName;
+	String charsetFileName;
 	String trainingCorpusFileName;
 
 	int cutoff = 0;
@@ -24,6 +25,7 @@ public class TextProcessingBeforeTraining
 		labelFileName = outputFolder + "/"  + "labelFile.mlf";
 		dictionaryFileName = outputFolder + "/"  + "dictionary.txt";
 		HMMListFileName = outputFolder + "/" + "HMMs.list";
+		charsetFileName = outputFolder + "/" + "charset.txt";
 		trainingCorpusFileName = outputFolder + "/" + "trainingCorpus.txt";
 		
 		XMLTextDecoder xtd = new TEITextDecoder(TEITextDecoder.type.EXPANSIONS);
@@ -47,7 +49,7 @@ public class TextProcessingBeforeTraining
 				trainingLinesFile,
 				trainingCorpusFileName,
 				labelFileName);
-		textExtraction.printHMMList(HMMListFileName, numStates);
+		textExtraction.printHMMList(HMMListFileName, charsetFileName, numStates);
 		talp = new TextAndLexicalProcessing(characterSet);
 		talp.processPlainCorpusText(trainingCorpusFileName, outputFolder, cutoff);
 	}
@@ -55,7 +57,7 @@ public class TextProcessingBeforeTraining
 	static String[] defaultArgs = 
 		{
 				"eu.transcriptorium.lm.charsets.DutchArtesTokenization",
-				"/home/jesse/TUTORIAL-HTR/conf/DutchArtes.special.labels.txt",
+				"/home/jesse/workspace/LMServer/CharacterSets/special_labels.txt",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x",

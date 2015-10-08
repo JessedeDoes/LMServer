@@ -1,4 +1,5 @@
 package eu.transcriptorium.lm;
+import java.util.*;
 
 /**
  * 
@@ -23,5 +24,6 @@ public interface  CharacterSet
 	public void loadFromHMMList(String fileName);
 	public String getLineStartSymbol();
 	public String getLineEndSymbol();
+	public Map<Character,String> getSpecialCharacterModelNameMap();
 	public void setAcceptAll();
 }

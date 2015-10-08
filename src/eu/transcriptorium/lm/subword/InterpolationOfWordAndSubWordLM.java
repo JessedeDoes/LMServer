@@ -3,17 +3,19 @@ import java.util.List;
 
 import eu.transcriptorium.lm.CharacterSet;
 import eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization;
+import eu.transcriptorium.lm.charsets.ProcessingForCharacterLM;
 import eu.transcriptorium.lm.subword.MultiLevelText.Node;
 import edu.berkeley.nlp.lm.ArrayEncodedNgramLanguageModel;
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.WordIndexer;
 import edu.berkeley.nlp.lm.collections.BoundedList;
+import edu.berkeley.nlp.lm.io.LmReaders;
 
 public class InterpolationOfWordAndSubWordLM
 {
 	private NgramLanguageModel<String> wordLM = null;
 	private NgramLanguageModel<String> subWordLM = null;
-	float lambda = (float) 0.3;
+	private float lambda = (float) 0.3;
 	CharacterSet characterSet;
 	
 	public InterpolationOfWordAndSubWordLM(NgramLanguageModel<String> wordLM, 
@@ -21,13 +23,16 @@ public class InterpolationOfWordAndSubWordLM
 	{
 		this.wordLM  = wordLM;
 		this.subWordLM = subWordLM;
-		characterSet = new AlejandrosNewBenthamTokenization();
+		characterSet = new ProcessingForCharacterLM();
 		characterSet.setAcceptAll();
 	}
 	
 	void evaluate(String sentence)
 	{
-		
+		 String s = characterSet.normalize(characterSet.cleanLine(sentence));
+		 MultiLevelText t = new MultiLevelText(2);
+		  t.parseFromString(s);	
+		  evaluate(t);
 	}
 	
 	void evaluate(MultiLevelText txt)
@@ -86,6 +91,37 @@ public class InterpolationOfWordAndSubWordLM
 			scores[i-1] = scoreNgram;
 		}
 		return scores;
+	}
+
+	public float getLambda()
+	{
+		return lambda;
+	}
+
+	public void setLambda(float lambda)
+	{
+		this.lambda = lambda;
+	}
+	static NgramLanguageModel readLM(String fileName)
+	{
+		// languageModel = null;
+		if (fileName != null)
+		{
+			if (!fileName.endsWith(".bin"))
+				return  LmReaders.readArrayEncodedLmFromArpa(fileName,false);
+			else
+				return LmReaders.readLmBinary(fileName);
+
+		} else
+			return null;
+	}
+	
+	public static void main(String[] args)
+	{
+		NgramLanguageModel wlm = readLM(args[0]);
+		NgramLanguageModel clm = readLM(args[1]);
+		InterpolationOfWordAndSubWordLM i = new InterpolationOfWordAndSubWordLM(wlm,clm);
+		i.evaluate("hallo meneer");
 	}
 }
 

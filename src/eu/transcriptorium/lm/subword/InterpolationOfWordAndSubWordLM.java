@@ -95,13 +95,8 @@ public class InterpolationOfWordAndSubWordLM
 			if (oov) nOOV++;
 			//System.err.println("at node "  + i);
 			
-			if (false && oov) // tja, zo maakt het dus niks uit voor de interpolatie...
-			{
-				//
-				n.combiProb = n.oovProb;
-			}
-			else
-				n.combiProb = Math.log(lambda * Math.exp(n.logProb) + (1-lambda) * Math.exp(n.oovProb));
+		
+			n.combiProb = Math.log(lambda * Math.exp(n.logProb) + (1-lambda) * Math.exp(n.oovProb));
 			p += n.combiProb;
 			
 			if (oov)

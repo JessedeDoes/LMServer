@@ -38,6 +38,18 @@ LexicalProcessing()
   java -classpath $CLASSPATH eu.transcriptorium.jafar.BuildDictionaryFromOriginalText $CHARSET $FOLDER/wordFrequencyList.txt $FOLDER/dictionary.txt $FOLDER/normalizedWordList.txt
 }
 
+#################################################################################################
+
+TextProcessingBeforeTraining()
+{
+  CLASS_CHARSET=$1
+  SPECIAL_LABELS=$2
+  TRANSCRIPTION_DIR=$3
+  TRAINING_PARTITION=$4
+  TRAIN_LINES=$5
+  DESTINATION=$6
+  java -classpath $CLASSPATH eu.transcriptorium.jafar.TextProcessingBeforeTraining $CLASS_CHARSET $SPECIAL_LABELS $TRANSCRIPTION_DIR $TRAINING_PARTITION $TRAIN_LINES $DESTINATION
+}
 
 #############################################################################################################################
 

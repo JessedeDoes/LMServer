@@ -57,7 +57,7 @@ public class TextProcessingBeforeTraining
 	static String[] defaultArgs = 
 		{
 				"eu.transcriptorium.lm.charsets.DutchArtesTokenization",
-				"/home/jesse/workspace/LMServer/CharacterSets/special_labels.txt",
+				"/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst",
 				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x",

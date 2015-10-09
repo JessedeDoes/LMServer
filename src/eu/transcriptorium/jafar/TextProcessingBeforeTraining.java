@@ -50,6 +50,7 @@ public class TextProcessingBeforeTraining
 				trainingCorpusFileName,
 				labelFileName);
 		textExtraction.printHMMList(HMMListFileName, charsetFileName, numStates);
+		
 		talp = new TextAndLexicalProcessing(characterSet);
 		talp.processPlainCorpusText(trainingCorpusFileName, outputFolder, cutoff);
 	}

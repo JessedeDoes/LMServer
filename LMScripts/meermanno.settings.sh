@@ -1,5 +1,5 @@
-
-CLASS_CHARSET=eu.transcriptorium.lm.charsets.DutchArtesTokenization
+CHARSET=resources/CharacterSets/AuxHMMsList
+CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
 TRANSCRIPTION_DIR=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions
 TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst

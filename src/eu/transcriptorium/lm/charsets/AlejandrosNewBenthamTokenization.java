@@ -23,7 +23,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 				{"'", "\\'", "\\\\'"},
 				{"\"", "\\\"", "\\\\\""},
 				{"*", "\\*", "\\\\\\*"},
-				{".", "\\.", "\\\\\\."}
+				{".", "\\.", "\\\\\\."},
+				//{"\\", "\\\\", "\\\\\\\\"},
 	};
 	
 	static Character[][] mappings = 
@@ -404,15 +405,20 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	public void setAcceptAll()
 	{
 		// TODO Auto-generated method stub
+		//System.err.println("Accept all characters!");
 		for (int j=0; j < characterAccepted.length; j++)
 		{
 			char i = (char) j; // BUT do not accept the escapes?
 			if ( // pas op nu niet meer voor de benoemde karakters, dus zorg dat die geaccepteerd worden
 					!(escapeMap.get(i) != null) && 
+					(i != '\\') && // HM.....
 					(characterModelNames.get(i) == null) &&
 			        (i != this.getFinalSpaceOnlyMarker() && 
 			        i != this.getInitialSpaceOnlyMarker()))
+			{
+				//System.err.println("Allow: " + i);
 				characterAccepted[i] = true;
+			}
 		}
 	}
 	

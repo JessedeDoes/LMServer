@@ -42,22 +42,22 @@ public class BuildDictionaryFromOriginalText
 
 	Map<String,Integer> caseSensitiveTypeFrequency = new HashMap<String,Integer>();
 	Map<String, List<String>> normalized2Variants = new HashMap<String,List<String>>();
-	
-	
+
+
 	public BuildDictionaryFromOriginalText(CharacterSet cs) 
 	{
 		this.characterSet = cs;
 	}
-	
+
 	public void processFiles(String frequencyList, String outFile, String normalizedWordListOut)
 	{
 		try
 		{
 			BufferedReader frequencylistReader = new BufferedReader(new FileReader(frequencyList));
 			PrintWriter out = new PrintWriter(new BufferedWriter( new FileWriter(outFile)));
-			
+
 			outputSpecialTokens(out);
-			
+
 			try
 			{
 				readFrequencyList(frequencylistReader);
@@ -87,14 +87,14 @@ public class BuildDictionaryFromOriginalText
 	 * TODO: This should depend on character processing settings...
 	 * @param out
 	 */
-	
+
 	private void outputSpecialTokens(PrintWriter out) 
 	{
 		out.println("\"" + "<s>" + "\"" + "\t" + "[" + "]" + "\t" + "<BS>");
 		out.println("\"" + "</s>" + "\"" + "\t" + "[" + "]" + "\t" + "<ES>");
 	}
 
-	
+
 	private void writeNormalizedWordList(PrintWriter out)
 	{
 		out.println("<s>");
@@ -108,39 +108,39 @@ public class BuildDictionaryFromOriginalText
 		}
 	}
 
-	 private  void printDictionary(PrintWriter out) throws IOException 
+	private  void printDictionary(PrintWriter out) throws IOException 
 	{
-			String wline;
-			List<String> normalizedWords = new ArrayList<String>();
-			normalizedWords.addAll(normalized2Variants.keySet());
-			Collections.sort(normalizedWords);
-			
-			for (String norm: normalizedWords)
+		String wline;
+		List<String> normalizedWords = new ArrayList<String>();
+		normalizedWords.addAll(normalized2Variants.keySet());
+		Collections.sort(normalizedWords);
+
+		for (String norm: normalizedWords)
+		{
+			List<String> variants = normalized2Variants.get(norm);
+			if (variants == null) 
+				continue;
+			if (variants.size() == 1)
 			{
-				List<String> variants = normalized2Variants.get(norm);
-				if (variants == null) 
-					continue;
-				if (variants.size() == 1)
+				outputVariant(variants.get(0), 1.0, out);
+			} else if (variants.size() > 1)
+			{
+				int sum  = 0;
+				for (String v: variants)
 				{
-					outputVariant(variants.get(0), 1.0, out);
-				} else if (variants.size() > 1)
+					int f = caseSensitiveTypeFrequency.get(v);
+					sum += f;
+				}
+				for (String v: variants)
 				{
-					int sum  = 0;
-					for (String v: variants)
-					{
-						int f = caseSensitiveTypeFrequency.get(v);
-						sum += f;
-					}
-					for (String v: variants)
-					{
-						int f = caseSensitiveTypeFrequency.get(v);
-						double num = (double) f / sum;
-						outputVariant(v,num,out);
-					}
-				} 
-				
-			}
+					int f = caseSensitiveTypeFrequency.get(v);
+					double num = (double) f / sum;
+					outputVariant(v,num,out);
+				}
+			} 
+
 		}
+	}
 	/**
 	 * Read the frequency list, store variants and frequencies
 	 * @param frequencylistReader
@@ -149,12 +149,12 @@ public class BuildDictionaryFromOriginalText
 	private void readFrequencyList(BufferedReader frequencylistReader) throws IOException 
 	{
 		String line; 
-	
+
 		while ((line = frequencylistReader.readLine()) != null)
 		{
-			
+
 			String[] columns = line.split("\t+");
-			
+
 			String wn = characterSet.normalize(columns[0]);
 			List<String> variants = normalized2Variants.get(wn);
 
@@ -168,7 +168,7 @@ public class BuildDictionaryFromOriginalText
 			caseSensitiveTypeFrequency.put(columns[0], f);
 		}
 	}
-	
+
 	public static void main(String[] args) throws IOException
 	{
 		if (args.length < 3)
@@ -190,13 +190,13 @@ public class BuildDictionaryFromOriginalText
 	{
 		String normalized = characterSet.normalize(unnormalizedWord);
 		out.print("\"" + characterSet.escapeWord(normalized) + "\"" + "\t");
-		
+
 		// do we need to escape the square brackets?
-		
+
 		String unescaped =unnormalizedWord ; //.unescapeWord(unnormalizedWord);
-		
+
 		String gap = "<gap/>";
-		
+
 		if (unescaped.contains(gap)) // this should be inside the character processing class
 		{
 			out.print("[" + unescaped + "]" + "\t" + numberFormat.format(num) + "\t" + "<GAP>" + " ");
@@ -204,7 +204,7 @@ public class BuildDictionaryFromOriginalText
 		{	
 			String[] modelNames = characterSet.wordToModelNames(unnormalizedWord);
 			out.print("[" + unescaped + "]" + "\t" + numberFormat.format(num)
-					+ "\t" + eu.transcriptorium.util.StringUtils.join(modelNames, " "));
+			+ "\t" + eu.transcriptorium.util.StringUtils.join(modelNames, " "));
 		}	
 		out.println();
 	}
@@ -212,11 +212,11 @@ public class BuildDictionaryFromOriginalText
 	private  void outputVariant(String unnormalizedWord, double num, PrintWriter out)
 	{
 		out.print("\"" + characterSet.normalize(unnormalizedWord) + "\"" + "\t");
-		
+
 		String unescaped = characterSet.unescapeWord(unnormalizedWord);
-		
+
 		String gap = "<gap/>";
-		
+
 		if (unescaped.contains(gap)) // this should be inside the character processing class
 		{
 			out.print("[" + unescaped + "]" + "\t" + numberFormat.format(num) + "\t" + "<GAP>" + " ");
@@ -224,7 +224,7 @@ public class BuildDictionaryFromOriginalText
 		{	
 			String[] modelNames = characterSet.wordToModelNames(unnormalizedWord);
 			out.print("[" + unescaped + "]" + "\t" + numberFormat.format(num)
-					+ "\t" + eu.transcriptorium.util.StringUtils.join(modelNames, " "));
+			+ "\t" + eu.transcriptorium.util.StringUtils.join(modelNames, " "));
 		}	
 		out.println();
 	}

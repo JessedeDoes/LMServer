@@ -37,6 +37,18 @@ public class ProcessingForCharacterLM extends AlejandrosNewBenthamTokenization
 			r[i]  = p[i] + "";
 		return r;
 	}
+	
+	// here we really NEED the markers -- or else words cannot be put together...
+	
+	@Override
+	public String unescapeWord(String w) 
+	{	
+		// w = w.replaceAll(getFinalSpaceOnlyMarker() +  "$", "");
+		//w = w.replaceAll("^" + getInitialSpaceOnlyMarker(), "");
+		
+		return removeEscapes(w);
+	}
+	
 	public String cleanWord(String w)
 	{
 		tokenizer.tokenize(w);

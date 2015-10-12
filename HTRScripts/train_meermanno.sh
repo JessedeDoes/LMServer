@@ -2,6 +2,7 @@
 # Training Phase
 ###################
 STARTDIR=`pwd`
+# rm -rf EXP-MEERMANNO/TRAIN/hmms
 cd EXP-MEERMANNO/TRAIN
 
 #Useful links
@@ -28,7 +29,6 @@ export PATH=$(realpath ../../bin):$(realpath ../../scripts):$PATH
 ### HTR dictionary
 ### language model and lattice file
 
-rm -rf EXP-MEERMANNO/TRAIN/hmms
 
 defaultTextProcessing()
 {
@@ -81,7 +81,8 @@ otherTextProcessing()
   # - and as a side product, the list of lines corresponding to the training partition pages
 
   source LMScripts/LMBuildingFunctions.sh;
-  CLASS_CHARSET=eu.transcriptorium.lm.charsets.DutchArtesTokenization
+  #CLASS_CHARSET=eu.transcriptorium.lm.charsets.DutchArtesTokenization
+  CLASS_CHARSET=eu.transcriptorium.lm.charsets.ProcessingForCharacterLM
   SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
   TRANSCRIPTIONS=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions
   TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst
@@ -118,6 +119,7 @@ otherTextProcessing()
 
 (otherTextProcessing)
 
+exit
 ###### end of text processing 
 
 # The input of this script is the list of the files containing the transcription of the training lines,

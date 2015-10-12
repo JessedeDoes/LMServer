@@ -44,6 +44,9 @@ public class TextProcessingBeforeTraining
 			characterSet.loadFromHMMList(specialLabelFile);
 		characterSet.setAcceptAll();
 		textExtraction.setCharacterSet(characterSet);
+		
+		// we do not have a tokenized transcription directory yet...
+		
 		textExtraction.printLabelFileFromDirectoryWithLineTranscriptions(textLineDir, 
 				trainingPartitionList, 
 				trainingLinesFile,

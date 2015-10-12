@@ -130,7 +130,7 @@ public class ExtractText
 
 				// out.println(w + " | "  + tok + " | " + normalizedWord + " | " + StringUtils.join(models, " "));
 
-				for (String x: models)
+				for (String x: models) // TODO what happens with "." in the label file?
 				{
 					labelFileWriter.println(x);
 					modelNameCounter.increment(x);

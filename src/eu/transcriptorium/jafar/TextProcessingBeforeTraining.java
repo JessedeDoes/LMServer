@@ -57,12 +57,12 @@ public class TextProcessingBeforeTraining
 
 	static String[] defaultArgs = 
 		{
-				"eu.transcriptorium.lm.charsets.DutchArtesTokenization",
-				"/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt",
-				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions",
-				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst",
-				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x",
-				"/tmp/MMTest"
+				"eu.transcriptorium.lm.charsets.DutchArtesTokenization", // the character set class
+				"/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt", // the special labels file
+				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions", // directory with line transcriptions
+				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst", // training partition
+				"/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x", // training lines (output)
+				"/tmp/MMTest" // output directory
 		};
 
 	public static void main(String[] args)

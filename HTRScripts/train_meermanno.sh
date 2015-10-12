@@ -90,6 +90,9 @@ otherTextProcessing()
   BUILD_DIRECTORY=/tmp/MMTest
   TextProcessingBeforeTraining  $CLASS_CHARSET $SPECIAL_LABELS $TRANSCRIPTIONS $TRAINING_PARTITION $TRAINING_LINES $BUILD_DIRECTORY
 
+
+  # second step is to go for simple language modeling
+
   HMM_LIST=$BUILD_DIRECTORY/HMMs.list
   LM_TRAINING_CORPUS=$BUILD_DIRECTORY/trainingCorpus.txt
   CHARSET=$BUILD_DIRECTORY/charset.txt

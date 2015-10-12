@@ -15,7 +15,7 @@ import eu.transcriptorium.util.StringUtils;
  */
 public class SyllableTokenization extends ProcessingForCharacterLM
 {
-	public static String splitMark = "_";
+	public static String splitMark = "_"; // should be added to character set....
 	
 	@Override
 	public String[] splitInCharacters(String s)
@@ -30,7 +30,12 @@ public class SyllableTokenization extends ProcessingForCharacterLM
 		return p;
 	}
 	
-	
+	@Override
+	public void postInit()
+	{
+		super.postInit();
+		characterAccepted['_'] = true;
+	}
 	
 	public static void main(String[] args)
 	{

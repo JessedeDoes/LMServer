@@ -100,7 +100,9 @@ otherTextProcessing()
   LM_OUTPUT=EXP-MEERMANNO/TRAIN/LM
   CUTOFF=0
 
-  TextAndLexicalProcessing2 $LM_TRAINING_CORPUS $CLASS_CHARSET $CHARSET $CUTOFF $LM_OUTPUT
+  syllableSplitting $LM_TRAINING_CORPUS $LM_TRAINING_CORPUS.syl
+  CLASS_CHARSET=eu.transcriptorium.lm.charsets.SyllableTokenization
+  TextAndLexicalProcessing2 $LM_TRAINING_CORPUS.syl $CLASS_CHARSET $CHARSET $CUTOFF $LM_OUTPUT
 
   LanguageModelingWithoutBigLM $LM_OUTPUT/normalizedText.txt $LM_OUTPUT/normalizedWordList.txt $LM_OUTPUT/languageModel.lm
 

@@ -68,6 +68,7 @@ defaultTextProcessing()
 
 # defaultTextProcessing
 
+
 otherTextProcessing()
 {
   cd $STARTDIR;
@@ -86,13 +87,13 @@ otherTextProcessing()
   TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst
   TRAINING_LINES=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst
   BUILD_DIRECTORY=/tmp/MMTest
-  TextProcessingBeforeTraining  $CLASS_CHARSET
+  TextProcessingBeforeTraining  $CLASS_CHARSET $SPECIAL_LABELS $TRANSCRIPTIONS $TRAINING_PARTITION $TRAINING_LINES $BUILD_DIRECTORY
 
   HMM_LIST=$BUILD_DIRECTORY/HMMs.list
   LM_TRAINING_CORPUS=$BUILD_DIRECTORY/trainingCorpus.txt
   CHARSET=$BUILD_DIRECTORY/charset.txt
 
-  LM_OUTPUT= EXP-MEERMANNO/TRAIN/LM
+  LM_OUTPUT=EXP-MEERMANNO/TRAIN/LM
   CUTOFF=0
 
   TextAndLexicalProcessing2 $LM_TRAINING_CORPUS $CLASS_CHARSET $CHARSET $CUTOFF $LM_OUTPUT
@@ -111,8 +112,10 @@ otherTextProcessing()
 
   cp $LM_OUTPUT/latticeFile.txt EXP-MEERMANNO/TRAIN/Meermanno-LM.slf
   cp $LM_OUTPUT/dictionary.txt EXP-MEERMANNO/TRAIN/Meermanno.dic
+  cp $HMM_LIST EXP-MEERMANNO/TRAIN/Meermanno-HMMs.lst
 }
 
+(otherTextProcessing)
 
 ###### end of text processing 
 

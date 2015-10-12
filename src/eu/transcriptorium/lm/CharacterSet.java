@@ -26,4 +26,6 @@ public interface  CharacterSet
 	public String getLineEndSymbol();
 	public Map<Character,String> getSpecialCharacterModelNameMap();
 	public void setAcceptAll();
+	String getSentenceStart();
+	String getSentenceEnd();
 }

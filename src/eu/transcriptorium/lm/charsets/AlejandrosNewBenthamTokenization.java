@@ -41,8 +41,8 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	Map<Character,Character> characterMappings = new HashMap<Character,Character>();
 	Map<Character,String> escapeMap = new HashMap<Character,String>();
 	
-	static String sentenceStart = "<BS>";
-	static String sentenceEnd = "<ES>";
+	private static String sentenceStart = "<BS>";
+	private static String sentenceEnd = "<ES>";
 	static String initialSpace = "<is>";
 	static String finalSpace = "<fs>";
 
@@ -444,13 +444,13 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	@Override
 	public String getLineStartSymbol() 
 	{
-		return sentenceStart;
+		return getSentenceStart();
 	}
 
 	@Override
 	public String getLineEndSymbol() 
 	{
-		return sentenceEnd;
+		return getSentenceEnd();
 	}
 
 	@Override
@@ -492,6 +492,25 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 	{
 		// TODO Auto-generated method stub
 		return  this.characterModelNames;
+	}
+
+	@Override
+	public String getSentenceStart() {
+		return sentenceStart;
+	}
+
+	@Override
+	public String getSentenceEnd() {
+		return sentenceEnd;
+	}
+	public static void setSentenceStart(String sentenceStart) {
+		AlejandrosNewBenthamTokenization.sentenceStart = sentenceStart;
+	}
+
+	
+
+	public static void setSentenceEnd(String sentenceEnd) {
+		AlejandrosNewBenthamTokenization.sentenceEnd = sentenceEnd;
 	}
 }
 

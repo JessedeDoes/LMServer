@@ -321,6 +321,9 @@ public class ExtractText
 			PrintWriter out = new PrintWriter(new FileWriter(fn));
 			List<String> models = modelNameCounter.keyList();
 			Collections.sort(models);
+			models.add(characterSet.getSentenceStart());
+			models.add(characterSet.getSentenceEnd());
+			
 			for (String m: models)
 			{
 				out.println(m + "\t" + numStates); // modelNameCounter.get(m));
@@ -343,6 +346,7 @@ public class ExtractText
 				{
 					out.println(x); // modelNameCounter.get(m));
 				}
+				
 				out.close();
 			}
 		} catch (Exception e)

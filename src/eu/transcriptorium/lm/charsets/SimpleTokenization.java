@@ -458,6 +458,23 @@ public class SimpleTokenization implements CharacterSet
 		// TODO Auto-generated method stub
 		return  this.characterModelNames;
 	}
+	
+	@Override
+	public String getSentenceStart() {
+		return sentenceStart;
+	}
+
+	@Override
+	public String getSentenceEnd() {
+		return sentenceEnd;
+	}
+	public static void setSentenceStart(String sentenceStart) {
+		sentenceStart = sentenceStart;
+	}
+	
+	public static void setSentenceEnd(String sentenceEnd) {
+		sentenceEnd = sentenceEnd;
+	}
 }
 
 

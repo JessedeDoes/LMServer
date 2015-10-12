@@ -113,6 +113,7 @@ otherTextProcessing()
   cp $LM_OUTPUT/latticeFile.txt EXP-MEERMANNO/TRAIN/Meermanno-LM.slf
   cp $LM_OUTPUT/dictionary.txt EXP-MEERMANNO/TRAIN/Meermanno.dic
   cp $HMM_LIST EXP-MEERMANNO/TRAIN/Meermanno-HMMs.lst
+  cp $BUILD_DIRECTORY/labelFile.mlf EXP-MEERMANNO/TRAIN/Meermanno.mlf
 }
 
 (otherTextProcessing)

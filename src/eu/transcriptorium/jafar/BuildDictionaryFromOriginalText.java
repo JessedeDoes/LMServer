@@ -90,8 +90,9 @@ public class BuildDictionaryFromOriginalText
 
 	private void outputSpecialTokens(PrintWriter out) 
 	{
-		out.println("\"" + "<s>" + "\"" + "\t" + "[" + "]" + "\t" + "<BS>");
-		out.println("\"" + "</s>" + "\"" + "\t" + "[" + "]" + "\t" + "<ES>");
+		out.println("\"" + "<s>" + "\"" + "\t" + "[" + "]" + "\t" + 	characterSet.getLineStartSymbol()); 
+	
+		out.println("\"" + "</s>" + "\"" + "\t" + "[" + "]" + "\t" +  	characterSet.getLineEndSymbol());
 	}
 
 

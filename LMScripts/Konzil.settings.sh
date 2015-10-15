@@ -1,6 +1,6 @@
 KONZIL=/mnt/Projecten/transcriptorium/Data/Corpora/German/Konzil/ExtraText
 CORPUS=$KONZIL/KonzilExtra.txt
-OUTPUT=$KONZIL/LM
+OUTPUT=$KONZIL/../LMExtra
 CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
 #CLASS_CHARSET=eu.transcriptorium.lm.charsets.ProcessingForCharacterLM
 

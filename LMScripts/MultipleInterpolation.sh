@@ -4,12 +4,16 @@
 # arg 3-last: language model folders for to-be-interpolated models
 # assumptions:
 
+echo "charset type: $CLASS_CHARSET"
+
 TEXT=$2
 DESTINATION=$1
 SUBMODEL_DIRS="${@:3}"
 CLEANED_TEXTS=`echo "$SUBMODEL_DIRS" | perl -pe 's/\S+/$&\/cleanedText.txt/g'`
 SUBMODEL_FILES=`echo "$SUBMODEL_DIRS" | perl -pe 's/\S+/$&\/languageModel.lm/g'`
 
+#HACK
+CLEANED_TEXTS=`echo $CLEANED_TEXTS | perl -pe 's/LMTrain/LMTrainFull/'`
 
 echo "Text=$TEXT; Destination=$DESTINATION"
 
@@ -18,13 +22,12 @@ export PATH=$PATH:$SRILM_HOME/bin:$SRILM_HOME/bin/i686-m64/
 export PATH=$PATH:/opt/jdk1.7.0/bin/
 export CLASSPATH=./build/classes
 export HTK=/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14/
-CHARSET=resources/CharacterSets/AuxHMMsList
-CUTOFF=1 # for lexical processing of the interpolation lexicon
+CHARSET=resources/CharacterSets/Konzil.chars.txt # foei
+CUTOFF=0 # for lexical processing of the interpolation lexicon
 
 source LMScripts/LMBuildingFunctions.sh
 
 ###### do something
-
 
 ## first evaluate each model against the validation text
 ComputeComponentPerplexities $TEXT $SUBMODEL_DIRS
@@ -34,9 +37,12 @@ echo "computed interpolation parameters: $INTERPOLATION_LAMBDAS"
 echo "Models to interpolate: <$SUBMODEL_FILES>"
 cat $CLEANED_TEXTS > $DESTINATION/cleanedText.txt
 INTERPOLATION_ARGS=`interleave "$SUBMODEL_FILES $INTERPOLATION_LAMBDAS"`
+# HACK
+INTERPOLATION_ARGS=`echo $INTERPOLATION_ARGS | perl -pe 's/LMTrain/LMTrainFull/'`
 echo "Interleaved args=$INTERPOLATION_ARGS"
 ## build the combined HTR dictionary, and the vocabulary for the interpolation
-LexicalProcessing $DESTINATION $CHARSET $CUTOFF
+# $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
+LexicalProcessing2  $DESTINATION/cleanedText.txt $CLASS_CHARSET $CHARSET $CUTOFF $DESTINATION
 ## carry out the interpolation
 interpolate $DESTINATION $INTERPOLATION_ARGS
 ## convert the resulting language model to an HTK lattice file

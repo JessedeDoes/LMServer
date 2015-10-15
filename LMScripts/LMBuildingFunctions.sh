@@ -9,6 +9,18 @@ TextAndLexicalProcessing2()
    java -classpath $CLASSPATH eu.transcriptorium.jafar.TextAndLexicalProcessing $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
 }
 
+####################################################################################################
+
+LexicalProcessing2()
+{
+   CORPUS=$1
+   CLASS_CHARSET=$2
+   CHARSET=$3
+   OUTPUT=$5
+   CUTOFF=$4
+   java -classpath $CLASSPATH eu.transcriptorium.jafar.LexicalProcessing $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
+}
+
 ##################################################################################################
 
 TextAndLexicalProcessing()
@@ -91,7 +103,7 @@ RunHBuild()
 
 ComputeComponentPerplexities()
 {
-  $TEXT = $1;
+  $TEXT=$1;
   for x in "${@:2}";
   do
     LM="$x/languageModel.lm"

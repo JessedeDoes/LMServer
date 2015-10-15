@@ -38,8 +38,8 @@ public class SimpleTokenization implements CharacterSet
 	Map<Character,Character> characterMappings = new HashMap<Character,Character>();
 	Map<Character,String> escapeMap = new HashMap<Character,String>();
 	
-	static String sentenceStart = "<s>";
-	static String sentenceEnd = "</s>";
+	static String sentenceStart = "<SP>";
+	static String sentenceEnd = "<SP>";
 	static String initialSpace = "";
 	static String finalSpace = "<SP>";
 

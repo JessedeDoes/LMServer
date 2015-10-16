@@ -163,6 +163,11 @@ public class Trie implements java.io.Serializable
 		return (n != null && n.isFinal);
 	}
 	
+	public void insertWord(String s, Object o)
+	{
+		root.putWord(s, o);
+	}
+	
 	public boolean contains(String s, boolean addWordBoundaries)
 	{
 		String x = !addWordBoundaries?s:Alphabet.initialBoundaryString + s + Alphabet.finalBoundaryString;

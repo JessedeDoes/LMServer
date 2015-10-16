@@ -8,12 +8,59 @@ import edu.berkeley.nlp.lm.io.LmReaders;
 import edu.berkeley.nlp.lm.map.HashNgramMap;
 import edu.berkeley.nlp.lm.map.NgramMap;
 import edu.berkeley.nlp.lm.values.ProbBackoffPair;
+import eu.transcriptorium.util.trie.Trie;
+import eu.transcriptorium.util.trie.Trie.NodeAction;
+import eu.transcriptorium.util.trie.Trie.TrieNode;
 
 import java.util.*;
 
 public class WordLMAsCharacterLM
 {
 
+	static class P
+	{
+		double wordProb=0;
+		double nodeProb=0;
+		
+		public P(double n)
+		{
+			this.wordProb= n;
+		}
+		
+		public String toString()
+		{
+			return "w=" + wordProb + ",n="  + nodeProb;
+		}
+	};
+	
+	
+	public void setNodeProb(TrieNode n)
+	{
+		double p=0;
+		for (int i=0; i < n.nofTransitions(); i++)
+		{
+			TrieNode next = n.transition(i).node;
+			setNodeProb(next);
+			p += ((P) next.data).nodeProb;
+		}
+		if (n.data == null)
+			n.data = new P(0);
+		((P) n.data).nodeProb = p +	((P) n.data).wordProb ;
+	}
+	
+	public void printNodeProb(TrieNode n, String prefix)
+	{
+		double p=0;
+		System.err.println(prefix + ":" + n.data);
+		for (int i=0; i < n.nofTransitions(); i++)
+		{
+			TrieNode next = n.transition(i).node;
+			char c = (char) n.transition(i).character;
+			printNodeProb(next, prefix + c);
+		}
+	}
+	
+	
 	static NgramLanguageModel readLM(String fileName)
 	{
 		// languageModel = null;
@@ -49,11 +96,11 @@ public class WordLMAsCharacterLM
 		{
 			for (int n=0; n < wordLM.getLmOrder(); n++)
 			{
+				System.err.println("ORDER: " + n);
 				for (NgramMap.Entry<ProbBackoffPair> e : map.getNgramsForOrder(n))
 				{
 					int[] inds = e.key;
 					// int[] history = Arrays.copyOfRange(inds, 0, inds.length-1);
-					
 									
 					// byte [] subArray = Arrays.copyOfRange(a, 4, 6);
 					List<String> words = new ArrayList<String>();
@@ -73,16 +120,45 @@ public class WordLMAsCharacterLM
 				}
 			}
 		}
+		
 		for (List<String> hist:  successorMap.keySet())
 		{
-			System.err.println(hist + " -->" + successorMap.get(hist));
+			Set<String> nextWords = successorMap.get(hist);
+			// System.err.println(hist + " -->" + nextWords );
+			Trie trie = new Trie();
+			for (String w: nextWords)
+			{
+				hist.add(w);
+				P p = new P(Math.pow(10,wordLM.getLogProb(hist)));
+				//System.err.println(w + ":" + p + " // " +  hist);
+				trie.insertWord(w, p);
+				hist.remove(hist.size()-1);
+			}
+			setNodeProb(trie.root);
+			NodeAction na = new NodeAction
+					 () {
+				public void doIt(TrieNode n)
+				{
+					P p = (P) n.data;
+					System.err.println(p);
+				}
+			};
+			System.err.println(hist + " -->" + nextWords );
+			//trie.forAllNodesPreOrder(na);
+			//
+			printNodeProb(trie.root,"");
 		}
 	}
 	
 	public static void main(String[] args)
 	{
 		WordLMAsCharacterLM x = new WordLMAsCharacterLM();
-		x.wordLM = x.readLM(args[0]);
+		String arg0;
+		if (args.length == 0)
+			arg0 ="BenthamNewTokenization/Bentham_train_bigram/languageModel.lm";
+		else
+			arg0 = args[0];
+		x.wordLM = x.readLM(arg0);
 		x.collectNextWords();
 	}
 } 

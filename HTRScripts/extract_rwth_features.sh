@@ -97,7 +97,7 @@ if [ "${PROJ_PCA}" = "-" ]; then
     #rm ${TMP}/All_vect
     echo "Computing PCA projection matrix ..." 1>&2
     #$PCA -o PCA -i ROWS -v 1 -p ${WORK_DIR}/${MAT_FILE} -d ${TMP}/TrainVectors.dat > ${WORK_DIR}/LOG_PCA
-    $PCA -C -f ascii -p 256  -q 20  ${WORK_DIR}/All_vect  > ${WORK_DIR}/${MAT_FILE} 2> ${WORK_DIR}/LOG_PCA
+    $PCA -C -f ascii -p 256  -q 20  ${WORK_DIR}/All_vect  > ${WORK_DIR}/${MAT_FILE} 2> ${WORK_DIR}/LOG_PCA_allvect
   fi
   PROJ_PCA=${WORK_DIR}/${MAT_FILE}
 fi

@@ -40,12 +40,13 @@ if ($removeFunctionWords)
 while(<D>)
 {
   chomp();
-  my ($W,$w,$prob,$letters) = split(/\t/,$_);
+  my ($W,$w,$prob,$letters) = split(/\s+/,$_);
   $w =~ s/^\[//;
   $w =~ s/\]$//;
   if ($w)
   {
     $known{$w}++;
+#    warn "known: $w";
   } else
   {
 #   my ($prob, $letters) = split(/\t/,$rest);

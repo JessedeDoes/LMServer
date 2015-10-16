@@ -55,6 +55,8 @@
         <pathElement path="lib/PrimaMaths.jar"/>
         <pathElement path="lib/servlet-api.jar"/>
         <pathElement path="lib/spellingvariation.jar"/>
+        <pathElement path="lib/postgresql-9.0-801.jdbc4.jar"/>
+        <pathElement path="lib/ant.jar"/>
 	<pathElement path="/opt/jdk1.8.0_51/jre/lib/rt.jar"/> 
 				<pathelement path="${java.class.path}/"/>
 			</classpath>

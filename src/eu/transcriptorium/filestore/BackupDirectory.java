@@ -1,4 +1,4 @@
-package nl.inl.db.filestore;
+package eu.transcriptorium.filestore;
 import org.apache.tools.tar.*;
 import java.io.*;
 import java.util.zip.*;

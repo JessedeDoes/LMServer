@@ -16,11 +16,12 @@ import java.util.regex.Pattern;
 
 public class SimpleTokenization implements CharacterSet
 {
+	// BUG: escaped chars seem to be always accepted.
 	static String[][] escapes =
 	{
 				{"'", "\\'", "\\\\'"},
 				{"\"", "\\\"", "\\\\\""},
-				{"*", "\\*", "\\\\\\*"},
+				//{"*", "\\*", "\\\\\\*"},
 				{".", "\\.", "\\\\\\."}
 	};
 	

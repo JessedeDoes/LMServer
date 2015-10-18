@@ -16,7 +16,8 @@ import java.util.*;
 
 public class WordLMAsCharacterLM
 {
-
+	Map<List<String>, Trie> successorTrieMap = new HashMap<List<String>, Trie>();
+	
 	static class P
 	{
 		double wordProb=0;
@@ -81,16 +82,19 @@ public class WordLMAsCharacterLM
 	{
 		NgramMap<ProbBackoffPair> map = null;
 		//NgramMap<Set<String>>  nextMap = new HashNgramMap<Set<String>> ();
+		
 		Map<List<String>, Set<String>> successorMap = new HashMap<List<String>, Set<String>>();
 		
-		if (wordLM instanceof ArrayEncodedProbBackoffLm )
+		if (wordLM instanceof ArrayEncodedProbBackoffLm)
 		{
 			map = ((ArrayEncodedProbBackoffLm) wordLM).getNgramMap();
 		} else if (wordLM instanceof ContextEncodedProbBackoffLm)
 		{
 			map = ((ContextEncodedProbBackoffLm) wordLM).getNgramMap();
 		}
+		
 		WordIndexer<String> wi = wordLM.getWordIndexer();
+		
 
 		if (map != null)
 		{
@@ -135,19 +139,20 @@ public class WordLMAsCharacterLM
 				hist.remove(hist.size()-1);
 			}
 			setNodeProb(trie.root);
-			NodeAction na = new NodeAction
-					 () {
-				public void doIt(TrieNode n)
-				{
-					P p = (P) n.data;
-					System.err.println(p);
-				}
-			};
-			System.err.println(hist + " -->" + nextWords );
-			//trie.forAllNodesPreOrder(na);
+			
+			System.err.println(hist + " -->" + nextWords);
+			
+			// trie.forAllNodesPreOrder(na);
 			//
+			
 			printNodeProb(trie.root,"");
+			successorTrieMap.put(hist, trie);
 		}
+	}
+	
+	public void testModel(String[] characters)
+	{
+		
 	}
 	
 	public static void main(String[] args)

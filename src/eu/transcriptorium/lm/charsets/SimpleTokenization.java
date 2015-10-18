@@ -370,7 +370,7 @@ public class SimpleTokenization implements CharacterSet
 				return c2.toString();
 		}
 		{
-			//System.err.println("Discarding:" + c);
+			// System.err.println("Discarding:" + c);
 		}
 		return null;
 	}

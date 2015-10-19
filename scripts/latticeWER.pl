@@ -1,5 +1,8 @@
 my $SRILM="/mnt/Projecten/transcriptorium/Tools/SRILM/bin/i686-m64";
 
+my $SRILM_HOME="/home/jesse/Tools/srilm";
+$SRILM="$SRILM_HOME/bin/i686-m64";
+
 my $dir = shift;
 # $SRILM/lattice-tool -read-htk -in-lattice Lattices/002_579_001_02_07.lattice -ref-file /tmp/phrase
 opendir(D,$dir);

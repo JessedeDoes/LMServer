@@ -63,7 +63,7 @@ public class Interpolation
 			List<String> prefix = text.subList(0, j);
 			for (int i=0; i < nModels; i++)
 			{
-				// TODO: check OOV
+				// TODO: check OOV handling
 				samples[i][j] = lms.get(i).getLogProb(prefix);
 			}
 			counts[j] = 1;

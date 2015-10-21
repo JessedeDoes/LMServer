@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+/**
+ * Java port of the SRILM compute_best_mix awk script
+ * @author jesse
+ *
+ */
 public class Interpolation 
 {
 	private List<NgramLanguageModel<String>> lms = null;
@@ -24,7 +29,8 @@ public class Interpolation
 	float[] post_totals;
 	int nModels; 
 	float precision = (float) 0.001;
-
+	List<String> currentText = null;
+	
 	public Interpolation(List<NgramLanguageModel<String>> models)
 	{
 		lms = models;
@@ -46,8 +52,12 @@ public class Interpolation
 	private void evaluateText(List<String> text)
 	{
 		samples = new float[nModels][text.size()];
+		
 		nSamples = text.size();
+		counts = new int[nSamples];
 		logpost = new float[nModels];
+		priors = new float[nModels];
+		System.err.println(text.size());
 		for (int j=0; j < nSamples; j++)
 		{
 			List<String> prefix = text.subList(0, j);
@@ -60,6 +70,7 @@ public class Interpolation
 		}
 		for (int i=0; i < nModels; i++)
 			priors[i] = 1 / (float) nModels;
+		currentText = text;
 	}
 
 	private void optimize()
@@ -89,26 +100,30 @@ public class Interpolation
 				if (all_inf) 
 				{
 					num_oovs += counts[j];
+					// System.err.println("OOV " + currentText.get(j));
 					continue;
 				}
 				
 				num_words += counts[j];
 				log_like += logsum * counts[j];
-				for (int i = 0; i <= lms.size(); i ++) 
+				for (int i = 0; i < lms.size(); i ++) 
 					post_totals[i] += Math.pow(10, logpost[i] - logsum) * counts[j];
 			}
 
 			converged = true;
-			for (int i = 0; i <= nModels; i ++) 
+			float epsilon=0;
+			for (int i = 0; i < nModels; i ++) 
 			{
 				float last_prior = priors[i];
 				priors[i] = post_totals[i]/num_words;
 
-				if (Math.abs(last_prior - priors[i]) > precision) 
+				if ((epsilon = Math.abs(last_prior - priors[i])) > precision) 
 				{
-					converged=false;
+					converged = false;
 				}
 			}
+			float oov_rate = num_oovs / (float) num_words;
+			System.err.printf("iter=%d, epsilon=%f, num_oovs=%d, oov_rate=%f\n", iter, epsilon, num_oovs, oov_rate);
 		}
 	}
 
@@ -155,6 +170,6 @@ public class Interpolation
 			lms.add(readLM(args[i]));
 
 		Interpolation p = new Interpolation(lms);
-		p.computeBestMix(readText(args[args.length-1]));
+		System.out.println(p.computeBestMix(readText(args[args.length-1])));
 	}
 }

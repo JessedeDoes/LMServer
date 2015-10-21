@@ -28,7 +28,7 @@ public class Interpolation
 	int[] counts;
 	float[] post_totals;
 	int nModels; 
-	float precision = (float) 0.001;
+	float precision = (float) 0.00001;
 	List<String> currentText = null;
 	
 	public Interpolation(List<NgramLanguageModel<String>> models)
@@ -123,7 +123,8 @@ public class Interpolation
 				}
 			}
 			float oov_rate = num_oovs / (float) num_words;
-			System.err.printf("iter=%d, epsilon=%f, num_oovs=%d, oov_rate=%f\n", iter, epsilon, num_oovs, oov_rate);
+			System.err.printf("iter=%d, epsilon=%f, num_oovs=%d, oov_rate=%f, log_like=%f\n", 
+					iter, epsilon, num_oovs, oov_rate, log_like);
 		}
 	}
 

@@ -52,6 +52,7 @@ public class InterpolationOfWordAndSubWordLM
 		}
 		testSomeLambdas(txt);
 	}
+    
 	void  testSomeLambdas(String sentence)
 	{
 		 String s = characterSet.normalize(characterSet.cleanLine(sentence));
@@ -152,6 +153,7 @@ public class InterpolationOfWordAndSubWordLM
 	{
 		this.lambda = lambda;
 	}
+	
 	static NgramLanguageModel readLM(String fileName)
 	{
 		// languageModel = null;

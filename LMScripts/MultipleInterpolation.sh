@@ -4,7 +4,7 @@
 # arg 3-last: language model folders for to-be-interpolated models
 # assumptions:
 
-echo "charset type: $CLASS_CHARSET"
+echo "charset type: $CLASS_CHARSET $CHARSET"
 
 TEXT=$2
 DESTINATION=$1
@@ -17,12 +17,12 @@ CLEANED_TEXTS=`echo $CLEANED_TEXTS | perl -pe 's/LMTrain/LMTrainFull/'`
 
 echo "Text=$TEXT; Destination=$DESTINATION"
 
-export SRILM_HOME=/mnt/Projecten/transcriptorium/Tools/SRILM
-export PATH=$PATH:$SRILM_HOME/bin:$SRILM_HOME/bin/i686-m64/
-export PATH=$PATH:/opt/jdk1.7.0/bin/
-export CLASSPATH=./build/classes
-export HTK=/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14/
-CHARSET=resources/CharacterSets/Konzil.chars.txt # foei
+#export SRILM_HOME=/mnt/Projecten/transcriptorium/Tools/SRILM
+#export PATH=$PATH:$SRILM_HOME/bin:$SRILM_HOME/bin/i686-m64/
+#export PATH=$PATH:/opt/jdk1.7.0/bin/
+#export CLASSPATH=./build/classes
+# export HTK=/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14/
+# CHARSET=resources/CharacterSets/Konzil.chars.txt # foei
 CUTOFF=0 # for lexical processing of the interpolation lexicon
 
 source LMScripts/LMBuildingFunctions.sh

@@ -1,6 +1,10 @@
-my $resultados = shift @ARGV;
 
-my @resultFiles = split(/\n/, `find $resultados -name "*.rec" | sort`);
+
+my $RESULT_DIR = shift @ARGV;
+my $TRANSCRIPTION_DIR = shift @ARGV;
+my $LINE_DIR = shift @ARGV;
+
+my @resultFiles = split(/\n/, `find $RESULT_DIR -name "*.rec" | sort`);
 
 my $flerrs=0;
 my $fwerrs=0;
@@ -22,7 +26,7 @@ foreach my $r (@resultFiles)
   $r =~ s/\.rec$//;
   $r =~ s/.*\///;
   my $gtTxt;
-  my $gt = "BenthamData/Transcription/$r.txt";
+  my $gt = "$TRANSCRIPTION_DIR/$r.txt";
   open(R,$gt);
   while(<R>)
   {
@@ -32,7 +36,7 @@ foreach my $r (@resultFiles)
   $gtTxt =~ s/^\s+//;
   $gtTxt =~ s/\s+$//;
   close(R);
-  my $image = "BenthamData/Images/Lines/Test/$r.png";
+  my $image = "$LINE_DIR/$r.png";
   if (firstWord($gtTxt) ne firstWord($recTxt))
   {
     $fwerrs++;

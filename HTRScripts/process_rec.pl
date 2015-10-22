@@ -22,7 +22,7 @@ while (my $x = readdir(D))
 
     $txt =~ s/[↵↳]+/ /g;
     $txt =~ s/ +/ /g;
-    $HTR .= $txt;
+    $HTR .= $txt . " ";
   }
   $HTR =~ s/\s+/ /g;
   close(X);

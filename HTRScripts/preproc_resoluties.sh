@@ -25,7 +25,7 @@ export PATH=$(realpath ../../bin):$(realpath ../../scripts):$PATH
 # Launch processing and feature extraction steps parallelized among 4 cores
 #ProcAndFeatExtr.sh -n 4 Reichsgericht Images/ PAGE/ Train-List
 
-ProcAndFeatExtr_resolutions.sh Resolutions.conf
+ProcAndFeatExtr.sh Resolutions.conf
 
 # As output, at the end of the execution of "ProcAndFeatExtr.sh", two symbolic-links
 # are created:

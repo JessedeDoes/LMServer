@@ -67,6 +67,8 @@ public class VariantLexicon
 			{
 				normalForm = normalForm.replaceAll("^\"" , "");
 				normalForm = normalForm.replaceAll("\"$" , "");
+				normalForm = normalForm.replaceAll("\\\\'", "'");
+				
 				variantForm = variantForm.replaceAll("^\\[", "");
 				variantForm = variantForm.replaceAll("\\]$", "");
 			}

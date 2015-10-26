@@ -692,7 +692,7 @@ public class LatticeDecoder
 		List<String> decoded = this.decode(l);
 		String sentence = StringUtils.join(decoded, " ");
 
-		boolean boemboem = true;
+		boolean boemboem = false;
 		if (boemboem)
 		{
 			Set<String> fw = l.getFirstWords(new isRealWord());

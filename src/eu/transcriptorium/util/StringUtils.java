@@ -114,6 +114,7 @@ public class StringUtils
 		for (int i=0; i < bytes.size(); i++)
 			ba[i] = bytes.get(i);
 		String r = new String(ba);
+		r = r.replaceAll("\\\\'", "'");
 		return r;
 	}
 	

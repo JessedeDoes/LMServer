@@ -2,6 +2,7 @@ use utf8;
 
 binmode(stdout,":encoding(utf8)");
 
+my $SUB=1;
 my ($RESULTS,$GTDIR) = @ARGV;
 opendir(D,$RESULTS);
 
@@ -19,10 +20,17 @@ while (my $x = readdir(D))
     $txt =~ s/\\([0-9]+)/chr(oct($1))/eg;
 
     utf8::decode($txt);
-
-    $txt =~ s/[↵↳]+/ /g;
-    $txt =~ s/ +/ /g;
-    $HTR .= $txt . " ";
+    if ($SUB)
+    {
+      $txt =~ s/[↵↳]+/ /g;
+      $txt =~ s/ +/ /g;
+      $HTR .= $txt;
+    } else
+    { 
+      $txt =~ s/[↵↳]+/ /g;
+      $txt =~ s/ +/ /g;
+      $HTR .= $txt . " ";
+    }
   }
   $HTR =~ s/\s+/ /g;
   close(X);

@@ -4,7 +4,10 @@ package eu.transcriptorium.util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtils 
 {
@@ -79,6 +82,41 @@ public class StringUtils
 		return sb.toString();
 	}
 	
+	public static String unescapeOctal(String s)
+	{
+		if (s == null)
+			return null;
+		Pattern p = Pattern.compile("\\\\([0-9]+)");
+		Matcher m = p.matcher(s);
+		int prevEnd = 0;
+		StringBuilder sb = new StringBuilder();
+		
+		List<Byte> bytes = new ArrayList<Byte>();
+		
+		while (m.find())
+		{
+			int start = m.start();
+			int end = m.end();
+			//sb.append(s.substring(prevEnd,start));
+			byte[] xx = s.substring(prevEnd,start).getBytes();
+			for (byte b: xx)
+				bytes.add(b);
+			byte o = (byte) Integer.parseInt(m.group(1),8);
+			//System.err.println(o);
+			bytes.add(o);
+			prevEnd = end;
+		}
+		byte[] xx = s.substring(prevEnd,s.length()).getBytes();
+		for (byte b: xx)
+			bytes.add(b);
+		//sb.append(s.substring(prevEnd,s.length()));
+		byte[] ba = new byte[bytes.size()];
+		for (int i=0; i < bytes.size(); i++)
+			ba[i] = bytes.get(i);
+		String r = new String(ba);
+		return r;
+	}
+	
 	public static List<String> readStringList(String fileName) throws IOException
 	{
 		String l;
@@ -90,5 +128,10 @@ public class StringUtils
 			L.add(l);
 		}
 		return L;
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println(unescapeOctal("N\\342\\206\\265a"));
 	}
 }

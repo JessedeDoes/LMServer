@@ -85,7 +85,11 @@ LanguageModelingWithoutBigLM()
   CORPUSFILE=$1
   VOCAB=$2
   MODEL=$3
-  ngram-count -lm $MODEL -limit-vocab -vocab $VOCAB -order 2 -ukndiscount 1 -ukndiscount 2 -gt1min 0 -gt2min 0 -text $CORPUSFILE
+  ORDER=$4
+  if [ -z "$ORDER" ] ; then
+    ORDER=2;
+  fi;
+  ngram-count -lm $MODEL -limit-vocab -vocab $VOCAB -order $ORDER -ukndiscount 1 -ukndiscount 2 -gt1min 0 -gt2min 0 -text $CORPUSFILE
 }
 ########################################################################################################################################
 
@@ -147,7 +151,10 @@ interpolate()
   PERL="@argz=split(/\s+/,'$MIXARGS'); my \$newargs; for (\$i=4; \$i < @argz; \$i+=2) { my \$k=\$i/2; \$newargs .= \" -mix-lm\$k \$argz[\$i] -mix-lambda\$k \$argz[\$i+1]\"; }; print \$newargs;";
   ## echo $PERL
   EXTRAARGS=`perl -e "$PERL"`
-  COMMAND="ngram -order 2 $STARTARGS $EXTRAARGS -write-lm $DESTINATION/languageModel.lm -vocab $DESTINATION/normalizedWordList.txt -limit-vocab"
+  if [ -z "$ORDER" ] ; then
+    ORDER=2;
+  fi;
+  COMMAND="ngram -order $ORDER $STARTARGS $EXTRAARGS -write-lm $DESTINATION/languageModel.lm -vocab $DESTINATION/normalizedWordList.txt -limit-vocab"
   echo "interpolation command: $COMMAND"
   $COMMAND
   ## for 2 lms

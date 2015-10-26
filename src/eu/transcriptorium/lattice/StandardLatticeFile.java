@@ -118,11 +118,12 @@ public class StandardLatticeFile
 						String id = m.get("I");
 						//System.err.println("Node with id " + id  + " in line " + l );
 						node.id = id;
-						node.word = m.get( "W");
-						if (node.word == null)
+						node.word = StringUtils.unescapeOctal(m.get( "W"));
+						if (node.word == null) //  this is not always correct ... null nodes are possible 
 						{
-							System.err.println("Error in line " + l  + "  file "  + fileName);
-							System.exit(1);
+							// System.err.println("No W in line: " + l  + "  file "  + fileName);
+							//System.exit(1);
+							node.word = Lattice.nullWordSymbol;
 						}
 						String v = m.get( "v");
 						if (v != null)
@@ -140,18 +141,48 @@ public class StandardLatticeFile
 
 					Node startNode = lattice.getNode(m.get("S"));
 					Node endNode = lattice.getNode(m.get("E"));
-					
+
 					arc.acoustic = htkLogScale * Double.parseDouble(m.get("a"));
 					arc.language = htkLogScale * Double.parseDouble(m.get("l"));
 
+					// ToDo if there is word info, then create extra Node in between??
+
+					String word = StringUtils.unescapeOctal(m.get( "W"));
+					
+					Node intermediateNode = null;
+					
+					if (word != null)
+					{
+						intermediateNode = new Node();
+						intermediateNode.id = n++ + "";
+						intermediateNode.word = word;
+						String v = m.get( "v");
+						if (v != null)
+						{
+							intermediateNode.v = Integer.parseInt(v);
+						}
+						lattice.nodes.put(intermediateNode.id, intermediateNode);
+					}
 					// System.err.println("arc from " + startNode + " to  " + endNode);
 					// acscale * acoustic + lmscale * language + wdpenalty
 					// System.err.println("Endnode: " + endNode);
-					
+
 					if (startNode != null && endNode != null)
 					{
 						arc.source = startNode;
-						arc.destination = endNode;
+						if (intermediateNode != null) // untested case ...
+						{
+							arc.destination = intermediateNode;
+							Arc a = new Arc();
+							a.source = intermediateNode;
+							a.destination = endNode;
+							a.weight = 0;
+							a.acoustic = a.language = 0;
+							a.source.arcs.add(a);
+							// TODO give Id to this arc....
+						}
+						else
+							arc.destination = endNode;
 						arc.setWeight(lattice.acscale, lattice.lmscale, lattice.wdpenalty);
 						arc.source.arcs.add(arc);
 						//System.err.println(arc);
@@ -167,7 +198,9 @@ public class StandardLatticeFile
 			e.printStackTrace();
 		}
 		lattice.rebuildArcList();
-	   lattice.getStartNode();
+		lattice.getStartNode();
+		//lattice.renumberNodes();
+		//printLattice(System.err,lattice);
 		return lattice;
 	}
 

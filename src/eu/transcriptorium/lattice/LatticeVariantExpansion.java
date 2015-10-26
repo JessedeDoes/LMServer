@@ -24,9 +24,9 @@ public class LatticeVariantExpansion
 						//System.err.println("applying alejandro weights... after: "  + a.acoustic);
 					}
 				}
-			} else
+			} else if (!nw.equals(Lattice.nullWordSymbol))
 			{
-				System.err.println("Could not get variants!!!");
+				System.err.println("Could not get variants for "  + nw);
 			}
 		}
 		//StandardLatticeFile.printLattice(System.err, lattice);

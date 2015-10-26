@@ -7,7 +7,7 @@ SYLCORPUS=/tmp/split_corpus.txt
 syllableSplitting $CORPUS $SYLCORPUS
 TextAndLexicalProcessing2 $SYLCORPUS $CLASS_CHARSET $CHARSET $CUTOFF $OUTPUT
 
-LanguageModelingWithoutBigLM $OUTPUT/normalizedText.txt $OUTPUT/normalizedWordList.txt $OUTPUT/languageModel.lm
+LanguageModelingWithoutBigLM $OUTPUT/normalizedText.txt $OUTPUT/normalizedWordList.txt $OUTPUT/languageModel.lm $ORDER
 
 echo "start HBuild"
 

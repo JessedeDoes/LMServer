@@ -565,6 +565,8 @@ public class LatticeDecoder
 	/*
 	 * Todo check boundary conditions (no context)
 	 * Todo: something with hyphenations -- joining words instead of adding them
+	 * This is horribly slow because of all the list  and string stuff
+	 * Compile LM to finite state automaton to do better?
 	 */
 	private boolean shiftContext(String word, boolean nolmword,
 			LatticeDecodePath path, List<String> C)
@@ -725,7 +727,7 @@ public class LatticeDecoder
 		{
 			public boolean accept(File dir, String name)
 			{
-				return name.endsWith(".lattice");
+				return name.endsWith(".lattice") || name.endsWith(".lat");
 			}
 		};
 
@@ -837,7 +839,7 @@ public class LatticeDecoder
 	{
 		NgramLanguageModel<String> lm = null;
 
-		String languageModel =  "data/trigramModel.lm.bin";
+		String languageModel =  args[0];
 		// languageModel = null;
 		if (languageModel != null)
 		{
@@ -853,13 +855,16 @@ public class LatticeDecoder
 			v = new VariantLexicon();
 			v.loadFromFile(args[1]);
 		}
+	
 		if (args.length == 0)
 		{
 			//for (int i=0; i < 10; i++)
 			decodeLatticeFile("resources/exampleData/115_070_002_02_18.lattice", lm, v);
 		}
 		else
-			decodeFilesInFolder(args[0],lm, v);
+		{
+			decodeFilesInFolder(args[2],lm, v);
+		}
 	}
 
 	public boolean isIgnoreSentenceBoundaries() {

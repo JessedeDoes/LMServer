@@ -8,6 +8,8 @@ public class Arc  implements Serializable
 	transient Node source = null;
 	
 	String id;
+	String word = null;
+	
 	double acoustic; // acoustice prob
 	double language; // lm prob
 	double weight; // weight score as computed by SRI from lattice

@@ -104,7 +104,7 @@ public class SimpleDatabase
 
 	public SimpleDatabase()
 	{
-		init();
+		//init();
 	} 
 
 	public String getURL()

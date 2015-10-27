@@ -9,7 +9,7 @@ public class BackupDirectory
   String dirName;
   File current;
   int portionSize;
-  FileStore f = new FileStore();
+  FileStore f = new FileStore(null);
  
   public void doit(String dirName)
   {
@@ -24,7 +24,7 @@ public class BackupDirectory
         if (!current.isDirectory())
         {
           System.err.println(current.getName());
-          f.storeFile(new FileInputStream(current),current.getName());
+          f.prepareForBulkInsert(new FileInputStream(current),current.getName());
         }
       }
     } catch (Exception e)

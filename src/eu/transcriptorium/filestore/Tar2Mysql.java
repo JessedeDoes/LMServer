@@ -9,7 +9,7 @@ public class Tar2Mysql
   TarInputStream tar;
   TarEntry current;
   int portionSize;
-  FileStore f = new FileStore();
+  FileStore f = new FileStore(null);
  
   public void doit(String archiveFilename)
   {
@@ -24,7 +24,7 @@ public class Tar2Mysql
         if (!current.isDirectory())
         {
           //System.err.println(current.getFile());
-          f.storeFile(tar,current.getName());
+          f.prepareForBulkInsert(tar,current.getName());
         }
       }
     } catch (Exception e)

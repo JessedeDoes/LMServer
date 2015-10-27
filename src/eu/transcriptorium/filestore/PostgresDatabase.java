@@ -44,15 +44,17 @@ public class PostgresDatabase extends SimpleDatabase
 	public static void main(String[] args)
 	{
 		Properties p = new Properties();
+		
 		p.put("dbHost", "svowdb02"); 
 		p.put("dbPort", "5432");
 		p.put("dbSchemaName", "gigant_molex_devintern_tweedepoging");
 		p.put("dbPasswd", "inl"); 
 		p.put("dbUser", "postgres");
+		
 		PostgresDatabase pg = new PostgresDatabase(p);
 		List<List<String>> r = pg.SimpleSelect("select modern_lemma, lemma_gigpos from lemmata limit 100;");
+		
 		for (List<String> v: r)
-
 			System.out.println(v);
 	}
 }

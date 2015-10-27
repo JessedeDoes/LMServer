@@ -4,7 +4,7 @@ import java.io.*;
 
 public interface Repository
 {
-	int store(InputStream s, Properties metadata); // returns id
+	int storeFile(InputStream s, Properties metadata); // returns id
 	InputStream openFile(int id);
 	Set<Integer> search(Properties metadata);
 }

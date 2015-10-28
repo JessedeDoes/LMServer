@@ -10,6 +10,8 @@ public class Command
     	 JAVA
      } ;
      
+     type commandType;
+     
      static class FileArgument
      {
     	 String pathName;
@@ -18,6 +20,4 @@ public class Command
      
      List<FileArgument> inFiles;
      List<FileArgument> outFiles;
-     
-     
 }

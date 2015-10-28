@@ -2,8 +2,8 @@ package eu.transcriptorium.servlet;
 
 
 import javax.json.Json;
-import javax.json.stream.JsonGenerator;
-import javax.json.stream.JsonGeneratorFactory;
+import javax.json.stream.*;
+//import org.
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -13,16 +13,20 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.collections.Counter;
 import edu.berkeley.nlp.lm.io.LmReaders;
+import eu.transcriptorium.filestore.PostgresRepository;
+import eu.transcriptorium.filestore.Repository;
 import eu.transcriptorium.lattice.Lattice;
 import eu.transcriptorium.lattice.LatticeDecoder;
 import eu.transcriptorium.lattice.LatticeToDot;
 import eu.transcriptorium.lattice.StandardLatticeFile;
 import eu.transcriptorium.lm.ScoreWordSubstitutions;
 import eu.transcriptorium.suggest.Suggest;
+import eu.transcriptorium.util.JSON;
 import eu.transcriptorium.util.StringUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -39,6 +43,8 @@ import java.util.*;
 public class LMServer extends  javax.servlet.http.HttpServlet
 {
 
+	Repository repo = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	
 	private static final long serialVersionUID = 1L;
 	private String basePath="/datalokaal/Corpus/LM/";
 
@@ -63,7 +69,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		COMPLETION,
 		SUGGESTION,
 		BUILD_LM,
-		DECODE_WG
+		DECODE_WG,
+		UPLOAD
 	};
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
@@ -284,13 +291,25 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				e.printStackTrace();
 			}
 			break;
+			
+		// repository functions (make this a separate servlet? )
+			
+		case UPLOAD: // upload a list of files and one metadata JSON object
+			Map <String, File> files = mpfd.getFileMap();
+			String metadata = parameterMap.get("metadata");
+			for (String n: files.keySet())
+			{
+				File f  = files.get(n);
+				Properties p = JSON.toProperties(JSON.fromString(metadata));
+				p.setProperty("fileFieldName", n);
+				int id = repo.storeFile(new FileInputStream(f), p);
+			}
+			break;
+			
 		default:
 			out.println("No valid action specified. Doing nothing!");
 		}
-
 	}
-
-
 
 	private Suggest getSuggester(String lmName)
 	{
@@ -338,22 +357,18 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			//System.err.println(sw.toString());
 			System.err.println(e);
 			jg = jg.write(e.getKey(), e.getValue());
-
-			
 		}
 
 		jg = jg.writeEnd();
-	
-
 		jg.close();
-
+		
 		return strw.getBuffer().toString();
 	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException 
-			{
+	{
 		System.err.println("GET REQUEST:" + request.getQueryString());
 		doPost(request,response);
-			} 
+	} 
 }

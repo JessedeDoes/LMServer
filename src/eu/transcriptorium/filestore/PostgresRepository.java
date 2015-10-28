@@ -19,11 +19,12 @@ public class PostgresRepository implements Repository
 	List <File> tempFiles = new ArrayList<File>();
 	int nFiles = 0;
 	int portionSize = 100;
-	
+
 	// create table FileTable (id serial, fileName text, type text, content oid);
 
 	static String createFileTable = "create table FileTable (id serial primary key, fileName text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer, key  text, value text)";
+	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 
 	String tableName="filetable";
 
@@ -40,9 +41,10 @@ public class PostgresRepository implements Repository
 		{
 			database.query("drop table if exists filetable");
 			database.query("drop table if exists metadata");
-
+			database.query("drop table if exists tags");
 			database.query(createFileTable);
 			database.query(createMetadataTable);
+			database.query(createTagsTable);
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -168,12 +170,14 @@ public class PostgresRepository implements Repository
 	public InputStream openFile(int id)
 	{
 		String q = " select content from filetable where id=? ";
+		
 		try
 		{
 			PreparedStatement stmt = database.connection.prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			int nofcolumns = rs.getMetaData().getColumnCount();
+			
 			while (rs.next()) // mis je nu de eerste??
 			{
 				InputStream s = rs.getBinaryStream(1); //  new String(rs.getBytes(1), "UTF-8");
@@ -185,7 +189,7 @@ public class PostgresRepository implements Repository
 		}
 		return null;
 	}
-	
+
 	public Set<Integer> search(Properties p)
 	{
 		List<String> clauses = new ArrayList<String>();
@@ -226,6 +230,85 @@ public class PostgresRepository implements Repository
 		return result;
 	}
 
+	@Override
+	public boolean delete(int id)
+	{
+		// TODO Auto-generated method stub
+		String q = " delete from filetable where id= " + id;
+		try
+		{
+			database.query(q);
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+
+
+	@Override
+	public Properties getMetadata(int id)
+	{
+		// TODO Auto-generated method stub
+		String q = " select key,value from metadata where id=? ";
+		Properties p = new Properties();
+		try
+		{
+			PreparedStatement stmt = database.connection.prepareStatement(q);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			int nofcolumns = rs.getMetaData().getColumnCount();
+			while (rs.next()) // mis je nu de eerste??
+			{
+				String k = rs.getString(1);
+				String v = rs.getString(2);
+				p.setProperty(k, v);
+			}
+		} catch (Exception e)
+		{
+			return null;
+		}
+		return p;
+	}
+
+	public static Properties getDefaultProperties()
+	{
+		Properties p = new Properties();
+
+		p.put("dbHost", "svowdb02"); 
+		p.put("dbPort", "5432");
+		p.put("dbSchemaName", "lmserver");
+		p.put("dbPasswd", "inl"); 
+		p.put("dbUser", "postgres");
+		
+		return p;
+	}
+	
+	@Override
+	public boolean setTag(Collection<Integer> fileIds, String tag)
+	{
+		// TODO no duplicate check...
+		for (int i : fileIds)
+		{
+			String q = "insert into tags (text, file_id) values (?,?)";
+			try
+			{
+				PreparedStatement stmt = database.connection.prepareStatement(q);
+				stmt.setString(1, tag);
+				stmt.setInt(2, i);
+				boolean res = stmt.execute();
+				stmt.close();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	public static void main(String [] args)
 	{
 		Properties p = new Properties();
@@ -240,6 +323,12 @@ public class PostgresRepository implements Repository
 		fs.createNew();
 		//fs.testje();
 		fs.storeFile("s:/jesse/D422.pdf",p);
-		System.err.println(fs.search(p));
+		Set<Integer>  V = fs.search(p);
+		for (int k: V)
+		{
+			System.out.println(fs.getMetadata(k));
+		}
 	}
+
+
 }

@@ -80,7 +80,11 @@ public class MultipartFormData
 		files.remove(f);
 	}
 
-
+	public Map<String, File> getFileMap()
+	{
+		return fileMap;
+	}
+	
 	public static String getFileContent(File f) 
 	{
 		//System.out.println("getfilecontent! " + f.getPath());

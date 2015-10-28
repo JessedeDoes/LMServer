@@ -322,13 +322,11 @@ public class PostgresRepository implements Repository
 		PostgresRepository fs = new PostgresRepository(p);
 		fs.createNew();
 		//fs.testje();
-		fs.storeFile("s:/jesse/D422.pdf",p);
+		fs.storeFile("/tmp/aap.txt",p);
 		Set<Integer>  V = fs.search(p);
 		for (int k: V)
 		{
 			System.out.println(fs.getMetadata(k));
 		}
 	}
-
-
 }

@@ -2,7 +2,7 @@ use utf8;
 
 binmode(stdout,":encoding(utf8)");
 
-my $SUB=1;
+my $SUB=0;
 my ($RESULTS,$GTDIR) = @ARGV;
 opendir(D,$RESULTS);
 

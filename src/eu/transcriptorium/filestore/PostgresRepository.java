@@ -125,11 +125,14 @@ public class PostgresRepository implements Repository
 	public int storeFile(String filename, Properties p)
 	{
 		int id = storeFile(filename);
-		p.put("filename", filename);
-		if (id >= 0)
+		if (p != null)
 		{
-			System.err.println(p.keySet());
-			storeMetadata(p, id);
+			p.put("filename", filename);
+			if (id >= 0)
+			{
+				System.err.println(p.keySet());
+				storeMetadata(p, id);
+			}
 		}
 		return id;
 	}

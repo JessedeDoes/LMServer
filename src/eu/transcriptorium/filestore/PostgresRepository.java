@@ -99,9 +99,11 @@ public class PostgresRepository implements Repository
 		try {
 			PreparedStatement stmt = database.connection.prepareStatement(query);
 			File file = new File(filename);
+			// AHA dit klopt allerminst!...
 			// FileInputStream fi = new FileInputStream(file);
 			stmt.setString(1, filename);
-			stmt.setBinaryStream(2, fi, (int) file.length());
+			stmt.setBinaryStream(2, fi);
+			//stmt.set
 			boolean res = stmt.execute();
 			stmt.close();
 			fi.close();
@@ -322,10 +324,11 @@ public class PostgresRepository implements Repository
 		p.put("dbPasswd", "inl"); 
 		p.put("dbUser", "postgres");
 
+		p = getDefaultProperties();
 		PostgresRepository fs = new PostgresRepository(p);
 		fs.createNew();
 		//fs.testje();
-		fs.storeFile("/tmp/aap.txt",p);
+		fs.storeFile("/tmp/hola",p);
 		Set<Integer>  V = fs.search(p);
 		for (int k: V)
 		{

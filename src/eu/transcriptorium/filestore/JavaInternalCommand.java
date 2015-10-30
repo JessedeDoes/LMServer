@@ -1,8 +1,7 @@
 package eu.transcriptorium.filestore;
 import java.util.*;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.*;
+import java.io.*;
 
 public class JavaInternalCommand extends Command
 {
@@ -11,7 +10,7 @@ public class JavaInternalCommand extends Command
 	Class c;
 	Object object;
 	Method method;
-	Repository repository;
+	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
 	boolean isStatic = false;
 	
 	static class TestObject
@@ -20,12 +19,51 @@ public class JavaInternalCommand extends Command
 		{
 			return 2 * i;
 		}
+		
+		public String doFile(String name)
+		{
+			String c = "";
+			try {
+				BufferedReader b = new BufferedReader(new FileReader(name));
+				String l;
+				while ((l = b.readLine()) != null)
+				{
+					c += l  + "\n";
+				}
+			} catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return c;
+		}
+		
+		public static void copyFile(String in, String out) throws IOException
+		{
+			File fOut = new File(out);
+			FileUtils.copyFile(new File(in), fOut);
+		}
 	}
+	
 	public JavaInternalCommand(Object o, String m)
 	{
 		this.className = o.getClass().getName();
 		this.methodName = m;
 		this.object = o;
+		try {
+			init();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public JavaInternalCommand(Object o, String m, Object[][] args)
+	{
+		this.className = o.getClass().getName();
+		this.methodName = m;
+		this.object = o;
+		this.arguments = Argument.makeArgumentList(args);
 		try {
 			init();
 		} catch (ClassNotFoundException e) {
@@ -97,12 +135,20 @@ public class JavaInternalCommand extends Command
 							{
 								String s = (String) a1;
 								repoId = Integer.parseInt(s);
+								
 							}
 							
 							if (repoId >= 0)
 							{
 								File f = File.createTempFile("repo", ".repo");
 								args[i] = f.getAbsolutePath();
+								InputStream stream = repository.openFile(repoId);
+								try {
+									FileUtils.copyStream(stream, f);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 						} else if (a.ioType == Command.ioType.OUT)
 						{
@@ -136,8 +182,16 @@ public class JavaInternalCommand extends Command
 					{
 						if (a.ioType == Command.ioType.OUT)
 						{
-							
+							// delete the file named args[i]
 							// store output
+							System.err.println("Reading output from file:" + args[i]);
+							InputStream str = new FileInputStream((String) args[i]);
+							System.err.println(str);
+							Properties p = new Properties();
+							p.put("createdBy", this.className + "."  + this.methodName);
+							p.put("createdAt", System.currentTimeMillis());
+							repository.storeFile(str, p);
+							str.close();
 						} else
 						{
 							// delete temporary files and stuff
@@ -156,11 +210,34 @@ public class JavaInternalCommand extends Command
 	
 	public static void main(String[] args) throws IOException
 	{
-		JavaInternalCommand c = new JavaInternalCommand(new TestObject(), "dubbel");
+		Object[][] params = { { "i", "java.lang.Integer"}};
+		
+		//JavaInternalCommand c = new JavaInternalCommand(new TestObject(), "dubbel", params);
 		
 		Map<String, Object> m = new HashMap<String,Object>();
-		m.put("parameter0", new Integer(2));
+		m.put("i", new Integer(2));
 		
-		c.invoke(m);
+		//c.invoke(m);
+		
+		Object[][] paramsWithFile = 
+		{ 
+				{ "f", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID} 		
+		};
+		JavaInternalCommand c1 = new JavaInternalCommand(new TestObject(), "doFile", paramsWithFile);
+		m.clear();
+		m.put("f", new Integer(1));
+		c1.invoke(m);
+		
+		Object[][] paramsWithOutFile = 
+		{ 
+				{ "in", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID}, 
+				{ "out", Command.FileArgument.class.getName(), Command.ioType.OUT, Command.referenceType.ID}
+		};
+		
+		JavaInternalCommand c2 = new JavaInternalCommand(new TestObject(), "copyFile", paramsWithOutFile);
+		m.clear();
+		m.put("in", 1);
+		m.put("out", "/tmp/hola");
+		c2.invoke(m);
 	}
 }

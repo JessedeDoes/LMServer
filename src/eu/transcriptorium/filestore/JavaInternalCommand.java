@@ -256,11 +256,11 @@ public class JavaInternalCommand extends Command
 		/////
 		
 		Object[][] somethingMoreReal  = 
-			{
+		{
 					{"lmOrder", "java.lang.Integer"},
 					{"inputText", FA, Command.ioType.IN, Command.referenceType.ID},
 					{"outputLM", FA, Command.ioType.OUT,  Command.referenceType.ID}
-			};
+		};
 		
 		m.clear();
 		m.put("lmOrder", 8);

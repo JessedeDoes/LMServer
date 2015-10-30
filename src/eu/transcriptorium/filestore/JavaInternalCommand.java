@@ -227,6 +227,7 @@ public class JavaInternalCommand extends Command
 		
 		
 		//////
+		
 		Object[][] paramsWithFile = 
 		{ 
 				{ "f", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID} 		
@@ -256,14 +257,16 @@ public class JavaInternalCommand extends Command
 		
 		Object[][] somethingMoreReal  = 
 			{
-					{ "lmOrder", "java.lang.Integer"},
+					{"lmOrder", "java.lang.Integer"},
 					{"inputText", FA, Command.ioType.IN, Command.referenceType.ID},
 					{"outputLM", FA, Command.ioType.OUT,  Command.referenceType.ID}
 			};
+		
 		m.clear();
 		m.put("lmOrder", 8);
 		m.put("inputText", 1);
 		m.put("outputLM", "/tmp/lm.out");
+		
 		JavaInternalCommand c3 = new JavaInternalCommand(new LMBuilder(), "buildLMFromOneText", somethingMoreReal);
 		
 		c3.invoke(m);

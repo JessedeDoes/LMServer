@@ -1,5 +1,9 @@
 package eu.transcriptorium.filestore;
 import java.util.*;
+
+import edu.berkeley.nlp.lm.io.LmReaders;
+import eu.transcriptorium.servlet.LMBuilder;
+
 import java.lang.reflect.*;
 import java.io.*;
 
@@ -211,6 +215,7 @@ public class JavaInternalCommand extends Command
 	
 	public static void main(String[] args) throws IOException
 	{
+	    String FA = Command.FileArgument.class.getName();
 		Object[][] params = { { "i", "java.lang.Integer"}};
 		
 		//JavaInternalCommand c = new JavaInternalCommand(new TestObject(), "dubbel", params);
@@ -220,6 +225,8 @@ public class JavaInternalCommand extends Command
 		
 		//c.invoke(m);
 		
+		
+		//////
 		Object[][] paramsWithFile = 
 		{ 
 				{ "f", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID} 		
@@ -229,10 +236,12 @@ public class JavaInternalCommand extends Command
 		m.put("f", new Integer(1));
 		c1.invoke(m);
 		
+		////// 
+		
 		Object[][] paramsWithOutFile = 
 		{ 
-				{ "in", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID}, 
-				{ "out", Command.FileArgument.class.getName(), Command.ioType.OUT, Command.referenceType.ID}
+				{ "in", FA, Command.ioType.IN, Command.referenceType.ID}, 
+				{ "out", FA, Command.ioType.OUT, Command.referenceType.ID}
 		};
 		
 		JavaInternalCommand c2 = new JavaInternalCommand(new TestObject(), "copyFile", paramsWithOutFile);
@@ -240,5 +249,24 @@ public class JavaInternalCommand extends Command
 		m.put("in", 1);
 		m.put("out", "/tmp/hola");
 		c2.invoke(m);
+		
+		
+		
+		/////
+		
+		Object[][] somethingMoreReal  = 
+			{
+					{ "lmOrder", "java.lang.Integer"},
+					{"inputText", FA, Command.ioType.IN, Command.referenceType.ID},
+					{"outputLM", FA, Command.ioType.OUT,  Command.referenceType.ID}
+			};
+		m.clear();
+		m.put("lmOrder", 8);
+		m.put("inputText", 1);
+		m.put("outputLM", "/tmp/lm.out");
+		JavaInternalCommand c3 = new JavaInternalCommand(new LMBuilder(), "buildLMFromOneText", somethingMoreReal);
+		
+		c3.invoke(m);
+		// LmReaders.createKneserNeyLmFromTextFiles(files, wordIndexer, lmOrder, arpaOutputFile, opts);
 	}
 }

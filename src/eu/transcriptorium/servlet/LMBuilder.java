@@ -20,18 +20,29 @@ public class LMBuilder
 		{
 			outputFile = File.createTempFile("lmx", "lm", new File(destinationFolder)).getCanonicalPath();
 		
-			Logger.setGlobalLogger(new Logger.SystemLogger(System.out, System.err));
-			Logger.startTrack("Reading text files " + inputFiles + " and writing to file " + outputFile);
-
-			final StringWordIndexer wordIndexer = new StringWordIndexer();
-			wordIndexer.setStartSymbol(ArpaLmReader.START_SYMBOL);
-			wordIndexer.setEndSymbol(ArpaLmReader.END_SYMBOL);
-			wordIndexer.setUnkSymbol(ArpaLmReader.UNK_SYMBOL);
-			LmReaders.createKneserNeyLmFromTextFiles(inputFiles, wordIndexer, lmOrder, new File(outputFile), new ConfigOptions());
+			buildLM(lmOrder, inputFiles, outputFile);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		return outputFile;
+	}
+
+	private void buildLM(int lmOrder, List<String> inputFiles, String outputFile) {
+		Logger.setGlobalLogger(new Logger.SystemLogger(System.out, System.err));
+		Logger.startTrack("Reading text files " + inputFiles + " and writing to file " + outputFile);
+
+		final StringWordIndexer wordIndexer = new StringWordIndexer();
+		wordIndexer.setStartSymbol(ArpaLmReader.START_SYMBOL);
+		wordIndexer.setEndSymbol(ArpaLmReader.END_SYMBOL);
+		wordIndexer.setUnkSymbol(ArpaLmReader.UNK_SYMBOL);
+		LmReaders.createKneserNeyLmFromTextFiles(inputFiles, wordIndexer, lmOrder, new File(outputFile), new ConfigOptions());
+	}
+	
+	public void buildLMFromOneText(int lmOrder, String inputFileName, String outputFileName)
+	{
+		List<String> in = new ArrayList<String>();
+		in.add(inputFileName);
+		buildLM(lmOrder,in,outputFileName);
 	}
 }

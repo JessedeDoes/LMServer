@@ -190,6 +190,7 @@ public class JavaInternalCommand extends Command
 							Properties p = new Properties();
 							p.put("createdBy", this.className + "."  + this.methodName);
 							p.put("createdAt", new Date(System.currentTimeMillis()).toString());
+							p.put("createdWithArguments", arguments.toString());
 							repository.storeFile(str, p);
 							str.close();
 						} else

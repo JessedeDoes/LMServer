@@ -42,8 +42,8 @@ public class ExternalCommand extends JavaInternalCommand
 			ProcessBuilder pb  = new ProcessBuilder(command);
 
 			Map<String, String> env = pb.environment();
+			
 			//env.put("PATH", programDir + "/");
-
 			//pb.directory(new File(programDir));
 
 			pb.redirectErrorStream(true);

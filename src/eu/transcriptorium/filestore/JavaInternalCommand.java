@@ -82,6 +82,26 @@ public class JavaInternalCommand extends Command
 			this.method.invoke(object, args);
 			
 			// en nu de nazorg: opruimen en resultatem opslaan...
+			for (int i=0; i < this.arguments.size(); i++)
+			{
+				Argument a = this.arguments.get(i);
+				Object a1 = arguments.get(a.name);
+				
+				if (a1 != null)
+				{
+					if (a.argumentClass.equals(FileArgument.class))
+					{
+						if (a.ioType == Command.ioType.OUT)
+						{
+							
+							// store output
+						} else
+						{
+							// delete temporary files and stuff
+						}
+					}
+				}
+			}
 			
 		} catch (Exception  e) 
 		{

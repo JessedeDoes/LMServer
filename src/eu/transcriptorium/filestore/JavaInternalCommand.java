@@ -12,6 +12,27 @@ public class JavaInternalCommand extends Command
 	Object object;
 	Method method;
 	Repository repository;
+	boolean isStatic = false;
+	
+	static class TestObject
+	{
+		public int dubbel(Integer i)
+		{
+			return 2 * i;
+		}
+	}
+	public JavaInternalCommand(Object o, String m)
+	{
+		this.className = o.getClass().getName();
+		this.methodName = m;
+		this.object = o;
+		try {
+			init();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void init() throws ClassNotFoundException
 	{
@@ -21,9 +42,26 @@ public class JavaInternalCommand extends Command
 			if (m.getName().equals(methodName))
 			{
 				method = m;
-				Type[] pType = m.getGenericParameterTypes();
+				//
+				if (this.arguments == null) // temporary fix
+				{
+					Class[] pType = m.getParameterTypes(); // extra check, TODO
+					//Parameter[] parameters = m.getReturnType().getP
+					this.arguments = new ArrayList<Argument>();
+					//m.get
+					for (int i=0; i < pType.length; i++)
+					{
+						Argument a = new Argument();
+						a.argumentClass = pType[i];
+						a.className = a.argumentClass.getName();
+						a.ioType = Command.ioType.IN;
+						a.name = "parameter" + i;
+						arguments.add(a);
+					}
+				}
 			}
 		}
+		System.err.println(arguments.get(0));
 	}
 	
 	@Override
@@ -34,13 +72,16 @@ public class JavaInternalCommand extends Command
 		{
 			Argument a = this.arguments.get(i);
 			Object a1 = arguments.get(a.name);
+			System.err.println("param found: " + a.name + "= " + a1);
 			if (a1 == null)
 			{
 				args[i]  = null;
 			} else
 			{
+				System.err.println("expected: " + a.argumentClass.getName() + " found: " + a1.getClass().getName());
 				if (a.argumentClass.isAssignableFrom(a1.getClass()))
 				{
+					System.err.println("Youpie!");
 					args[i] = a1;
 				} else // some conversion is needed ...
 				{
@@ -77,10 +118,12 @@ public class JavaInternalCommand extends Command
 				}
 			}
 		}
+		
+		System.err.println(args[0]);
 		try 
 		{
-			this.method.invoke(object, args);
-			
+			Object r = this.method.invoke(object, args);
+			System.out.println("Result:" + r);
 			// en nu de nazorg: opruimen en resultatem opslaan...
 			for (int i=0; i < this.arguments.size(); i++)
 			{
@@ -109,5 +152,15 @@ public class JavaInternalCommand extends Command
 		}
 		
 		// nazorg: stop de output weer in de repository
+	}
+	
+	public static void main(String[] args) throws IOException
+	{
+		JavaInternalCommand c = new JavaInternalCommand(new TestObject(), "dubbel");
+		
+		Map<String, Object> m = new HashMap<String,Object>();
+		m.put("parameter0", new Integer(2));
+		
+		c.invoke(m);
 	}
 }

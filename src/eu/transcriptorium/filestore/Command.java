@@ -10,7 +10,7 @@ public class Command
     	 JAVA
      } ;
      
-     public enum ioType
+     static public enum ioType
      {
     	 IN,
     	 OUT
@@ -29,8 +29,35 @@ public class Command
     	 String name;
     	 String className;
     	 Class argumentClass;
-    	 ioType ioType;
+    	 ioType ioType = Command.ioType.IN;
     	 referenceType referenceType;
+    	 
+    	 public String toString()
+    	 {
+    		 return "name=" + name + "; class=" + className;
+    	 }
+    	 
+    	 public Argument(String name, String className)
+    	 {
+    		 this.name = name;
+    		 this.className = className;
+    		 try {
+				this.argumentClass = Class.forName(className);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	 }
+    	 
+    	 public Argument()
+    	 {
+    		 
+    	 }
+     }
+     
+     public void addArgument(String name, String className)
+     {
+    	 this.arguments.add(new Argument(name, className));
      }
      
      static class FileArgument
@@ -39,7 +66,7 @@ public class Command
     	 int repositoryId;
      }
      
-     List<Argument> arguments;
+     List<Argument> arguments = null;
 
 	public void invoke(Map<String, Object> arguments) throws IOException 
 	{

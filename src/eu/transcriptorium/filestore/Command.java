@@ -31,7 +31,8 @@ public class Command
 		Class argumentClass;
 		ioType ioType = Command.ioType.IN;
 		referenceType referenceType;
-
+		String flagName = null;
+		
 		public String toString()
 		{
 			return "name=" + name + "; class=" + className;

@@ -17,6 +17,11 @@ public class JavaInternalCommand extends Command
 	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
 	boolean isStatic = false;
 	
+	public JavaInternalCommand()
+	{
+		
+	}
+	
 	static class TestObject
 	{
 		public int dubbel(Integer i)
@@ -172,7 +177,7 @@ public class JavaInternalCommand extends Command
 		System.err.println(args[0]);
 		try 
 		{
-			Object r = this.method.invoke(object, args);
+			Object r = invokeCommand(this.arguments, args);
 			System.out.println("Result:" + r);
 			// en nu de nazorg: opruimen en resultatem opslaan...
 			for (int i=0; i < this.arguments.size(); i++)
@@ -211,6 +216,10 @@ public class JavaInternalCommand extends Command
 		}
 		
 		// nazorg: stop de output weer in de repository
+	}
+
+	protected Object invokeCommand(List<Argument> arguments, Object[] args) throws IllegalAccessException, InvocationTargetException {
+		return this.method.invoke(object, args);
 	}
 	
 	public static void main(String[] args) throws IOException

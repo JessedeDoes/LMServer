@@ -5,6 +5,9 @@ import edu.berkeley.nlp.lm.io.LmReaders;
 import eu.transcriptorium.servlet.LMBuilder;
 
 import java.lang.reflect.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.*;
 
 public class JavaInternalCommand extends Command
@@ -125,7 +128,7 @@ public class JavaInternalCommand extends Command
 				args[i]  = null;
 			} else
 			{
-				System.err.println("expected: " + a.argumentClass.getName() + " found: " + a1.getClass().getName());
+				System.err.println("Expected: " + a.argumentClass.getName() + " found: " + a1.getClass().getName());
 				if (a.argumentClass.isAssignableFrom(a1.getClass()))
 				{
 					System.err.println("Youpie!");
@@ -146,15 +149,16 @@ public class JavaInternalCommand extends Command
 								repoId = Integer.parseInt(s);
 								
 							}
-							
 							if (repoId >= 0)
 							{
 								File f = File.createTempFile("repo", ".repo");
 								args[i] = f.getAbsolutePath();
 								InputStream stream = repository.openFile(repoId);
-								try {
+								try 
+								{
 									FileUtils.copyStream(stream, f);
-								} catch (Exception e) {
+								} catch (Exception e) 
+								{
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
@@ -168,6 +172,10 @@ public class JavaInternalCommand extends Command
 								String s = (String) a1;
 								args[i] = s;
 							}
+						} else if (a.ioType == Command.ioType.TEMP_DIR)
+						{
+							Path p = createTempDir();
+							args[i]  = p.toString();
 						}
 					}
 				}
@@ -175,6 +183,7 @@ public class JavaInternalCommand extends Command
 		}
 		
 		System.err.println(args[0]);
+		
 		try 
 		{
 			Object r = invokeCommand(this.arguments, args);
@@ -224,6 +233,7 @@ public class JavaInternalCommand extends Command
 	
 	public static void main(String[] args) throws IOException
 	{
+		
 	    String FA = Command.FileArgument.class.getName();
 		Object[][] params = { { "i", "java.lang.Integer"}};
 		

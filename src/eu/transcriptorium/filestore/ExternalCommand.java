@@ -32,6 +32,16 @@ public class ExternalCommand extends JavaInternalCommand
 			r[i] = a.get(i);
 		return r;
 	}
+	
+	public void buildEnvironment(Map<String,String> env, List<Argument> arguments, Object[] args)
+	{
+		for (int i=0; i < arguments.size(); i++)
+		{
+			env.put(arguments.get(i).name, args[i].toString());
+		}
+	}
+	
+	
 	@Override
 	protected Object invokeCommand(List<Argument> arguments, Object[] args)
 	{

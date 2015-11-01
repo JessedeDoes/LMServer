@@ -1,6 +1,9 @@
 package eu.transcriptorium.filestore;
 import java.util.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Command
 {
@@ -13,7 +16,8 @@ public class Command
 	static public enum ioType
 	{
 		IN,
-		OUT
+		OUT,
+		TEMP_DIR // directory arguments are always temporary (?)
 	};
 
 	static public enum referenceType
@@ -92,6 +96,18 @@ public class Command
 	{
 		// TODO Auto-generated method stub
 
+	}
+	
+	public static Path createTempDir() throws IOException
+	{
+		String property = "java.io.tmpdir";
+
+	    String tempDir = System.getProperty(property);
+	    
+		Path p = Files.createTempDirectory(Paths.get(tempDir) ,
+                "lmserverTemp.");
+		
+		return p;
 	}
 
 	//List<FileArgument> inFiles;

@@ -90,4 +90,17 @@ public class LM2PFSG
 		numTrans++;
 		transitions.add(new Transition(nodeIndex(from), nodeIndex(to), scaleLog(prob)));
 	}
+	
+	private NgramMap<ProbBackoffPair> getBackoffMap(NgramLanguageModel lm) 
+	{
+		NgramMap<ProbBackoffPair> map = null;
+		if (lm instanceof ArrayEncodedProbBackoffLm)
+		{
+			map = ((ArrayEncodedProbBackoffLm) wordLM).getNgramMap();
+		} else if (lm instanceof ContextEncodedProbBackoffLm)
+		{
+			map = ((ContextEncodedProbBackoffLm) wordLM).getNgramMap();
+		}
+		return map;
+	}
 }

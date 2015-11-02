@@ -80,18 +80,13 @@ public class WordLMAsCharacterLM
 
 	void collectNextWords()
 	{
+		Map<List<String>, Set<String>> successorMap = new HashMap<List<String>, Set<String>>();
 		NgramMap<ProbBackoffPair> map = null;
 		//NgramMap<Set<String>>  nextMap = new HashNgramMap<Set<String>> ();
 		
-		Map<List<String>, Set<String>> successorMap = new HashMap<List<String>, Set<String>>();
+	
 		
-		if (wordLM instanceof ArrayEncodedProbBackoffLm)
-		{
-			map = ((ArrayEncodedProbBackoffLm) wordLM).getNgramMap();
-		} else if (wordLM instanceof ContextEncodedProbBackoffLm)
-		{
-			map = ((ContextEncodedProbBackoffLm) wordLM).getNgramMap();
-		}
+		map = getBackoffMap(map);
 		
 		WordIndexer<String> wi = wordLM.getWordIndexer();
 		
@@ -148,6 +143,18 @@ public class WordLMAsCharacterLM
 			printNodeProb(trie.root,"");
 			successorTrieMap.put(hist, trie);
 		}
+	}
+
+	private NgramMap<ProbBackoffPair> getBackoffMap(NgramMap<ProbBackoffPair> map) 
+	{
+		if (wordLM instanceof ArrayEncodedProbBackoffLm)
+		{
+			map = ((ArrayEncodedProbBackoffLm) wordLM).getNgramMap();
+		} else if (wordLM instanceof ContextEncodedProbBackoffLm)
+		{
+			map = ((ContextEncodedProbBackoffLm) wordLM).getNgramMap();
+		}
+		return map;
 	}
 	
 	public void testModel(String[] characters)

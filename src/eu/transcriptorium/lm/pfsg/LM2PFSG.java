@@ -113,6 +113,7 @@ public class LM2PFSG
 		transitions.add(new Transition(nodeIndex(from), nodeIndex(to), scaleLog(prob)));
 	}
 
+	// ToDo bow=0 cases...
 	void visitNgrams()
 	{
 		NgramMap<ProbBackoffPair> map = getBackoffMap(lm);
@@ -131,6 +132,7 @@ public class LM2PFSG
 					ProbBackoffPair pbp = e.value;
 
 					List<String> words = new ArrayList<String>();
+					
 					for (int i: inds)
 					{
 						words.add(wi.getWord(i));
@@ -159,7 +161,9 @@ public class LM2PFSG
 					{
 
 					}
-
+					
+					// bow conditie mag weg?
+					
 					if (bow != 0 && (currorder == 0 || currorder < lm.getLmOrder()-1))
 					{
 						bows.put(ngram, bow);

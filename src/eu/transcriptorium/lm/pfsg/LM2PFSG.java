@@ -96,10 +96,10 @@ public class LM2PFSG
 		NgramMap<ProbBackoffPair> map = null;
 		if (lm instanceof ArrayEncodedProbBackoffLm)
 		{
-			map = ((ArrayEncodedProbBackoffLm) wordLM).getNgramMap();
+			map = ((ArrayEncodedProbBackoffLm) lm).getNgramMap();
 		} else if (lm instanceof ContextEncodedProbBackoffLm)
 		{
-			map = ((ContextEncodedProbBackoffLm) wordLM).getNgramMap();
+			map = ((ContextEncodedProbBackoffLm) lm).getNgramMap();
 		}
 		return map;
 	}

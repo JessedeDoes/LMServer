@@ -23,7 +23,7 @@ public class LM2PFSG
 {
 	NgramLanguageModel lm;
 
-	float logScale = (float) (2.30258509299404568402 * 10000.5);
+	float logScale = (float) 1; // (2.30258509299404568402 * 10000.5);
 	float half = (float) 0.5;
 	boolean check_bows = false;
 	boolean no_empty_bo = false;
@@ -51,7 +51,7 @@ public class LM2PFSG
 
 	float scaleLog(float x)
 	{
-		return Math.round(x * logScale);
+		return x; // Math.round(x * logScale);
 	}
 
 	static String outputForNode(String name)
@@ -283,6 +283,7 @@ public class LM2PFSG
 
 		this.pfsg = new PFSG();
 		visitNgrams();
+		pfsg.lm = lm;
 		return pfsg;
 	}
 	

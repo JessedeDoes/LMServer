@@ -1,6 +1,7 @@
 package eu.transcriptorium.lm.pfsg;
 import java.util.*;
 
+import edu.berkeley.nlp.lm.NgramLanguageModel;
 import eu.transcriptorium.lm.pfsg.PFSG.Transition;
 
 // BTW what happens to OOV here??? back to startState ???
@@ -9,14 +10,19 @@ public class PFSG
 {
 	Node startNode;
 	Node endNode;
+	Node backoffNode;
 	
 	List<Node> nodes = new ArrayList<Node>();
+	
+	transient NgramLanguageModel lm = null;
 	
 	static String bo_name = "__BACKOFF__";
 	static String start_bo_name = bo_name + " __FROM_START__";
 	static String nullWord = "!NULL";
 	static String end_tag  = "</s>";
 	static String start_tag = "<s>";
+	
+	float unknownPenalty = Float.NEGATIVE_INFINITY; // ahem...
 	
 	static class Node
 	{
@@ -48,7 +54,8 @@ public class PFSG
 			this.startNode = n;
 		if (fullName.equals(end_tag))
 			this.endNode = n;
-		
+		if (output.equals(bo_name))
+			this.backoffNode = n;
 		if (nodes.get(i) != n)
 		{
 			System.err.println("Tellingen niet in de haak....!");
@@ -67,10 +74,38 @@ public class PFSG
 				possible.add(t);	
 		}
 		if (possible.size() > 1)
-			System.err.println(possible);
+			System.err.println("MULTIPLE TRANSITIONS POSSIBLE FOR: " + possible);
 		if (possible.size() > 0)
 			return possible.iterator().next();
-		else return null;
+		else if (n != backoffNode)
+		{
+			System.err.println("backoff to start node..."); // but there should be a penalty for that ....sss
+			// List<String> W = Arrays.asList(word.split(" "));
+			// System.err.println("HM?" + lm.scoreSentence(W));
+			// but also add transition from prev word to backoff node??
+			return transition(backoffNode, word);
+		} 
+		return null;
+	}
+	
+	public Transition transitionToEndNode(Node n)
+	{
+		Set<Transition> possible = new HashSet<Transition>();
+		for (Transition t: n.transitions)
+		{
+			Node n1 = nodes.get(t.to);
+			if (n1 != null && n1 == endNode)
+				possible.add(t);	
+		}
+		if (possible.size() > 1)
+			System.err.println("MULTIPLE TRANSITIONS POSSIBLE FOR: " + possible);
+		if (possible.size() > 0)
+			return possible.iterator().next();
+		else if (n != startNode)
+		{
+			return transitionToEndNode(startNode);
+		} 
+		return null;
 	}
 	
 	public static class Transition
@@ -96,12 +131,14 @@ public class PFSG
 	{
 		float p = 0;
 		Node n = startNode;
+		float ref = lm.scoreSentence(words);
 		for (String w: words)
 		{
 			Transition t = transition(n,w);
 			if (t != null)
 			{
 				Node n1 = nodes.get(t.to);
+				
 				System.err.println("from " + n + " to "  + n1);
 				
 				n = n1;
@@ -111,6 +148,9 @@ public class PFSG
 				System.err.println("No transition from " + n + " on  " + w);
 			}
 		}
+		Transition tLast = transitionToEndNode(n);
+		p += tLast.p;
+		System.err.println("ref = " + ref + ", p=" + p + ", diff="  + (ref-p));
 		return p;
 	}
 
@@ -130,8 +170,8 @@ public class PFSG
 		else
 			arg0 = args[0];
 		PFSG pfsg = x.build(arg0);
-		
-		System.err.println(pfsg.evaluate(Arrays.asList("I AM NOT A DOG".split("\\s+"))));
+		System.err.println(pfsg.backoffNode);
+		System.err.println(pfsg.evaluate(Arrays.asList("GOOD IDEA OF".split("\\s+"))));
 		
 		//System.out.println(x.nodeNum);
 		//System.out.println(x.transitions);

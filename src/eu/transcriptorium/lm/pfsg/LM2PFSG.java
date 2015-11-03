@@ -28,7 +28,7 @@ public class LM2PFSG
 	boolean check_bows = false;
 	boolean no_empty_bo = false;
 	float epsilon = (float) 1e-5;         // # tolerance for lowprob detection
-	boolean debug= false;
+	boolean debug = false;
 	
 	int numNodes = 0;
 	int numTrans = 0;
@@ -59,6 +59,8 @@ public class LM2PFSG
 		String[] tokens = name.split("\\s+");
 		if (tokens.length == 0)
 			return null;
+		else if (tokens[0].equals(PFSG.bo_name))
+			return PFSG.nullWord;
 		else 
 		{
 			String l = tokens[tokens.length-1];
@@ -106,10 +108,10 @@ public class LM2PFSG
 		WordIndexer<String> wi = lm.getWordIndexer();
 
 		Map<List<String>, Set<String>> successorMap = new HashMap<List<String>, Set<String>>();
-
+		int lmOrder = lm.getLmOrder();
 		if (map != null)
 		{
-			for (int currorder=0; currorder < lm.getLmOrder(); currorder++)
+			for (int currorder=0; currorder < lmOrder; currorder++)
 			{
 				System.err.println("ORDER: " + currorder);
 				for (NgramMap.Entry<ProbBackoffPair> e : map.getNgramsForOrder(currorder))
@@ -130,9 +132,9 @@ public class LM2PFSG
 					float bow = pbp.backoff;
 
 					String first_word = words.get(0), 
-							last_word = words.get(words.size()-1), 
-							ngram_prefix = StringUtils.join(words.subList(0, words.size()-1), " "), 
-							ngram_suffix = StringUtils.join(words.subList(1, words.size()), " "),
+						   last_word = words.get(words.size()-1), 
+						   ngram_prefix = StringUtils.join(words.subList(0, words.size()-1), " "), 
+						   ngram_suffix = StringUtils.join(words.subList(1, words.size()), " "),
 							target;
 					//if (currorder > 0)
 					//System.err.println(ngram + " PRE: " + ngram_prefix + " SUF " + ngram_suffix);
@@ -148,9 +150,9 @@ public class LM2PFSG
 
 					}
 
-					// bow conditie mag weg?
+					// bow conditie mag weg? Nee dan te veel...
 
-					if (bow != 0 && (currorder == 0 || currorder < lm.getLmOrder()-1))
+					if ((bow != 0) && (currorder == 0 || currorder < lmOrder-1))
 					{
 						bows.put(ngram, bow);
 						String this_bo_name;
@@ -159,9 +161,10 @@ public class LM2PFSG
 						else
 							this_bo_name = PFSG.bo_name;
 						// insert backoff transitions....
-						if (false && currorder < lm.getLmOrder()-1) // TODO onduidelijk gedoe met read_contexts -- snap ik niet zo
+						if (currorder < lmOrder-2) // TODO onduidelijk gedoe met read_contexts -- snap ik niet zo
 						{
 							addTrans(this_bo_name +  " " + ngram, this_bo_name + " " + ngram_suffix, bow);
+							// hier kom je dus WEL in de awk versie...
 							addTrans(ngram, this_bo_name + " " + ngram, 0);
 						} else
 						{
@@ -187,12 +190,13 @@ public class LM2PFSG
 							for (int i=2; i <= currorder; i++)
 							{
 								target = StringUtils.join(words.subList(i, words.size()), " ");
-								System.err.println("target:" + target);
+								// System.err.println("target:" + target);
 								if (bows.get(target) != null)
 									break;
 							}
 						}
-						if (currorder == 0 || currorder < lm.getLmOrder()-1)
+						
+						if (currorder == 0 || currorder < lmOrder-1)
 						{
 							addTrans(PFSG.bo_name + " " + ngram_prefix, target, prob);
 							if (no_empty_bo && node_exists(PFSG.start_bo_name + " "  + ngram_prefix) &&

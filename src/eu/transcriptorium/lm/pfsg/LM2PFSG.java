@@ -14,21 +14,22 @@ import eu.transcriptorium.util.trie.Trie.TrieNode;
 
 import java.util.*;
 
+/**
+ * Check: the should be an OOV symbol in the LM?
+ * Or else there is no way to backoff?
+ */
+
 public class LM2PFSG 
 {
 	NgramLanguageModel lm;
 
 	float logScale = (float) (2.30258509299404568402 * 10000.5);
 	float half = (float) 0.5;
-	static String start_tag = "<s>";
-	static String end_tag  = "</s>";
-	static String nullWord = "!NULL";
-	String bo_name = "__BACKOFF__";
-	String start_bo_name = bo_name + " __FROM_START__";
 	boolean check_bows = false;
 	boolean no_empty_bo = false;
 	float epsilon = (float) 1e-5;         // # tolerance for lowprob detection
-	boolean debug=true;
+	boolean debug= false;
+	
 	int numNodes = 0;
 	int numTrans=0;
 
@@ -36,27 +37,9 @@ public class LM2PFSG
 	Map <Integer,String> nodeString = new HashMap<Integer,String> ();
 	Map<String, Float> bows = new HashMap<String, Float>();
 
-	static class Transition
-	{
-		int from;
-		int to;
-		float p;
+	List<PFSG.Transition> transitions = new ArrayList<PFSG.Transition>();
 
-		public Transition(int from, int to, float p)
-		{
-			this.from = from;
-			this.to = to;
-			this.p=p;
-		}
-		
-		public String toString()
-		{
-			return from + "  " + to  + " : " + p;
-		}
-	}
-
-	List<Transition> transitions = new ArrayList<Transition>();
-
+	PFSG pfsg = new PFSG();
 
 	float rint(float x)
 	{
@@ -79,8 +62,8 @@ public class LM2PFSG
 		else 
 		{
 			String l = tokens[tokens.length-1];
-			if (l.equals(start_tag) || l.equals(end_tag))
-				return nullWord;
+			if (l.equals(PFSG.start_tag) || l.equals(PFSG.end_tag))
+				return PFSG.nullWord;
 			else
 				return l;
 		}
@@ -94,6 +77,7 @@ public class LM2PFSG
 			i = numNodes++;
 			nodeNum.put(name, i);
 			nodeString.put(i, outputForNode(name));
+			pfsg.addNode(i, nodeString.get(i), name);
 			if (debug)
 				System.err.println("node " + i + " = " + name + ", output=" + nodeString.get(i));
 		}
@@ -104,13 +88,15 @@ public class LM2PFSG
 	{
 		return nodeNum.get(name) != null;
 	}
-	
+
 	void addTrans(String from, String to, float prob)
 	{
 		numTrans++;
 		if (debug)
 			System.err.println("add_trans " + from + " -> " + to +  " " + prob);
-		transitions.add(new Transition(nodeIndex(from), nodeIndex(to), scaleLog(prob)));
+		PFSG.Transition t = new PFSG.Transition(nodeIndex(from), nodeIndex(to), scaleLog(prob));
+		pfsg.addTransition(t);
+		transitions.add(t);
 	}
 
 	// ToDo bow=0 cases...
@@ -120,7 +106,7 @@ public class LM2PFSG
 		WordIndexer<String> wi = lm.getWordIndexer();
 
 		Map<List<String>, Set<String>> successorMap = new HashMap<List<String>, Set<String>>();
-		
+
 		if (map != null)
 		{
 			for (int currorder=0; currorder < lm.getLmOrder(); currorder++)
@@ -132,7 +118,7 @@ public class LM2PFSG
 					ProbBackoffPair pbp = e.value;
 
 					List<String> words = new ArrayList<String>();
-					
+
 					for (int i: inds)
 					{
 						words.add(wi.getWord(i));
@@ -149,7 +135,7 @@ public class LM2PFSG
 							ngram_suffix = StringUtils.join(words.subList(1, words.size()), " "),
 							target;
 					//if (currorder > 0)
-						//System.err.println(ngram + " PRE: " + ngram_prefix + " SUF " + ngram_suffix);
+					//System.err.println(ngram + " PRE: " + ngram_prefix + " SUF " + ngram_suffix);
 					if (currorder == 0)
 					{
 						// todo onbegrijpelijke code met NF
@@ -161,17 +147,17 @@ public class LM2PFSG
 					{
 
 					}
-					
+
 					// bow conditie mag weg?
-					
+
 					if (bow != 0 && (currorder == 0 || currorder < lm.getLmOrder()-1))
 					{
 						bows.put(ngram, bow);
 						String this_bo_name;
-						if (no_empty_bo && ngram.equals(start_tag))
-							this_bo_name = start_bo_name;
+						if (no_empty_bo && ngram.equals(PFSG.start_tag))
+							this_bo_name = PFSG.start_bo_name;
 						else
-							this_bo_name = bo_name;
+							this_bo_name = PFSG.bo_name;
 						// insert backoff transitions....
 						if (false && currorder < lm.getLmOrder()-1) // TODO onduidelijk gedoe met read_contexts -- snap ik niet zo
 						{
@@ -183,14 +169,14 @@ public class LM2PFSG
 						}
 					}
 
-					if (last_word.equals(start_tag))
+					if (last_word.equals(PFSG.start_tag))
 					{
 						if (currorder > 0)
 							System.err.println("ignore ngram into start tag " + ngram);
 					} else // insert N-gram transition to maximal suffix of target context
 					{
-						if (last_word.equals(end_tag))
-							target = end_tag;
+						if (last_word.equals(PFSG.end_tag))
+							target = PFSG.end_tag;
 						else if (currorder == 0 || bows.get(ngram) != null)
 							target = ngram;
 						else if (bows.get(ngram_suffix) != null)
@@ -207,19 +193,19 @@ public class LM2PFSG
 						}
 						if (currorder == 0 || currorder < lm.getLmOrder()-1)
 						{
-							addTrans(bo_name + " " + ngram_prefix, target, prob);
-							if (no_empty_bo && node_exists(start_bo_name + " "  + ngram_prefix) && (!target.equals(end_tag)))
-								addTrans(start_bo_name + " " + ngram_prefix, target, prob);
+							addTrans(PFSG.bo_name + " " + ngram_prefix, target, prob);
+							if (no_empty_bo && node_exists(PFSG.start_bo_name + " "  + ngram_prefix) && (!target.equals(PFSG.end_tag)))
+								addTrans(PFSG.start_bo_name + " " + ngram_prefix, target, prob);
 						} else
 							addTrans(ngram_prefix, target, prob);
-						
+
 						if (check_bows)
 						{
-							
+
 						}
 					}
-					
-					
+
+
 					if (false)
 					{
 						List<String> hist = words.subList(0, words.size()-1);
@@ -251,7 +237,7 @@ public class LM2PFSG
 		}
 		return map;
 	}
-	
+
 	static NgramLanguageModel readLM(String fileName)
 	{
 		// languageModel = null;
@@ -265,7 +251,7 @@ public class LM2PFSG
 		} else
 			return null;
 	}
-	
+
 	void print()
 	{
 		List<String> l = new ArrayList<String>();
@@ -278,12 +264,28 @@ public class LM2PFSG
 		{
 			System.out.println(nodeNum.get(x) + ":  " +  x  +  " nodeName: " + nodeString.get(nodeNum.get(x)));
 		}
-		for (Transition t: transitions)
+		for (PFSG.Transition t: transitions)
 		{
 			System.out.println(t);
 		}
 	}
 	
+	public PFSG build(NgramLanguageModel lm)
+	{
+		this.lm = lm;
+		numNodes = 0;
+		numTrans=0;
+
+		nodeNum = new HashMap<String,Integer> ();
+		nodeString = new HashMap<Integer,String> ();
+		bows = new HashMap<String, Float>();
+		transitions = new ArrayList<PFSG.Transition>();
+
+		this.pfsg = new PFSG();
+		visitNgrams();
+		return pfsg;
+	}
+
 	public static void main(String[] args)
 	{
 		LM2PFSG x = new LM2PFSG();

@@ -187,6 +187,7 @@ public class LM2PFSG
 							for (int i=2; i <= currorder; i++)
 							{
 								target = StringUtils.join(words.subList(i, words.size()), " ");
+								System.err.println("target:" + target);
 								if (bows.get(target) != null)
 									break;
 							}
@@ -194,7 +195,8 @@ public class LM2PFSG
 						if (currorder == 0 || currorder < lm.getLmOrder()-1)
 						{
 							addTrans(PFSG.bo_name + " " + ngram_prefix, target, prob);
-							if (no_empty_bo && node_exists(PFSG.start_bo_name + " "  + ngram_prefix) && (!target.equals(PFSG.end_tag)))
+							if (no_empty_bo && node_exists(PFSG.start_bo_name + " "  + ngram_prefix) &&
+									(!target.equals(PFSG.end_tag)))
 								addTrans(PFSG.start_bo_name + " " + ngram_prefix, target, prob);
 						} else
 							addTrans(ngram_prefix, target, prob);

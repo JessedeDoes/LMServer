@@ -104,7 +104,7 @@ public class PFSG
 				return t2;
 			}
 		}
-		if (n != backoffNode)
+		if (false && n != backoffNode)
 		{
 			System.err.println("try backoff from "  + n  +  " on " + word + " toBO: " + toBO); // but there should be a penalty for that ....sss
 
@@ -143,6 +143,8 @@ public class PFSG
 		return null;
 	}
 
+	
+	// hier ook via NULL zoeken....
 	public Transition transitionToEndNode(Node n)
 	{
 		Set<Transition> possible = new HashSet<Transition>();

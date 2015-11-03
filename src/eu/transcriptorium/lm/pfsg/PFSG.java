@@ -39,6 +39,7 @@ public class PFSG
 
 	public void addNode(int i, String output, String fullName)
 	{	
+		if (!output.equals(fullName)) System.err.println(fullName);
 		Node n = new Node(i,output);
 		nodes.add(n);
 		n.fullName = fullName; // for debugging purposes..
@@ -56,19 +57,20 @@ public class PFSG
 	}
 	
 	
-	public Node transition(Node n, String word)
+	public Transition transition(Node n, String word)
 	{
-		Set<Node> possible = new HashSet<Node>();
+		Set<Transition> possible = new HashSet<Transition>();
 		for (Transition t: n.transitions)
 		{
 			Node n1 = nodes.get(t.to);
 			if (n1 != null && n1.output.equals(word))
-				possible.add(n1);
-				
+				possible.add(t);	
 		}
 		if (possible.size() > 1)
 			System.err.println(possible);
-		return possible.iterator().next();
+		if (possible.size() > 0)
+			return possible.iterator().next();
+		else return null;
 	}
 	
 	public static class Transition
@@ -94,7 +96,21 @@ public class PFSG
 	{
 		float p = 0;
 		Node n = startNode;
-		
+		for (String w: words)
+		{
+			Transition t = transition(n,w);
+			if (t != null)
+			{
+				Node n1 = nodes.get(t.to);
+				System.err.println("from " + n + " to "  + n1);
+				
+				n = n1;
+				p += t.p;
+			} else // reset to start state???? // how to backoff ?? just set n to start state again??
+			{
+				System.err.println("No transition from " + n + " on  " + w);
+			}
+		}
 		return p;
 	}
 
@@ -103,5 +119,21 @@ public class PFSG
 	{
 		Node fromNode = nodes.get(t.from);
 		fromNode.transitions.add(t);
+	}
+	
+	public static void main(String[] args)
+	{
+		LM2PFSG x = new LM2PFSG();
+		String arg0;
+		if (args.length == 0)
+			arg0 ="./Test/languageModel.lm";
+		else
+			arg0 = args[0];
+		PFSG pfsg = x.build(arg0);
+		
+		System.err.println(pfsg.evaluate(Arrays.asList("I AM NOT A DOG".split("\\s+"))));
+		
+		//System.out.println(x.nodeNum);
+		//System.out.println(x.transitions);
 	}
 }

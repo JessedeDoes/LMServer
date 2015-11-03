@@ -31,7 +31,7 @@ public class LM2PFSG
 	boolean debug= false;
 	
 	int numNodes = 0;
-	int numTrans=0;
+	int numTrans = 0;
 
 	Map <String,Integer> nodeNum = new HashMap<String,Integer> ();
 	Map <Integer,String> nodeString = new HashMap<Integer,String> ();
@@ -284,6 +284,12 @@ public class LM2PFSG
 		this.pfsg = new PFSG();
 		visitNgrams();
 		return pfsg;
+	}
+	
+	public PFSG build(String lmFileName)
+	{
+		NgramLanguageModel lm = readLM(lmFileName);
+		return build(lm);
 	}
 
 	public static void main(String[] args)

@@ -30,7 +30,7 @@ public class PFSG
 	static String start_tag = "<s>";
 
 	static String stellingWerf_3 = "/home/jesse/TUTORIAL-HTR/EXP-RESOLUTIONS/TRAIN/LM/STELLINGWERF_3/languageModel.lm";
-	float unknownPenalty = (float) 1e-8; // Float.NEGATIVE_INFINITY; // ahem...
+	float unknownPenalty = (float) Math.log(1e-8); // Float.NEGATIVE_INFINITY; // ahem...
 
 	static class Node
 	{
@@ -38,6 +38,7 @@ public class PFSG
 		String fullName;
 		int id;
 		List<Transition> transitions = new ArrayList<Transition>();
+		Map<String, Transition> transitionMap = null;
 		List<Transition> nullTransitions = null;
 		
 		public Node(int i, String output)
@@ -91,12 +92,10 @@ public class PFSG
 	public Transition transition(Node n, String word)
 	{
 		
-		for (Transition t: n.transitions)
-		{
-			Node n1 = nodes.get(t.to);
-			if (n1 != null && n1.output.equals(word))
-				return t;	
-		}
+		Transition t0 = plainTransition(n,word);
+		if (t0 != null)
+			return t0;
+		
 		
 		for (Transition t: n.nullTransitions)
 		{
@@ -284,6 +283,7 @@ public class PFSG
 				m.put(n1.output, t);
 			}
 		}
+		n.transitionMap = m;
 	}
 	
 

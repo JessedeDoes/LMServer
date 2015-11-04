@@ -291,6 +291,7 @@ public class LM2PFSG
 		this.pfsg = new PFSG();
 		visitNgrams();
 		pfsg.lm = lm;
+		//pfsg.unknownPenalty = ;//lm;
 		return pfsg;
 	}
 	

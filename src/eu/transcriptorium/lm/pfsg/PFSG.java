@@ -25,7 +25,7 @@ public class PFSG
 	static String start_tag = "<s>";
 
 	static String stellingWerf_3 = "/home/jesse/TUTORIAL-HTR/EXP-RESOLUTIONS/TRAIN/LM/STELLINGWERF_3/languageModel.lm";
-	float unknownPenalty = Float.NEGATIVE_INFINITY; // ahem...
+	float unknownPenalty = (float) 1e-8; // Float.NEGATIVE_INFINITY; // ahem...
 
 	static class Node
 	{
@@ -71,6 +71,18 @@ public class PFSG
 	// ToDo unknown words...
 	// ToDo check null transitions, possibly recursively (??)
 	
+	public Transition plainTransition(Node n, String word)
+	{
+		
+		for (Transition t: n.transitions)
+		{
+			Node n1 = nodes.get(t.to);
+			if (n1 != null && n1.output.equals(word))
+				return t;	
+		}
+		return null;
+	}
+	
 	public Transition transition(Node n, String word)
 	{
 		
@@ -84,10 +96,10 @@ public class PFSG
 		for (Transition t: n.nullTransitions)
 		{
 			Node dest = nodes.get(t.to);
-			Transition t1 = transition(dest, word); // TODO hierbinnen hoef je geen null trans meer te checken
+			Transition t1 = plainTransition(dest, word); // TODO hierbinnen hoef je geen null trans meer te checken
 			if (t1 != null)
 			{
-				//System.err.println("Ha: via de nul:" + t1);
+				// System.err.println("Ha: via de nul:" + t1);
 				Transition t2 = new Transition();
 				t2.p = t.p + t1.p;
 				t2.to = t1.to;
@@ -95,7 +107,17 @@ public class PFSG
 				return t2;
 			}
 		}
-		return null;
+		
+		// OOV situation....
+		// it is a bit strange this does not depend on 
+		// the backoff weight from n
+		
+		Transition t = new Transition();
+		t.from = n.id;
+		t.to = backoffNode.id;
+		t.p = unknownPenalty;
+		System.err.println("returning on OOV " + word + ": "+ t + " from " + n);
+		return t;
 	}
 
 	
@@ -153,45 +175,6 @@ public class PFSG
 				return (o1.from == from && o1.to == to); 
 			} catch (Exception e) { return false;} 
 		}
-	}
-
-	public float evaluate(final List<String> words)
-	{
-		float p = 0;
-		Node n = startNode;
-		float ref = lm.scoreSentence(words);
-		int lmOrder = lm.getLmOrder();
-
-		final List<String> sentenceWithBounds =
-				new BoundedList<String>(words, lm.getWordIndexer().getStartSymbol(), 
-						lm.getWordIndexer().getEndSymbol());
-
-		for (int i=0; i < words.size(); i++)
-		{
-			String w = words.get(i);
-			final List<String>  ngram = 
-					(i+1 < lmOrder-1)?  sentenceWithBounds.subList(-1, i+1): 
-					sentenceWithBounds.subList(i+1 - lmOrder, i+1);
-
-			float pLM = lm.getLogProb(ngram);
-			Transition t = transition(n,w);
-			if (t != null)
-			{
-				Node n1 = nodes.get(t.to);
-				
-				p += t.p;
-				System.err.println("from <" + n + "> to <"  + n1 + ">, p: " + t.p + " pLM " + pLM);
-				n = n1;
-			} else // reset to start state???? // how to backoff ?? just set n to start state again??
-			{
-				System.err.println("No transition from " + n + " on  " + w);
-			}
-		}
-		Transition tLast =  transitionToEndNode(n);
-		if (tLast != null)
-		p += tLast.p;
-		System.err.println("ref = " + ref + ", p=" + p + ", diff="  + (ref-p));
-		return p;
 	}
 
 
@@ -298,6 +281,51 @@ public class PFSG
 		}
 	}
 	
+
+	public float evaluate(final List<String> words)
+	{
+		float p = 0;
+		Node n = startNode;
+		lm.setOovWordLogProb(this.unknownPenalty);
+		float ref = lm.scoreSentence(words);
+		int lmOrder = lm.getLmOrder();
+
+		final List<String> sentenceWithBounds =
+				new BoundedList<String>(words, lm.getWordIndexer().getStartSymbol(), 
+						lm.getWordIndexer().getEndSymbol());
+
+		for (int i=0; i < words.size(); i++)
+		{
+			String w = words.get(i);
+			final List<String>  ngram = 
+					(i+1 < lmOrder-1)?  sentenceWithBounds.subList(-1, i+1): 
+					sentenceWithBounds.subList(i+1 - lmOrder, i+1);
+
+			float pLM = lm.getLogProb(ngram);
+			Transition t = transition(n,w);
+			if (t != null)
+			{
+				Node n1 = nodes.get(t.to);
+				
+				p += t.p;
+				System.err.println("from <" + n + "> to <"  + n1 + ">, p: " + t.p + " pLM " + pLM);
+				n = n1;
+			} else // reset to start state???? // how to backoff ?? just set n to start state again??
+			{
+				System.err.println("No transition from " + n + " on  " + w);
+				Node n1 = this.backoffNode;
+				p += this.unknownPenalty;
+				System.err.println("OOV: from <" + n + "> to <"  + n1 + ">, p: " + this.unknownPenalty + " pLM " + pLM);
+				n = n1;
+			}
+		}
+		Transition tLast =  transitionToEndNode(n);
+		if (tLast != null)
+		p += tLast.p;
+		System.err.println("ref = " + ref + ", p=" + p + ", diff="  + (ref-p));
+		return p;
+	}
+
 	public static void main(String[] args)
 	{
 		LM2PFSG x = new LM2PFSG();
@@ -317,7 +345,7 @@ public class PFSG
 		
 		// missing: transitions TO empty history backoff??
 		
-		String s = "DELFFLANDT BIER ÉÉN GULDEN";
+		String s = "DELFFLANDT BIER ÉÉN HIHIHIAAAZ GULDEN";
 		//s = "WHAT DO YOU BRILLIANT THINK";
 		
 		System.err.println(pfsg.evaluate(Arrays.asList(s.toUpperCase().split("\\s+"))));

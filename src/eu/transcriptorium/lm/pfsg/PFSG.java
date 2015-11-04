@@ -33,7 +33,8 @@ public class PFSG
 		String fullName;
 		int id;
 		List<Transition> transitions = new ArrayList<Transition>();
-
+		List<Transition> nullTransitions = null;
+		
 		public Node(int i, String output)
 		{
 			this.id = i;
@@ -89,14 +90,14 @@ public class PFSG
 			System.err.println("MULTIPLE TRANSITIONS POSSIBLE FOR: " + possible);
 		if (possible.size() > 0)
 			return possible.iterator().next();
-		System.err.println("NULL: " + nullTransitions);
+		//System.err.println("NULL: " + nullTransitions);
 		for (Transition t: nullTransitions)
 		{
 			Node dest = nodes.get(t.to);
 			Transition t1 = transition(dest, word);
 			if (t1 != null)
 			{
-				System.err.println("Ha: via de nul:" + t1);
+				//System.err.println("Ha: via de nul:" + t1);
 				Transition t2 = new Transition();
 				t2.p = t.p + t1.p;
 				t2.to = t1.to;
@@ -211,6 +212,50 @@ public class PFSG
 		fromNode.transitions.add(t);
 	}
 
+	// there might be loops?! beware....
+	
+	public List<Transition> collectNullTransitions(Node n)
+	{
+		if (n.nullTransitions != null)
+			return n.nullTransitions;
+		
+		List<Transition> l = new ArrayList<Transition>();
+		
+		for (Transition t: n.transitions)
+		{
+			Node n1 = nodes.get(t.to);
+			if (n1.output.equals(PFSG.nullWord))
+				l.add(t);
+		}
+		
+		List<Transition> ll = new ArrayList<Transition>();
+		for (Transition t: l)
+		{
+			Node n1 = nodes.get(t.to);
+			List<Transition> l1 = collectNullTransitions(n1);
+			for (Transition t1: l1)
+			{
+				Transition t2 = new Transition();
+				t2.p = t.p + t1.p;
+				t2.from = n.id;
+				t2.to = t1.to;
+				ll.add(t2);
+			}
+		}
+		l.addAll(ll);
+		n.nullTransitions = l;
+		return l;
+	}
+	
+	public void collectNullTransitions()
+	{
+		for (Node n: nodes)
+		{
+			List<Transition> l = collectNullTransitions(n);
+			//System.err.println(n.id + " " + l.size());
+		}
+	}
+	
 	public static void main(String[] args)
 	{
 		LM2PFSG x = new LM2PFSG();
@@ -222,7 +267,8 @@ public class PFSG
 		
 		arg0 = stellingWerf_3;
 		PFSG pfsg = x.build(arg0);
-
+		pfsg.collectNullTransitions();
+		
 		System.err.println(pfsg.backoffNode);
 		System.err.println("#transitions(startNode):" +  pfsg.startNode.transitions.size());
 		System.err.println("#transitions(backoffNode):" +  pfsg.backoffNode.transitions.size());

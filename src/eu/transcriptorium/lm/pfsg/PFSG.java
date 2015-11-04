@@ -75,14 +75,14 @@ public class PFSG
 	{
 		Set<Transition> possible = new HashSet<Transition>();
 		Set<Transition> nullTransitions = new HashSet<Transition>();
-		Transition toBO = null;
+		//Transition toBO = null;
 		for (Transition t: n.transitions)
 		{
 			Node n1 = nodes.get(t.to);
 			if (n1 != null && n1.output.equals(word))
 				possible.add(t);	
-			if (n1.equals(backoffNode))
-				toBO = t;
+			//if (n1.equals(backoffNode))
+				//toBO = t;
 			if (n1.output.equals(PFSG.nullWord))
 				nullTransitions.add(t);
 		}

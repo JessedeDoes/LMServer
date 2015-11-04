@@ -79,7 +79,8 @@ public class PFSG
 	
 	public Transition plainTransition(Node n, String word)
 	{
-		
+		if (n.transitionMap != null)
+			return n.transitionMap.get(word);
 		for (Transition t: n.transitions)
 		{
 			Node n1 = nodes.get(t.to);

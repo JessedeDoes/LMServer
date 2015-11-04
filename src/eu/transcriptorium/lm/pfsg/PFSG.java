@@ -9,7 +9,7 @@ import eu.transcriptorium.lm.pfsg.PFSG.Transition;
  * Probabilistic Finite State Grammar
  * Based on SRILM translation code
  * 
- * Purpose: use in Lattice Decoder for better speed
+ * Purpose: use in Lattice Decoder for better decoding speed
  */
 
 public class PFSG 

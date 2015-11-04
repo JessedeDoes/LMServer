@@ -73,28 +73,18 @@ public class PFSG
 	
 	public Transition transition(Node n, String word)
 	{
-		Set<Transition> possible = new HashSet<Transition>();
-		//Set<Transition> nullTransitions = new HashSet<Transition>();
-		//Transition toBO = null;
+		
 		for (Transition t: n.transitions)
 		{
 			Node n1 = nodes.get(t.to);
 			if (n1 != null && n1.output.equals(word))
-				possible.add(t);	
-			//if (n1.equals(backoffNode))
-				//toBO = t;
-			//if (n1.output.equals(PFSG.nullWord))
-				//nullTransitions.add(t);
+				return t;	
 		}
-		if (possible.size() > 1)
-			System.err.println("MULTIPLE TRANSITIONS POSSIBLE FOR: " + possible);
-		if (possible.size() > 0)
-			return possible.iterator().next();
-		//System.err.println("NULL: " + nullTransitions);
+		
 		for (Transition t: n.nullTransitions)
 		{
 			Node dest = nodes.get(t.to);
-			Transition t1 = transition(dest, word);
+			Transition t1 = transition(dest, word); // TODO hierbinnen hoef je geen null trans meer te checken
 			if (t1 != null)
 			{
 				//System.err.println("Ha: via de nul:" + t1);
@@ -105,48 +95,25 @@ public class PFSG
 				return t2;
 			}
 		}
-		// check for NULL nodes ...
 		return null;
 	}
 
 	
 	// hier ook via NULL zoeken....
+	
 	public Transition transitionToEndNode(Node n)
 	{
-		Set<Transition> possible = new HashSet<Transition>();
-		//Set<Transition> nullTransitions = new HashSet<Transition>();
-		for (Transition t: n.transitions)
-		{
-			Node n1 = nodes.get(t.to);
-			if (n1 != null && n1 == endNode)
-				possible.add(t);	
-			//if (n1.output.equals(PFSG.nullWord))
-				//nullTransitions.add(t);
-		}
-		if (possible.size() > 1)
-			System.err.println("MULTIPLE TRANSITIONS POSSIBLE FOR: " + possible);
-		if (possible.size() > 0)
-			return possible.iterator().next();
 		for (Transition t: n.nullTransitions)
 		{
 			Node dest = nodes.get(t.to);
 			if (dest == endNode)
 				return t;
-			Transition t1 = transitionToEndNode(dest);
-			if (t1 != null)
-			{
-				System.err.println("Ha: naar end node via de nul:" + t1);
-				Transition t2 = new Transition();
-				t2.p = t.p + t1.p;
-				t2.to = t1.to;
-				t2.from = n.id;
-				return t2;
-			}
 		}
-		return null;
+		return null;	
+		// this is silly -- transition to end nod IS a null transition
 	}
 
-	public static class Transition
+	public static class Transition  
 	{
 		int from;
 		int to;
@@ -183,7 +150,7 @@ public class PFSG
 			try
 			{
 				Transition o1 = (Transition) o;
-				return o1.from == from && o1.to == to; 
+				return (o1.from == from && o1.to == to); 
 			} catch (Exception e) { return false;} 
 		}
 	}
@@ -220,7 +187,8 @@ public class PFSG
 				System.err.println("No transition from " + n + " on  " + w);
 			}
 		}
-		Transition tLast = transitionToEndNode(n);
+		Transition tLast =  transitionToEndNode(n);
+		if (tLast != null)
 		p += tLast.p;
 		System.err.println("ref = " + ref + ", p=" + p + ", diff="  + (ref-p));
 		return p;
@@ -268,17 +236,38 @@ public class PFSG
 		{
 			n.transitions.remove(t);
 		}
+		
+		
 		l0.addAll(ll);
-		n.nullTransitions = l0;
-		Set<Transition> S = new HashSet<Transition>();
-		S.addAll(l0);
+		
+		// maak uniek met beste p
+		
+		Map<Transition,Transition> S = new HashMap<Transition, Transition>();
+		for (Transition t: l0)
+		{
+			Transition t1 = S.get(t);
+			if (t1 != null) //  &&
+			{
+				if (t.p > t1.p)
+				{
+					//System.err.println("remove " + t1 + " and add " + t);
+					S.remove(t1);
+					S.put(t,t);
+				}
+			} else
+				S.put(t, t);
+		}
+		
 		
 		if (S.size() < l0.size()) // you have to choose the best now.....
 		{
-			System.err.println("Double transitions in " + l0);
-			List<Transition> lBest = new ArrayList<Transition>();
+			//System.err.println("Double transitions in " + l0 + " --> " + S.values());
+			l0.clear();
+			l0.addAll(S.values());
 		}
 		//todo: check double
+		
+		n.nullTransitions = l0;
 		return l0;
 	}
 	

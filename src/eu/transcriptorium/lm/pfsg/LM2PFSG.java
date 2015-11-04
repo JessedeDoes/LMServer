@@ -49,7 +49,7 @@ public class LM2PFSG
 			return (float) Math.floor(x+half);
 	}
 
-	float scaleLog(float x)
+	float scaleLog(float x) // no scaling; we want to compare to the original LM
 	{
 		return x; // Math.round(x * logScale);
 	}

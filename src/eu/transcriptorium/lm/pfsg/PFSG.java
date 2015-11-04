@@ -240,7 +240,7 @@ public class PFSG
 		
 		l0.addAll(ll);
 		
-		// maak uniek met beste p
+		// make unique (no double null transitions allowed)
 		
 		Map<Transition,Transition> S = new HashMap<Transition, Transition>();
 		for (Transition t: l0)

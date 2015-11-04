@@ -15,6 +15,7 @@ import eu.transcriptorium.util.trie.Trie.TrieNode;
 import java.util.*;
 
 /**
+ * This is a java translation of the SRILM awk script
  * Check: the should be an OOV symbol in the LM?
  * Or else there is no way to backoff?
  */

@@ -5,7 +5,12 @@ import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.collections.BoundedList;
 import eu.transcriptorium.lm.pfsg.PFSG.Transition;
 
-// BTW what happens to OOV here??? back to startState ???
+/*
+ * Probabilistic Finite State Grammar
+ * Based on SRILM translation code
+ * 
+ * Purpose: use in Lattice Decoder for better speed
+ */
 
 public class PFSG 
 {

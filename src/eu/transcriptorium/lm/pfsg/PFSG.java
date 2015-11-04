@@ -276,7 +276,25 @@ public class PFSG
 		for (Node n: nodes)
 		{
 			List<Transition> l = collectNullTransitions(n);
+			checkDoubleTransitions(n);
 			//System.err.println(n.id + " " + l.size());
+		}
+	}
+	
+	public void checkDoubleTransitions(Node n)
+	{
+		Map<String, Transition> m = new HashMap<String, Transition>();
+		for (Transition t: n.transitions)
+		{
+			Node n1 = nodes.get(t.to);
+			Transition t1 = m.get(n1.output);
+			if (t1 != null)
+			{
+				System.err.println("Double transition from  " + n + " on " + n1.output);
+			} else
+			{
+				m.put(n1.output, t);
+			}
 		}
 	}
 	

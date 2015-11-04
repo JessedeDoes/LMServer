@@ -148,20 +148,33 @@ public class PFSG
 	public Transition transitionToEndNode(Node n)
 	{
 		Set<Transition> possible = new HashSet<Transition>();
+		Set<Transition> nullTransitions = new HashSet<Transition>();
 		for (Transition t: n.transitions)
 		{
 			Node n1 = nodes.get(t.to);
 			if (n1 != null && n1 == endNode)
 				possible.add(t);	
+			if (n1.output.equals(PFSG.nullWord))
+				nullTransitions.add(t);
 		}
 		if (possible.size() > 1)
 			System.err.println("MULTIPLE TRANSITIONS POSSIBLE FOR: " + possible);
 		if (possible.size() > 0)
 			return possible.iterator().next();
-		else if (n != backoffNode)
+		for (Transition t: nullTransitions)
 		{
-			return transitionToEndNode(backoffNode);
-		} 
+			Node dest = nodes.get(t.to);
+			Transition t1 = transitionToEndNode(dest);
+			if (t1 != null)
+			{
+				System.err.println("Ha: naar end node via de nul:" + t1);
+				Transition t2 = new Transition();
+				t2.p = t.p + t1.p;
+				t2.to = t1.to;
+				t2.from = n.id;
+				return t2;
+			}
+		}
 		return null;
 	}
 

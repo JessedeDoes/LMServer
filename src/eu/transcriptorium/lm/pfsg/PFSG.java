@@ -104,41 +104,6 @@ public class PFSG
 				return t2;
 			}
 		}
-		if (false && n != backoffNode)
-		{
-			System.err.println("try backoff from "  + n  +  " on " + word + " toBO: " + toBO); // but there should be a penalty for that ....sss
-
-			if (checkWithLM)
-			{
-				List<String> W  = new ArrayList<String>();
-				W.add(word);
-				float p = lm.getLogProb(W);
-				System.err.println("p0:" + p);
-				if (toBO != null)
-					System.err.println("p0 + bow:" + (p+toBO.p));
-			}
-			
-			// but also add transition from prev word to backoff node??
-			
-			Transition t0 =  transition(backoffNode, word);
-			
-			// aha maar het kan zijn dat er geen transitie naar 
-			if (t0 != null && toBO != null)
-			{
-				Transition t1 = new Transition();
-				t1.p = t0.p + toBO.p;
-				t1.from = n.id;
-				t1.to = t0.to;
-				return t1;
-			} else if (false && t0 != null) //  this should be tried AFTER the null stuff???
-			{
-				Transition t1 = new Transition();
-				t1.p = t0.p;
-				t1.from = n.id;
-				t1.to = t0.to;
-				return t1;
-			}
-		} 
 		// check for NULL nodes ...
 		return null;
 	}

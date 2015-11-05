@@ -4,12 +4,18 @@ import java.util.*;
 
 import eu.transcriptorium.filestore.Command.Argument;
 import eu.transcriptorium.filestore.JavaInternalCommand.TestObject;
+import eu.transcriptorium.util.StringUtils;
 
 public class ExternalCommand extends JavaInternalCommand 
 {
 	static boolean verbose = true;
 	String exe = null;
-
+	
+	List<String> pathEntries = new ArrayList<String>();
+	static String PATH_SEPARATOR = ":";
+	
+	static String SRILM_DIR="/home/jesse/Tools/srilm";
+	
 	public ExternalCommand(String commandName, Object[][] args)
 	{
 		this.arguments = Argument.makeArgumentList(args);
@@ -41,6 +47,10 @@ public class ExternalCommand extends JavaInternalCommand
 		}
 	}
 	
+	public void addToPath(String pathName)
+	{
+		pathEntries.add(pathName);
+	}
 	
 	@Override
 	protected Object invokeCommand(List<Argument> arguments, Object[] args)
@@ -53,6 +63,7 @@ public class ExternalCommand extends JavaInternalCommand
 
 			Map<String, String> env = pb.environment();
 			
+			addPathToEnvironment(env);
 			//env.put("PATH", programDir + "/");
 			//pb.directory(new File(programDir));
 
@@ -95,6 +106,19 @@ public class ExternalCommand extends JavaInternalCommand
 		return null;
 	}
 	
+	private void addPathToEnvironment(Map<String, String> env) 
+	{
+		// TODO Auto-generated method stub
+		String currentPath = env.get("PATH");
+		System.err.println("PATH: " + currentPath);
+		if (currentPath == null)
+			currentPath="";
+		if (currentPath.length() > 0 && this.pathEntries.size() > 0)
+			currentPath += PATH_SEPARATOR;
+		currentPath += StringUtils.join(this.pathEntries, PATH_SEPARATOR);
+		env.put("PATH", currentPath);
+	}
+
 	public static void main(String[] args) throws IOException
 	{
 		String FA = Command.FileArgument.class.getName();
@@ -107,10 +131,12 @@ public class ExternalCommand extends JavaInternalCommand
 		{ 
 				{ "f", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID} 		
 		};
+		
 		ExternalCommand c1 = new ExternalCommand("cat", paramsWithFile);
 		m.clear();
 		m.put("f", new Integer(1));
+		c1.addToPath(SRILM_DIR + "/bin");
+		c1.addToPath(SRILM_DIR + "/bin/i686-m64");
 		c1.invoke(m);
 	}
-
 }

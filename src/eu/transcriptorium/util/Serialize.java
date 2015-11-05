@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 
 public class Serialize<T> 
 {
-	public void saveObject(Object o, String fileName) throws IOException 
+	public static void saveObject(Object o, String fileName) throws IOException 
 	{
 		// TODO Auto-generated method stub
 		try
@@ -31,7 +31,7 @@ public class Serialize<T>
 		}
 	}
 
-	public  T loadFromFile(String fileName)
+	public   T loadFromFile(String fileName)
 	{
 		try
 		{

@@ -291,6 +291,7 @@ public class LM2PFSG
 		this.pfsg = new PFSG();
 		visitNgrams();
 		pfsg.lm = lm;
+		pfsg.collectNullTransitions();
 		//pfsg.unknownPenalty = ;//lm;
 		return pfsg;
 	}
@@ -299,8 +300,16 @@ public class LM2PFSG
 	{
 		NgramLanguageModel lm = readLM(lmFileName);
 		return build(lm);
+		
 	}
 
+	public static void ngram2pfsg(String lmFileName, String pfsgFileName)
+	{
+		LM2PFSG x = new LM2PFSG();
+		PFSG y = x.build(lmFileName);
+		y.saveToFile(pfsgFileName);
+	}
+	
 	public static void main(String[] args)
 	{
 		LM2PFSG x = new LM2PFSG();

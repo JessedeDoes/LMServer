@@ -1,4 +1,7 @@
 package eu.transcriptorium.lm.pfsg;
+import java.io.IOException;
+import java.io.Serializable;
+import eu.transcriptorium.util.*;
 import java.util.*;
 
 import edu.berkeley.nlp.lm.NgramLanguageModel;
@@ -12,7 +15,7 @@ import eu.transcriptorium.lm.pfsg.PFSG.Transition;
  * Purpose: use in Lattice Decoder for better decoding speed
  */
 
-public class PFSG 
+public class PFSG implements Serializable
 {
 	Node startNode;
 	Node endNode;
@@ -332,6 +335,21 @@ public class PFSG
 		return p;
 	}
 
+	public static PFSG readFromFile(String fileName)
+	{
+		return new Serialize<PFSG>().loadFromFile(fileName);
+	}
+	
+	public void saveToFile(String fileName)
+	{
+		try {
+			Serialize.saveObject(this, fileName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args)
 	{
 		LM2PFSG x = new LM2PFSG();
@@ -343,7 +361,7 @@ public class PFSG
 		
 		arg0 = stellingWerf_3;
 		PFSG pfsg = x.build(arg0);
-		pfsg.collectNullTransitions();
+		//pfsg.collectNullTransitions();
 		
 		System.err.println(pfsg.backoffNode);
 		System.err.println("#transitions(startNode):" +  pfsg.startNode.transitions.size());

@@ -1,7 +1,7 @@
-package eu.transcriptorium.repository;
+package oldstuff.eu.transcriptorium.filestore.old;
 import org.apache.tools.tar.*;
 
-import oldstuff.eu.transcriptorium.filestore.old.FileStore;
+import eu.transcriptorium.repository.FileListing;
 
 import java.io.*;
 import java.util.zip.*;

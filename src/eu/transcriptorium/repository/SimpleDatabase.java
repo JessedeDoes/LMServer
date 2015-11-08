@@ -37,17 +37,19 @@ class ConnectorSimple
 	{
 		try
 		{
-			// Register the JDBC driver for MySQL.
+			// Register the JDBC driver for MySQL and/or postgresql
+			
 			if (url.contains("jdbc:mysql"))
 				Class.forName("com.mysql.jdbc.Driver");
 			if (url.contains("jdbc:postgres"))
 				Class.forName("org.postgresql.Driver");
+			
 			// Get a connection to the database
 			
 			System.err.println("Connecting to: " + url);
 			Connection connection = DriverManager.getConnection(url, user, password);
 
-			// Grote packets toestaan
+			// Allow large packages for mysql
 			if (url.contains("mysql"))
 			{
 				Statement stmt = connection.createStatement();

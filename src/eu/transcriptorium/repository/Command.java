@@ -1,4 +1,4 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.repository;
 import java.util.*;
 import java.io.*;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.repository;
 import impact.ee.util.StringUtils;
 
 import java.io.*;

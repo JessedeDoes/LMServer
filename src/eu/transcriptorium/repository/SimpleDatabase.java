@@ -1,4 +1,4 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.repository;
 import java.io.File;
 import java.io.Reader;
 import java.io.FileInputStream;

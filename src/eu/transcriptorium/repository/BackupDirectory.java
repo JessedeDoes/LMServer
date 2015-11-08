@@ -1,4 +1,4 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.repository;
 import org.apache.tools.tar.*;
 
 import oldstuff.eu.transcriptorium.filestore.old.FileStore;

@@ -1,4 +1,4 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.repository;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;

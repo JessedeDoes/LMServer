@@ -1,9 +1,9 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.repository;
 import java.io.*;
 import java.util.*;
 
-import eu.transcriptorium.filestore.Command.Argument;
-import eu.transcriptorium.filestore.JavaInternalCommand.TestObject;
+import eu.transcriptorium.repository.Command.Argument;
+import eu.transcriptorium.repository.JavaInternalCommand.TestObject;
 import eu.transcriptorium.util.StringUtils;
 
 public class ExternalCommand extends JavaInternalCommand 

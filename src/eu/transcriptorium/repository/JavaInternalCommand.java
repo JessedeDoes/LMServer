@@ -1,4 +1,4 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.repository;
 import java.util.*;
 
 import edu.berkeley.nlp.lm.io.LmReaders;

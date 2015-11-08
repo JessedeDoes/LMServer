@@ -3,9 +3,9 @@ import java.io.*;
 import java.util.*;
 import java.util.zip.*;
 
-import eu.transcriptorium.filestore.FileUtils;
-import eu.transcriptorium.filestore.PostgresDatabase;
-import eu.transcriptorium.filestore.SimpleDatabase;
+import eu.transcriptorium.repository.FileUtils;
+import eu.transcriptorium.repository.PostgresDatabase;
+import eu.transcriptorium.repository.SimpleDatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

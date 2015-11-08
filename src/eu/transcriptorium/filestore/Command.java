@@ -23,7 +23,8 @@ public class Command
 	static public enum referenceType
 	{
 		NAME,
-		ID
+		ID,
+		RELATIVE_TO_TEMPDIR
 	};
 
 	type commandType;
@@ -36,6 +37,7 @@ public class Command
 		ioType ioType = Command.ioType.IN;
 		referenceType referenceType;
 		String flagName = null;
+		String baseName;
 		
 		public String toString()
 		{
@@ -88,6 +90,7 @@ public class Command
 	{
 		String pathName;
 		int repositoryId;
+		String basePathName;
 	}
 
 	List<Argument> arguments = null;

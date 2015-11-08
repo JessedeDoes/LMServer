@@ -179,23 +179,7 @@ public class LM2PFSG
 							System.err.println("ignore ngram into start tag " + ngram);
 					} else // insert N-gram transition to maximal suffix of target context
 					{
-						if (last_word.equals(PFSG.end_tag))
-							target = PFSG.end_tag;
-						else if (currorder == 0 || bows.get(ngram) != null)
-							target = ngram;
-						else if (bows.get(ngram_suffix) != null)
-							target = ngram_suffix;
-						else 
-						{
-							target = ngram_suffix;
-							for (int i=2; i <= currorder; i++)
-							{
-								target = StringUtils.join(words.subList(i, words.size()), " ");
-								// System.err.println("target:" + target);
-								if (bows.get(target) != null)
-									break;
-							}
-						}
+						target = findMaximalSuffixForTarget(currorder, words, ngram, last_word, ngram_suffix);
 						
 						if (currorder == 0 || currorder < lmOrder-1)
 						{
@@ -230,6 +214,29 @@ public class LM2PFSG
 		}	
 		System.err.println("Nodes: "  + nodeNum.keySet().size());
 		System.err.println("Transitions: " + transitions.size());
+	}
+
+	private String findMaximalSuffixForTarget(int currorder, List<String> words, String ngram, String last_word,
+			String ngram_suffix) {
+		String target;
+		if (last_word.equals(PFSG.end_tag))
+			target = PFSG.end_tag;
+		else if (currorder == 0 || bows.get(ngram) != null)
+			target = ngram;
+		else if (bows.get(ngram_suffix) != null)
+			target = ngram_suffix;
+		else 
+		{
+			target = ngram_suffix;
+			for (int i=2; i <= currorder; i++)
+			{
+				target = StringUtils.join(words.subList(i, words.size()), " ");
+				// System.err.println("target:" + target);
+				if (bows.get(target) != null)
+					break;
+			}
+		}
+		return target;
 	}
 
 	private NgramMap<ProbBackoffPair> getBackoffMap(NgramLanguageModel lm) 

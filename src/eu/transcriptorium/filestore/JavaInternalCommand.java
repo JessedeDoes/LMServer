@@ -203,6 +203,18 @@ public class JavaInternalCommand extends Command
 							// delete the file named args[i]
 							// store output
 							System.err.println("Reading output from file:" + args[i]);
+							String fName = (String) args[i];
+							if (a.referenceType == Command.referenceType.RELATIVE_TO_TEMPDIR)
+							{
+								for (int j=0; i < this.arguments.size(); j++)
+								{
+									if (this.arguments.get(i).name.equals(a.baseName))
+									{
+								
+										fName = args[j] + "/"  + fName;
+									}
+								}
+							}
 							InputStream str = new FileInputStream((String) args[i]);
 							System.err.println(str);
 							Properties p = new Properties();

@@ -72,7 +72,7 @@ class ConnectorSimple
 
 public class SimpleDatabase
 {
-	Connection connection = null;
+	public Connection connection = null;
 	static boolean PREPEND_COLUMN_NAMES = true;
 	String rdbms = "mysql";
 	String dbHost = "localhost";

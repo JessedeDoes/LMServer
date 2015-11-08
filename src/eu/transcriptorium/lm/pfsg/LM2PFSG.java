@@ -92,7 +92,7 @@ public class LM2PFSG
 		return nodeNum.get(name) != null;
 	}
 
-	void addTrans(String from, String to, float prob)
+	void addTransition(String from, String to, float prob)
 	{
 		numTrans++;
 		if (debug)
@@ -137,21 +137,10 @@ public class LM2PFSG
 						   ngram_prefix = StringUtils.join(words.subList(0, words.size()-1), " "), 
 						   ngram_suffix = StringUtils.join(words.subList(1, words.size()), " "),
 							target;
-					//if (currorder > 0)
-					//System.err.println(ngram + " PRE: " + ngram_prefix + " SUF " + ngram_suffix);
-					if (currorder == 0)
-					{
-						// todo onbegrijpelijke code met NF
-						// zet bow op 0 bij unigram waar hij niet bij staat (hoeft hier niet, is al geregeld?)
-					} else if (currorder == 1)
-					{
+					
 
-					} else if (currorder == 2)
-					{
-
-					}
-
-					// bow conditie mag weg? Nee dan te veel...
+					// bow conditie mag weg? Nee dan te veel... TODO: check some stuff
+					// related to this
 
 					if ((bow != 0) && (currorder == 0 || currorder < lmOrder-1))
 					{
@@ -164,12 +153,12 @@ public class LM2PFSG
 						// insert backoff transitions....
 						if (currorder < lmOrder-2) // TODO onduidelijk gedoe met read_contexts -- snap ik niet zo
 						{
-							addTrans(this_bo_name +  " " + ngram, this_bo_name + " " + ngram_suffix, bow);
+							addTransition(this_bo_name +  " " + ngram, this_bo_name + " " + ngram_suffix, bow);
 							// hier kom je dus WEL in de awk versie...
-							addTrans(ngram, this_bo_name + " " + ngram, 0);
+							addTransition(ngram, this_bo_name + " " + ngram, 0);
 						} else
 						{
-							addTrans(ngram, this_bo_name + " " + ngram_suffix, bow);
+							addTransition(ngram, this_bo_name + " " + ngram_suffix, bow);
 						}
 					}
 
@@ -183,12 +172,12 @@ public class LM2PFSG
 						
 						if (currorder == 0 || currorder < lmOrder-1)
 						{
-							addTrans(PFSG.bo_name + " " + ngram_prefix, target, prob);
+							addTransition(PFSG.bo_name + " " + ngram_prefix, target, prob);
 							if (no_empty_bo && node_exists(PFSG.start_bo_name + " "  + ngram_prefix) &&
 									(!target.equals(PFSG.end_tag)))
-								addTrans(PFSG.start_bo_name + " " + ngram_prefix, target, prob);
+								addTransition(PFSG.start_bo_name + " " + ngram_prefix, target, prob);
 						} else
-							addTrans(ngram_prefix, target, prob);
+							addTransition(ngram_prefix, target, prob);
 
 						if (check_bows)
 						{

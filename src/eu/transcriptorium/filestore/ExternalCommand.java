@@ -134,6 +134,7 @@ public class ExternalCommand extends JavaInternalCommand
 		ExternalCommand c1 = new ExternalCommand("cat", paramsWithFile);
 		m.clear();
 		m.put("f", new Integer(1));
+		
 		c1.addToPath(SRILM_DIR + "/bin");
 		c1.addToPath(SRILM_DIR + "/bin/i686-m64");
 		c1.addToPath(HTK_DIR + "/bin.linux");

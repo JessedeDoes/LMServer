@@ -1,5 +1,6 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.filestore.old;
 import org.apache.tools.tar.*;
+
 import java.io.*;
 import java.util.zip.*;
 

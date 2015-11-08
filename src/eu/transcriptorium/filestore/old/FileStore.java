@@ -1,7 +1,12 @@
-package eu.transcriptorium.filestore;
+package eu.transcriptorium.filestore.old;
 import java.io.*;
 import java.util.*;
 import java.util.zip.*;
+
+import eu.transcriptorium.filestore.FileUtils;
+import eu.transcriptorium.filestore.PostgresDatabase;
+import eu.transcriptorium.filestore.SimpleDatabase;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,6 +14,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+@Deprecated
 public class FileStore
 {
 

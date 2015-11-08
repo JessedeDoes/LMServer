@@ -62,9 +62,11 @@ public class JavaInternalCommand extends Command
 		this.className = o.getClass().getName();
 		this.methodName = m;
 		this.object = o;
-		try {
+		try 
+		{
 			init();
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

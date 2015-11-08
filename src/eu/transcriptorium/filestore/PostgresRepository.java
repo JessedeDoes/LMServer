@@ -97,7 +97,7 @@ public class PostgresRepository implements Repository
 	{
 		String query = "INSERT INTO " + tableName + " (filename, content) VALUES (?, ?);";
 		try {
-			PreparedStatement stmt = database.connection.prepareStatement(query);
+			PreparedStatement stmt = database.getConnection().prepareStatement(query);
 			File file = new File(filename);
 			// AHA dit klopt allerminst!...
 			// FileInputStream fi = new FileInputStream(file);
@@ -148,7 +148,7 @@ public class PostgresRepository implements Repository
 			String query = "insert into metadata (id,key,value) values (?,?,?)";
 			try 
 			{
-				PreparedStatement stmt = database.connection.prepareStatement(query);
+				PreparedStatement stmt = database.getConnection().prepareStatement(query);
 				System.err.println(key + " = " + value);
 				stmt.setInt(1, id);
 				stmt.setString(2, key);
@@ -178,7 +178,7 @@ public class PostgresRepository implements Repository
 		
 		try
 		{
-			PreparedStatement stmt = database.connection.prepareStatement(q);
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			int nofcolumns = rs.getMetaData().getColumnCount();
@@ -216,7 +216,7 @@ public class PostgresRepository implements Repository
 		System.err.println(q);
 		try
 		{
-			PreparedStatement stmt = database.connection.prepareStatement(q);
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			for (int i=0; i < fillers.size(); i++)
 				stmt.setString(i+1, fillers.get(i));
 
@@ -262,7 +262,7 @@ public class PostgresRepository implements Repository
 		Properties p = new Properties();
 		try
 		{
-			PreparedStatement stmt = database.connection.prepareStatement(q);
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			int nofcolumns = rs.getMetaData().getColumnCount();
@@ -301,7 +301,7 @@ public class PostgresRepository implements Repository
 			String q = "insert into tags (text, file_id) values (?,?)";
 			try
 			{
-				PreparedStatement stmt = database.connection.prepareStatement(q);
+				PreparedStatement stmt = database.getConnection().prepareStatement(q);
 				stmt.setString(1, tag);
 				stmt.setInt(2, i);
 				boolean res = stmt.execute();

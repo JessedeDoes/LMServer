@@ -1,4 +1,4 @@
-package eu.transcriptorium.jafar.disagree.DuchData;
+package oldstuff.eu.transcriptorium.jafar.disagree.DutchData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

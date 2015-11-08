@@ -1,4 +1,4 @@
-package eu.transcriptorium.filestore.old;
+package oldstuff.eu.transcriptorium.filestore.old;
 import java.io.*;
 import java.util.*;
 import java.util.zip.*;
@@ -110,7 +110,7 @@ public class FileStore
 	{
 		String query = "INSERT INTO " + tableName + " (filename, content) VALUES (?, ?);";
 		try {
-		    PreparedStatement stmt = database.connection.prepareStatement(query);
+		    PreparedStatement stmt = database.getConnection().prepareStatement(query);
 		    File file = new File(filename);
 		    FileInputStream fi = new FileInputStream(file);
 		    stmt.setString(1, filename);
@@ -142,7 +142,7 @@ public class FileStore
 				String query = "insert into metadata (id,key,value) values (?,?,?)";
 				try 
 				{
-				    PreparedStatement stmt = database.connection.prepareStatement(query);
+				    PreparedStatement stmt = database.getConnection().prepareStatement(query);
 				    System.err.println(key + " = " + value);
 				    stmt.setInt(1, id);
 				    stmt.setString(2, key);

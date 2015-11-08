@@ -43,6 +43,7 @@ class ConnectorSimple
 			if (url.contains("jdbc:postgres"))
 				Class.forName("org.postgresql.Driver");
 			// Get a connection to the database
+			
 			System.err.println("Connecting to: " + url);
 			Connection connection = DriverManager.getConnection(url, user, password);
 
@@ -72,7 +73,7 @@ class ConnectorSimple
 
 public class SimpleDatabase
 {
-	public Connection connection = null;
+	private Connection connection = null;
 	static boolean PREPEND_COLUMN_NAMES = true;
 	String rdbms = "mysql";
 	String dbHost = "localhost";
@@ -117,7 +118,7 @@ public class SimpleDatabase
 		dbURL = getURL();
 		try 
 		{
-			this.connection = (new ConnectorSimple()).connect(dbURL, dbUser, dbPasswd);
+			this.setConnection((new ConnectorSimple()).connect(dbURL, dbUser, dbPasswd));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -129,7 +130,7 @@ public class SimpleDatabase
 	{
 		try 
 		{
-			this.connection.close();
+			this.getConnection().close();
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -142,7 +143,7 @@ public class SimpleDatabase
 		Statement stmt = null;
 		try
 		{
-			stmt = this.connection.createStatement();
+			stmt = this.getConnection().createStatement();
 			return stmt.execute(s);
 		}
 		catch (Exception e)
@@ -171,7 +172,7 @@ public class SimpleDatabase
 		List<List<String>> types = new ArrayList<List<String>>();
 		try
 		{
-			stmt = this.connection.prepareStatement(query, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+			stmt = this.getConnection().prepareStatement(query, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = stmt.executeQuery();
 			int nofcolumns = rs.getMetaData().getColumnCount();
 			while (rs.next()) // mis je nu de eerste??
@@ -216,7 +217,7 @@ public class SimpleDatabase
 		{
 			String q = String.format("update %s set %s = ? where %s=?",table_name, field_name, key_fieldname);
 			PreparedStatement stmt = null;
-			stmt = this.connection.prepareStatement(q);
+			stmt = this.getConnection().prepareStatement(q);
 			stmt.setBytes(1, field_value.getBytes("UTF-8"));
 			stmt.setBytes(2, key_fieldvalue.getBytes("UTF-8"));
 			System.err.println(stmt);
@@ -235,7 +236,7 @@ public class SimpleDatabase
 		try
 		{
 			PreparedStatement stmt = null;
-			stmt = this.connection.prepareStatement("select count(*) from " + table_name);
+			stmt = this.getConnection().prepareStatement("select count(*) from " + table_name);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next())
 			{
@@ -257,6 +258,14 @@ public class SimpleDatabase
 	public static void main(String[] args) throws Exception
 	{
 		SimpleDatabase l = new SimpleDatabase();
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
 	}
 
 }

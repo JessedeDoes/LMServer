@@ -1,4 +1,4 @@
-package eu.transcriptorium.jafar.original;
+package oldstuff.eu.transcriptorium.jafar.original;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

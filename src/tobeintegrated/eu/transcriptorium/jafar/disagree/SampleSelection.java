@@ -1,4 +1,4 @@
-package eu.transcriptorium.jafar.cotraining;
+package tobeintegrated.eu.transcriptorium.jafar.disagree;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,7 +21,7 @@ public class SampleSelection {
 		
 		
 		File dir = new File("/mnt/Projecten/transcriptorium/Corpora/ECCO/LPL_For_Each_Doc");
-		LanguageModeling Processing = new LanguageModeling();
+		LanguageModelling Processing = new LanguageModelling();
         String[] children = dir.list();
         
         String OutputNormalizedFiles="/mnt/Projecten/transcriptorium/Tools/languagemodeling/TestSampleSelection/CleanedAndNormalized";
@@ -56,7 +56,7 @@ public class SampleSelection {
 	}
 
 	private static void CleanedAndNormalizedText(String[] children,
-			String outputNormalizedFiles, LanguageModeling processing) throws IOException {
+			String outputNormalizedFiles, LanguageModelling processing) throws IOException {
 		// TODO Auto-generated method stub
        String OutputCleanedFiles="/mnt/Projecten/transcriptorium/Tools/languagemodeling/TestSampleSelection/CleanedText/";
        File dir = new File("/mnt/Projecten/transcriptorium/Tools/languagemodeling/TestSampleSelection/CleanedText");
@@ -69,7 +69,7 @@ public class SampleSelection {
              String filename = "/mnt/Projecten/transcriptorium/Corpora/ECCO/LPL_For_Each_Doc/"+children[i];
              String outFile=OutputCleanedFiles+children[i]+".cl";
 //             System.out.println("outFile============= "+outFile);
-             LanguageModeling.RunningWPocCode(filename, outFile);
+             LanguageModelling.RunningWPocCode(filename, outFile);
     	 }
        }
       
@@ -85,7 +85,7 @@ public class SampleSelection {
              String filename = "/mnt/Projecten/transcriptorium/Tools/languagemodeling/TestSampleSelection/CleanedText/"+children[i];
              String outFile=OutputCleanedFiles+children[i]+".norm";
 //             System.out.println("outFile============= "+outFile);
-             LanguageModeling.RunNormalizedCode(filename, outFile);
+             LanguageModelling.RunNormalizedCode(filename, outFile);
     	 
     	 }
       }

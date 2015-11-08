@@ -1,11 +1,11 @@
-package eu.transcriptorium.jafar.cotraining;
+package tobeintegrated.eu.transcriptorium.jafar.disagree;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
-public class LanguageModeling {
+public class LanguageModelling {
 
 
 	public static void main(String[] args) throws  IOException, InterruptedException {

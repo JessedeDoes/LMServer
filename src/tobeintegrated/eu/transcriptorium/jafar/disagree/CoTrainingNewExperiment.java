@@ -1,9 +1,8 @@
-package eu.transcriptorium.jafar.disagree;
+package tobeintegrated.eu.transcriptorium.jafar.disagree;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,11 +14,11 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 
 
-public class AgreementLearning {
-
+public class CoTrainingNewExperiment {
+	
 	private static final int Percent = 15;
 	private static final int Iterations = 1;
-	private static  double Thresholds = 0.35;
+	private static  double Thresholds = 0.125;
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -31,15 +30,14 @@ public class AgreementLearning {
 		while(Iter<Iterations && T<Thresholds){
 			
 			LanguageBuliding LmIn=new LanguageBuliding();
+			
 			LmIn.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/2-gram/InBentham"; 
 			LmIn.Cutoff="0";
 			
-		
             LanguageBuliding LmOut=new LanguageBuliding();
 			
-            LmOut.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/2-gram/OutBentham";
+            LmOut.Output="	/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/2-gram/OutBentham";
             LmOut.Cutoff="0";
-                      
             LmIn.start(); LmOut.start();
             
             try {
@@ -51,123 +49,120 @@ public class AgreementLearning {
 			}
             
             File  dir = new File("/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized");
-
-         //   File  dir = new File(args[5]);
             String[] children = dir.list();
             children=dir.list();
             
             if (children == null) {
                    System.out.println("The directory does not exist!" );   
             } else {
-            	 String Model="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/2-gram/InBentham";
-                 
-                 TestLanguageModel T1=new TestLanguageModel();
-                 TestLanguageModel T2=new TestLanguageModel();
-                 TestLanguageModel T3=new TestLanguageModel();
-                 TestLanguageModel T4=new TestLanguageModel();
-                 
-                 TestLanguageModel OutT1=new TestLanguageModel();
-                 TestLanguageModel OutT2=new TestLanguageModel();
-                 TestLanguageModel OutT3=new TestLanguageModel();
-                 TestLanguageModel OutT4=new TestLanguageModel();
-                 TestLanguageModel OutT5=new TestLanguageModel();
-                 TestLanguageModel OutT6=new TestLanguageModel();
-                 TestLanguageModel OutT7=new TestLanguageModel();
-                 TestLanguageModel OutT8=new TestLanguageModel();
-                 
-                 
-                 System.out.println("children.length= "+children.length+" (int)children.length/4 ="+((int)children.length/4 +1)+" (int) children.length/2 "+(int) children.length/2+" (int) (3*children.length)/4"+(int) (3*children.length)/4);
+                String Model="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/2-gram/InBentham";
+                
+                TestLanguageModel T1=new TestLanguageModel();
+                TestLanguageModel T2=new TestLanguageModel();
+                TestLanguageModel T3=new TestLanguageModel();
+                TestLanguageModel T4=new TestLanguageModel();
+                
+                TestLanguageModel OutT1=new TestLanguageModel();
+                TestLanguageModel OutT2=new TestLanguageModel();
+                TestLanguageModel OutT3=new TestLanguageModel();
+                TestLanguageModel OutT4=new TestLanguageModel();
+                TestLanguageModel OutT5=new TestLanguageModel();
+                TestLanguageModel OutT6=new TestLanguageModel();
+                TestLanguageModel OutT7=new TestLanguageModel();
+                TestLanguageModel OutT8=new TestLanguageModel();
+                
+                
+                System.out.println("children.length= "+children.length+" (int)children.length/4 ="+((int)children.length/4 +1)+" (int) children.length/2 "+(int) children.length/2+" (int) (3*children.length)/4"+(int) (3*children.length)/4);
 
-                 T1.firstIndex=0;T1.lastIndex=(int) children.length/4; T1.FileList=children; T1.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
-                 T1.Model=Model;T1.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
-                 T1.OutputType="ppl_in_"; 
-                 
-                 
-                 T2.firstIndex= (int)children.length/4 +1;T2.lastIndex=(int) children.length/2; T2.FileList=children;
-                 T2.Model=Model;T2.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
-                 T2.OutputType="ppl_in_"; 
-                 T2.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                T1.firstIndex=0;T1.lastIndex=(int) children.length/4; T1.FileList=children; T1.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                T1.Model=Model;T1.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
+                T1.OutputType="ppl_in_"; 
+                
+                
+                T2.firstIndex= (int)children.length/4 +1;T2.lastIndex=(int) children.length/2; T2.FileList=children;
+                T2.Model=Model;T2.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
+                T2.OutputType="ppl_in_"; 
+                T2.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
 
-                 T3.firstIndex= (int)children.length/2 +1;T3.lastIndex=(int) (3*children.length)/4;T3.FileList=children;
-                 T3.Model=Model;T3.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
-                 T3.OutputType="ppl_in_"; 
-                 T3.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                T3.firstIndex= (int)children.length/2 +1;T3.lastIndex=(int) (3*children.length)/4;T3.FileList=children;
+                T3.Model=Model;T3.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
+                T3.OutputType="ppl_in_"; 
+                T3.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
 
-                 T4.firstIndex= (int)(3*children.length)/4 +1;T4.lastIndex=(int) children.length-1;T4.FileList=children;
-                 T4.Model=Model;T4.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
-                 T4.OutputType="ppl_in_"; 
-                 T4.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                T4.firstIndex= (int)(3*children.length)/4 +1;T4.lastIndex=(int) children.length-1;T4.FileList=children;
+                T4.Model=Model;T4.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
+                T4.OutputType="ppl_in_"; 
+                T4.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+
+               
+                Model="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/2-gram/OutBentham";
+                OutT1.firstIndex=0;OutT1.lastIndex=(int) children.length/8; OutT1.FileList=children;
+                OutT1.Model=Model;OutT1.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT1.OutputType="ppl_out_"; 
+                OutT1.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                 
+                OutT2.firstIndex= (int)children.length/8 +1;OutT2.lastIndex=(int) children.length/4; OutT2.FileList=children;
+                OutT2.Model=Model;OutT2.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT2.OutputType="ppl_out_"; 
+                OutT2.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+
+
+                OutT3.firstIndex= (int)children.length/4 +1;OutT3.lastIndex=(int) (3*children.length)/8;OutT3.FileList=children;
+                OutT3.Model=Model;OutT3.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT3.OutputType="ppl_out_"; 
+                OutT3.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+
+
+                OutT4.firstIndex= (int)(3*children.length)/8 +1;OutT4.lastIndex=(int)(children.length)/2;OutT4.FileList=children;
+                OutT4.Model=Model;OutT4.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT4.OutputType="ppl_out_"; 
+                OutT4.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
 
                 
-                 Model="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/2-gram/OutBentham";
-                 OutT1.firstIndex=0;OutT1.lastIndex=(int) children.length/8; OutT1.FileList=children;
-                 OutT1.Model=Model;OutT1.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT1.OutputType="ppl_out_"; 
-                 OutT1.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
-                  
-                 OutT2.firstIndex= (int)children.length/8 +1;OutT2.lastIndex=(int) children.length/4; OutT2.FileList=children;
-                 OutT2.Model=Model;OutT2.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT2.OutputType="ppl_out_"; 
-                 OutT2.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
-
-
-                 OutT3.firstIndex= (int)children.length/4 +1;OutT3.lastIndex=(int) (3*children.length)/8;OutT3.FileList=children;
-                 OutT3.Model=Model;OutT3.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT3.OutputType="ppl_out_"; 
-                 OutT3.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
-
-
-                 OutT4.firstIndex= (int)(3*children.length)/8 +1;OutT4.lastIndex=(int)(children.length)/2;OutT4.FileList=children;
-                 OutT4.Model=Model;OutT4.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT4.OutputType="ppl_out_"; 
-                 OutT4.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                OutT5.firstIndex=(int)(children.length)/2 +1;OutT5.lastIndex=(int) (5*children.length)/8; OutT5.FileList=children;
+                OutT5.Model=Model;OutT5.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT5.OutputType="ppl_out_"; 
+                OutT5.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
 
                  
-                 OutT5.firstIndex=(int)(children.length)/2 +1;OutT5.lastIndex=(int) (5*children.length)/8; OutT5.FileList=children;
-                 OutT5.Model=Model;OutT5.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT5.OutputType="ppl_out_"; 
-                 OutT5.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
-
-                  
-                 OutT6.firstIndex= (5*children.length)/8 +1;OutT6.lastIndex=(int) (6*children.length)/8; OutT6.FileList=children;
-                 OutT6.Model=Model;OutT6.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT6.OutputType="ppl_out_"; 
-                 OutT6.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                OutT6.firstIndex= (5*children.length)/8 +1;OutT6.lastIndex=(int) (6*children.length)/8; OutT6.FileList=children;
+                OutT6.Model=Model;OutT6.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT6.OutputType="ppl_out_"; 
+                OutT6.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
 
 
-                 OutT7.firstIndex= (int)(6*children.length)/8 +1;OutT7.lastIndex=(int) (7*children.length)/8;OutT7.FileList=children;
-                 OutT7.Model=Model;OutT7.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT7.OutputType="ppl_out_"; 
-                 OutT7.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                OutT7.firstIndex= (int)(6*children.length)/8 +1;OutT7.lastIndex=(int) (7*children.length)/8;OutT7.FileList=children;
+                OutT7.Model=Model;OutT7.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT7.OutputType="ppl_out_"; 
+                OutT7.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
 
 
-                 OutT8.firstIndex= (int)(7*children.length)/8 +1;OutT8.lastIndex=(int) children.length-1;OutT8.FileList=children;
-                 OutT8.Model=Model;OutT8.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
-                 OutT8.OutputType="ppl_out_"; 
-                 OutT8.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
+                OutT8.firstIndex= (int)(7*children.length)/8 +1;OutT8.lastIndex=(int) children.length-1;OutT8.FileList=children;
+                OutT8.Model=Model;OutT8.Output="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
+                OutT8.OutputType="ppl_out_"; 
+                OutT8.ResourceFolder="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedAndNormalized";
 
 
-                 T1.start(); T2.start(); T3.start(); T4.start(); OutT1.start(); OutT2.start(); OutT3.start(); OutT4.start();
-                 OutT5.start(); OutT6.start(); OutT7.start(); OutT8.start();
-                 
-                 try {
-                 	T1.join();T2.join();T3.join();T4.join();OutT1.join();OutT2.join();OutT3.join();OutT4.join();
-                 	OutT5.join();OutT6.join();OutT7.join();OutT8.join();
- 				} catch (InterruptedException e) {
- 					// TODO Auto-generated catch block
- 					e.printStackTrace();
- 				}
+                T1.start(); T2.start(); T3.start(); T4.start(); OutT1.start(); OutT2.start(); OutT3.start(); OutT4.start();
+                OutT5.start(); OutT6.start(); OutT7.start(); OutT8.start();
+                
+                try {
+                	T1.join();T2.join();T3.join();T4.join();OutT1.join();OutT2.join();OutT3.join();OutT4.join();
+                	OutT5.join();OutT6.join();OutT7.join();OutT8.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-        
-             }
+       
+            }
 			
-            dir = new File("/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out");
+			dir = new File("/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out");
 			System.out.println("\n\n  Out domain correlation \n");
 	        String inputpath="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/Out/";
 	        ArrayList<String> Outppl1 = new ArrayList<String> ();
 	        ArrayList<String> OutFileNames = new ArrayList<String> ();
-	        
-	        
+			
 	        Outppl1=CorrelationFunction(dir, inputpath,OutFileNames);
 				
 			ArrayList<String> RelatedFilesNameOut= new ArrayList<String>();
@@ -177,7 +172,7 @@ public class AgreementLearning {
 			
 				
 			System.out.println("\n\n  in domain correlation \n");
-	        dir = new File("/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/");
+	        dir = new File("/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In");
 	        inputpath="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/In/";
 	        ArrayList<String> Inppl1 = new ArrayList<String> ();
 	        ArrayList<String> InFileNames = new ArrayList<String> ();
@@ -189,21 +184,32 @@ public class AgreementLearning {
 			
 			InRanks=SortedRanks(Inppl1, RelatedFilesNameIn);
 			
-		/*	System.out.println("RelatedFilesNameIn=============================================");
+			System.out.println("RelatedFilesNameIn=============================================");
 			for(int i=0; i<RelatedFilesNameIn.size();i++)
-				System.out.println(RelatedFilesNameIn.get(i));*/
+				System.out.println(RelatedFilesNameIn.get(i));
 		
 			int Threshould=(int)(Inppl1.size()*Percent)/100;
-			
+			System.out.println("Threshould===== "+Threshould);
 			T=(Double.parseDouble( InRanks.get(Threshould-1)) + Double.parseDouble(OutRanks.get(Threshould-1)))/2  ;
 			
 			System.out.println("Thersholdddddddddddddddddddddddddddddddddddddddddd  =============== "+T);
 			
 			ArrayList<String> ConfidentOutFileName= new ArrayList<String>();
-			ArrayList<String> ResultingFileName= new ArrayList<String>();
+			ArrayList<String> AddingToIn= new ArrayList<String>();
+			ArrayList<String> AddingToOut= new ArrayList<String>();
+
+			ArrayList<String> ConfidentInFileName= new ArrayList<String>();
+
+			// High confidence predictions of LM(Out)
 
 			for(int i=0;i<Threshould;i++){
 				ConfidentOutFileName.add(RelatedFilesNameOut.get(i));
+		//		System.out.println("Out ranks "+InRanks.get(i)+"Out domain = "+RelatedFilesNameOut.get(i)+ "  In ranks "+OutRanks.get(i)+" In domain= "+RelatedFilesNameIn.get(i) );
+			}
+			
+			// High confidence predictions of LM(In)
+			for(int i=0;i<Threshould;i++){
+				ConfidentInFileName.add(RelatedFilesNameIn.get(i));
 		//		System.out.println("Out ranks "+InRanks.get(i)+"Out domain = "+RelatedFilesNameOut.get(i)+ "  In ranks "+OutRanks.get(i)+" In domain= "+RelatedFilesNameIn.get(i) );
 			}
 			
@@ -215,39 +221,75 @@ public class AgreementLearning {
 		//		System.out.println("\n General ConfidentOutFileName(j)==  "+ConfidentOutFileName.get(i)+ " RelatedFilesNameIn(i)== "+RelatedFilesNameIn.get(i)+"\n");
 
 
-				if(ConfidentOutFileName.contains(RelatedFilesNameIn.get(i))){
+				if(!ConfidentOutFileName.contains(ConfidentInFileName.get(i))){
 					//int j=ConfidentOutFileName.indexOf(RelatedFilesNameIn.get(i));
 					System.out.println("\n After selection ConfidentOutFileName(j)==  "+RelatedFilesNameIn.get(i)+ " RelatedFilesNameIn(i)== "+RelatedFilesNameIn.get(i)+"\n");
-					ResultingFileName.add(RelatedFilesNameIn.get(i));
+					AddingToOut.add(ConfidentInFileName.get(i));
 		//			System.out.println("Selected  InRanks === "+InRanks.get(i)+"  OuRanks== "+OutRanks.get(i));
-					RemoveFromPPLFiles(PathIn,PathOut,RelatedFilesNameIn.get(i));
+					RemoveFromPPLFiles(PathIn,PathOut,ConfidentInFileName.get(i));
+				}
+				if(!ConfidentInFileName.contains(ConfidentOutFileName.get(i))){
+					//int j=ConfidentOutFileName.indexOf(RelatedFilesNameIn.get(i));
+					System.out.println("\n After selection ConfidentOutFileName(j)==  "+RelatedFilesNameIn.get(i)+ " RelatedFilesNameIn(i)== "+RelatedFilesNameIn.get(i)+"\n");
+					AddingToIn.add(ConfidentOutFileName.get(i));
+		//			System.out.println("Selected  InRanks === "+InRanks.get(i)+"  OuRanks== "+OutRanks.get(i));
+					RemoveFromPPLFiles(PathIn,PathOut,ConfidentOutFileName.get(i));
 				}
 					
 			}
 		
+	           // Adding a set of high-confidence predictions to Out-domain sets which has been predicted by LM(in)
 			
-			String OutputTextFile="SeletedNormalizedText" ;
+	        String OutputTextFile="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/SeletedNormalizedText.txt" ;
 
-			RetrivedBestMaches(ResultingFileName,OutputTextFile);
+	        System.out.println(" List of files to be added to Out-domain training set");
+	        for(int i=0; i<AddingToOut.size();i++)
+	        	System.out.println("AddingToOut==="+AddingToOut.get(i));
+	        
+			RetrivedBestMaches(AddingToOut,OutputTextFile);
 		 
 			String OutputTextFileOriginal="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/SeletedTextOriginalCleaned.txt" ;
-            String SelectedFilesDirections= "/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedText/";
+
+			RetrivedBestMachesCleanedText(AddingToOut,OutputTextFileOriginal);  
 			
-            RetrivedBestMachesCleanedText(ResultingFileName,OutputTextFileOriginal,SelectedFilesDirections);  
-			
-            String InTraing="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/InBentham"+"/";
+            String OutTraing="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/OutBentham/";
             String NewCleanedTrainingSet=OutputTextFileOriginal;
             String NewNormalizedTrainingSet=OutputTextFile;
+			AddToTrainingSet(OutTraing,NewCleanedTrainingSet,NewNormalizedTrainingSet);
+            
+			RemoveFileofSelectedText(OutputTextFile,OutputTextFileOriginal);
+			
+			RemoveCleanedTextFilesFromCorpora(AddingToOut);
+				
+			RemoveNormalizedTextFilesFromCorpora(AddingToOut);
+				
+			
+           // Adding a set of high-confidence predictions to Out-domain sets which has been predicted by LM(out)
+			
+	        OutputTextFile="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/SeletedNormalizedText.txt" ;
+
+	        System.out.println("List of file to be added to In-Domain training set");
+	        for(int i=0;i<AddingToIn.size();i++)
+	        	System.out.println("AddingToIn===" +AddingToIn.get(i));
+			RetrivedBestMaches(AddingToIn,OutputTextFile);
+		 
+			OutputTextFileOriginal="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/SeletedTextOriginalCleaned.txt" ;
+
+			RetrivedBestMachesCleanedText(AddingToIn,OutputTextFileOriginal);  
+			
+            NewCleanedTrainingSet=OutputTextFileOriginal;
+            NewNormalizedTrainingSet=OutputTextFile;
+            String InTraing="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/InBentham/";
+
 			AddToTrainingSet(InTraing,NewCleanedTrainingSet,NewNormalizedTrainingSet);
             
-			String OutTraing= "/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/OutBentham"+"/";
-            AddToTrainingSet(OutTraing,NewCleanedTrainingSet,NewNormalizedTrainingSet);
-           
-            RemoveFileofSelectedText(OutputTextFile,OutputTextFileOriginal);
+			RemoveFileofSelectedText(OutputTextFile,OutputTextFileOriginal);
+					
+		   
 			
-            RemoveCleanedTextFilesFromCorpora(ResultingFileName,SelectedFilesDirections);
+            RemoveCleanedTextFilesFromCorpora(AddingToIn);
 			
-			RemoveNormalizedTextFilesFromCorpora(ResultingFileName);
+			RemoveNormalizedTextFilesFromCorpora(AddingToIn);
 			
             
             Iter++;
@@ -281,13 +323,13 @@ public class AgreementLearning {
 
 
 	private static void RemoveCleanedTextFilesFromCorpora(
-			ArrayList<String> resultingFileName, String FilePath) {
+			ArrayList<String> resultingFileName) {
 		// TODO Auto-generated method stub
 		for(String st:resultingFileName){
 			st=st.substring(0, st.lastIndexOf(":"));
 			st=st.substring(st.lastIndexOf("/"));
 			st=st.substring(0, st.lastIndexOf("n")-1);
-			st=FilePath+st;
+			st="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedText"+st;
 			File rm = new File(st);
 			 
     		if(rm.delete()){
@@ -360,7 +402,7 @@ public class AgreementLearning {
 			
 			if(! file.exists()){
 				System.out.println("The file does not exist !!!!!!!!!!!!!!!!");
-			//	file.createNewFile();
+				//file.createNewFile();
 				
 			}
 			else{
@@ -389,7 +431,7 @@ public class AgreementLearning {
 			
 			if(! file.exists()){
 				System.out.println("The file does not exist !!!!!!!!!!!!!!!!");
-			//	file.createNewFile();
+				file.createNewFile();
 				
 			}
 			else{
@@ -421,7 +463,7 @@ public class AgreementLearning {
 
 
 	private static void RetrivedBestMachesCleanedText(		
-		ArrayList<String> resultingFileName, String outputTextFile, String FilePath) throws IOException {
+		ArrayList<String> resultingFileName, String outputTextFile) throws IOException {
 		
   
 		PrintWriter output= new PrintWriter(new BufferedWriter(new FileWriter(outputTextFile)));
@@ -430,7 +472,7 @@ public class AgreementLearning {
 			st=st.substring(0, st.lastIndexOf(":"));
 			st=st.substring(st.lastIndexOf("/"));
 			st=st.substring(0, st.lastIndexOf("n")-1);
-			st=FilePath+st;
+			st="/mnt/Projecten/transcriptorium/Tools/languagemodeling/NewSetOfExperiment/CleanedText"+st;
 	//		System.out.println(st);
 			
 			InputStream is = new FileInputStream (st);
@@ -468,14 +510,17 @@ public class AgreementLearning {
 			String outputTextFile) throws IOException {
 		// TODO Auto-generated method stub
 		
-	/*	File file =new File(outputTextFile);
+		File file =new File(outputTextFile);
 		
-		file.createNewFile();
+		if(! file.exists()){
+			System.out.println("The file has been created for adding normalized text");
+			file.createNewFile();
+
+			
+		}
 			
 				
-        BufferedWriter output = new BufferedWriter(new FileWriter(file,true));*/
-		File temp = File.createTempFile(outputTextFile, ".tmp");
-		BufferedWriter output = new BufferedWriter(new FileWriter(temp));
+        BufferedWriter output = new BufferedWriter(new FileWriter(file,true));
       
 	//	PrintWriter output= new PrintWriter(new BufferedWriter(new FileWriter(outputTextFile)));
 		
@@ -506,7 +551,7 @@ public class AgreementLearning {
 			while(line!=null){
 				output.write(line);
 				output.newLine();
-				
+
 			
 			//	System.out.println(line);
 				line=br.readLine();
@@ -612,7 +657,13 @@ public class AgreementLearning {
         
        
         for(int i=0; i<OOVs.size(); i++){
-        	Result.add(String.valueOf( ppl1.get(i)*OOVs.get(i) )+","+FileNames.get(i));
+        	
+        	Result.add(String.valueOf( ppl1.get(i))+","+FileNames.get(i)); // without OOVs Rate
+
+     //   	Result.add(String.valueOf( ppl1.get(i)*OOVs.get(i))+","+FileNames.get(i)); // multiplying
+        	
+      //  	Result.add(String.valueOf( (double)(1.0/ppl1.get(i))*(1.0-OOVs.get(i)))+","+FileNames.get(i));
+
         	// Criterian is adding ppl and OOV or multiplying or 1/ppl*(1-OOVs)
         }
         
@@ -652,8 +703,4 @@ public class AgreementLearning {
 		
 		
 	}
-	
-	
-
-
 }

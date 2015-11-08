@@ -1,4 +1,4 @@
-package eu.transcriptorium.jafar.cotraining;
+package tobeintegrated.eu.transcriptorium.jafar.disagree;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 
 
-public class AgreementLearningwithParameter {
+public class AgreemnetLearningwithParamter {
 
 	
 	
@@ -31,39 +31,54 @@ public class AgreementLearningwithParameter {
 		{
 			System.out.println("Please identify the parameters!");
 			System.out.println("Use AgreeCo.jar SelectionPercent NumberIterations Confidence InDomainF OutDominF \n" +
-					" ECCONormalizedDomainF ECCOCleanedDomainF OutputInF OutputOutF NameofSelectedSamples.txt TypeOfCriterion");
-			System.out.println("where SelectionPersent: is the percentage that the algorithm selects at each iteration." +
-					" \n NumberIterations: is the number of Iterations." +
-					" \n Confidence: is a thershold for confidence. " +
-					"\n InDomainF: is the folder of In domain LM and Data. " +
-					"\n OutDominF: is the folder of Out domain LM and Data." +
-					"\n ECCONormalizedDomainF: is the folder of ECCO Normlaizd data." +
-					"\n ECCOCleanedDomainF: is the folder of ECCO Cleaned data. " +
-					"\n OutputInF: is the output of in-domain LM. " +
-					"\n OutputOutF: is the output of out-domain LM. " +
-					"\n NameofSelectedSamples: the resultin sample selection file." +
-					"\n TypeOfCriterion: Select the type of criterion 1- for adding PPL + OOVs, 2- PPL*OOVs, 3- (1/PPL)*(1-OOVs)." );
+					" ECCONormalizedDomainF ECCOCleanedDomainF OutputInF OutputOutF NameofSelectedSamples.txt TypeOfCriterion Requiredprogramfolder");
+			System.out.println("where " +
+					"\n - SelectionPercent: is the percentage that the algorithm selects at each iteration." +
+					"\n - NumberIterations: is the number of Iterations." +
+					"\n - Confidence: is a thershold for confidence. " +
+					"\n - InDomainF: is the folder of In domain LM and Data. " +
+					"\n - OutDominF: is the folder of Out domain LM and Data." +
+					"\n - ECCONormalizedDomainF: is the folder of ECCO Normlaizd data." +
+					"\n - ECCOCleanedDomainF: is the folder of ECCO Cleaned data. " +
+					"\n - OutputInF: is the output of in-domain LM. " +
+					"\n - OutputOutF: is the output of out-domain LM. " +
+					"\n - NameofSelectedSamples: the resultin sample selection file." +
+					"\n - TypeOfCriterion: Select the type of criterion 1- for adding PPL + OOVs, 2- PPL*OOVs, 3- (1/PPL)*(1-OOVs). " +
+					"\n - Requiredprogramfolder: is the folder of required .sh files for LM bulding like testPPLJava.sh trainingLMJava.sh." );
 		}
-		else if(args.length<11){
+		else if(args.length<12){
 			System.out.println("You have used wrong parameters!");
-			System.out.println("Use AgreeCo.jar SelectionPersent NumberIterations Confidence InDomainF OutDominF \n " +
-					"ECCODomainF OutputInF OutputOutF NameofSelectedSamples.txt TypeOfCriterion");
+			System.out.println("Use AgreeCo.jar SelectionPercent NumberIterations Confidence InDomainF OutDominF \n " +
+					" ECCONormalizedDomainF ECCOCleanedDomainF OutputInF OutputOutF NameofSelectedSamples.txt TypeOfCriterion Requiredprogramfolder");
+			System.out.println("where " +
+					"\n - SelectionPercent: is the percentage that the algorithm selects at each iteration." +
+					"\n - NumberIterations: is the number of Iterations." +
+					"\n - Confidence: is a thershold for confidence. " +
+					"\n - InDomainF: is the folder of In domain LM and Data. " +
+					"\n - OutDominF: is the folder of Out domain LM and Data." +
+					"\n - ECCONormalizedDomainF: is the folder of ECCO Normlaizd data." +
+					"\n - ECCOCleanedDomainF: is the folder of ECCO Cleaned data. " +
+					"\n - OutputInF: is the output of in-domain LM. " +
+					"\n - OutputOutF: is the output of out-domain LM. " +
+					"\n - NameofSelectedSamples: the resultin sample selection file." +
+					"\n - TypeOfCriterion: Select the type of criterion 1- for adding PPL + OOVs, 2- PPL*OOVs, 3- (1/PPL)*(1-OOVs). " +
+					"\n - Requiredprogramfolder: is the folder of required .sh files for LM bulding like testPPLJava.sh trainingLMJava.sh." );
 
 		}
-		else if(args.length==11){
+		else if(args.length==12){
 			int Iter=0;
 		    double T=0;
 			while( Iter<Integer.parseInt(args[1]) && T<Double.parseDouble(args[2]) ){
 				
-				LanguageModelBuilding LmIn=new LanguageModelBuilding();
+				LanguageBuliding LmIn=new LanguageBuliding();
 				
 				LmIn.Output=args[3]; 
-				LmIn.Cutoff="0";
+				LmIn.Cutoff="0"; LmIn.Requiredprogramfolder=args[11];
 				
-	            LanguageModelBuilding LmOut=new LanguageModelBuilding();
+	            LanguageBuliding LmOut=new LanguageBuliding();
 				
 	            LmOut.Output=args[4];
-	            LmOut.Cutoff="0";
+	            LmOut.Cutoff="0"; LmOut.Requiredprogramfolder=args[11];
 	            LmIn.start(); LmOut.start();
 	            
 	            try {
@@ -102,54 +117,54 @@ public class AgreementLearningwithParameter {
 
 	                T1.firstIndex=0;T1.lastIndex=(int) children.length/4; T1.FileList=children;
 	                T1.Model=Model;T1.Output=args[7];
-	                T1.OutputType="ppl_in_"; 
+	                T1.OutputType="ppl_in_"; T1.ResourceFolder=args[5]; T1.Requiredprogramfolder=args[11];
 	                
 	                
 	                T2.firstIndex= (int)children.length/4 +1;T2.lastIndex=(int) children.length/2; T2.FileList=children;
 	                T2.Model=Model;T2.Output=args[7];
-	                T2.OutputType="ppl_in_"; 
+	                T2.OutputType="ppl_in_"; T2.ResourceFolder=args[5]; T2.Requiredprogramfolder=args[11];
 
 	                T3.firstIndex= (int)children.length/2 +1;T3.lastIndex=(int) (3*children.length)/4;T3.FileList=children;
 	                T3.Model=Model;T3.Output=args[7];
-	                T3.OutputType="ppl_in_"; 
+	                T3.OutputType="ppl_in_"; T3.ResourceFolder=args[5]; T3.Requiredprogramfolder=args[11];
 
 	                T4.firstIndex= (int)(3*children.length)/4 +1;T4.lastIndex=(int) children.length-1;T4.FileList=children;
 	                T4.Model=Model;T4.Output=args[7];
-	                T4.OutputType="ppl_in_"; 
+	                T4.OutputType="ppl_in_"; T4.ResourceFolder=args[5]; T4.Requiredprogramfolder=args[11]; 
 
 	               
 	                Model=args[4];
 	                OutT1.firstIndex=0;OutT1.lastIndex=(int) children.length/8; OutT1.FileList=children;
 	                OutT1.Model=Model;OutT1.Output=args[8];
-	                OutT1.OutputType="ppl_out_"; 
+	                OutT1.OutputType="ppl_out_"; OutT1.ResourceFolder=args[5]; OutT1.Requiredprogramfolder=args[11];
 	                 
 	                OutT2.firstIndex= (int)children.length/8 +1;OutT2.lastIndex=(int) children.length/4; OutT2.FileList=children;
 	                OutT2.Model=Model;OutT2.Output=args[8];
-	                OutT2.OutputType="ppl_out_"; 
+	                OutT2.OutputType="ppl_out_"; OutT2.ResourceFolder=args[5]; OutT2.Requiredprogramfolder=args[11];
 
 	                OutT3.firstIndex= (int)children.length/4 +1;OutT3.lastIndex=(int) (3*children.length)/8;OutT3.FileList=children;
 	                OutT3.Model=Model;OutT3.Output=args[8];
-	                OutT3.OutputType="ppl_out_"; 
+	                OutT3.OutputType="ppl_out_"; OutT3.ResourceFolder=args[5]; OutT3.Requiredprogramfolder=args[11];
 
 	                OutT4.firstIndex= (int)(3*children.length)/8 +1;OutT4.lastIndex=(int)(children.length)/2;OutT4.FileList=children;
 	                OutT4.Model=Model;OutT4.Output=args[8];
-	                OutT4.OutputType="ppl_out_"; 
+	                OutT4.OutputType="ppl_out_"; OutT4.ResourceFolder=args[5]; OutT4.Requiredprogramfolder=args[11];
 	                
 	                OutT5.firstIndex=(int)(children.length)/2 +1;OutT5.lastIndex=(int) (5*children.length)/8; OutT5.FileList=children;
 	                OutT5.Model=Model;OutT5.Output=args[8];
-	                OutT5.OutputType="ppl_out_"; 
+	                OutT5.OutputType="ppl_out_"; OutT5.ResourceFolder=args[5]; OutT5.Requiredprogramfolder=args[11];
 	                 
 	                OutT6.firstIndex= (5*children.length)/8 +1;OutT6.lastIndex=(int) (6*children.length)/8; OutT6.FileList=children;
 	                OutT6.Model=Model;OutT6.Output=args[8];
-	                OutT6.OutputType="ppl_out_"; 
+	                OutT6.OutputType="ppl_out_"; OutT6.ResourceFolder=args[5]; OutT6.Requiredprogramfolder=args[11];
 
 	                OutT7.firstIndex= (int)(6*children.length)/8 +1;OutT7.lastIndex=(int) (7*children.length)/8;OutT7.FileList=children;
 	                OutT7.Model=Model;OutT7.Output=args[8];
-	                OutT7.OutputType="ppl_out_"; 
+	                OutT7.OutputType="ppl_out_"; OutT7.ResourceFolder=args[5]; OutT7.Requiredprogramfolder=args[11];
 
 	                OutT8.firstIndex= (int)(7*children.length)/8 +1;OutT8.lastIndex=(int) children.length-1;OutT8.FileList=children;
 	                OutT8.Model=Model;OutT8.Output=args[8];
-	                OutT8.OutputType="ppl_out_"; 
+	                OutT8.OutputType="ppl_out_"; OutT8.ResourceFolder=args[5]; OutT8.Requiredprogramfolder=args[11];
 
 	                T1.start(); T2.start(); T3.start(); T4.start(); OutT1.start(); OutT2.start(); OutT3.start(); OutT4.start();
 	                OutT5.start(); OutT6.start(); OutT7.start(); OutT8.start();
@@ -166,7 +181,7 @@ public class AgreementLearningwithParameter {
 	            }
 				
 				dir = new File(args[8]);
-				System.out.println("\n\n  Out domain correlation \n");
+			//	System.out.println("\n\n  Out domain correlation \n");
 		        String inputpath=args[8];
 		        ArrayList<String> Outppl1 = new ArrayList<String> ();
 		        ArrayList<String> OutFileNames = new ArrayList<String> ();
@@ -254,7 +269,7 @@ public class AgreementLearningwithParameter {
 				
 	            
 	            Iter++;
-	            System.out.println("           Iteration===="+Iter);
+	            System.out.println(" \n\n =========================== Iteration============== "+Iter);
 
 			}
 			
@@ -262,6 +277,22 @@ public class AgreementLearningwithParameter {
 		}
 		else {
 			System.out.println("Wrong  number of parameters!");
+			System.out.println("Use AgreeCo.jar SelectionPercent NumberIterations Confidence InDomainF OutDominF \n" +
+					" ECCONormalizedDomainF ECCOCleanedDomainF OutputInF OutputOutF NameofSelectedSamples.txt TypeOfCriterion Requiredprogramfolder");
+			System.out.println("where \n" +
+					"- SelectionPercent: is the percentage that the algorithm selects at each iteration." +
+					" \n - NumberIterations: is the number of Iterations." +
+					" \n - Confidence: is a thershold for confidence. " +
+					"\n - InDomainF: is the folder of In domain LM and Data. " +
+					"\n - OutDominF: is the folder of Out domain LM and Data." +
+					"\n - ECCONormalizedDomainF: is the folder of ECCO Normlaizd data." +
+					"\n - ECCOCleanedDomainF: is the folder of ECCO Cleaned data. " +
+					"\n - OutputInF: is the output of in-domain LM. " +
+					"\n - OutputOutF: is the output of out-domain LM. " +
+					"\n - NameofSelectedSamples: the resultin sample selection file." +
+					"\n - TypeOfCriterion: Select the type of criterion 1- for adding PPL + OOVs, 2- PPL*OOVs, 3- (1/PPL)*(1-OOVs). \n" +
+					"- Requiredprogramfolder: is the folder of required .sh files for LM bulding like testPPLJava.sh trainingLMJava.sh." );
+
 		}
 		
 		
@@ -495,13 +526,7 @@ public class AgreementLearningwithParameter {
 			String outputTextFile) throws IOException {
 		// TODO Auto-generated method stub
 		
-	/*	File file =new File(outputTextFile);
-		
-		file.createNewFile();
-			
-				
-        BufferedWriter output = new BufferedWriter(new FileWriter(file,true));*/
-		
+	
 		PrintWriter output= new PrintWriter(new BufferedWriter(new FileWriter(outputTextFile)));
 		
 		String listOfFiles="ListofSelectedNormalizedFiles.txt";
@@ -655,6 +680,11 @@ public class AgreementLearningwithParameter {
             	// Criterian is adding ppl and OOV or multiplying or 1/ppl*(1-OOVs)
             }
             
+        }
+        if((TypeOfCriterion!=3)|| (TypeOfCriterion!=2)||(TypeOfCriterion!=1)){
+        	System.out.println("**********************  This certrion does not exist, please select the right one (1-3) ********************");
+        	System.exit(0);
+        	
         }
                
         

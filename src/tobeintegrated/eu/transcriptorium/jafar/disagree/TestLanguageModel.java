@@ -1,4 +1,4 @@
-package eu.transcriptorium.jafar.disagree;
+package tobeintegrated.eu.transcriptorium.jafar.disagree;
 import java.io.IOException;
 
 

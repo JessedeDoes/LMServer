@@ -1,7 +1,7 @@
 /**
  * This is apparently the source for DisagreeCo
  */
-package eu.transcriptorium.jafar.disagree;
+package tobeintegrated.eu.transcriptorium.jafar.disagree;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

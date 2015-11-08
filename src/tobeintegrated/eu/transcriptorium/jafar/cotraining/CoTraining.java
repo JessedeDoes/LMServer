@@ -1,4 +1,4 @@
-package eu.transcriptorium.jafar.cotraining;
+package tobeintegrated.eu.transcriptorium.jafar.cotraining;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

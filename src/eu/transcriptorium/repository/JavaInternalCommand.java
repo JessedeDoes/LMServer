@@ -295,6 +295,7 @@ public class JavaInternalCommand extends Command
 				{ "f", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID} 		
 		};
 		JavaInternalCommand c1 = new JavaInternalCommand(new TestObject(), "doFile", paramsWithFile);
+		
 		m.clear();
 		m.put("f", new Integer(1));
 		c1.invoke(m);

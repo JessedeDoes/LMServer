@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class SomeUsefulCommands 
 {
-	public Command getBasicLMBuildingCommand()
+	static public Command getBasicLMBuildingCommand()
 	{
 		String FA = Command.FileArgument.class.getName();
 		
@@ -33,6 +33,7 @@ public class SomeUsefulCommands
 		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin");
 		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin/i686-m64");
 		c1.addToPath(ExternalCommand.HTK_DIR + "/bin.linux");
+		
 		return c1;
 	}
 	
@@ -55,7 +56,19 @@ public class SomeUsefulCommands
 		String confName = args[1];
 		try
 		{
+			
 			r.storeFile(new FileInputStream(confName), confName, null);
+			Command c = getBasicLMBuildingCommand();
+			
+			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("script", scriptName);
+			m.put("conf", confName);
+			
+			// nu is het probleem dat de variabelen uit de conf komen
+			// en hoe pakken we ze weer op?
+			
+			c.invoke(m);
+			
 		} catch (Exception e)
 		{
 			e.printStackTrace();

@@ -12,4 +12,5 @@ public interface Repository
 	boolean setTag(Collection<Integer> files, String tag);
 	public Properties getMetadata(int id);
 	boolean delete (int id);
+	void clear();
 }

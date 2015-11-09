@@ -1,5 +1,6 @@
 package eu.transcriptorium.repository;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class SomeUsefulCommands
 		{ 
 				{ "script", "java.lang.String"},
 				{ "conf", Command.FileArgument.class.getName(), 
-					Command.ioType.IN, Command.referenceType.ID} 		
+					Command.ioType.IN, Command.referenceType.NAME} 		
 		};
 		
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
@@ -43,5 +44,21 @@ public class SomeUsefulCommands
 	public Command getLmInterpolationCommand()
 	{
 		return null;
+	}
+	
+	public static void main(String args[])
+	{
+		Repository r = new PostgresRepository(PostgresRepository.getDefaultProperties());
+		r.clear();
+		
+		String scriptName = args[0];
+		String confName = args[1];
+		try
+		{
+			r.storeFile(new FileInputStream(confName), confName, null);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

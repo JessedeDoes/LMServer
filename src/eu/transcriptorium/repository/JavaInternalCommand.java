@@ -17,7 +17,7 @@ public class JavaInternalCommand extends Command
 	Class c;
 	Object object;
 	Method method;
-	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	
 	boolean isStatic = false;
 	
 	public JavaInternalCommand()

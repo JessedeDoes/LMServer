@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 
 public class Command
 {
+	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	
 	public enum type
 	{
 		SHELL,

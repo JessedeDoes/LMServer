@@ -35,6 +35,11 @@ public class PostgresRepository implements Repository
 		database =  new PostgresDatabase(p);
 	}
 
+	public void clear()
+	{
+		createNew();
+	}
+	
 	public void createNew()
 	{
 		try

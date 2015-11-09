@@ -151,6 +151,8 @@ public class JavaInternalCommand extends Command
 								repoId = Integer.parseInt(s);
 								
 							}
+							
+							
 							if (repoId >= 0)
 							{
 								File f = File.createTempFile("repo", ".repo");
@@ -165,6 +167,33 @@ public class JavaInternalCommand extends Command
 									e.printStackTrace();
 								}
 							}
+						} else if (a.referenceType == Command.referenceType.NAME && a.ioType == Command.ioType.IN)
+						{
+							//Set<Integer>;
+							int repoId = -1;
+							if (String.class.isAssignableFrom(a1.getClass()))
+							{
+								String s = (String) a1;
+								Set<Integer> V = repository.searchByName(s);
+								if (V != null && V.size() > 0)
+									repoId = V.iterator().next();
+							}
+							
+							if (repoId >= 0)
+							{
+								File f = File.createTempFile("repo", ".repo");
+								args[i] = f.getAbsolutePath();
+								InputStream stream = repository.openFile(repoId);
+								try 
+								{
+									FileUtils.copyStream(stream, f);
+								} catch (Exception e) 
+								{
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							
 						} else if (a.ioType == Command.ioType.OUT)
 						{
 							// dit wordt nazorg om het weer terug te krijgen

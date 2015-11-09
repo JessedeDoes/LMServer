@@ -117,6 +117,13 @@ public class PostgresRepository implements Repository
 		}
 	}
 
+	public int storeFile(InputStream fi, String name,Properties p)
+	{
+		int id = storeFile(fi,  name);
+		storeMetadata(p, id);
+		return id;
+	}
+	
 	public int storeFile(InputStream fi, Properties p)
 	{
 		int id = storeFile(fi,  "anonymous");
@@ -141,6 +148,8 @@ public class PostgresRepository implements Repository
 
 	public void storeMetadata(Properties p, int id)
 	{
+		if (p == null)
+			return;
 		for (Object  n: p.keySet())
 		{
 			String key = (String) n;
@@ -195,6 +204,30 @@ public class PostgresRepository implements Repository
 		return null;
 	}
 
+	public Set<Integer> searchByName(String name)
+	{
+		Set<Integer> result = new HashSet<Integer>();
+		String q = " select distinct id from filetable where filename=? ";
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+			stmt.setString(1,name);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) 
+			{
+				int  i = rs.getInt(1); 
+				result.add(i);
+			}
+		} catch (Exception e)
+		{
+			
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public Set<Integer> search(Properties p)
 	{
 		List<String> clauses = new ArrayList<String>();
@@ -221,7 +254,7 @@ public class PostgresRepository implements Repository
 				stmt.setString(i+1, fillers.get(i));
 
 			ResultSet rs = stmt.executeQuery();
-			int nofcolumns = rs.getMetaData().getColumnCount();
+			
 			while (rs.next()) // mis je nu de eerste??
 			{
 				int  i = rs.getInt(1); //  new String(rs.getBytes(1), "UTF-8");

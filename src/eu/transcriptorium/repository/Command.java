@@ -19,6 +19,7 @@ public class Command
 	{
 		IN,
 		OUT,
+		OPTIONS,
 		TEMP_DIR // directory arguments are always temporary (?)
 	};
 

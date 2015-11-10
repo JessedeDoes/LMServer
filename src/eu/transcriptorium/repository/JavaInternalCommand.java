@@ -79,7 +79,7 @@ public class JavaInternalCommand extends Command
 		this.object = o;
 		this.commandName = className + "."  + this.methodName;
 		
-		this.arguments = Argument.makeArgumentList(args);
+		this.expectedParameters = FormalParameter.makeArgumentList(args);
 		try {
 			init();
 		} catch (ClassNotFoundException e) {
@@ -97,25 +97,25 @@ public class JavaInternalCommand extends Command
 			{
 				method = m;
 				//
-				if (this.arguments == null) // temporary fix
+				if (this.expectedParameters == null) // temporary fix
 				{
 					Class[] pType = m.getParameterTypes(); // extra check, TODO
 					//Parameter[] parameters = m.getReturnType().getP
-					this.arguments = new ArrayList<Argument>();
+					this.expectedParameters = new ArrayList<FormalParameter>();
 					//m.get
 					for (int i=0; i < pType.length; i++)
 					{
-						Argument a = new Argument();
+						FormalParameter a = new FormalParameter();
 						a.argumentClass = pType[i];
 						a.className = a.argumentClass.getName();
 						a.ioType = Command.ioType.IN;
 						a.name = "parameter" + i;
-						arguments.add(a);
+						expectedParameters.add(a);
 					}
 				}
 			}
 		}
-		System.err.println(arguments.get(0));
+		System.err.println(expectedParameters.get(0));
 	}
 	
 	//@Override
@@ -125,7 +125,7 @@ public class JavaInternalCommand extends Command
 	
 
 	@Override
-	protected Object invokeCommand(List<Argument> arguments, Object[] args) throws IllegalAccessException, InvocationTargetException {
+	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args) throws IllegalAccessException, InvocationTargetException {
 		return this.method.invoke(object, args);
 	}
 	

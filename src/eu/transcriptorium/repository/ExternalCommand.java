@@ -2,7 +2,7 @@ package eu.transcriptorium.repository;
 import java.io.*;
 import java.util.*;
 
-import eu.transcriptorium.repository.Command.Argument;
+import eu.transcriptorium.repository.Command.FormalParameter;
 import eu.transcriptorium.repository.JavaInternalCommand.TestObject;
 import eu.transcriptorium.util.StringUtils;
 
@@ -19,11 +19,11 @@ public class ExternalCommand extends JavaInternalCommand
 	
 	public ExternalCommand(String commandName, Object[][] args)
 	{
-		this.arguments = Argument.makeArgumentList(args);
+		this.expectedParameters = FormalParameter.makeArgumentList(args);
 		this.exe = commandName;
 	}
 
-	public String[] buildCommand(List<Argument> arguments, Object[] args)
+	public String[] buildCommand(List<FormalParameter> formalParameters, Object[] args)
 	{
 		List<String> a = new ArrayList<String>();
 		a.add(exe);
@@ -33,7 +33,7 @@ public class ExternalCommand extends JavaInternalCommand
 		
 		for (int i=0; i < args.length; i++)
 		{
-			String flag = arguments.get(i).flagName;
+			String flag = formalParameters.get(i).flagName;
 			if (flag != null)
 				a.add("-" + flag);
 			a.add(args[i].toString());
@@ -44,11 +44,11 @@ public class ExternalCommand extends JavaInternalCommand
 		return r;
 	}
 	
-	public void buildEnvironment(Map<String,String> env, List<Argument> arguments, Object[] args)
+	public void buildEnvironment(Map<String,String> env, List<FormalParameter> formalParameters, Object[] args)
 	{
-		for (int i=0; i < arguments.size(); i++)
+		for (int i=0; i < formalParameters.size(); i++)
 		{
-			env.put(arguments.get(i).name, args[i].toString());
+			env.put(formalParameters.get(i).name, args[i].toString());
 		}
 	}
 	
@@ -58,12 +58,12 @@ public class ExternalCommand extends JavaInternalCommand
 	}
 	
 	@Override
-	protected Object invokeCommand(List<Argument> arguments, Object[] args)
+	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args)
 	{
 		
 		try
 		{	
-			String[] command  = buildCommand(arguments,args);
+			String[] command  = buildCommand(formalParameters,args);
 			ProcessBuilder pb  = new ProcessBuilder(command);
 
 			Map<String, String> env = pb.environment();

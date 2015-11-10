@@ -13,6 +13,7 @@ public class Command
 	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
 	static Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
 	public String commandName;
+	List<FormalParameter> expectedParameters = null;
 	
 	public enum type
 	{
@@ -37,7 +38,7 @@ public class Command
 
 	type commandType;
 
-	static class Argument
+	static class FormalParameter
 	{
 		String name;
 		String className;
@@ -52,7 +53,7 @@ public class Command
 			return "name=" + name + "; class=" + className;
 		}
 
-		public Argument(String name, String className)
+		public FormalParameter(String name, String className)
 		{
 			this.name = name;
 			this.className = className;
@@ -66,12 +67,12 @@ public class Command
 			}
 		}
 
-		public Argument()
+		public FormalParameter()
 		{
 
 		}
 
-		public Argument(Object[] x)
+		public FormalParameter(Object[] x)
 		{
 			this((String) x[0], (String) x[1]);
 			if (x.length > 2)
@@ -80,18 +81,18 @@ public class Command
 				this.referenceType = (referenceType) x[3];
 		}
 
-		public static List<Argument> makeArgumentList(Object[][] x)
+		public static List<FormalParameter> makeArgumentList(Object[][] x)
 		{
-			List<Argument> l = new ArrayList<Argument>();
+			List<FormalParameter> l = new ArrayList<FormalParameter>();
 			for (Object [] y: x)
-				l.add(new Argument(y));
+				l.add(new FormalParameter(y));
 			return l;
 		}
 	}
 
 	public void addArgument(String name, String className)
 	{
-		this.arguments.add(new Argument(name, className));
+		this.expectedParameters.add(new FormalParameter(name, className));
 	}
 
 	public static class FileArgument
@@ -101,27 +102,22 @@ public class Command
 		String basePathName;
 	}
 
-	List<Argument> arguments = null;
 
-	protected Object invokeCommand(List<Argument> arguments, Object[] args) throws IllegalAccessException, 
+
+	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args) throws IllegalAccessException, 
 	InvocationTargetException 
 	{
 		return null;
 	}
 	
-	public void invokeX(Map<String, Object> arguments) throws IOException 
-	{
-		// TODO Auto-generated method stub
 
-	}
-	
-	public void invoke(Map<String, Object> arguments) throws IOException
+	public void invoke(Map<String, Object> actualParameters) throws IOException
 	{
-		Object[] args = new Object[this.arguments.size()];
-		for (int i=0; i < this.arguments.size(); i++)
+		Object[] args = new Object[this.expectedParameters.size()];
+		for (int i=0; i < this.expectedParameters.size(); i++)
 		{
-			Argument a = this.arguments.get(i);
-			Object a1 = arguments.get(a.name);
+			FormalParameter a = this.expectedParameters.get(i);
+			Object a1 = actualParameters.get(a.name);
 			System.err.println("param found: " + a.name + "= " + a1);
 			if (a1 == null)
 			{
@@ -215,13 +211,13 @@ public class Command
 		
 		try 
 		{
-			Object r = invokeCommand(this.arguments, args);
+			Object r = invokeCommand(this.expectedParameters, args);
 			System.out.println("Result:" + r);
 			// en nu de nazorg: opruimen en resultatem opslaan...
-			for (int i=0; i < this.arguments.size(); i++)
+			for (int i=0; i < this.expectedParameters.size(); i++)
 			{
-				Argument a = this.arguments.get(i);
-				Object a1 = arguments.get(a.name);
+				FormalParameter a = this.expectedParameters.get(i);
+				Object a1 = actualParameters.get(a.name);
 				
 				if (a1 != null)
 				{
@@ -235,9 +231,9 @@ public class Command
 							String fName = (String) args[i];
 							if (a.referenceType == Command.referenceType.RELATIVE_TO_TEMPDIR)
 							{
-								for (int j=0; i < this.arguments.size(); j++)
+								for (int j=0; i < this.expectedParameters.size(); j++)
 								{
-									if (this.arguments.get(i).name.equals(a.baseName))
+									if (this.expectedParameters.get(i).name.equals(a.baseName))
 									{
 								
 										fName = args[j] + "/"  + fName;
@@ -251,7 +247,7 @@ public class Command
 							p.put("createdBy", this.commandName);
 							
 							p.put("createdAt", new Date(System.currentTimeMillis()).toString());
-							p.put("createdWithArguments", arguments.toString());
+							p.put("createdWithArguments", actualParameters.toString());
 							repository.storeFile(str, p);
 							str.close();
 						} else

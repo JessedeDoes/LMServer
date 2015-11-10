@@ -13,7 +13,7 @@ import java.nio.file.Paths;
  * @author jesse
  *
  *<p>
- *A "general" mechanism to be able to execute both command line applications and java methods on files in such a way that
+ *We (unfortunately) need something like a "general" mechanism to be able to execute both command line applications and java methods on files in such a way that
  *
  *<ul>
  *<li>
@@ -67,7 +67,7 @@ public class Command
 	{
 		IN,
 		OUT,
-		OPTIONS,
+		CONFIG,
 		TEMP_DIR // directory arguments are always temporary (?)
 	};
 
@@ -75,7 +75,8 @@ public class Command
 	{
 		NAME,
 		ID,
-		RELATIVE_TO_TEMPDIR
+		RELATIVE_TO_TEMPDIR,
+		PICKUP_FROM_CONFIG
 	};
 
 	type commandType;
@@ -122,6 +123,8 @@ public class Command
 				this.ioType = (ioType) x[2];
 			if (x.length > 3)
 				this.referenceType = (referenceType) x[3];
+			if (this.referenceType == referenceType.PICKUP_FROM_CONFIG)
+				this.passToCommand = false;
 		}
 
 		public static List<FormalParameter> makeArgumentList(Object[][] x)
@@ -144,7 +147,6 @@ public class Command
 		int repositoryId;
 		String basePathName;
 	}
-
 
 
 	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args) throws IllegalAccessException, 
@@ -202,7 +204,7 @@ public class Command
 							Path p = createTempDir();
 							args[i]  = p.toString();
 							environment.put(formalParameter.name, args[i]);
-						} else if (formalParameter.ioType == Command.ioType.OPTIONS)
+						} else if (formalParameter.ioType == Command.ioType.CONFIG)
 						{
 							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
 							if (repoId >=0)
@@ -259,7 +261,11 @@ public class Command
 										fName = args[j] + "/"  + fName;
 									}
 								}
+							} else if (a.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
+							{
+								fName = environment.getProperty(a.name);
 							}
+							
 							InputStream str = new FileInputStream((String) args[i]);
 							
 							// System.err.println(str);

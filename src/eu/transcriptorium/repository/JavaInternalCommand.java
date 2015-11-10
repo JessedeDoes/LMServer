@@ -77,6 +77,8 @@ public class JavaInternalCommand extends Command
 		this.className = o.getClass().getName();
 		this.methodName = m;
 		this.object = o;
+		this.commandName = className + "."  + this.methodName;
+		
 		this.arguments = Argument.makeArgumentList(args);
 		try {
 			init();
@@ -116,160 +118,13 @@ public class JavaInternalCommand extends Command
 		System.err.println(arguments.get(0));
 	}
 	
-	@Override
-	public void invoke(Map<String, Object> arguments) throws IOException
-	{
-		Object[] args = new Object[this.arguments.size()];
-		for (int i=0; i < this.arguments.size(); i++)
-		{
-			Argument a = this.arguments.get(i);
-			Object a1 = arguments.get(a.name);
-			System.err.println("param found: " + a.name + "= " + a1);
-			if (a1 == null)
-			{
-				args[i]  = null;
-			} else
-			{
-				System.err.println("Expected: " + a.argumentClass.getName() + " found: " + a1.getClass().getName());
-				if (a.argumentClass.isAssignableFrom(a1.getClass()))
-				{
-					System.err.println("Youpie!");
-					args[i] = a1;
-				} else // some conversion is needed ...
-				{
-					if (a.argumentClass.equals(FileArgument.class))
-					{
-						if (a.referenceType == Command.referenceType.ID && a.ioType == Command.ioType.IN)
-						{
-							int repoId = -1;
-							if (Integer.class.isAssignableFrom(a1.getClass()))
-							{
-								repoId = (Integer) a1;
-							} else if (String.class.isAssignableFrom(a1.getClass()))
-							{
-								String s = (String) a1;
-								repoId = Integer.parseInt(s);
-								
-							}
-							
-							
-							if (repoId >= 0)
-							{
-								File f = File.createTempFile("repo", ".repo");
-								args[i] = f.getAbsolutePath();
-								InputStream stream = repository.openFile(repoId);
-								try 
-								{
-									FileUtils.copyStream(stream, f);
-								} catch (Exception e) 
-								{
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						} else if (a.referenceType == Command.referenceType.NAME && a.ioType == Command.ioType.IN)
-						{
-							//Set<Integer>;
-							int repoId = -1;
-							if (String.class.isAssignableFrom(a1.getClass()))
-							{
-								String s = (String) a1;
-								Set<Integer> V = repository.searchByName(s);
-								if (V != null && V.size() > 0)
-									repoId = V.iterator().next();
-							}
-							
-							if (repoId >= 0)
-							{
-								File f = File.createTempFile("repo", ".repo");
-								args[i] = f.getAbsolutePath();
-								InputStream stream = repository.openFile(repoId);
-								try 
-								{
-									FileUtils.copyStream(stream, f);
-								} catch (Exception e) 
-								{
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-							
-						} else if (a.ioType == Command.ioType.OUT)
-						{
-							// dit wordt nazorg om het weer terug te krijgen
-							// in de repo. Maar hie aannemen dat het altijd een string is?
-							if (String.class.isAssignableFrom(a1.getClass()))
-							{
-								String s = (String) a1;
-								args[i] = s;
-							}
-						} else if (a.ioType == Command.ioType.TEMP_DIR)
-						{
-							Path p = createTempDir();
-							args[i]  = p.toString();
-						}
-					}
-				}
-			}
-		}
-		
-		System.err.println(args[0]);
-		
-		try 
-		{
-			Object r = invokeCommand(this.arguments, args);
-			System.out.println("Result:" + r);
-			// en nu de nazorg: opruimen en resultatem opslaan...
-			for (int i=0; i < this.arguments.size(); i++)
-			{
-				Argument a = this.arguments.get(i);
-				Object a1 = arguments.get(a.name);
-				
-				if (a1 != null)
-				{
-					if (a.argumentClass.equals(FileArgument.class))
-					{
-						if (a.ioType == Command.ioType.OUT)
-						{
-							// delete the file named args[i]
-							// store output
-							System.err.println("Reading output from file:" + args[i]);
-							String fName = (String) args[i];
-							if (a.referenceType == Command.referenceType.RELATIVE_TO_TEMPDIR)
-							{
-								for (int j=0; i < this.arguments.size(); j++)
-								{
-									if (this.arguments.get(i).name.equals(a.baseName))
-									{
-								
-										fName = args[j] + "/"  + fName;
-									}
-								}
-							}
-							InputStream str = new FileInputStream((String) args[i]);
-							System.err.println(str);
-							Properties p = new Properties();
-							p.put("createdBy", this.className + "."  + this.methodName);
-							p.put("createdAt", new Date(System.currentTimeMillis()).toString());
-							p.put("createdWithArguments", arguments.toString());
-							repository.storeFile(str, p);
-							str.close();
-						} else
-						{
-							// delete temporary files and stuff
-						}
-					}
-				}
-			}
-			
-		} catch (Exception  e) 
-		{
-			e.printStackTrace();
-		}
+	//@Override
+	
 		
 		// nazorg: stop de output weer in de repository
-	}
+	
 
+	@Override
 	protected Object invokeCommand(List<Argument> arguments, Object[] args) throws IllegalAccessException, InvocationTargetException {
 		return this.method.invoke(object, args);
 	}

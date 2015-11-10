@@ -27,6 +27,10 @@ public class ExternalCommand extends JavaInternalCommand
 	{
 		List<String> a = new ArrayList<String>();
 		a.add(exe);
+		
+		// sommige parameters komen niet in de command string terecht
+		// (de bestanden die je ophaalt uit een output folder)
+		
 		for (int i=0; i < args.length; i++)
 		{
 			String flag = arguments.get(i).flagName;

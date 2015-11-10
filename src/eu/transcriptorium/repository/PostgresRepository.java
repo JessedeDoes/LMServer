@@ -366,7 +366,7 @@ public class PostgresRepository implements Repository
 		PostgresRepository fs = new PostgresRepository(p);
 		fs.createNew();
 		//fs.testje();
-		fs.storeFile("/tmp/hola",p);
+		fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
 		Set<Integer>  V = fs.search(p);
 		for (int k: V)
 		{

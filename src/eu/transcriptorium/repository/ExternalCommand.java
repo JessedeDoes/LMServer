@@ -33,7 +33,10 @@ public class ExternalCommand extends JavaInternalCommand
 		
 		for (int i=0; i < args.length; i++)
 		{
-			String flag = formalParameters.get(i).flagName;
+			FormalParameter p = formalParameters.get(i);
+			if (!p.passToCommand)
+				continue;
+			String flag = p.flagName;
 			if (flag != null)
 				a.add("-" + flag);
 			a.add(args[i].toString());

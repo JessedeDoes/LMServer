@@ -38,6 +38,7 @@ public class ExternalCommand extends JavaInternalCommand
 				continue;
 			String flag = p.flagName;
 			if (flag != null)
+			
 				a.add("-" + flag);
 			a.add(args[i].toString());
 		}

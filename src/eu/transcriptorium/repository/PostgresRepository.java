@@ -125,14 +125,14 @@ public class PostgresRepository implements Repository
 	public int storeFile(InputStream fi, String name,Properties p)
 	{
 		int id = storeFile(fi,  name);
-		storeMetadata(p, id);
+		setMetadata(id, p);
 		return id;
 	}
 	
 	public int storeFile(InputStream fi, Properties p)
 	{
 		int id = storeFile(fi,  "anonymous");
-		storeMetadata(p, id);
+		setMetadata(id, p);
 		return id;
 	}
 
@@ -145,13 +145,14 @@ public class PostgresRepository implements Repository
 			if (id >= 0)
 			{
 				System.err.println(p.keySet());
-				storeMetadata(p, id);
+				setMetadata(id, p);
 			}
 		}
 		return id;
 	}
 
-	public void storeMetadata(Properties p, int id)
+	@Override
+	public void setMetadata(int id, Properties p)
 	{
 		if (p == null)
 			return;
@@ -251,13 +252,13 @@ public class PostgresRepository implements Repository
 
 		String q = StringUtils.join(clauses, " INTERSECT ");
 
-		System.err.println(q);
+		// System.err.println(q);
 		try
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			for (int i=0; i < fillers.size(); i++)
 				stmt.setString(i+1, fillers.get(i));
-
+			System.err.println("Search query:" + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) // mis je nu de eerste??
@@ -372,5 +373,29 @@ public class PostgresRepository implements Repository
 		{
 			System.out.println(fs.getMetadata(k));
 		}
+	}
+
+	@Override
+	public Set<Integer> list() 
+	{
+		// TODO Auto-generated method stub
+		Set<Integer> V = new HashSet<Integer>();
+		String q = "select id from filetable";
+		
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) // mis je nu de eerste??
+			{
+				V.add(rs.getInt(1));
+			}
+		} catch (Exception e)
+		{
+			return null;
+		}
+		return V;
 	}
 }

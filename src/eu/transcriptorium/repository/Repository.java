@@ -9,8 +9,10 @@ public interface Repository
 	InputStream openFile(int id);
 	Set<Integer> search(Properties metadata);
 	Set<Integer> searchByName(String name);
+	Set<Integer> list();
 	boolean setTag(Collection<Integer> files, String tag);
 	public Properties getMetadata(int id);
 	boolean delete (int id);
 	void clear();
+	void setMetadata(int id, Properties p);
 }

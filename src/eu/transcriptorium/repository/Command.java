@@ -13,12 +13,16 @@ import java.nio.file.Paths;
  * @author jesse
  *
  *<p>
- *A "general" mechanism to be able to execute both command line applications and java methods on files in such a way that we can
- *also run on files in the repository and store results in the repository.
+ *A "general" mechanism to be able to execute both command line applications and java methods on files in such a way that
  *
+ *<ul>
+ *<li>
+ * we can run commands on files in the repository and store results in the repository.
+ *<li> command are easily invoked by means of the web service
+ *</ul>
  *
  *<p>
- *The messy bit is passing parameters.
+ *The messy bit is passing parameters and translating paths on the server to repository ids etc.
  *
  *<p>
  *A Command has as set of parameters, which
@@ -50,7 +54,7 @@ public class Command
 	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
 	static Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
 	public String commandName;
-	List<FormalParameter> expectedParameters = null;
+	List<FormalParameter> formalParameters = null;
 	Properties environment = null;
 	
 	public enum type
@@ -131,7 +135,7 @@ public class Command
 
 	public void addArgument(String name, String className)
 	{
-		this.expectedParameters.add(new FormalParameter(name, className));
+		this.formalParameters.add(new FormalParameter(name, className));
 	}
 
 	public static class FileArgument
@@ -152,12 +156,12 @@ public class Command
 
 	public void invoke(Map<String, Object> actualParameters) throws IOException
 	{
-		Object[] args = new Object[this.expectedParameters.size()];
+		Object[] args = new Object[this.formalParameters.size()];
 		environment = new Properties();
 		
-		for (int i=0; i < this.expectedParameters.size(); i++)
+		for (int i=0; i < this.formalParameters.size(); i++)
 		{
-			FormalParameter formalParameter = this.expectedParameters.get(i);
+			FormalParameter formalParameter = this.formalParameters.get(i);
 			Object actualParameter = actualParameters.get(formalParameter.name);
 			System.err.println("param found: " + formalParameter.name + "= " + actualParameter);
 			if (actualParameter == null)
@@ -181,17 +185,8 @@ public class Command
 							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
 							if (repoId >= 0)
 							{
-								File f = File.createTempFile("repo", ".repo");
+								File f = saveToTempFile(repoId);
 								args[i] = f.getAbsolutePath();
-								InputStream stream = repository.openFile(repoId);
-								try 
-								{
-									FileUtils.copyStream(stream, f);
-								} catch (Exception e) 
-								{
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
 							}
 						} else if (formalParameter.ioType == Command.ioType.OUT)
 						{
@@ -209,7 +204,15 @@ public class Command
 							environment.put(formalParameter.name, args[i]);
 						} else if (formalParameter.ioType == Command.ioType.OPTIONS)
 						{
-							
+							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
+							if (repoId >=0)
+							{
+								File f = saveToTempFile(repoId);
+								Properties p = new Properties();
+								// and put this in the environment???
+								p.load(new FileInputStream(f));
+								args[i] = f.getAbsolutePath();
+							}
 						}
 					}
 				}
@@ -220,12 +223,12 @@ public class Command
 		
 		try 
 		{
-			Object r = invokeCommand(this.expectedParameters, args);
+			Object r = invokeCommand(this.formalParameters, args);
 			System.out.println("Result:" + r);
 			// en nu de nazorg: opruimen en resultatem opslaan...
-			for (int i=0; i < this.expectedParameters.size(); i++)
+			for (int i=0; i < this.formalParameters.size(); i++)
 			{
-				FormalParameter a = this.expectedParameters.get(i);
+				FormalParameter a = this.formalParameters.get(i);
 				Object a1 = actualParameters.get(a.name);
 				
 				if (a1 != null)
@@ -240,9 +243,9 @@ public class Command
 							String fName = (String) args[i];
 							if (a.referenceType == Command.referenceType.RELATIVE_TO_TEMPDIR)
 							{
-								for (int j=0; i < this.expectedParameters.size(); j++)
+								for (int j=0; i < this.formalParameters.size(); j++)
 								{
-									if (this.expectedParameters.get(i).name.equals(a.baseName))
+									if (this.formalParameters.get(i).name.equals(a.baseName))
 									{
 								
 										fName = args[j] + "/"  + fName;
@@ -250,7 +253,9 @@ public class Command
 								}
 							}
 							InputStream str = new FileInputStream((String) args[i]);
-							System.err.println(str);
+							
+							//System.err.println(str);
+							
 							Properties p = new Properties();
 							
 							p.put("createdBy", this.commandName);
@@ -271,6 +276,22 @@ public class Command
 		{
 			e.printStackTrace();
 		}
+	}
+
+
+	private File saveToTempFile(int repoId) throws IOException {
+		File f = File.createTempFile("repo", ".repo");
+		
+		InputStream stream = repository.openFile(repoId);
+		try 
+		{
+			FileUtils.copyStream(stream, f);
+		} catch (Exception e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return f;
 	}
 
 

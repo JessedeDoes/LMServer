@@ -19,7 +19,7 @@ public class ExternalCommand extends JavaInternalCommand
 	
 	public ExternalCommand(String commandName, Object[][] args)
 	{
-		this.expectedParameters = FormalParameter.makeArgumentList(args);
+		this.formalParameters = FormalParameter.makeArgumentList(args);
 		this.exe = commandName;
 	}
 

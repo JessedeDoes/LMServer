@@ -79,7 +79,7 @@ public class JavaInternalCommand extends Command
 		this.object = o;
 		this.commandName = className + "."  + this.methodName;
 		
-		this.expectedParameters = FormalParameter.makeArgumentList(args);
+		this.formalParameters = FormalParameter.makeArgumentList(args);
 		try {
 			init();
 		} catch (ClassNotFoundException e) {
@@ -97,11 +97,11 @@ public class JavaInternalCommand extends Command
 			{
 				method = m;
 				//
-				if (this.expectedParameters == null) // temporary fix
+				if (this.formalParameters == null) // temporary fix
 				{
 					Class[] pType = m.getParameterTypes(); // extra check, TODO
 					//Parameter[] parameters = m.getReturnType().getP
-					this.expectedParameters = new ArrayList<FormalParameter>();
+					this.formalParameters = new ArrayList<FormalParameter>();
 					//m.get
 					for (int i=0; i < pType.length; i++)
 					{
@@ -110,12 +110,12 @@ public class JavaInternalCommand extends Command
 						a.className = a.argumentClass.getName();
 						a.ioType = Command.ioType.IN;
 						a.name = "parameter" + i;
-						expectedParameters.add(a);
+						formalParameters.add(a);
 					}
 				}
 			}
 		}
-		System.err.println(expectedParameters.get(0));
+		System.err.println(formalParameters.get(0));
 	}
 	
 	//@Override

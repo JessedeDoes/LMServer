@@ -2,6 +2,10 @@ package eu.transcriptorium.lattice;
 import java.io.*;
 import java.util.Map;
 
+
+// translates a lattice to graphviz dot formal for visualization
+// only useful for smaller lattices
+
 public class LatticeToDot 
 {
 	public static void latticeToDot(Lattice l, PrintWriter  out)
@@ -22,11 +26,13 @@ public class LatticeToDot
 
 	public static void latticeToDot(Lattice l, String f)
 	{
-		try {
+		try 
+		{
 			PrintWriter x = new PrintWriter(new FileWriter(f));
 			latticeToDot(l,x);
 			x.close();
-		} catch (IOException e) {
+		} catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

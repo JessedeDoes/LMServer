@@ -207,10 +207,18 @@ public class Command
 							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
 							if (repoId >=0)
 							{
+								// Neen: dit moet je eerst aanpassen, om de 
+								// temp directory opties uit te schrijven
 								File f = saveToTempFile(repoId);
 								Properties p = new Properties();
 								// and put this in the environment???
 								p.load(new FileInputStream(f));
+								for (Object x: environment.keySet())
+								{
+									p.put(x,environment.get(x));
+								}
+								p.store(new FileOutputStream(f), "");
+								expandVariables(p);
 								args[i] = f.getAbsolutePath();
 							}
 						}
@@ -254,7 +262,7 @@ public class Command
 							}
 							InputStream str = new FileInputStream((String) args[i]);
 							
-							//System.err.println(str);
+							// System.err.println(str);
 							
 							Properties p = new Properties();
 							

@@ -15,7 +15,7 @@ import eu.transcriptorium.servlet.LMBuilder;
  */
 public class SomeUsefulCommands 
 {
-	static String FA = Command.FileArgument.class.getName();
+	static final String FileArgument = Command.FileArgument.class.getName();
 	
 	static public Command getBasicLMBuildingCommand()
 	{
@@ -24,8 +24,10 @@ public class SomeUsefulCommands
 		Object[][] paramsWithFile = 
 			{ 
 					{ "script", "java.lang.String"},
-					{ "conf", Command.FileArgument.class.getName(), 
-						Command.ioType.IN, Command.referenceType.NAME} 		
+					{ "conf", FileArgument, 
+						Command.ioType.CONFIG, Command.referenceType.NAME},
+					{ "languageModel", FileArgument, Command.referenceType.PICKUP_FROM_CONFIG},
+					{ "dictionary", FileArgument, Command.referenceType.PICKUP_FROM_CONFIG}
 			};
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
@@ -44,8 +46,8 @@ public class SomeUsefulCommands
 
 		Object[][] args  = 
 			{
-					{"lm", FA, Command.ioType.IN, Command.referenceType.ID},
-					{"pfsg", FA, Command.ioType.OUT,  Command.referenceType.ID}
+					{"lm", FileArgument, Command.ioType.IN, Command.referenceType.ID},
+					{"pfsg", FileArgument, Command.ioType.OUT,  Command.referenceType.ID}
 			};
 		LM2PFSG x = new LM2PFSG();
 		JavaInternalCommand c = new JavaInternalCommand(x, "ngram2pfsg", args);

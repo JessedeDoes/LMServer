@@ -55,7 +55,7 @@ public class Command
 	static Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
 	public String commandName;
 	List<FormalParameter> formalParameters = null;
-	Properties environment = null;
+	Properties configuration = null;
 	
 	public enum type
 	{
@@ -159,7 +159,7 @@ public class Command
 	public void invoke(Map<String, Object> actualParameters) throws IOException
 	{
 		Object[] args = new Object[this.formalParameters.size()];
-		environment = new Properties();
+		configuration = new Properties();
 		
 		for (int i=0; i < this.formalParameters.size(); i++)
 		{
@@ -194,7 +194,10 @@ public class Command
 						{
 							// dit wordt nazorg om het weer terug te krijgen
 							// in de repo. Maar hier aannemen dat het altijd een string is?
-							if (String.class.isAssignableFrom(actualParameter.getClass()))
+							if (formalParameter.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
+							{
+								configuration.put(formalParameter.name, args[i].toString());
+							} else if (String.class.isAssignableFrom(actualParameter.getClass()))
 							{
 								String s = (String) actualParameter;
 								args[i] = s;
@@ -203,7 +206,7 @@ public class Command
 						{
 							Path p = createTempDir();
 							args[i]  = p.toString();
-							environment.put(formalParameter.name, args[i]);
+							configuration.put(formalParameter.name, actualParameter);
 						} else if (formalParameter.ioType == Command.ioType.CONFIG)
 						{
 							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
@@ -215,21 +218,24 @@ public class Command
 								Properties p = new Properties();
 								// and put this in the environment???
 								p.load(new FileInputStream(f));
-								for (Object x: environment.keySet())
+								for (Object x: configuration.keySet())
 								{
-									p.put(x,environment.get(x));
+									p.put(x,configuration.get(x));
 								}
 								p.store(new FileOutputStream(f), "");
 								expandVariables(p);
 								args[i] = f.getAbsolutePath();
 							}
-						}
+						} 
 					}
 				}
 			}
 		}
 		
 		// System.err.println(args[0]);
+		expandVariables(configuration);
+		
+		configuration.store(System.out, "hallo!");
 		
 		try 
 		{
@@ -263,7 +269,7 @@ public class Command
 								}
 							} else if (a.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
 							{
-								fName = environment.getProperty(a.name);
+								fName = configuration.getProperty(a.name);
 							}
 							
 							InputStream str = new FileInputStream((String) args[i]);
@@ -273,9 +279,9 @@ public class Command
 							Properties p = new Properties();
 							
 							p.put("createdBy", this.commandName);
-							
 							p.put("createdAt", new Date(System.currentTimeMillis()).toString());
 							p.put("createdWithArguments", actualParameters.toString());
+							
 							repository.storeFile(str, p);
 							str.close();
 						} else

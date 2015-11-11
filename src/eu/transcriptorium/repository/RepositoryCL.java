@@ -2,7 +2,7 @@ package eu.transcriptorium.repository;
 import java.io.*;
 import java.util.*;
 
-import javax.json.JsonObject;
+import com.google.gson.*;
 
 import eu.transcriptorium.util.*;
 
@@ -34,7 +34,8 @@ public class RepositoryCL
 			};
 			break;
 		case STORE:
-			System.out.println(r.storeFile(new FileInputStream(args[0]), args[0], null));
+			for (String a: args)
+				System.out.println(r.storeFile(new FileInputStream(a), a, null));
 			break;
 		case GETMETADATA:
 			Properties p = r.getMetadata(Integer.parseInt(args[0]));
@@ -43,6 +44,7 @@ public class RepositoryCL
 		case SEARCH:
 		{
 			JsonObject o = JSON.fromString(args[0]);
+			//System.err.println("Parsed properties:" + o);
 			Properties p0 = JSON.toProperties(o);
 			Set<Integer> V0 = r.search(p0);
 			System.out.println(V0);
@@ -58,10 +60,14 @@ public class RepositoryCL
 			Properties p1 = JSON.toProperties(o);
 			r.setMetadata(id, p1);
 			break;
-		}
+		}	
 		case DELETE:
-			int id = Integer.parseInt(args[0]);
-			r.delete(id);
+			for (String a: args)
+			{
+				int id = Integer.parseInt(a);
+				r.delete(id);
+			}
+			break;
 		case CLEAR:
 			r.clear();
 			break;
@@ -71,7 +77,20 @@ public class RepositoryCL
 	public static void main(String[] args) throws Exception
 	{
 		RepositoryCL  cl = new RepositoryCL();
-		command c = command.valueOf(args[0]);
-		cl.exec(c, Arrays.copyOfRange(args,1, args.length));
+		if (args.length > 0)
+		{
+			command c = command.valueOf(args[0]);
+			cl.exec(c, Arrays.copyOfRange(args,1, args.length));
+		} else
+		{
+			String s;
+			BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+			while ((s = r.readLine() ) != null)
+			{
+				args = s.split("\\s+");
+				command c = command.valueOf(args[0].toUpperCase());
+				cl.exec(c, Arrays.copyOfRange(args,1, args.length));
+			}
+		}
 	}
 }

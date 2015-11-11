@@ -33,6 +33,7 @@ public class PostgresRepository implements Repository
 	public PostgresRepository(Properties p)
 	{
 		database =  new PostgresDatabase(p);
+		System.err.println("connection established...");
 	}
 
 	public void clear()
@@ -98,6 +99,12 @@ public class PostgresRepository implements Repository
 		}
 	}
 
+	/**
+	 * TODO: uniqueness constraints...
+	 * @param fi
+	 * @param filename
+	 * @return
+	 */
 	public int  storeFile(InputStream fi, String filename)
 	{
 		String query = "INSERT INTO " + tableName + " (filename, content) VALUES (?, ?);";
@@ -122,9 +129,14 @@ public class PostgresRepository implements Repository
 		}
 	}
 
-	public int storeFile(InputStream fi, String name,Properties p)
+	public int storeFile(InputStream fi, String filename,Properties p)
 	{
-		int id = storeFile(fi,  name);
+		int id = storeFile(fi,  filename);
+		if (p == null)
+			p = new Properties();
+		addDefaultProperties(p);
+		if (p.getProperty("filename") == null)
+			p.put("filename", filename);
 		setMetadata(id, p);
 		return id;
 	}
@@ -136,12 +148,24 @@ public class PostgresRepository implements Repository
 		return id;
 	}
 
+	public void addDefaultProperties(Properties p)
+	{
+		if (p.getProperty("createdBy") == null)
+			p.put("createdBy", "STORE_FILE");
+		p.put("createdAt", new Date(System.currentTimeMillis()).toString());
+	}
+	
 	public int storeFile(String filename, Properties p)
 	{
 		int id = storeFile(filename);
+		if (p == null)
+		{
+			p = new Properties();
+		}
 		if (p != null)
 		{
-			p.put("filename", filename);
+			if (p.getProperty("filename") == null)
+				p.put("filename", filename);
 			if (id >= 0)
 			{
 				System.err.println(p.keySet());
@@ -264,6 +288,7 @@ public class PostgresRepository implements Repository
 		{
 			String key = (String) n;
 			String value = p.getProperty(key);
+			System.err.println("Value=" + value);
 			String clause = " select distinct id from metadata where key=? and value=? ";
 			clauses.add(clause);
 			fillers.add(key);
@@ -312,7 +337,27 @@ public class PostgresRepository implements Repository
 	}
 
 
-
+   private int getContentLength(int id)
+   {
+	   String q = " select length(content) from filetable where id=? ";
+	   try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) 
+			{
+				int l = rs.getInt(1);
+				return l;
+			}
+		} catch (Exception e)
+		{
+			return -1;
+		}
+	   return -1;
+   }
+   
 	@Override
 	public Properties getMetadata(int id)
 	{
@@ -324,8 +369,8 @@ public class PostgresRepository implements Repository
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
-			int nofcolumns = rs.getMetaData().getColumnCount();
-			while (rs.next()) // mis je nu de eerste??
+			
+			while (rs.next()) 
 			{
 				String k = rs.getString(1);
 				String v = rs.getString(2);
@@ -335,6 +380,7 @@ public class PostgresRepository implements Repository
 		{
 			return null;
 		}
+		p.put("content-length", this.getContentLength(id));
 		return p;
 	}
 

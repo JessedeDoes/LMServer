@@ -160,20 +160,40 @@ public class PostgresRepository implements Repository
 		{
 			String key = (String) n;
 			String value  = p.getProperty(key);
-			String query = "insert into metadata (id,key,value) values (?,?,?)";
-			try 
+			setMetadata(id, key, value);
+		}
+	}
+	
+	@Override
+	public void setMetadata(int id, String key, String value) 
+	{
+		String oldVal = getMetadata(id,key);
+		String query = "insert into metadata (id,key,value) values (?,?,?)";
+		if (oldVal != null)
+		{
+			query = "update metadata set ?=? where id=?";
+		}
+		
+		try 
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(query);
+			System.err.println(key + " = " + value);
+			if (oldVal == null)
 			{
-				PreparedStatement stmt = database.getConnection().prepareStatement(query);
-				System.err.println(key + " = " + value);
 				stmt.setInt(1, id);
 				stmt.setString(2, key);
 				stmt.setString(3, value);
-				boolean res = stmt.execute();
-				stmt.close();
-			} catch (Exception e)
+			} else
 			{
-				e.printStackTrace();
+				stmt.setString(1, key);
+				stmt.setString(2, value);
+				stmt.setInt(3, id);
 			}
+			boolean res = stmt.execute();
+			stmt.close();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 
@@ -318,6 +338,31 @@ public class PostgresRepository implements Repository
 		return p;
 	}
 
+	@Override
+	public String getMetadata(int id, String key)
+	{
+		// TODO Auto-generated method stub
+		String q = " select value from metadata where id=? and key=? ";
+		Properties p = new Properties();
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+			stmt.setInt(1, id);
+			stmt.setString(2, key);
+			ResultSet rs = stmt.executeQuery();
+			int nofcolumns = rs.getMetaData().getColumnCount();
+			while (rs.next()) // mis je nu de eerste??
+			{
+				String k = rs.getString(1);
+				return k;
+			}
+		} catch (Exception e)
+		{
+			return null;
+		}
+		return null;
+	}
+	
 	public static Properties getDefaultProperties()
 	{
 		Properties p = new Properties();

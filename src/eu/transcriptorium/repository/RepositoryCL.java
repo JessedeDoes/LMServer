@@ -30,7 +30,7 @@ public class RepositoryCL
 			Set<Integer> V = r.list();
 			for (int id: V)
 			{
-				System.out.println(r.getMetadata(id));
+				System.out.println(id + " --> " + r.getMetadata(id));
 			};
 			break;
 		case STORE:
@@ -52,11 +52,16 @@ public class RepositoryCL
 			System.out.println(r.searchByName(args[0]));
 			break;
 		case SET_METADATA:
+		{
 			int id = Integer.parseInt(args[0]);
 			JsonObject o = JSON.fromString(args[1]);
 			Properties p1 = JSON.toProperties(o);
 			r.setMetadata(id, p1);
 			break;
+		}
+		case DELETE:
+			int id = Integer.parseInt(args[0]);
+			r.delete(id);
 		case CLEAR:
 			r.clear();
 			break;

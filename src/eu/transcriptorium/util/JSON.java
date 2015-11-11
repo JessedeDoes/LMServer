@@ -11,6 +11,8 @@ import org.apache.tools.ant.filters.StringInputStream;
 
 public class JSON
 {
+	
+	// this parser is too strict, properties need to be quoted...
 	static public JsonObject fromString(String s)
 	{
 		if (s == null  || s.trim().length() == 0)

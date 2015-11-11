@@ -41,6 +41,8 @@ public class SomeUsefulCommands
 		return c1;
 	}
 
+	// java eu.transcriptorium.repository.RepositoryCL INVOKE TEST '{script:"TestScripts/testCommand.sh",conf:"TestScripts/test.settings.sh",OUTPUT:sortedFile}'
+
 	public static Command getTestCommand()
 	{
 		Object[][] paramsWithFile = 
@@ -48,7 +50,9 @@ public class SomeUsefulCommands
 					{ "script", "java.lang.String"},
 					{ "conf", FileArgument, 
 						Command.ioType.CONFIG, Command.referenceType.NAME},
-					{ "OUTPUT", FileArgument, Command.referenceType.PICKUP_FROM_CONFIG},
+					{ "OUTPUT", FileArgument, 
+							Command.ioType.OUT,
+							Command.referenceType.PICKUP_FROM_CONFIG},
 			};
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);

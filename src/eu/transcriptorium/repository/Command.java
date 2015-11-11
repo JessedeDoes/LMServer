@@ -76,7 +76,7 @@ public class Command
 		NAME,
 		ID,
 		RELATIVE_TO_TEMPDIR,
-		PICKUP_FROM_CONFIG
+		PICKUP_FROM_CONFIG, INSERT_INTO_CONFIG
 	};
 
 	type commandType;
@@ -160,7 +160,8 @@ public class Command
 	{
 		Object[] args = new Object[this.formalParameters.size()];
 		configuration = new Properties();
-		
+		File saveConfigTo = null;
+		Properties configToSave = null;
 		for (int i=0; i < this.formalParameters.size(); i++)
 		{
 			FormalParameter formalParameter = this.formalParameters.get(i);
@@ -188,15 +189,31 @@ public class Command
 							if (repoId >= 0)
 							{
 								File f = saveToTempFile(repoId);
+								System.err.println("saved to temp file:" + f.getAbsolutePath());
 								args[i] = f.getAbsolutePath();
 							}
-						} else if (formalParameter.ioType == Command.ioType.OUT)
+						} else if (formalParameter.ioType == Command.ioType.IN && 
+								formalParameter.referenceType == Command.referenceType.INSERT_INTO_CONFIG)
+						{
+							//File f = saveToTempFile(repoId);
+
+							File f = File.createTempFile("repo", ".repo");
+							System.err.println("saved to temp file:" + f.getAbsolutePath());
+							args[i] = f.getAbsolutePath();
+							configuration.put(formalParameter.name, f.toString());
+							
+							// nee dit is onzin: je moet ook opslaan uit de repository
+						}
+						
+						else if (formalParameter.ioType == Command.ioType.OUT)
 						{
 							// dit wordt nazorg om het weer terug te krijgen
 							// in de repo. Maar hier aannemen dat het altijd een string is?
 							if (formalParameter.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
 							{
-								configuration.put(formalParameter.name, args[i].toString());
+								File f = File.createTempFile("repo", ".repo");
+								args[i] = f.toString();
+								configuration.put(formalParameter.name, f.toString());
 							} else if (String.class.isAssignableFrom(actualParameter.getClass()))
 							{
 								// dit is niet goed: je moet opslaan in een temp file
@@ -224,9 +241,13 @@ public class Command
 								{
 									p.put(x,configuration.get(x));
 								}
-								p.store(new FileOutputStream(f), "");
 								expandVariables(p);
+								saveConfigTo = f;
+								configToSave = p;
+								//p.store(new FileOutputStream(f), "");
+								
 								args[i] = f.getAbsolutePath();
+								p.list(System.out);
 							}
 						} 
 					}
@@ -235,9 +256,17 @@ public class Command
 		}
 		
 		// System.err.println(args[0]);
+		if (saveConfigTo != null && configToSave != null)
+		{
+			for (Object x: configuration.keySet())
+			{
+				configToSave.put(x,configuration.get(x));
+			}
+			configToSave.store(new FileOutputStream(saveConfigTo), "");
+		}
 		expandVariables(configuration);
 		
-		configuration.store(System.out, "hallo!");
+		//configuration.store(System.out, "hallo!");
 		
 		try 
 		{
@@ -271,6 +300,7 @@ public class Command
 								}
 							} else if (a.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
 							{
+								System.err.println("Pickup fName: " + fName);
 								fName = configuration.getProperty(a.name);
 							}
 							

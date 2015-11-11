@@ -21,6 +21,7 @@ public class ExternalCommand extends JavaInternalCommand
 	{
 		this.formalParameters = FormalParameter.makeArgumentList(args);
 		this.exe = commandName;
+		this.commandName = commandName;
 	}
 
 	public String[] buildCommand(List<FormalParameter> formalParameters, Object[] args)
@@ -42,6 +43,7 @@ public class ExternalCommand extends JavaInternalCommand
 				a.add("-" + flag);
 			a.add(args[i].toString());
 		}
+		System.err.println("Command to invoke: " + a);
 		String[] r = new String[a.size()];
 		for (int i=0; i < a.size(); i++)
 			r[i] = a.get(i);

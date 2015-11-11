@@ -36,11 +36,11 @@ public class JSON
 
 	}
 
-	static public Map<String,String>  toMap(JsonObject o)
+	static public Map<String,Object>  toMap(JsonObject o)
 	{
 		if (o == null)
 			return null;
-		Map<String,String> m = new HashMap<String,String>();
+		Map<String,Object> m = new HashMap<String,Object>();
 		for (Entry<String, JsonElement> e: o.entrySet())
 		{
 

@@ -35,7 +35,7 @@ public class PFSG implements Serializable
 	static String stellingWerf_3 = "/home/jesse/TUTORIAL-HTR/EXP-RESOLUTIONS/TRAIN/LM/STELLINGWERF_3/languageModel.lm";
 	float unknownPenalty = (float) Math.log(1e-8); // Float.NEGATIVE_INFINITY; // ahem...
 
-	static class Node
+	static class Node implements Serializable
 	{
 		String output;
 		String fullName;
@@ -143,7 +143,7 @@ public class PFSG implements Serializable
 		// this is silly -- transition to end nod IS a null transition
 	}
 
-	public static class Transition  
+	public static class Transition  implements Serializable
 	{
 		int from;
 		int to;

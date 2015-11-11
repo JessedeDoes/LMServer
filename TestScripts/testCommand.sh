@@ -1,2 +1,2 @@
 source $1
-cat $INPUT > $OUTPUT
+sort $INPUT > $OUTPUT

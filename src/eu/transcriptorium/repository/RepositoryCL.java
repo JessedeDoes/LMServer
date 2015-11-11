@@ -6,20 +6,35 @@ import com.google.gson.*;
 
 import eu.transcriptorium.util.*;
 
+/**
+ * 
+ * @author does
+ *
+ *Command line for repository.
+ */
+
 public class RepositoryCL 
 {
 	Repository r = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	Map<String, Command> commandMap = new HashMap<String,Command>();
+
+	public RepositoryCL()
+	{
+		commandMap.put("LM2PFSG",  SomeUsefulCommands.getLM2PFSGCommand());
+	}
 
 	public static enum command
 	{
 		LIST,
 		STORE,
 		GETMETADATA,
-		SEARCH_BY_NAME,
+		SEARCHBYNAME,
 		SEARCH,
-		SET_METADATA,
+		SETMETADATA,
 		CLEAR,
-		DELETE
+		DELETE,
+		INVOKE,
+		EXTRACT
 	}
 
 	public void exec(command c, String[] args) throws Exception
@@ -37,6 +52,11 @@ public class RepositoryCL
 			for (String a: args)
 				System.out.println(r.storeFile(new FileInputStream(a), a, null));
 			break;
+		case EXTRACT:
+			InputStream str = r.openFile(Integer.parseInt(args[0]));
+			if (str != null)
+				FileUtils.copyStream(str, new File(args[1]));
+			break;
 		case GETMETADATA:
 			Properties p = r.getMetadata(Integer.parseInt(args[0]));
 			p.store(System.out, "jippie");
@@ -50,10 +70,10 @@ public class RepositoryCL
 			System.out.println(V0);
 		}
 		break;
-		case SEARCH_BY_NAME:
+		case SEARCHBYNAME:
 			System.out.println(r.searchByName(args[0]));
 			break;
-		case SET_METADATA:
+		case SETMETADATA:
 		{
 			int id = Integer.parseInt(args[0]);
 			JsonObject o = JSON.fromString(args[1]);
@@ -71,6 +91,14 @@ public class RepositoryCL
 		case CLEAR:
 			r.clear();
 			break;
+		case INVOKE: // e.g. java eu.transcriptorium.repository.RepositoryCL INVOKE LM2PFSG '{lm:13,pfsg:my_new_pfsg}'
+		{
+			Command cmd = commandMap.get(args[0]);
+			JsonObject o = JSON.fromString(args[1]);
+			Map<String, Object> p1 = JSON.toMap(o);
+			cmd.invoke(p1);
+			break;
+		}	
 		}
 	}
 

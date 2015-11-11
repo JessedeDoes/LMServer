@@ -41,9 +41,8 @@ public class SomeUsefulCommands
 		return c1;
 	}
 
-	public Command getLM2PFSGCommand()
+	public static Command getLM2PFSGCommand()
 	{
-
 		Object[][] args  = 
 			{
 					{"lm", FileArgument, Command.ioType.IN, Command.referenceType.ID},

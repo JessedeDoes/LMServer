@@ -1,2 +1,2 @@
-export INPUT=/tmp/in
-export OUTPUT=/tmp/out
+export INPUT=TestScripts/in.txt
+export OUTPUT=TestScripts/out.txt

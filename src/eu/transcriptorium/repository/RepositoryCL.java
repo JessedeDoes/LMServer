@@ -21,8 +21,16 @@ public class RepositoryCL
 	public RepositoryCL()
 	{
 		commandMap.put("LM2PFSG",  SomeUsefulCommands.getLM2PFSGCommand());
+		commandMap.put("TEST",  SomeUsefulCommands.getTestCommand());
 	}
-
+/**
+ * Misschien nog een extract all to zip toevoegen?
+ * Maar wat doe je dan met de metadata?
+ * <br>
+ * En wellicht een STORE_AS_PLAIN_TEXT of STORE_AS_TEI met conversiefilters uit openconvert?
+ * @author does
+ *
+ */
 	public static enum command
 	{
 		LIST,

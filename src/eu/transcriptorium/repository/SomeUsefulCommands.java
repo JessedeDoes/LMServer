@@ -41,6 +41,26 @@ public class SomeUsefulCommands
 		return c1;
 	}
 
+	public static Command getTestCommand()
+	{
+		Object[][] paramsWithFile = 
+			{ 
+					{ "script", "java.lang.String"},
+					{ "conf", FileArgument, 
+						Command.ioType.CONFIG, Command.referenceType.NAME},
+					{ "OUTPUT", FileArgument, Command.referenceType.PICKUP_FROM_CONFIG},
+			};
+
+		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
+		//m.clear();
+		//m.put("f", new Integer(1));
+
+		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin");
+		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin/i686-m64");
+		c1.addToPath(ExternalCommand.HTK_DIR + "/bin.linux");
+
+		return c1;
+	}
 	public static Command getLM2PFSGCommand()
 	{
 		Object[][] args  = 

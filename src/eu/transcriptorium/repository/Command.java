@@ -199,6 +199,8 @@ public class Command
 								configuration.put(formalParameter.name, args[i].toString());
 							} else if (String.class.isAssignableFrom(actualParameter.getClass()))
 							{
+								// dit is niet goed: je moet opslaan in een temp file
+								// maar wel de in de parameters gegeven naam in de repository zetten
 								String s = (String) actualParameter;
 								args[i] = s;
 							}

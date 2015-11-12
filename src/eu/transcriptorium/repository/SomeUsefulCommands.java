@@ -19,6 +19,7 @@ public class SomeUsefulCommands
 	
 	
 	/**
+	 * Example invocation:
 	 <pre>
 	 java eu.transcriptorium.repository.RepositoryCL INVOKE BUILDLM 
 	 '{script:"TestScripts/basicModelBuilding.sh",
@@ -29,6 +30,8 @@ public class SomeUsefulCommands
 	 </pre>
 	 * @return
 	 */
+	
+	// java eu.transcriptorium.repository.RepositoryCL INVOKE BUILDLM '{script:"TestScripts/basicModelBuilding.sh",conf:"TestScripts/test.settings.sh",languageModel:"languageModel.lm",dictionary:"dictionary.txt", OUTPUT:"veryUsefulLanguageModel"}'
 	static public Command getBasicLMBuildingCommand()
 	{
 		//Map<String, Object> m = new HashMap<String,Object>();
@@ -80,6 +83,7 @@ public class SomeUsefulCommands
 			};
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
+		
 		//m.clear();
 		//m.put("f", new Integer(1));
 

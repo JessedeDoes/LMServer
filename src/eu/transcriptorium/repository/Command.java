@@ -280,7 +280,9 @@ public class Command
 		{
 			Object r = invokeCommand(this.formalParameters, args);
 			System.out.println("Result:" + r);
+			
 			// en nu de nazorg: opruimen en resultatem opslaan...
+			
 			for (int i=0; i < this.formalParameters.size(); i++)
 			{
 				FormalParameter formalParameter = this.formalParameters.get(i);
@@ -300,17 +302,15 @@ public class Command
 							if (formalParameter.referenceType == Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY)
 							{
 								System.err.println("Looking for base: "  + formalParameter.baseName);
-								
-								p.put("filename",  actualParameters.get(formalParameter.baseName.toString() + "/" + fName));
+								Object base = actualParameters.get(formalParameter.baseName);
+								p.put("filename",  base.toString() + "/" + fName);
 								
 								for (int j=0; j < this.formalParameters.size(); j++)
 								{
 									if (this.formalParameters.get(j).name.equals(formalParameter.baseName))
 									{
-										
 										fName = args[j] + "/"  + fName;
 									}
-									
 								}
 								System.err.println("relative path expanded to:"  + fName);
 								

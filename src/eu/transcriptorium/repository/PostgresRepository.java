@@ -207,14 +207,14 @@ public class PostgresRepository implements Repository
 		{
 			String key = (String) n;
 			String value  = p.getProperty(key);
-			setMetadata(id, key, value);
+			setMetadataProperty(id, key, value);
 		}
 	}
 	
 	@Override
-	public void setMetadata(int id, String key, String value) 
+	public void setMetadataProperty(int id, String key, String value) 
 	{
-		String oldVal = getMetadata(id,key);
+		String oldVal = getMetadataProperty(id,key);
 		String query = "insert into metadata (id,key,value) values (?,?,?)";
 		if (oldVal != null)
 		{
@@ -409,7 +409,7 @@ public class PostgresRepository implements Repository
 	}
 
 	@Override
-	public String getMetadata(int id, String key)
+	public String getMetadataProperty(int id, String key)
 	{
 		// TODO Auto-generated method stub
 		String q = " select value from metadata where id=? and key=? ";
@@ -491,11 +491,11 @@ public class PostgresRepository implements Repository
 	}
 
 	@Override
-	public Set<Integer> list() 
+	public List<FileInfo> list() 
 	{
 		// TODO Auto-generated method stub
-		Set<Integer> V = new HashSet<Integer>();
-		String q = "select id from filetable";
+		List<FileInfo> V = new ArrayList<FileInfo>();
+		String q = "select id,filename,length(content) from filetable";
 		
 		try
 		{
@@ -505,7 +505,11 @@ public class PostgresRepository implements Repository
 			
 			while (rs.next()) // mis je nu de eerste??
 			{
-				V.add(rs.getInt(1));
+				FileInfo fi = new FileInfo();
+				fi.id = rs.getInt(1);
+				fi.fileName = rs.getString(2);
+				fi.contentLength = rs.getInt(3);
+				V.add(fi);
 			}
 		} catch (Exception e)
 		{

@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.google.gson.*;
 
+import eu.transcriptorium.repository.Repository.FileInfo;
 import eu.transcriptorium.util.*;
 
 /**
@@ -51,10 +52,10 @@ public class RepositoryCL
 		switch(c)
 		{
 		case LIST:
-			Set<Integer> V = r.list();
-			for (int id: V)
+			List<FileInfo> V = r.list();
+			for (FileInfo fi: V)
 			{
-				System.out.println(id + " --> " + r.getMetadata(id));
+				System.out.println(fi + " --> " + r.getMetadata(fi.id));
 			};
 			break;
 		case STORE:

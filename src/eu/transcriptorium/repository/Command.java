@@ -162,6 +162,7 @@ public class Command
 		configuration = new Properties();
 		File saveConfigTo = null;
 		Properties configToSave = null;
+		Properties originalConfig = null;
 		for (int i=0; i < this.formalParameters.size(); i++)
 		{
 			FormalParameter formalParameter = this.formalParameters.get(i);
@@ -237,6 +238,7 @@ public class Command
 								Properties p = new Properties();
 								// and put this in the environment???
 								p.load(new FileInputStream(f));
+								originalConfig = (Properties) p.clone();
 								for (Object x: configuration.keySet())
 								{
 									p.put(x,configuration.get(x));
@@ -288,6 +290,7 @@ public class Command
 							// store output
 							System.err.println("Reading output from file:" + args[i]);
 							String fName = (String) args[i];
+							Properties p = new Properties();
 							if (a.referenceType == Command.referenceType.RELATIVE_TO_TEMPDIR)
 							{
 								for (int j=0; i < this.formalParameters.size(); j++)
@@ -302,18 +305,20 @@ public class Command
 							{
 								System.err.println("Pickup fName: " + fName);
 								fName = configuration.getProperty(a.name);
+								p.put("filename", originalConfig.getProperty(a.name));
 							}
 							
 							InputStream str = new FileInputStream((String) args[i]);
 							
 							// System.err.println(str);
 							
-							Properties p = new Properties();
+							
 							
 							p.put("createdBy", this.commandName);
 							p.put("createdAt", new Date(System.currentTimeMillis()).toString());
 							p.put("createdWithArguments", actualParameters.toString());
 							
+							System.err.println("Storing new file with properties:"  + p);
 							repository.storeFile(str, p);
 							str.close();
 						} else

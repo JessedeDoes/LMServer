@@ -281,7 +281,17 @@ public class PostgresRepository implements Repository
 	public Set<Integer> searchByName(String name)
 	{
 		Set<Integer> result = new HashSet<Integer>();
-		String q = " select distinct id from filetable where filename=? ";
+		boolean regex = false;
+		
+		if (name.startsWith("~"))
+		{
+			regex = true;
+			name = name.substring(1);
+		}
+		String operator = regex?"~":"=";
+		
+		String q = " select distinct id from filetable where filename"  + operator +  "? ";
+		
 		try
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
@@ -313,7 +323,16 @@ public class PostgresRepository implements Repository
 			String key = (String) n;
 			String value = p.getProperty(key);
 			System.err.println("Value=" + value);
-			String clause = " select distinct id from metadata where key=? and value=? ";
+			boolean regex = false;
+			
+			if (value.startsWith("~"))
+			{
+				regex = true;
+				value = value.substring(1);
+			}
+			String operator = regex?"~":"=";
+			
+			String clause = " select distinct id from metadata where key=? and value" +  operator + "? ";
 			clauses.add(clause);
 			fillers.add(key);
 			fillers.add(value);

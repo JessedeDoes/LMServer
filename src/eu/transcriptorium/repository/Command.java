@@ -315,7 +315,7 @@ public class Command
 								p.put("filename", originalConfig.getProperty(a.name));
 							}
 							
-							InputStream str = new FileInputStream((String) args[i]);
+							InputStream str = new FileInputStream(fName);
 							
 							// System.err.println(str);				
 							

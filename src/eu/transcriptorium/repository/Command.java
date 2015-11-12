@@ -283,38 +283,48 @@ public class Command
 			// en nu de nazorg: opruimen en resultatem opslaan...
 			for (int i=0; i < this.formalParameters.size(); i++)
 			{
-				FormalParameter a = this.formalParameters.get(i);
-				Object a1 = actualParameters.get(a.name);
+				FormalParameter formalParameter = this.formalParameters.get(i);
+				Object actualParameter = actualParameters.get(formalParameter.name);
 				
-				if (a1 != null)
+				if (actualParameter != null)
 				{
-					if (a.argumentClass.equals(FileArgument.class))
+					if (formalParameter.argumentClass.equals(FileArgument.class))
 					{
-						if (a.ioType == Command.ioType.OUT)
+						if (formalParameter.ioType == Command.ioType.OUT)
 						{
 							// delete the file named args[i]
 							// store output
-							System.err.println("Reading output for " +  a.name +  " from file:" + args[i]);
+							System.err.println("Reading output for " +  formalParameter.name +  " from file:" + args[i]);
 							String fName = (String) args[i];
 							Properties p = new Properties();
-							if (a.referenceType == Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY)
+							if (formalParameter.referenceType == Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY)
 							{
-								System.err.println("Looking for base: "  + a.baseName);
+								System.err.println("Looking for base: "  + formalParameter.baseName);
+								
+								p.put("filename",  actualParameters.get(formalParameter.baseName.toString() + "/" + fName));
+								
 								for (int j=0; j < this.formalParameters.size(); j++)
 								{
-									if (this.formalParameters.get(j).name.equals(a.baseName))
+									if (this.formalParameters.get(j).name.equals(formalParameter.baseName))
 									{
+										
 										fName = args[j] + "/"  + fName;
 									}
+									
 								}
 								System.err.println("relative path expanded to:"  + fName);
-							} else if (a.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
+								
+							} else if (formalParameter.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
 							{
 								System.err.println("Pickup fName: " + fName);
-								fName = configuration.getProperty(a.name);
-								p.put("filename", originalConfig.getProperty(a.name));
+								fName = configuration.getProperty(formalParameter.name);
+								p.put("filename", originalConfig.getProperty(formalParameter.name));
 							}
 							
+							if (p.get("filename") == null)
+							{
+								p.put("filename", actualParameter.toString());
+							}
 							InputStream str = new FileInputStream(fName);
 							
 							// System.err.println(str);				
@@ -324,7 +334,9 @@ public class Command
 							p.put("createdWithArguments", actualParameters.toString());
 							
 							System.err.println("Storing new file with properties:"  + p);
+							
 							repository.storeFile(str, p.getProperty("filename"), p);
+							
 							str.close();
 						} else
 						{

@@ -17,8 +17,18 @@ public class SomeUsefulCommands
 {
 	static final String FileArgument = Command.FileArgument.class.getName();
 	
-	// java eu.transcriptorium.repository.RepositoryCL INVOKE BUILDLM '{script:"TestScripts/basicModelBuilding.sh",
-	// conf:"TestScripts/test.settings.sh",OUTPUT:sortedFile}'
+	
+	/**
+	 <pre>
+	 java eu.transcriptorium.repository.RepositoryCL INVOKE BUILDLM 
+	 '{script:"TestScripts/basicModelBuilding.sh",
+	       conf:"TestScripts/test.settings.sh",
+	       languageModel:"languageModel.lm",
+	       dictionary:"dictionary.txt", 
+	       OUTPUT:"blabla"}'
+	 </pre>
+	 * @return
+	 */
 	static public Command getBasicLMBuildingCommand()
 	{
 		//Map<String, Object> m = new HashMap<String,Object>();

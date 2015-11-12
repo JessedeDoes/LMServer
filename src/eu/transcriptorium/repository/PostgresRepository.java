@@ -19,10 +19,12 @@ public class PostgresRepository implements Repository
 	List <File> tempFiles = new ArrayList<File>();
 	int nFiles = 0;
 	int portionSize = 100;
+	static boolean uniqueNames = true;
 
 	// create table FileTable (id serial, fileName text, type text, content oid);
 
-	static String createFileTable = "create table FileTable (id serial primary key, fileName text, type text, content bytea)";
+	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, type text, content bytea)":
+		 "create table FileTable (id serial primary key, filename text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer, key  text, value text)";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 
@@ -108,18 +110,39 @@ public class PostgresRepository implements Repository
 	public int  storeFile(InputStream fi, String filename)
 	{
 		String query = "INSERT INTO " + tableName + " (filename, content) VALUES (?, ?);";
-		try {
+		boolean isUpdate = false;
+		int updateId = -1;
+		if (uniqueNames)
+		{
+			Set<Integer> V = searchByName(filename);
+			if (V != null && V.size() > 0)
+			{
+				isUpdate = true;
+				updateId = V.iterator().next();
+				query = "update " + tableName + " set content=?  where id=? ";
+			}
+		}
+		try 
+		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(query);
 			File file = new File(filename);
 			// AHA dit klopt allerminst!...
 			// FileInputStream fi = new FileInputStream(file);
-			stmt.setString(1, filename);
-			stmt.setBinaryStream(2, fi);
+			if (isUpdate)
+			{
+				System.err.println("update for:"  + filename  + ": "  + query);
+				stmt.setBinaryStream(1, fi);
+				stmt.setInt(2, updateId);
+			} else
+			{
+				stmt.setString(1, filename);
+				stmt.setBinaryStream(2, fi);
+			}
 			//stmt.set
 			boolean res = stmt.execute();
 			stmt.close();
 			fi.close();
-			int id = getLastId();
+			int id = isUpdate?updateId:getLastId();
 			System.err.println("id of stored file: " + id);
 			return id;
 		} catch (Exception e)
@@ -195,7 +218,7 @@ public class PostgresRepository implements Repository
 		String query = "insert into metadata (id,key,value) values (?,?,?)";
 		if (oldVal != null)
 		{
-			query = "update metadata set ?=? where id=?";
+			query = "update metadata set value=? where key=? and id=?";
 		}
 		
 		try 
@@ -209,9 +232,10 @@ public class PostgresRepository implements Repository
 				stmt.setString(3, value);
 			} else
 			{
-				stmt.setString(1, key);
-				stmt.setString(2, value);
+				stmt.setString(2, key);
+				stmt.setString(1, value);
 				stmt.setInt(3, id);
+				System.err.println("metadata update:" + stmt);
 			}
 			boolean res = stmt.execute();
 			stmt.close();

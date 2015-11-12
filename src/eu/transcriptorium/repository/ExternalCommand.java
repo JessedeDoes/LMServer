@@ -16,6 +16,19 @@ public class ExternalCommand extends JavaInternalCommand
 	
 	static String SRILM_DIR="/home/jesse/Tools/srilm";
 	static String HTK_DIR="/home/jesse/Tools/htk3-4-Atros";
+	static String SRILM_DIR_INL="/mnt/Projecten/transcriptorium/Tools/SRILM";
+	static String HTK_DIR_INL="/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14";
+	
+	
+	public void addSRILMandHTKToPath()
+	{
+		addToPath(SRILM_DIR + "/bin");
+		addToPath(SRILM_DIR + "/bin/i686-m64");
+		addToPath(SRILM_DIR_INL + "/bin");
+		addToPath(SRILM_DIR_INL + "/bin/i686-m64");
+		addToPath(HTK_DIR + "/bin.linux");
+		addToPath(HTK_DIR_INL);
+	}
 	
 	public ExternalCommand(String commandName, Object[][] args)
 	{
@@ -147,7 +160,11 @@ public class ExternalCommand extends JavaInternalCommand
 		
 		c1.addToPath(SRILM_DIR + "/bin");
 		c1.addToPath(SRILM_DIR + "/bin/i686-m64");
+		c1.addToPath(SRILM_DIR_INL + "/bin");
+		c1.addToPath(SRILM_DIR_INL + "/bin/i686-m64");
 		c1.addToPath(HTK_DIR + "/bin.linux");
+		c1.addToPath(HTK_DIR_INL);
+		
 		c1.invoke(m);
 	}
 }

@@ -302,7 +302,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				File f  = files.get(n);
 				Properties p = JSON.toProperties(JSON.fromString(metadata));
 				p.setProperty("fileFieldName", n);
-				int id = repo.storeFile(new FileInputStream(f), p);
+				int id = repo.storeFile(new FileInputStream(f), f.getCanonicalPath(), p);
 			}
 			break;
 			

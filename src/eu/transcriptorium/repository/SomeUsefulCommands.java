@@ -17,6 +17,8 @@ public class SomeUsefulCommands
 {
 	static final String FileArgument = Command.FileArgument.class.getName();
 	
+	// java eu.transcriptorium.repository.RepositoryCL INVOKE BUILDLM '{script:"TestScripts/basicModelBuilding.sh",
+	// conf:"TestScripts/test.settings.sh",OUTPUT:sortedFile}'
 	static public Command getBasicLMBuildingCommand()
 	{
 		//Map<String, Object> m = new HashMap<String,Object>();
@@ -24,19 +26,31 @@ public class SomeUsefulCommands
 		Object[][] paramsWithFile = 
 			{ 
 					{ "script", "java.lang.String"},
+				
 					{ "conf", FileArgument, 
-						Command.ioType.CONFIG, Command.referenceType.NAME},
-					{ "languageModel", FileArgument, Command.referenceType.PICKUP_FROM_CONFIG},
-					{ "dictionary", FileArgument, Command.referenceType.PICKUP_FROM_CONFIG}
+					Command.ioType.CONFIG, Command.referenceType.NAME},
+					
+					{"OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, 
+						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
+
+					{ "languageModel", FileArgument, 
+						Command.ioType.OUT,
+						Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
+						
+					{ "dictionary", FileArgument, 
+							Command.ioType.OUT,
+							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
+		
+		c1.formalParameters.get(3).baseName = "OUTPUT";
+		c1.formalParameters.get(4).baseName = "OUTPUT";
+		
 		//m.clear();
 		//m.put("f", new Integer(1));
 
-		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin");
-		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin/i686-m64");
-		c1.addToPath(ExternalCommand.HTK_DIR + "/bin.linux");
+		c1.addSRILMandHTKToPath();
 
 		return c1;
 	}
@@ -59,9 +73,7 @@ public class SomeUsefulCommands
 		//m.clear();
 		//m.put("f", new Integer(1));
 
-		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin");
-		c1.addToPath(ExternalCommand.SRILM_DIR + "/bin/i686-m64");
-		c1.addToPath(ExternalCommand.HTK_DIR + "/bin.linux");
+	
 
 		return c1;
 	}

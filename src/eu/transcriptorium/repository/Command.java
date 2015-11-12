@@ -68,15 +68,16 @@ public class Command
 		IN,
 		OUT,
 		CONFIG,
-		TEMP_DIR // directory arguments are always temporary (?)
+		OUTPUT_DIRECTORY // directory arguments are always temporary (?)
 	};
 
 	static public enum referenceType
 	{
 		NAME,
 		ID,
-		RELATIVE_TO_TEMPDIR,
-		PICKUP_FROM_CONFIG, INSERT_INTO_CONFIG
+		RELATIVE_TO_OUTPUT_DIRECTORY,
+		PICKUP_FROM_CONFIG, 
+		INSERT_INTO_CONFIG
 	};
 
 	type commandType;
@@ -123,7 +124,11 @@ public class Command
 				this.ioType = (ioType) x[2];
 			if (x.length > 3)
 				this.referenceType = (referenceType) x[3];
-			if (this.referenceType == referenceType.PICKUP_FROM_CONFIG)
+			
+			if (this.referenceType == referenceType.PICKUP_FROM_CONFIG || 
+					this.referenceType == referenceType.INSERT_INTO_CONFIG ||
+					this.referenceType == referenceType.RELATIVE_TO_OUTPUT_DIRECTORY) // (?)
+			
 				this.passToCommand = false;
 		}
 
@@ -222,11 +227,12 @@ public class Command
 								String s = (String) actualParameter;
 								args[i] = s;
 							}
-						} else if (formalParameter.ioType == Command.ioType.TEMP_DIR)
+						} else if (formalParameter.ioType == Command.ioType.OUTPUT_DIRECTORY)
 						{
 							Path p = createTempDir();
 							args[i]  = p.toString();
-							configuration.put(formalParameter.name, actualParameter);
+							configuration.put(formalParameter.name, p.toString());
+							
 						} else if (formalParameter.ioType == Command.ioType.CONFIG)
 						{
 							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
@@ -288,19 +294,20 @@ public class Command
 						{
 							// delete the file named args[i]
 							// store output
-							System.err.println("Reading output from file:" + args[i]);
+							System.err.println("Reading output for " +  a.name +  " from file:" + args[i]);
 							String fName = (String) args[i];
 							Properties p = new Properties();
-							if (a.referenceType == Command.referenceType.RELATIVE_TO_TEMPDIR)
+							if (a.referenceType == Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY)
 							{
-								for (int j=0; i < this.formalParameters.size(); j++)
+								System.err.println("Looking for base: "  + a.baseName);
+								for (int j=0; j < this.formalParameters.size(); j++)
 								{
-									if (this.formalParameters.get(i).name.equals(a.baseName))
+									if (this.formalParameters.get(j).name.equals(a.baseName))
 									{
-								
 										fName = args[j] + "/"  + fName;
 									}
 								}
+								System.err.println("relative path expanded to:"  + fName);
 							} else if (a.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
 							{
 								System.err.println("Pickup fName: " + fName);
@@ -310,16 +317,14 @@ public class Command
 							
 							InputStream str = new FileInputStream((String) args[i]);
 							
-							// System.err.println(str);
-							
-							
+							// System.err.println(str);				
 							
 							p.put("createdBy", this.commandName);
 							p.put("createdAt", new Date(System.currentTimeMillis()).toString());
 							p.put("createdWithArguments", actualParameters.toString());
 							
 							System.err.println("Storing new file with properties:"  + p);
-							repository.storeFile(str, p);
+							repository.storeFile(str, p.getProperty("filename"), p);
 							str.close();
 						} else
 						{

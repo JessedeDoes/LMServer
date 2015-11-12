@@ -22,6 +22,7 @@ public class RepositoryCL
 	{
 		commandMap.put("LM2PFSG",  SomeUsefulCommands.getLM2PFSGCommand());
 		commandMap.put("TEST",  SomeUsefulCommands.getTestCommand());
+		commandMap.put("BUILDLM", SomeUsefulCommands.getBasicLMBuildingCommand());
 	}
 /**
  * Misschien nog een extract all to zip toevoegen?

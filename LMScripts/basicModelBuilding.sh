@@ -1,6 +1,7 @@
 source $1
 
 rm -rf $OUTPUT/*
+
 source LMScripts/LMBuildingFunctions.sh
 
 

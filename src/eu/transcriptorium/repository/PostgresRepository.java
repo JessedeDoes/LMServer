@@ -330,6 +330,7 @@ public class PostgresRepository implements Repository
 				regex = true;
 				value = value.substring(1);
 			}
+			
 			String operator = regex?"~":"=";
 			
 			String clause = " select distinct id from metadata where key=? and value" +  operator + "? ";

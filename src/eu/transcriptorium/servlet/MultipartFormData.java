@@ -33,6 +33,7 @@ public class MultipartFormData
 	private static final long maxFileSize = 1000000000;
 	final private List<File> files = new LinkedList<File>();
 	private Map <String, File> fileMap = new HashMap<String, File>();
+	private Map<String, String> fileNameMap = new HashMap<String, String>();
 	final private Map<String, String> fields = new HashMap<String, String>();
 	private HttpServletRequest request;
 	private List<FileItem> fileItems = null;
@@ -55,12 +56,18 @@ public class MultipartFormData
 		return r;
 	}
 	
-	public void addFile(String name, File f) 
+	public void addFile(String name, File f, String uploadName) 
 	{
 		files.add(f);
 		fileMap.put(name,f);
+		fileNameMap.put(name, uploadName);
 	}
 
+	public String getUploadName(String n)
+	{
+		return fileNameMap.get(n);
+	}
+	
 	public void addField(String field, String value) 
 	{
 		fields.put(field, value);
@@ -162,7 +169,8 @@ public class MultipartFormData
 					File file = File.createTempFile("upload", "tmp");
 					// write uploaded file to disk
 					fi.write(file);
-					addFile(fi.getFieldName(), file);
+					String uploadFileName = fi.getName();
+					addFile(fi.getFieldName(), file, uploadFileName);
 				}  catch (Exception e) 
 				{
 					System.err.println("Error processing: " + fi);

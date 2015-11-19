@@ -108,7 +108,13 @@ public class SomeUsefulCommands
 		return null;
 	}
 
-	
+	public static Map<String,Command> getBasicCommands()
+	{
+		Map<String,Command> m = new HashMap<String,Command>();
+		m.put("BUILDLM",   SomeUsefulCommands.getBasicLMBuildingCommand());
+		m.put("LM2PFSG", SomeUsefulCommands.getLM2PFSGCommand() );
+		return m;
+	}
 	public static void main(String args[])
 	{
 		Repository r = new PostgresRepository(PostgresRepository.getDefaultProperties());

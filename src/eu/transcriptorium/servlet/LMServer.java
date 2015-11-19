@@ -193,18 +193,20 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		case LIST_LMS:
 			out.println(mapToJSON(this.modelDescriptionMap));
 			break;
+			
 		case SUGGESTION: // bijvoorbeeld http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
 			System.err.println("suggestion action requested....");
 			suggest(parameterMap, out);
 			break;
-		case BUILD_LM:
 			
+		case BUILD_LM:
 			buildLM(mpfd);
 			break;
+			
 		case DECODE_WG:
 			decodeWG(response, parameterMap, mpfd, out);
-			
 			break;
+			
 		case SUBSTITUTION:
 			scoreSubstitution(parameterMap, out);
 			break;
@@ -214,9 +216,11 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		case UPLOAD: // upload a list of files and one metadata JSON object
 			handleUpload(parameterMap, mpfd);
 			break;
+			
 		case INVOKE:
 			invokeCommand(parameterMap, mpfd);
 			break;
+			
 		default:
 			out.println("No valid action specified. Doing nothing!");
 		}
@@ -229,10 +233,13 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		String commandName = parameterMap.get("command");
 		Command c = commandMap.get(commandName);
 		Map<String,Object> args = new HashMap<String,Object>();
+		
 		for (String s: parameterMap.keySet())
 		{
+			if (!s.equalsIgnoreCase("command ") && !s.equalsIgnoreCase("action"))
 			args.put(s, parameterMap.get(s));
 		}
+		
 		if (c != null)
 		{
 			try

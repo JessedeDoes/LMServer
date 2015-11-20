@@ -7,7 +7,7 @@ public interface Repository
 	//int storeFile(InputStream s, Properties metadata); // returns id
 	static class FileInfo
 	{
-		int id;
+		public int id;
 		String fileName;
 		int contentLength;
 		public String toString()

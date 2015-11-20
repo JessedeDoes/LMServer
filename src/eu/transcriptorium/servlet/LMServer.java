@@ -22,6 +22,7 @@ import eu.transcriptorium.repository.Command;
 import eu.transcriptorium.repository.PostgresRepository;
 import eu.transcriptorium.repository.Repository;
 import eu.transcriptorium.repository.SomeUsefulCommands;
+import eu.transcriptorium.repository.Repository.FileInfo;
 import eu.transcriptorium.suggest.Suggest;
 import eu.transcriptorium.util.JSON;
 import eu.transcriptorium.util.StringUtils;
@@ -46,10 +47,12 @@ import java.util.*;
 public class LMServer extends  javax.servlet.http.HttpServlet
 {
 
-	Repository repo = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
 	
 	private static final long serialVersionUID = 1L;
 	private String basePath="/datalokaal/Corpus/LM/";
+	
+	
 
 	Map<String, Command> commandMap = SomeUsefulCommands.getBasicCommands();
 	// ToDo: naar configuratiebestandje
@@ -74,8 +77,19 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		SUGGESTION,
 		BUILD_LM,
 		DECODE_WG,
-		UPLOAD,
-		INVOKE
+		
+		// repository functions
+		
+		LIST,
+		STORE,
+		GETMETADATA,
+		SEARCHBYNAME,
+		SEARCH,
+		SETMETADATA,
+		CLEAR,
+		DELETE,
+		INVOKE,
+		EXTRACT
 	};
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
@@ -212,8 +226,26 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 			
 		// repository functions (make this a separate servlet? )
+		case LIST:
+			List<FileInfo> V = repository.list();
+			for (FileInfo fi: V)
+			{
+				out.println(fi + " --> " + repository.getMetadata(fi.id));
+			};
+			break;
+		case	GETMETADATA:
+			Properties p = repository.getMetadata(Integer.parseInt(parameterMap.get("id")));
+			p.store(out, "jippie");
+			break;
+		case	SEARCHBYNAME:
+		case	SEARCH:
+		case SETMETADATA:
+		case CLEAR:
+		case	DELETE:
+		
+		case	EXTRACT:
 			
-		case UPLOAD: // upload a list of files and one metadata JSON object
+		case STORE: // upload a list of files and one metadata JSON object
 			handleUpload(parameterMap, mpfd);
 			break;
 			
@@ -266,7 +298,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			Properties p = JSON.toProperties(JSON.fromString(metadata));
 			p.setProperty("uploadFieldName", n);
 			p.setProperty("uploadName", mpfd.getUploadName(n));
-			int id = repo.storeFile(new FileInputStream(f), f.getCanonicalPath(), p);
+			int id = repository.storeFile(new FileInputStream(f), f.getCanonicalPath(), p);
 		}
 	}
 

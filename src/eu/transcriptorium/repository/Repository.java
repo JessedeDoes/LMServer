@@ -67,6 +67,18 @@ public interface Repository
 			}
 			return l.getAsJsonObject();
 		}
+		
+		public static JsonObject searchByName(Repository r, String name)
+		{
+			JsonArray l = new JsonArray();
+			Set<Integer> V0 = r.searchByName(name);
+			for (int i: V0)
+			{
+				JsonElement j = new JsonPrimitive(i);
+				l.add(j);
+			}
+			return l.getAsJsonObject();
+		}
 	};
 	
 	int storeFile(InputStream s, String name, Properties metadata); 

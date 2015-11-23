@@ -240,7 +240,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			out.println(p.getAsString());
 			break;
 		case SEARCHBYNAME:
+		{
+			com.google.gson.JsonObject result = Repository.Static.searchByName(repository, parameterMap.get("filename"));
 			break;
+		}
 		case SEARCH:
 		{
 			int id = Integer.parseInt(parameterMap.get("id"));

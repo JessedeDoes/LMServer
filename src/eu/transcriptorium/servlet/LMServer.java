@@ -183,7 +183,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		//FileUploadBase.
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
+		response.setContentType("application/json"); // niet altijd!
 
 		Map<String,String> parameterMap = cloneParameterMap(request);
 
@@ -206,29 +206,15 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			e.printStackTrace();
 		}
 
+		performAction(response, parameterMap, mpfd, out, action);
+	}
+
+	private void repositoryAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
+			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException
+	{
 		switch(action)
 		{
-		case LIST_LMS:
-			out.println(mapToJSON(this.modelDescriptionMap));
-			break;
-
-		case SUGGESTION: // bijvoorbeeld
-							// http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
-			System.err.println("suggestion action requested....");
-			suggest(parameterMap, out);
-			break;
-
-		case BUILD_LM:
-			buildLM(mpfd);
-			break;
-
-		case DECODE_WG:
-			decodeWG(response, parameterMap, mpfd, out);
-			break;
-
-		case SUBSTITUTION:
-			scoreSubstitution(parameterMap, out);
-			break;
+		
 
 		// repository functions (make this a separate servlet? )
 		case LIST:
@@ -263,14 +249,16 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 		case CLEAR:
 			repository.clear();
+			break;
 		case DELETE:
 			repository.delete(Integer.parseInt(parameterMap.get("id")));
 			break;
 		case EXTRACT:
+			response.setContentType("application/octet-stream");
 			InputStream strm = repository.openFile(Integer.parseInt(parameterMap.get("id")));
 			try
 			{
-				FileUtils.copyStream(strm, new WriterOutputStream(out)); // slecht...
+				FileUtils.copyStream(strm, new WriterOutputStream(out)); // SLECHT: writer to stream is niet solide
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -281,6 +269,43 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 		case INVOKE:
 			invokeCommand(parameterMap, mpfd);
+			break;
+
+		default:
+			out.println("No valid action specified. Doing nothing!");
+		}
+	}
+	private void performAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
+			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException {
+		switch(action)
+		{
+		case LIST_LMS:
+			out.println(mapToJSON(this.modelDescriptionMap));
+			break;
+
+		case SUGGESTION: // bijvoorbeeld
+							// http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
+			System.err.println("suggestion action requested....");
+			suggest(parameterMap, out);
+			break;
+
+		case BUILD_LM:
+			buildLM(mpfd);
+			break;
+
+		case DECODE_WG:
+			decodeWG(response, parameterMap, mpfd, out);
+			break;
+
+		case SUBSTITUTION:
+			scoreSubstitution(parameterMap, out);
+			break;
+
+		// repository functions (make this a separate servlet? )
+		case LIST: case GETMETADATA: case SEARCHBYNAME: case SEARCH: 
+			case SETMETADATA: case CLEAR: case DELETE: case EXTRACT: 
+		case STORE: case INVOKE: 
+			this.repositoryAction(response, parameterMap, mpfd, out, action);
 			break;
 
 		default:

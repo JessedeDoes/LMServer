@@ -275,7 +275,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			out.println("No valid action specified. Doing nothing!");
 		}
 	}
-	private void performAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
+	
+	private void demoAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
 			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException {
 		switch(action)
 		{
@@ -302,9 +303,23 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 
 		// repository functions (make this a separate servlet? )
+		
+
+		default:
+			out.println("No valid action specified. Doing nothing!");
+		}
+	}
+	private void performAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
+			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException {
+		switch(action)
+		{
+		case LIST_LMS: case SUGGESTION: case BUILD_LM: case DECODE_WG: case SUBSTITUTION:
+			this.demoAction(response, parameterMap, mpfd, out, action);
+			break;
+		// repository functions (make this a separate servlet? )
 		case LIST: case GETMETADATA: case SEARCHBYNAME: case SEARCH: 
 			case SETMETADATA: case CLEAR: case DELETE: case EXTRACT: 
-		case STORE: case INVOKE: 
+			case STORE: case INVOKE: 
 			this.repositoryAction(response, parameterMap, mpfd, out, action);
 			break;
 

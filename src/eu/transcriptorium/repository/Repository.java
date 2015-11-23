@@ -2,8 +2,9 @@ package eu.transcriptorium.repository;
 import java.util.*;
 
 import com.google.gson.JsonArray;
-
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import java.io.*;
 
@@ -53,6 +54,18 @@ public interface Repository
 		{
 			Properties p = r.getMetadata(id);
 			return eu.transcriptorium.util.JSON.propertiesToJson(p);
+		}
+		
+		public static JsonObject search(Repository r, Properties p)
+		{
+			JsonArray l = new JsonArray();
+			Set<Integer> V0 = r.search(p);
+			for (int i: V0)
+			{
+				JsonElement j = new JsonPrimitive(i);
+				l.add(j);
+			}
+			return l.getAsJsonObject();
 		}
 	};
 	

@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.output.WriterOutputStream;
 
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.collections.Counter;
@@ -20,6 +21,7 @@ import eu.transcriptorium.lattice.LatticeToDot;
 import eu.transcriptorium.lattice.StandardLatticeFile;
 import eu.transcriptorium.lm.ScoreWordSubstitutions;
 import eu.transcriptorium.repository.Command;
+import eu.transcriptorium.repository.FileUtils;
 import eu.transcriptorium.repository.PostgresRepository;
 import eu.transcriptorium.repository.Repository;
 import eu.transcriptorium.repository.SomeUsefulCommands;
@@ -238,15 +240,38 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			out.println(p.getAsString());
 			break;
 		case SEARCHBYNAME:
+			break;
 		case SEARCH:
+		{
+			int id = Integer.parseInt(parameterMap.get("id"));
+			String metadata = parameterMap.get("metadata");
+			com.google.gson.JsonObject o = JSON.fromString(metadata);
+			Properties p1 = JSON.toProperties(o);
+			com.google.gson.JsonObject result = Repository.Static.search(repository, p1);
+			out.println(result.getAsString());
+			break;
+		}
 		case SETMETADATA:
+			int id = Integer.parseInt(parameterMap.get("id"));
+			String metadata = parameterMap.get("metadata");
+			com.google.gson.JsonObject o = JSON.fromString(metadata);
+			Properties p1 = JSON.toProperties(o);
+			repository.setMetadata(id, p1);
+			break;
 		case CLEAR:
+			repository.clear();
 		case DELETE:
 			repository.delete(Integer.parseInt(parameterMap.get("id")));
 			break;
 		case EXTRACT:
 			InputStream strm = repository.openFile(Integer.parseInt(parameterMap.get("id")));
-			
+			try
+			{
+				FileUtils.copyStream(strm, new WriterOutputStream(out)); // slecht...
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		case STORE: // upload a list of files and one metadata JSON object
 			handleUpload(parameterMap, mpfd);
 			break;

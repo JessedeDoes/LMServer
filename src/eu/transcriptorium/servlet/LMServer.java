@@ -73,6 +73,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 	enum Action 
 	{
+		// demo functions
 		NONE,
 		LIST_LMS,
 		SUBSTITUTION,

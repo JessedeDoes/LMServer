@@ -2,6 +2,7 @@ package eu.transcriptorium.servlet;
 
 
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.stream.*;
 //import org.
 import javax.servlet.ServletException;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.*;
@@ -48,23 +50,23 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 {
 
 	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
-	
+
 	private static final long serialVersionUID = 1L;
 	private String basePath="/datalokaal/Corpus/LM/";
-	
-	
+
+
 
 	Map<String, Command> commandMap = SomeUsefulCommands.getBasicCommands();
 	// ToDo: naar configuratiebestandje
 
 	private String[][] lmLocations = 
 		{
-			// {"Sonar",  basePath + "Sonar.lm.gz"},
-			{"MNL",  basePath + "cdrom_mnl.lm", "Middelnederlands"},
-			{"Bentham", basePath + "trigramModel.lm.bin", "Bentham with ECCO"},
-			{"Reichsgericht",  basePath + "ReichsGericht.lm", "Reichsgericht"},
-			{"Plantas",  basePath + "PlantasGutenberg.lm", "Plantas with Gutenberg Spanish"},
-            {"SpanishGutenberg", basePath + "SpanishGutenberg.lm.gz", "Spanish Gutenberg"}
+				// {"Sonar",  basePath + "Sonar.lm.gz"},
+				{"MNL",  basePath + "cdrom_mnl.lm", "Middelnederlands"},
+				{"Bentham", basePath + "trigramModel.lm.bin", "Bentham with ECCO"},
+				{"Reichsgericht",  basePath + "ReichsGericht.lm", "Reichsgericht"},
+				{"Plantas",  basePath + "PlantasGutenberg.lm", "Plantas with Gutenberg Spanish"},
+				{"SpanishGutenberg", basePath + "SpanishGutenberg.lm.gz", "Spanish Gutenberg"}
 		};
 
 	enum Action 
@@ -77,9 +79,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		SUGGESTION,
 		BUILD_LM,
 		DECODE_WG,
-		
+
 		// repository functions
-		
+
 		LIST,
 		STORE,
 		GETMETADATA,
@@ -182,7 +184,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		response.setContentType("application/json");
 
 		Map<String,String> parameterMap = cloneParameterMap(request);
-		
+
 		MultipartFormData mpfd = null;
 		if (ServletFileUpload.isMultipartContent(request))
 		{
@@ -190,7 +192,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			parameterMap = mpfd.getFields();
 		}
 		java.io.PrintWriter out = response.getWriter( );
-
+		//response.getOutputStream();
 
 		Action action = Action.NONE;
 
@@ -207,52 +209,52 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		case LIST_LMS:
 			out.println(mapToJSON(this.modelDescriptionMap));
 			break;
-			
-		case SUGGESTION: // bijvoorbeeld http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
+
+		case SUGGESTION: // bijvoorbeeld
+							// http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
 			System.err.println("suggestion action requested....");
 			suggest(parameterMap, out);
 			break;
-			
+
 		case BUILD_LM:
 			buildLM(mpfd);
 			break;
-			
+
 		case DECODE_WG:
 			decodeWG(response, parameterMap, mpfd, out);
 			break;
-			
+
 		case SUBSTITUTION:
 			scoreSubstitution(parameterMap, out);
 			break;
-			
+
 		// repository functions (make this a separate servlet? )
 		case LIST:
-			List<FileInfo> V = repository.list();
-			for (FileInfo fi: V)
-			{
-				out.println(fi + " --> " + repository.getMetadata(fi.id));
-			};
+			com.google.gson.JsonObject L = Repository.Static.list(repository);
+			out.println(L.getAsString());
 			break;
-		case	GETMETADATA:
-			Properties p = repository.getMetadata(Integer.parseInt(parameterMap.get("id")));
-			p.store(out, "jippie");
+		case GETMETADATA:
+			com.google.gson.JsonObject p = Repository.Static.getMetadata(repository, Integer.parseInt(parameterMap.get("id")));
+			out.println(p.getAsString());
 			break;
-		case	SEARCHBYNAME:
-		case	SEARCH:
+		case SEARCHBYNAME:
+		case SEARCH:
 		case SETMETADATA:
 		case CLEAR:
-		case	DELETE:
-		
-		case	EXTRACT:
+		case DELETE:
+			repository.delete(Integer.parseInt(parameterMap.get("id")));
+			break;
+		case EXTRACT:
+			InputStream strm = repository.openFile(Integer.parseInt(parameterMap.get("id")));
 			
 		case STORE: // upload a list of files and one metadata JSON object
 			handleUpload(parameterMap, mpfd);
 			break;
-			
+
 		case INVOKE:
 			invokeCommand(parameterMap, mpfd);
 			break;
-			
+
 		default:
 			out.println("No valid action specified. Doing nothing!");
 		}
@@ -265,13 +267,13 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		String commandName = parameterMap.get("command");
 		Command c = commandMap.get(commandName);
 		Map<String,Object> args = new HashMap<String,Object>();
-		
+
 		for (String s: parameterMap.keySet())
 		{
 			if (!s.equalsIgnoreCase("command ") && !s.equalsIgnoreCase("action"))
-			args.put(s, parameterMap.get(s));
+				args.put(s, parameterMap.get(s));
 		}
-		
+
 		if (c != null)
 		{
 			try
@@ -289,9 +291,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			MultipartFormData mpfd) throws FileNotFoundException, IOException
 	{
 		Map <String, File> files = mpfd.getFileMap();
-		
+
 		String metadata = parameterMap.get("metadata"); // hmpf?
-		
+
 		for (String n: files.keySet())
 		{
 			File f  = files.get(n);
@@ -365,17 +367,17 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		LatticeDecoder decoder = new LatticeDecoder();
 		decoder.setLanguageModel(lm);
 		out.println("<html><head><style type='text/css'>.zoom { font-size: 14pt} \n svg {width: 100%; border-style: solid; border-width: 1px; border-color: pink} \n g { background-color: pink }  </style>" + 
-		"<script type='text/javascript' src='JS/toggle.js'></script></head><body>");
+				"<script type='text/javascript' src='JS/toggle.js'></script></head><body>");
 		int k=0;
 		String template = "<div>_S <span style='color: blue' onclick=\"toggle_element('div_ID')\">[Show word graph]</span>" + 
-					"<div style='display: none' id='div_ID'><span class='zoom' onclick=\"zoom_in('_ID')\">+</span> <span cass='zoom' onclick=\"zoom_out('_ID')\">-</span><br> _G</div></div><br>";
+				"<div style='display: none' id='div_ID'><span class='zoom' onclick=\"zoom_in('_ID')\">+</span> <span cass='zoom' onclick=\"zoom_out('_ID')\">-</span><br> _G</div></div><br>";
 		for (String l: mpfd.getNamesOfUploadedfiles())
 		{
 			Lattice lat = StandardLatticeFile.readLatticeFromFile(l);
 			List<String> sentence = decoder.decode(lat);
 			String sent = StringUtils.join(sentence, " ");
 			sent = sent.replaceAll("<.*?>", "");
-			
+
 			if (showWordGraphs)
 			{
 				String svg = LatticeToDot.latticeToSVG(lat);
@@ -464,10 +466,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 		jg = jg.writeEnd();
 		jg.close();
-		
+
 		return strw.getBuffer().toString();
 	}
-	
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException 
 	{

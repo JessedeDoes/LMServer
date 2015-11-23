@@ -36,6 +36,17 @@ public class JSON
 
 	}
 
+	static public JsonObject propertiesToJson(Properties p)
+	{
+		JsonObject o = new JsonObject();
+		for (Object k: p.keySet())
+		{
+			String key = (String) k;
+			o.addProperty(key, p.getProperty(key));
+		}
+		return o;
+	}
+	
 	static public Map<String,Object>  toMap(JsonObject o)
 	{
 		if (o == null)

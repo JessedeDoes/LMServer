@@ -1,5 +1,10 @@
 package eu.transcriptorium.repository;
 import java.util.*;
+
+import com.google.gson.JsonArray;
+
+import com.google.gson.JsonObject;
+
 import java.io.*;
 
 public interface Repository
@@ -10,15 +15,53 @@ public interface Repository
 		public int id;
 		String fileName;
 		int contentLength;
+		
 		public String toString()
 		{
 			return String.format("(id=%d,name=%s,size=%d)", id, fileName, contentLength);
 		}
+		
+		public JsonObject toJsonObject()
+		{
+			JsonObject o = new JsonObject();
+			o.addProperty("id", id);
+			o.addProperty("fileName", fileName);
+			o.addProperty("contentLength", contentLength);
+			return o;
+		}
+		
+		public String toJsonString()
+		{
+			return toJsonObject().getAsString();
+		}
 	};
+	
+	public static class Static
+	{
+		public static JsonObject list(Repository r)
+		{
+			JsonArray l = new JsonArray();
+			for (FileInfo f: r.list())
+			{
+				JsonObject o = f.toJsonObject();
+				l.add(o);
+			}
+			return l.getAsJsonObject();
+		}
+		
+		public static JsonObject getMetadata(Repository r, int id)
+		{
+			Properties p = r.getMetadata(id);
+			return eu.transcriptorium.util.JSON.propertiesToJson(p);
+		}
+	};
+	
 	int storeFile(InputStream s, String name, Properties metadata); 
 	InputStream openFile(int id);
+	
 	Set<Integer> search(Properties metadata);
 	Set<Integer> searchByName(String name);
+	
 	List<FileInfo> list();
 	boolean setTag(Collection<Integer> files, String tag);
 	String getMetadataProperty(int id, String key);

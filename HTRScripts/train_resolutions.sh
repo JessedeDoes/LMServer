@@ -2,7 +2,7 @@
 # Training Phase
 ###################
 STARTDIR=`pwd`
-# rm -rf EXP-RESOLUTIONS/TRAIN/hmms
+rm -rf EXP-RESOLUTIONS/TRAIN/hmms
 cd EXP-RESOLUTIONS/TRAIN
 
 #Useful links

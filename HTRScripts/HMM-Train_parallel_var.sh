@@ -94,7 +94,7 @@ function CreaProto {
     if [ $i -eq $[$2+1] ]; then
       echo ""
     fi
-    if [ $i -le $2 ]; then
+    if [ $i -le $[$2] ]; then
       echo "   0.000e+0"
     fi
     if [ $i -eq $[$2+2] ]; then

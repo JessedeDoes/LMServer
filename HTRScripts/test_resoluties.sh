@@ -21,7 +21,7 @@ ln -s ../TRAIN/Resolutions-HMMs.lst
 #ln -s ../TRAIN/$TEST_SLF
 
 # Filter-out paths and extensions from the list of page IDs
-for f in `sed -e 's/^/Features\//'  -e 's/.jpg/\*.fea/g'  ../../corpora/Resolutions/test.lst`; do ls ${f};  done > Test-List
+for f in `sed -e 's/^/Features\//'  -e 's/.jpg/\*.fea.gz/g'  ../../corpora/Resolutions/test.lst`; do ls ${f};  done > Test-List
 
 # Launch recognition step parallelized among x cores
 Recog-WGGen.sh Resolutions.conf

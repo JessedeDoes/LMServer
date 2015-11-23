@@ -57,17 +57,20 @@ mkdir -p $DRES
 LSAMPLES=`basename $TEST_LST_SAMPLES`
 
 # Creating config file if necessary
+# pas op (Jesse): USER veranderd in MFCC
+# pas op: foutje verbeterd, EXGFLGS -> EXFLGS
 if [ "${ATROS_FORMAT}" -eq 1 ]; then
+  echo "Using ATROS format!!!!!";
   VEC_SIZE=$(zcat `head -1 $TEST_LST_SAMPLES` | grep "NumParam" | awk '{print $2}')
   {
     echo "HPARMFILTER    = \"gzip -d -c $.gz\""
     echo "SOURCEFORMAT   = ATROS" 
     echo "NUMCEPS        = ${VEC_SIZE}"
-    echo "TARGETKIND     = USER"
+    echo "TARGETKIND     = MFCC"
   } > AuxProc/config_HVITE
 
   sed "s/\.gz$//" $TEST_LST_SAMPLES > AuxProc/$LSAMPLES   # Delete .gz extensions
-  FLAGSHVITE="-A -T 1 -C AuxProc/config_HVITE $EXGFLGS"
+  FLAGSHVITE="-A -T 1 -C AuxProc/config_HVITE $EXFLGS"
 else
   cp $TEST_LST_SAMPLES AuxProc/$LSAMPLES
   FLAGSHVITE="-A -T 1 $EXFLGS"

@@ -6,7 +6,16 @@ my $SUB=0;
 my ($RESULTS,$GTDIR) = @ARGV;
 opendir(D,$RESULTS);
 
+my @lines;
 while (my $x = readdir(D))
+{
+  next if (!($x =~ /\.rec$/));
+  push(@lines,$x);
+}
+
+@lines = sort @lines;
+
+foreach my $x (@lines)
 {
   open(X ,"$RESULTS/$x");
   my $HTR;

@@ -36,6 +36,7 @@ if [ "${PROJ_PCA}" = "null" ]; then
   exit 1
 fi
 
+echo "PROJ_PCA is now $PROJ_PCA!!!"
 # Check for installed software
 DOTMATRIX=$(which dotmatrix)
 [ -z "$DOTMATRIX" ] && { echo "ERROR: \"dotmatrix\" soft is not installed/found "'!' 1>&2; exit 1; }
@@ -101,6 +102,9 @@ if [ "${PROJ_PCA}" = "-" ]; then
   fi
   PROJ_PCA=${WORK_DIR}/${MAT_FILE}
 fi
+
+echo "PROJ_PCA should be in $PROJ_PCA WORK DIR = ${WORK_DIR}, MAT_FILE = ${MAT_FILE}"
+ls $PROJ_PCA
 
 if [ ! -d ${DEST_DIR} ]; then
   mkdir -p ${DEST_DIR}

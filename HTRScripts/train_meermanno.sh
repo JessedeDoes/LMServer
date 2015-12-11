@@ -124,7 +124,7 @@ otherTextProcessing()
 
 (otherTextProcessing)
 
-exit
+
 ###### end of text processing 
 
 # The input of this script is the list of the files containing the transcription of the training lines,

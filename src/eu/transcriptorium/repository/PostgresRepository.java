@@ -678,21 +678,24 @@ public class PostgresRepository implements Repository
 	{
 		Properties p = new Properties();
 
-		p.put("dbHost", "svowdb02"); 
-		p.put("dbPort", "5432");
-		p.put("dbSchemaName", "lmserver");
-		p.put("dbPasswd", "inl"); 
-		p.put("dbUser", "postgres");
-
+		
+		
 		p = getDefaultProperties();
+		p.put("year_from", "300");
+		p.put("language", "dutch");
+
 		PostgresRepository fs = new PostgresRepository(p);
 		fs.createNew();
+		
 		//fs.testje();
+		
 		fs.createCollection("bentham", null);
 		fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
-		fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
-		fs.removeFromCollection(fs.search("bentham"), fs.search("bentham"));
-		fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
+		//fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
+		fs.setMetadata(fs.search("bentham"), p);
+		
+		//fs.removeFromCollection(fs.search("bentham"), fs.search("bentham"));
+		//fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
 
 		Set<Integer>  V = fs.search(p);
 		for (int k: V)

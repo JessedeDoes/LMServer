@@ -27,7 +27,7 @@ public class PostgresRepository implements Repository
 		 "create table FileTable (id serial primary key, filename text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer, key  text, value text)";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
-
+	static String createCollectionsTable = "create table collections (collection_id integer, item_id integer)";
 	String tableName="filetable";
 
 	SimpleDatabase database; //  = new PostgresDatabase();
@@ -50,9 +50,11 @@ public class PostgresRepository implements Repository
 			database.query("drop table if exists filetable");
 			database.query("drop table if exists metadata");
 			database.query("drop table if exists tags");
+			database.query("drop table if exists collections");
 			database.query(createFileTable);
 			database.query(createMetadataTable);
 			database.query(createTagsTable);
+			database.query(createCollectionsTable);
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -488,28 +490,7 @@ public class PostgresRepository implements Repository
 		return false;
 	}
 	
-	public static void main(String [] args)
-	{
-		Properties p = new Properties();
-
-		p.put("dbHost", "svowdb02"); 
-		p.put("dbPort", "5432");
-		p.put("dbSchemaName", "lmserver");
-		p.put("dbPasswd", "inl"); 
-		p.put("dbUser", "postgres");
-
-		p = getDefaultProperties();
-		PostgresRepository fs = new PostgresRepository(p);
-		fs.createNew();
-		//fs.testje();
-		fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
-		Set<Integer>  V = fs.search(p);
-		for (int k: V)
-		{
-			System.out.println(fs.getMetadata(k));
-		}
-	}
-
+	
 	@Override
 	public List<FileInfo> list() 
 	{
@@ -536,5 +517,27 @@ public class PostgresRepository implements Repository
 			return null;
 		}
 		return V;
+	}
+	
+	public static void main(String [] args)
+	{
+		Properties p = new Properties();
+
+		p.put("dbHost", "svowdb02"); 
+		p.put("dbPort", "5432");
+		p.put("dbSchemaName", "lmserver");
+		p.put("dbPasswd", "inl"); 
+		p.put("dbUser", "postgres");
+
+		p = getDefaultProperties();
+		PostgresRepository fs = new PostgresRepository(p);
+		fs.createNew();
+		//fs.testje();
+		fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
+		Set<Integer>  V = fs.search(p);
+		for (int k: V)
+		{
+			System.out.println(fs.getMetadata(k));
+		}
 	}
 }

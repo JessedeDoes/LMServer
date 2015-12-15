@@ -87,6 +87,12 @@ public interface Repository
 	Set<Integer> search(Properties metadata);
 	Set<Integer> searchByName(String name);
 	
+	// collection stuff
+	
+	Set<Integer> getCollectionItems(int collection_id);
+	void addToCollection(int collection_id, int item_id);
+	int createCollection(String name, Properties metadata);
+	
 	List<FileInfo> list();
 	boolean setTag(Collection<Integer> files, String tag);
 	String getMetadataProperty(int id, String key);

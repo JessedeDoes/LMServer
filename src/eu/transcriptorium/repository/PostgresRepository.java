@@ -23,18 +23,18 @@ public class PostgresRepository implements Repository
 
 	// create table FileTable (id serial, fileName text, type text, content oid);
 
-	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, type text references types (type), content bytea)":
-		 "create table FileTable (id serial primary key, filename text, type text, content bytea)";
+	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, language text, year_from integer, year_to integer, type text references types (type), content bytea)":
+		"create table FileTable (id serial primary key, filename text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer, key  text, value text)";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
-	
+
 	// uniqueness constraint does not work with NULL!
 	static String createCollectionsTable = "create table collections (collection_id integer, item_id integer, constraint unq unique(collection_id, item_id))";
 	static String createTypesTable = "create table types (type text primary key)";
-	
+
 	static String[] predefinedTypes = { "lm", "dictionary", "corpus_plaintext", "collection", 
-			"page_xml_file"};
-	
+	"page_xml_file"};
+
 	String tableName="filetable";
 
 	SimpleDatabase database; //  = new PostgresDatabase();
@@ -49,7 +49,7 @@ public class PostgresRepository implements Repository
 	{
 		createNew();
 	}
-	
+
 	public void createNew()
 	{
 		try
@@ -59,23 +59,23 @@ public class PostgresRepository implements Repository
 			database.query("drop table if exists tags");
 			database.query("drop table if exists collections");
 			database.query("drop table if exists types");
-			
+
 			database.query(createTypesTable);
 			String q = "insert into types (type) VALUES (?)";
 			String qm="";
-			
+
 			for (String s: predefinedTypes)
 			{
 				PreparedStatement stmt = database.getConnection().prepareStatement(q);
 				stmt.setString(1, s);
 				stmt.execute();
 			}
-			
+
 			database.query(createFileTable);
 			database.query(createMetadataTable);
 			database.query(createTagsTable);
 			database.query(createCollectionsTable);
-		
+
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -186,7 +186,7 @@ public class PostgresRepository implements Repository
 		setMetadata(id, p);
 		return id;
 	}
-	
+
 	public int storeFile(InputStream fi, Properties p)
 	{
 		int id = storeFile(fi,  "anonymous");
@@ -200,7 +200,7 @@ public class PostgresRepository implements Repository
 			p.put("createdBy", "STORE_FILE");
 		p.put("createdAt", new Date(System.currentTimeMillis()).toString());
 	}
-	
+
 	public int storeFile(String filename, Properties p)
 	{
 		int id = storeFile(filename);
@@ -231,9 +231,34 @@ public class PostgresRepository implements Repository
 			String key = (String) n;
 			String value  = p.getProperty(key);
 			setMetadataProperty(id, key, value);
+			
 		}
 	}
-	
+
+	private void  transferMetadataToMainTable(int id, String key, String value)
+	{
+		String q = "update filetable set " + key + "=? where id=?";
+		boolean transfer = true;
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+			stmt.setInt(2, id);
+			switch (key.toLowerCase())
+			{
+			case "type": case "filename": case "language": stmt.setString(1, value); break;
+			case "year_from": case "year_to": stmt.setInt(1, Integer.parseInt(value)); break;
+			default: transfer = false;
+			}
+			if (transfer)
+			{
+				stmt.execute();
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void setMetadataProperty(int id, String key, String value) 
 	{
@@ -243,7 +268,7 @@ public class PostgresRepository implements Repository
 		{
 			query = "update metadata set value=? where key=? and id=?";
 		}
-		
+
 		try 
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(query);
@@ -266,6 +291,7 @@ public class PostgresRepository implements Repository
 		{
 			e.printStackTrace();
 		}
+		transferMetadataToMainTable(id, key, value);
 	}
 
 	public String getType(String f)
@@ -281,14 +307,14 @@ public class PostgresRepository implements Repository
 	public InputStream openFile(int id)
 	{
 		String q = " select content from filetable where id=? ";
-		
+
 		try
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			int nofcolumns = rs.getMetaData().getColumnCount();
-			
+
 			while (rs.next()) 
 			{
 				InputStream s = rs.getBinaryStream(1); //  new String(rs.getBytes(1), "UTF-8");
@@ -305,23 +331,23 @@ public class PostgresRepository implements Repository
 	{
 		Set<Integer> result = new HashSet<Integer>();
 		boolean regex = false;
-		
+
 		if (name.startsWith("~"))
 		{
 			regex = true;
 			name = name.substring(1);
 		}
 		String operator = regex?"~":"=";
-		
+
 		String q = " select distinct id from filetable where filename"  + operator +  "? ";
-		
+
 		try
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setString(1,name);
-			
+
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				int  i = rs.getInt(1); 
@@ -329,18 +355,18 @@ public class PostgresRepository implements Repository
 			}
 		} catch (Exception e)
 		{
-			
+
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	public int search(String name)
 	{
 		Set<Integer> V = searchByName(name);
 		return V.iterator().next();
 	}
-	
+
 	public Set<Integer> search(Properties p)
 	{
 		List<String> clauses = new ArrayList<String>();
@@ -353,15 +379,15 @@ public class PostgresRepository implements Repository
 			String value = p.getProperty(key);
 			System.err.println("Value=" + value);
 			boolean regex = false;
-			
+
 			if (value.startsWith("~"))
 			{
 				regex = true;
 				value = value.substring(1);
 			}
-			
+
 			String operator = regex?"~":"=";
-			
+
 			String clause = " select distinct id from metadata where key=? and value" +  operator + "? ";
 			clauses.add(clause);
 			fillers.add(key);
@@ -378,7 +404,7 @@ public class PostgresRepository implements Repository
 				stmt.setString(i+1, fillers.get(i));
 			System.err.println("Search query:" + stmt);
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				int  i = rs.getInt(1); //  new String(rs.getBytes(1), "UTF-8");
@@ -410,15 +436,15 @@ public class PostgresRepository implements Repository
 	}
 
 
-   private int getContentLength(int id)
-   {
-	   String q = " select length(content) from filetable where id=? ";
-	   try
+	private int getContentLength(int id)
+	{
+		String q = " select length(content) from filetable where id=? ";
+		try
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				int l = rs.getInt(1);
@@ -428,9 +454,9 @@ public class PostgresRepository implements Repository
 		{
 			return -1;
 		}
-	   return -1;
-   }
-   
+		return -1;
+	}
+
 	@Override
 	public Properties getMetadata(int id)
 	{
@@ -442,7 +468,7 @@ public class PostgresRepository implements Repository
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				String k = rs.getString(1);
@@ -481,7 +507,7 @@ public class PostgresRepository implements Repository
 		}
 		return null;
 	}
-	
+
 	public static Properties getDefaultProperties()
 	{
 		Properties p = new Properties();
@@ -491,10 +517,10 @@ public class PostgresRepository implements Repository
 		p.put("dbSchemaName", "lmserver");
 		p.put("dbPasswd", "inl"); 
 		p.put("dbUser", "postgres");
-		
+
 		return p;
 	}
-	
+
 	@Override
 	public boolean setTag(Collection<Integer> fileIds, String tag)
 	{
@@ -516,21 +542,21 @@ public class PostgresRepository implements Repository
 		}
 		return false;
 	}
-	
-	
+
+
 	@Override
 	public List<FileInfo> list() 
 	{
 		// TODO Auto-generated method stub
 		List<FileInfo> V = new ArrayList<FileInfo>();
 		String q = "select id,filename,length(content) from filetable";
-		
+
 		try
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				FileInfo fi = new FileInfo();
@@ -545,8 +571,8 @@ public class PostgresRepository implements Repository
 		}
 		return V;
 	}
-	
-	
+
+
 
 	@Override
 	public Set<Integer> getCollectionItems(int collection_id) 
@@ -559,7 +585,7 @@ public class PostgresRepository implements Repository
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, collection_id);
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				V.add(rs.getInt(1));
@@ -574,7 +600,7 @@ public class PostgresRepository implements Repository
 	@Override
 	public void addToCollection(int collection_id, int item_id) 
 	{
-	
+
 		String query = "insert into collections (collection_id, item_id) VALUES (?,?)";
 		try 
 		{
@@ -604,7 +630,7 @@ public class PostgresRepository implements Repository
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public int createCollection(String name, Properties metadata) 
 	{
@@ -624,20 +650,20 @@ public class PostgresRepository implements Repository
 		try 
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(query);
-			
+
 			// FileInputStream fi = new FileInputStream(file);
 			if (isUpdate)
 			{
-				
+
 			} else
 			{
 				stmt.setString(1, name);
-				
+
 			}
 			//stmt.set
 			boolean res = stmt.execute();
 			stmt.close();
-			
+
 			int id = isUpdate?updateId:getLastId();
 			System.err.println("id of stored file: " + id);
 			return id;
@@ -647,7 +673,7 @@ public class PostgresRepository implements Repository
 			return -1;
 		}
 	}
-	
+
 	public static void main(String [] args)
 	{
 		Properties p = new Properties();
@@ -667,7 +693,7 @@ public class PostgresRepository implements Repository
 		fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
 		fs.removeFromCollection(fs.search("bentham"), fs.search("bentham"));
 		fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
-		
+
 		Set<Integer>  V = fs.search(p);
 		for (int k: V)
 		{

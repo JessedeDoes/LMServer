@@ -23,13 +23,17 @@ public class PostgresRepository implements Repository
 
 	// create table FileTable (id serial, fileName text, type text, content oid);
 
-	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, type text, content bytea)":
+	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, type text references types (type), content bytea)":
 		 "create table FileTable (id serial primary key, filename text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer, key  text, value text)";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 	
 	// uniqueness constraint does not work with NULL!
 	static String createCollectionsTable = "create table collections (collection_id integer, item_id integer, constraint unq unique(collection_id, item_id))";
+	static String createTypesTable = "create table types (type text primary key)";
+	
+	static String[] predefinedTypes = { "lm", "dictionary", "corpus_plaintext", "collection", 
+			"page_xml_file"};
 	
 	String tableName="filetable";
 
@@ -54,10 +58,24 @@ public class PostgresRepository implements Repository
 			database.query("drop table if exists metadata");
 			database.query("drop table if exists tags");
 			database.query("drop table if exists collections");
+			database.query("drop table if exists types");
+			
+			database.query(createTypesTable);
+			String q = "insert into types (type) VALUES (?)";
+			String qm="";
+			
+			for (String s: predefinedTypes)
+			{
+				PreparedStatement stmt = database.getConnection().prepareStatement(q);
+				stmt.setString(1, s);
+				stmt.execute();
+			}
+			
 			database.query(createFileTable);
 			database.query(createMetadataTable);
 			database.query(createTagsTable);
 			database.query(createCollectionsTable);
+		
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -271,7 +289,7 @@ public class PostgresRepository implements Repository
 			ResultSet rs = stmt.executeQuery();
 			int nofcolumns = rs.getMetaData().getColumnCount();
 			
-			while (rs.next()) // mis je nu de eerste??
+			while (rs.next()) 
 			{
 				InputStream s = rs.getBinaryStream(1); //  new String(rs.getBytes(1), "UTF-8");
 				return s;
@@ -317,6 +335,12 @@ public class PostgresRepository implements Repository
 		return result;
 	}
 	
+	public int search(String name)
+	{
+		Set<Integer> V = searchByName(name);
+		return V.iterator().next();
+	}
+	
 	public Set<Integer> search(Properties p)
 	{
 		List<String> clauses = new ArrayList<String>();
@@ -355,7 +379,7 @@ public class PostgresRepository implements Repository
 			System.err.println("Search query:" + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
-			while (rs.next()) // mis je nu de eerste??
+			while (rs.next()) 
 			{
 				int  i = rs.getInt(1); //  new String(rs.getBytes(1), "UTF-8");
 				result.add(i);
@@ -446,7 +470,7 @@ public class PostgresRepository implements Repository
 			stmt.setString(2, key);
 			ResultSet rs = stmt.executeQuery();
 			int nofcolumns = rs.getMetaData().getColumnCount();
-			while (rs.next()) // mis je nu de eerste??
+			while (rs.next()) 
 			{
 				String k = rs.getString(1);
 				return k;
@@ -638,13 +662,16 @@ public class PostgresRepository implements Repository
 		PostgresRepository fs = new PostgresRepository(p);
 		fs.createNew();
 		//fs.testje();
+		fs.createCollection("bentham", null);
+		fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
+		fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
+		fs.removeFromCollection(fs.search("bentham"), fs.search("bentham"));
 		fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
+		
 		Set<Integer>  V = fs.search(p);
 		for (int k: V)
 		{
 			System.out.println(fs.getMetadata(k));
 		}
 	}
-
-	
 }

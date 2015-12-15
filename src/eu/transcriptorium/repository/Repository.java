@@ -86,7 +86,7 @@ public interface Repository
 	
 	Set<Integer> search(Properties metadata);
 	Set<Integer> searchByName(String name);
-	
+	int search(String name);
 	// collection stuff
 	
 	Set<Integer> getCollectionItems(int collection_id);

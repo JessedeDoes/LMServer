@@ -91,6 +91,7 @@ public interface Repository
 	
 	Set<Integer> getCollectionItems(int collection_id);
 	void addToCollection(int collection_id, int item_id);
+	void removeFromCollection(int collection_id, int item_id);
 	int createCollection(String name, Properties metadata);
 	
 	List<FileInfo> list();

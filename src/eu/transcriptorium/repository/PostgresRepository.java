@@ -27,7 +27,10 @@ public class PostgresRepository implements Repository
 		 "create table FileTable (id serial primary key, filename text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer, key  text, value text)";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
-	static String createCollectionsTable = "create table collections (collection_id integer, item_id integer)";
+	
+	// uniqueness constraint does not work with NULL!
+	static String createCollectionsTable = "create table collections (collection_id integer, item_id integer, constraint unq unique(collection_id, item_id))";
+	
 	String tableName="filetable";
 
 	SimpleDatabase database; //  = new PostgresDatabase();
@@ -504,7 +507,7 @@ public class PostgresRepository implements Repository
 
 			ResultSet rs = stmt.executeQuery();
 			
-			while (rs.next()) // mis je nu de eerste??
+			while (rs.next()) 
 			{
 				FileInfo fi = new FileInfo();
 				fi.id = rs.getInt(1);
@@ -517,6 +520,108 @@ public class PostgresRepository implements Repository
 			return null;
 		}
 		return V;
+	}
+	
+	
+
+	@Override
+	public Set<Integer> getCollectionItems(int collection_id) 
+	{
+		// TODO Auto-generated method stub
+		String q = "select item_id from collections where collection_id=?";
+		Set<Integer> V = new HashSet<Integer>();
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+			stmt.setInt(1, collection_id);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) 
+			{
+				V.add(rs.getInt(1));
+			}
+		} catch (Exception e)
+		{
+			return null;
+		}
+		return V;
+	}
+
+	@Override
+	public void addToCollection(int collection_id, int item_id) 
+	{
+	
+		String query = "insert into collections (collection_id, item_id) VALUES (?,?)";
+		try 
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(query);
+			stmt.setInt(1,collection_id);
+			stmt.setInt(2,item_id);
+			boolean res = stmt.execute();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void removeFromCollection(int collection_id, int item_id) 
+	{
+		// TODO Auto-generated method stub
+		String query = "delete from collections where collection_id=? and item_id=?";
+		try 
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(query);
+			stmt.setInt(1,collection_id);
+			stmt.setInt(2,item_id);
+			boolean res = stmt.execute();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public int createCollection(String name, Properties metadata) 
+	{
+		String query = "INSERT INTO " + tableName + " (filename) VALUES (?);";
+		boolean isUpdate = false;
+		int updateId = -1;
+		if (uniqueNames)
+		{
+			Set<Integer> V = searchByName(name);
+			if (V != null && V.size() > 0)
+			{
+				isUpdate = true;
+				updateId = V.iterator().next();
+				query = "update " + tableName + " set content=?  where id=? ";
+			}
+		}
+		try 
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(query);
+			
+			// FileInputStream fi = new FileInputStream(file);
+			if (isUpdate)
+			{
+				
+			} else
+			{
+				stmt.setString(1, name);
+				
+			}
+			//stmt.set
+			boolean res = stmt.execute();
+			stmt.close();
+			
+			int id = isUpdate?updateId:getLastId();
+			System.err.println("id of stored file: " + id);
+			return id;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return -1;
+		}
 	}
 	
 	public static void main(String [] args)
@@ -540,4 +645,6 @@ public class PostgresRepository implements Repository
 			System.out.println(fs.getMetadata(k));
 		}
 	}
+
+	
 }

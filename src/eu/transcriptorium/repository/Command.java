@@ -225,10 +225,11 @@ public class Command
 							for (int id: V)
 							{
 								String name = repository.getName(id);
-								name = name.replace(collectionName, "");
+								name = name.replace(collectionName, "");  // shaky
 								String p1 = p.toString() + "/" + name;
 								saveToFile(p1,id);
 							}
+							configuration.put(formalParameter.name, p.toString());
 						}
 						else if (formalParameter.ioType == Command.ioType.OUT)
 						{
@@ -251,7 +252,6 @@ public class Command
 							Path p = createTempDir();
 							args[i]  = p.toString();
 							configuration.put(formalParameter.name, p.toString());
-
 						} else if (formalParameter.ioType == Command.ioType.CONFIG)
 						{
 							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);

@@ -52,7 +52,7 @@ import java.nio.file.Paths;
 public class Command
 {
 	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
-	static Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
+	static private Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
 	public String commandName;
 	List<FormalParameter> formalParameters = null;
 	Properties configuration = null;
@@ -372,6 +372,7 @@ public class Command
 		{
 			e.printStackTrace();
 		}
+		this.cleanup();
 	}
 
 
@@ -395,6 +396,7 @@ public class Command
 	private File createTempFile() throws IOException 
 	{
 		File f = File.createTempFile("repo", ".repo");
+		f.deleteOnExit();
 		tempFileSet.add(f.getCanonicalPath());
 		return f;
 	}
@@ -403,6 +405,7 @@ public class Command
 	private File createTempFile(File dir) throws IOException 
 	{
 		File f = File.createTempFile("repo", ".repo", dir);
+		f.deleteOnExit();
 		tempFileSet.add(f.getCanonicalPath());
 		return f;
 	}
@@ -410,7 +413,7 @@ public class Command
 	private File saveToTempFile(int repoId) throws IOException 
 	{
 		File f = createTempFile();
-
+		
 		InputStream stream = repository.openFile(repoId);
 		try 
 		{
@@ -475,6 +478,28 @@ public class Command
 		expandVariables(p,p);
 	}
 
+	private void cleanup()
+	{
+		for (String d: this.tempDirSet)
+		{
+			System.err.println("cleanup dir: " + d);
+			File dir = new File(d);
+			if (dir.isDirectory())
+				FileUtils.deleteRecursively(dir);
+			else if (dir.exists())
+				dir.delete();
+		}
+		for (String s: this.tempFileSet)
+		{
+			System.err.println("cleanup  file: " + s);
+			File f = new File(s);
+			if (f.exists())
+			{
+				f.delete();
+			}
+		}
+	
+	}
 	private static void expandVariables(Properties p, Properties baseProps) 
 	{
 		for (Object o: p.keySet())

@@ -45,7 +45,7 @@ public class FileUtils
 			if (fos != null) fos.close();
 		}
 	}
-	
+
 	public static void copyFile(File in, File out) 
 			throws IOException 
 	{
@@ -63,6 +63,27 @@ public class FileUtils
 		finally {
 			if (inChannel != null) inChannel.close();
 			if (outChannel != null) outChannel.close();
+		}
+	}
+
+	public static void deleteRecursively( File file )
+	{
+		if (!file.exists())
+		{
+			return;
+		}
+
+		if ( file.isDirectory() )
+		{
+			for ( File child : file.listFiles() )
+			{
+				deleteRecursively( child );
+			}
+		}
+		if ( !file.delete() )
+		{
+			throw new RuntimeException(
+					"Couldn't delete file. Offending file:" + file );
 		}
 	}
 

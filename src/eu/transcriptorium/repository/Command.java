@@ -56,7 +56,10 @@ public class Command
 	public String commandName;
 	List<FormalParameter> formalParameters = null;
 	Properties configuration = null;
-	
+
+	Set<String> tempFileSet  = new HashSet<String>();
+	Set<String> tempDirSet  = new HashSet<String>();
+
 	public enum type
 	{
 		SHELL,
@@ -66,6 +69,7 @@ public class Command
 	static public enum ioType
 	{
 		IN,
+		INPUT_COLLECTION,
 		OUT,
 		CONFIG,
 		OUTPUT_DIRECTORY // directory arguments are always temporary (?)
@@ -75,6 +79,7 @@ public class Command
 	{
 		NAME,
 		ID,
+		COLLECTION,
 		RELATIVE_TO_OUTPUT_DIRECTORY,
 		PICKUP_FROM_CONFIG, 
 		INSERT_INTO_CONFIG
@@ -92,7 +97,7 @@ public class Command
 		String flagName = null;
 		String baseName;
 		boolean passToCommand =  true;
-		
+
 		public String toString()
 		{
 			return "name=" + name + "; class=" + className;
@@ -124,11 +129,11 @@ public class Command
 				this.ioType = (ioType) x[2];
 			if (x.length > 3)
 				this.referenceType = (referenceType) x[3];
-			
+
 			if (this.referenceType == referenceType.PICKUP_FROM_CONFIG || 
 					this.referenceType == referenceType.INSERT_INTO_CONFIG ||
 					this.referenceType == referenceType.RELATIVE_TO_OUTPUT_DIRECTORY) // (?)
-			
+
 				this.passToCommand = false;
 		}
 
@@ -159,7 +164,7 @@ public class Command
 	{
 		return null;
 	}
-	
+
 
 	public void invoke(Map<String, Object> actualParameters) throws IOException
 	{
@@ -181,7 +186,6 @@ public class Command
 				System.err.println("Expected: " + formalParameter.argumentClass.getName() + " found: " + actualParameter.getClass().getName());
 				if (formalParameter.argumentClass.isAssignableFrom(actualParameter.getClass()))
 				{
-					System.err.println("Youpie!");
 					args[i] = actualParameter;
 				} else // some conversion is needed ...
 				{
@@ -201,23 +205,38 @@ public class Command
 						} else if (formalParameter.ioType == Command.ioType.IN && 
 								formalParameter.referenceType == Command.referenceType.INSERT_INTO_CONFIG)
 						{
-							//File f = saveToTempFile(repoId);
+							//File f = saveToTempFile(repoId); // why not???
 
-							File f = File.createTempFile("repo", ".repo");
+							File f = createTempFile();
 							System.err.println("saved to temp file:" + f.getAbsolutePath());
 							args[i] = f.getAbsolutePath();
 							configuration.put(formalParameter.name, f.toString());
-							
+
 							// nee dit is onzin: je moet ook opslaan uit de repository
+						} else if (formalParameter.ioType == Command.ioType.INPUT_COLLECTION && 
+								formalParameter.referenceType == Command.referenceType.INSERT_INTO_CONFIG)
+						{
+							int collection_id = findRepositoryID(actualParameter, formalParameter.referenceType);
+							Set<Integer> V = repository.getCollectionItems(collection_id);
+							Path p = createTempDir();
+							// this is a bit silly, but...
+							// we need to save to the temp dir, stripping the collection name from the filenames...
+							String collectionName = repository.getName(collection_id);
+							for (int id: V)
+							{
+								String name = repository.getName(id);
+								name = name.replace(collectionName, "");
+								String p1 = p.toString() + "/" + name;
+								saveToFile(p1,id);
+							}
 						}
-						
 						else if (formalParameter.ioType == Command.ioType.OUT)
 						{
 							// dit wordt nazorg om het weer terug te krijgen
 							// in de repo. Maar hier aannemen dat het altijd een string is?
 							if (formalParameter.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
 							{
-								File f = File.createTempFile("repo", ".repo");
+								File f = createTempFile();
 								args[i] = f.toString();
 								configuration.put(formalParameter.name, f.toString());
 							} else if (String.class.isAssignableFrom(actualParameter.getClass()))
@@ -232,7 +251,7 @@ public class Command
 							Path p = createTempDir();
 							args[i]  = p.toString();
 							configuration.put(formalParameter.name, p.toString());
-							
+
 						} else if (formalParameter.ioType == Command.ioType.CONFIG)
 						{
 							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
@@ -245,15 +264,18 @@ public class Command
 								// and put this in the environment???
 								p.load(new FileInputStream(f));
 								originalConfig = (Properties) p.clone();
+
 								for (Object x: configuration.keySet())
 								{
 									p.put(x,configuration.get(x));
 								}
+
 								expandVariables(p);
 								saveConfigTo = f;
 								configToSave = p;
-								//p.store(new FileOutputStream(f), "");
-								
+
+								// p.store(new FileOutputStream(f), "");
+
 								args[i] = f.getAbsolutePath();
 								p.list(System.out);
 							}
@@ -262,7 +284,7 @@ public class Command
 				}
 			}
 		}
-		
+
 		// System.err.println(args[0]);
 		if (saveConfigTo != null && configToSave != null)
 		{
@@ -273,21 +295,21 @@ public class Command
 			configToSave.store(new FileOutputStream(saveConfigTo), "");
 		}
 		expandVariables(configuration);
-		
+
 		//configuration.store(System.out, "hallo!");
-		
+
 		try 
 		{
 			Object r = invokeCommand(this.formalParameters, args);
 			System.out.println("Result:" + r);
-			
+
 			// en nu de nazorg: opruimen en resultatem opslaan...
-			
+
 			for (int i=0; i < this.formalParameters.size(); i++)
 			{
 				FormalParameter formalParameter = this.formalParameters.get(i);
 				Object actualParameter = actualParameters.get(formalParameter.name);
-				
+
 				if (actualParameter != null)
 				{
 					if (formalParameter.argumentClass.equals(FileArgument.class))
@@ -304,7 +326,7 @@ public class Command
 								System.err.println("Looking for base: "  + formalParameter.baseName);
 								Object base = actualParameters.get(formalParameter.baseName);
 								p.put("filename",  base.toString() + "/" + fName);
-								
+
 								for (int j=0; j < this.formalParameters.size(); j++)
 								{
 									if (this.formalParameters.get(j).name.equals(formalParameter.baseName))
@@ -313,30 +335,30 @@ public class Command
 									}
 								}
 								System.err.println("relative path expanded to:"  + fName);
-								
 							} else if (formalParameter.referenceType == Command.referenceType.PICKUP_FROM_CONFIG)
 							{
 								System.err.println("Pickup fName: " + fName);
 								fName = configuration.getProperty(formalParameter.name);
 								p.put("filename", originalConfig.getProperty(formalParameter.name));
 							}
-							
+
 							if (p.get("filename") == null)
 							{
 								p.put("filename", actualParameter.toString());
 							}
+
 							InputStream str = new FileInputStream(fName);
-							
+
 							// System.err.println(str);				
-							
+
 							p.put("createdBy", this.commandName);
 							p.put("createdAt", new Date(System.currentTimeMillis()).toString());
 							p.put("createdWithArguments", actualParameters.toString());
-							
+
 							System.err.println("Storing new file with properties:"  + p);
-							
+
 							repository.storeFile(str, p.getProperty("filename"), p);
-							
+
 							str.close();
 						} else
 						{
@@ -345,7 +367,7 @@ public class Command
 					}
 				}
 			}
-			
+
 		} catch (Exception  e) 
 		{
 			e.printStackTrace();
@@ -353,16 +375,48 @@ public class Command
 	}
 
 
-	private File saveToTempFile(int repoId) throws IOException {
+	private File saveToFile(String p1, int id) 
+	{
+		// TODO Auto-generated method stub
+		File f = new File(p1);
+		tempFileSet.add(p1);
+		InputStream stream = repository.openFile(id);
+		try 
+		{
+			FileUtils.copyStream(stream, f);
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+
+	private File createTempFile() throws IOException 
+	{
 		File f = File.createTempFile("repo", ".repo");
-		
+		tempFileSet.add(f.getCanonicalPath());
+		return f;
+	}
+
+
+	private File createTempFile(File dir) throws IOException 
+	{
+		File f = File.createTempFile("repo", ".repo", dir);
+		tempFileSet.add(f.getCanonicalPath());
+		return f;
+	}
+
+	private File saveToTempFile(int repoId) throws IOException 
+	{
+		File f = createTempFile();
+
 		InputStream stream = repository.openFile(repoId);
 		try 
 		{
 			FileUtils.copyStream(stream, f);
 		} catch (Exception e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return f;
@@ -388,24 +442,31 @@ public class Command
 			if (String.class.isAssignableFrom(actualParameter.getClass()))
 			{
 				String s = (String) actualParameter;
-				Set<Integer> V = repository.searchByName(s);
-				if (V != null && V.size() > 0)
-					repoId = V.iterator().next();
+				repoId = repository.search(s);
 			}
 			break;
+		default: // ugly....
+			if (String.class.isAssignableFrom(actualParameter.getClass()))
+			{
+				String s = (String) actualParameter;
+				repoId = repository.search(s);
+			}
 		}
+
 		return repoId;
 	}
-	
-	public static Path createTempDir() throws IOException
+
+	private  Path createTempDir() throws IOException
 	{
 		String property = "java.io.tmpdir";
 
-	    String tempDir = System.getProperty(property);
-	    
+		String tempDir = System.getProperty(property);
+
 		Path p = Files.createTempDirectory(Paths.get(tempDir) ,
-                "lmserverTemp.");
-		
+				"lmserverTemp.");
+
+		this.tempDirSet.add(p.toString());
+
 		return p;
 	}
 
@@ -413,7 +474,7 @@ public class Command
 	{
 		expandVariables(p,p);
 	}
-	
+
 	private static void expandVariables(Properties p, Properties baseProps) 
 	{
 		for (Object o: p.keySet())

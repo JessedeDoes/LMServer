@@ -95,11 +95,12 @@ public interface Repository
 	int createCollection(String name, Properties metadata);
 	
 	List<FileInfo> list();
-	boolean setTag(Collection<Integer> files, String tag);
+	//boolean setTag(Collection<Integer> files, String tag);
 	String getMetadataProperty(int id, String key);
 	public Properties getMetadata(int id);
 	boolean delete (int id);
 	void clear();
 	void setMetadata(int id, Properties p);
 	void setMetadataProperty(int id, String key, String value);
+	String getName(int id);
 }

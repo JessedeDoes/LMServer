@@ -103,9 +103,43 @@ public class SomeUsefulCommands
 		return c;
 	}
 
-	public Command getLmInterpolationCommand()
+	public Command getLmInterpolationCommand(int k)
 	{
-		return null;
+		Object[][] paramsWithFile = 
+			{ 
+					{ "script", "java.lang.String"},
+				
+					{ "conf", FileArgument, 
+					Command.ioType.CONFIG, Command.referenceType.NAME},
+					
+					{ "VALIDATION_FILE", FileArgument, Command.ioType.IN, Command.referenceType.NAME},
+					
+					{"MODEL_DESTINATION_DIR", FileArgument, Command.ioType.OUTPUT_DIRECTORY, 
+						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
+
+					{ "languageModel", FileArgument, 
+						Command.ioType.OUT,
+						Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
+						
+					{ "dictionary", FileArgument, 
+							Command.ioType.OUT,
+							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
+			};
+
+		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
+		
+		c1.formalParameters.get(3).baseName = "MODEL_DESTIONATION_DIR";
+		c1.formalParameters.get(4).baseName = "MODEL_DESTINATION_DIR";
+		
+		for (int i=0; i < k; i++)
+		{
+			Command.FormalParameter f = new Command.FormalParameter();
+			c1.formalParameters.add(f);
+		}
+
+		c1.addSRILMandHTKToPath();
+
+		return c1;
 	}
 
 	public static Map<String,Command> getBasicCommands()

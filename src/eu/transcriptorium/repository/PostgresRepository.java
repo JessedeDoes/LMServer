@@ -25,15 +25,16 @@ public class PostgresRepository implements Repository
 
 	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, language text, year_from integer, year_to integer, type text references types (type), content bytea)":
 		"create table FileTable (id serial primary key, filename text, type text, content bytea)";
-	static String createMetadataTable = "create table metadata (id integer, key  text, value text)";
+	static String createMetadataTable = "create table metadata (id integer, key  text, value text) constraint munq (id, key, value)";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 
 	// uniqueness constraint does not work with NULL!
 	static String createCollectionsTable = "create table collections (collection_id integer, item_id integer, constraint unq unique(collection_id, item_id))";
 	static String createTypesTable = "create table types (type text primary key)";
 
-	static String[] predefinedTypes = { "lm", "dictionary", "corpus_plaintext", "collection", 
-	"page_xml_file"};
+	static String[] predefinedTypes = 
+		{ "lm", "dictionary", "corpus_plaintext", "collection", 
+				"page_xml", "tei_xml", "doc", "docx"};
 
 	String tableName="filetable";
 
@@ -84,7 +85,7 @@ public class PostgresRepository implements Repository
 	}
 	//  SELECT currval(pg_get_serial_sequence('persons','id'));
 
-	public int getSerialCurrVal(String tableName, String fieldName)
+	private int getSerialCurrVal(String tableName, String fieldName)
 	{
 		String q = "select currval (pg_get_serial_sequence('" + tableName +"','" + fieldName + "'))";
 		System.err.println(q);
@@ -93,12 +94,12 @@ public class PostgresRepository implements Repository
 		return Integer.parseInt(x);
 	}
 
-	public int getLastId()
+	private int getLastId()
 	{
 		return getSerialCurrVal(tableName, "id");
 	}
 
-	public void clearFileTable()
+	private void clearFileTable()
 	{
 		try
 		{
@@ -194,7 +195,7 @@ public class PostgresRepository implements Repository
 		return id;
 	}
 
-	public void addDefaultProperties(Properties p)
+	private void addDefaultProperties(Properties p)
 	{
 		if (p.getProperty("createdBy") == null)
 			p.put("createdBy", "STORE_FILE");
@@ -294,16 +295,17 @@ public class PostgresRepository implements Repository
 		transferMetadataToMainTable(id, key, value);
 	}
 
-	public String getType(String f)
+	private String getTypeFromFilename(String f)
 	{
 		return "text";
 	} 
 
+	/**
 	public String quote(String s)
 	{
 		return "'" + s.replaceAll("\\\\",  "/") + "'";
 	}
-
+	 */
 	public InputStream openFile(int id)
 	{
 		String q = " select content from filetable where id=? ";
@@ -372,12 +374,16 @@ public class PostgresRepository implements Repository
 		List<String> clauses = new ArrayList<String>();
 		List<String> fillers = new ArrayList<String>();
 		Set<Integer> result = new HashSet<Integer>();
-
+		
+		int nClauses = 0;
+		
 		for (Object n: p.keySet())
 		{
 			String key = (String) n;
 			String value = p.getProperty(key);
 			System.err.println("Value=" + value);
+			
+			
 			boolean regex = false;
 
 			if (value.startsWith("~"))
@@ -521,7 +527,7 @@ public class PostgresRepository implements Repository
 		return p;
 	}
 
-	@Override
+	//@Override
 	public boolean setTag(Collection<Integer> fileIds, String tag)
 	{
 		// TODO no duplicate check...
@@ -674,6 +680,30 @@ public class PostgresRepository implements Repository
 		}
 	}
 
+	@Override
+	public String getName(int id) 
+	{
+		String q = " select filename from filetable where id=? ";
+
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) 
+			{
+				String s = rs.getString(1); //  new String(rs.getBytes(1), "UTF-8");
+				return s;
+			}
+		} catch (Exception e)
+		{
+			return null;
+		}
+		return null;
+	}
+	
+	
 	public static void main(String [] args)
 	{
 		Properties p = new Properties();
@@ -691,7 +721,7 @@ public class PostgresRepository implements Repository
 		
 		fs.createCollection("bentham", null);
 		fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
-		//fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
+		
 		fs.setMetadata(fs.search("bentham"), p);
 		
 		//fs.removeFromCollection(fs.search("bentham"), fs.search("bentham"));
@@ -703,4 +733,6 @@ public class PostgresRepository implements Repository
 			System.out.println(fs.getMetadata(k));
 		}
 	}
+
+	
 }

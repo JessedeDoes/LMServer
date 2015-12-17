@@ -32,6 +32,7 @@ public class SomeUsefulCommands
 	 */
 	
 	// java eu.transcriptorium.repository.RepositoryCL INVOKE BUILDLM '{script:"TestScripts/basicModelBuilding.sh",conf:"TestScripts/test.settings.sh",languageModel:"languageModel.lm",dictionary:"dictionary.txt", OUTPUT:"veryUsefulLanguageModel"}'
+	
 	static public Command getBasicLMBuildingCommand()
 	{
 		//Map<String, Object> m = new HashMap<String,Object>();
@@ -43,7 +44,7 @@ public class SomeUsefulCommands
 					{ "conf", FileArgument, 
 					Command.ioType.CONFIG, Command.referenceType.NAME},
 					
-					{"OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, 
+					{"OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, // we moeten hier een collectienaam aan kunnen koppelen
 						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
 
 					{ "languageModel", FileArgument, 
@@ -60,8 +61,6 @@ public class SomeUsefulCommands
 		c1.formalParameters.get(3).baseName = "OUTPUT";
 		c1.formalParameters.get(4).baseName = "OUTPUT";
 		
-		//m.clear();
-		//m.put("f", new Integer(1));
 
 		c1.addSRILMandHTKToPath();
 
@@ -114,7 +113,7 @@ public class SomeUsefulCommands
 					
 					{ "VALIDATION_FILE", FileArgument, Command.ioType.IN, Command.referenceType.NAME},
 					
-					{"MODEL_DESTINATION_DIR", FileArgument, Command.ioType.OUTPUT_DIRECTORY, 
+					{ "MODEL_DESTINATION_DIR", FileArgument, Command.ioType.OUTPUT_DIRECTORY, 
 						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
 
 					{ "languageModel", FileArgument, 
@@ -126,14 +125,16 @@ public class SomeUsefulCommands
 							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};
 
-		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
+		ExternalCommand c1 = new ExternalCommand("/bin/bash", paramsWithFile);
 		
 		c1.formalParameters.get(3).baseName = "MODEL_DESTIONATION_DIR";
 		c1.formalParameters.get(4).baseName = "MODEL_DESTINATION_DIR";
 		
-		for (int i=0; i < k; i++)
+		for (int i=0; i < k; i++) // component models
 		{
 			Command.FormalParameter f = new Command.FormalParameter();
+			f.referenceType = Command.referenceType.INSERT_INTO_CONFIG;
+			f.ioType = Command.ioType.INPUT_COLLECTION;
 			c1.formalParameters.add(f);
 		}
 
@@ -149,6 +150,7 @@ public class SomeUsefulCommands
 		m.put("LM2PFSG", SomeUsefulCommands.getLM2PFSGCommand() );
 		return m;
 	}
+	
 	public static void main(String args[])
 	{
 		Repository r = new PostgresRepository(PostgresRepository.getDefaultProperties());
@@ -156,6 +158,7 @@ public class SomeUsefulCommands
 
 		String scriptName = args[0];
 		String confName = args[1];
+		
 		try
 		{
 

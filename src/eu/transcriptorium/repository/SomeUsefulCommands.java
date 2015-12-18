@@ -111,7 +111,7 @@ public class SomeUsefulCommands
 					{ "conf", FileArgument, 
 					Command.ioType.CONFIG, Command.referenceType.NAME},
 					
-					{ "VALIDATION_FILE", FileArgument, Command.ioType.IN, Command.referenceType.NAME},
+					{ "VALIDATION_FILE", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
 					
 					{ "MODEL_DESTINATION_DIR", FileArgument, Command.ioType.OUTPUT_DIRECTORY, 
 						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
@@ -127,12 +127,13 @@ public class SomeUsefulCommands
 
 		ExternalCommand c1 = new ExternalCommand("/bin/bash", paramsWithFile);
 		
-		c1.formalParameters.get(3).baseName = "MODEL_DESTIONATION_DIR";
-		c1.formalParameters.get(4).baseName = "MODEL_DESTINATION_DIR";
+		c1.formalParameters.get(4).baseName = "MODEL_DESTIONATION_DIR";
+		c1.formalParameters.get(5).baseName = "MODEL_DESTINATION_DIR";
 		
-		for (int i=0; i < k; i++) // component models
+		for (int i=0; i < k; i++) // component models (?) (maar die komen niet in de conf?)
 		{
 			Command.FormalParameter f = new Command.FormalParameter();
+			f.name = "COMPONENT_" + i;
 			f.referenceType = Command.referenceType.INSERT_INTO_CONFIG;
 			f.ioType = Command.ioType.INPUT_COLLECTION;
 			c1.formalParameters.add(f);

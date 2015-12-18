@@ -393,7 +393,7 @@ public class Command
 	}
 
 
-	private File createTempFile() throws IOException 
+	protected File createTempFile() throws IOException 
 	{
 		File f = File.createTempFile("repo", ".repo");
 		f.deleteOnExit();
@@ -402,7 +402,7 @@ public class Command
 	}
 
 
-	private File createTempFile(File dir) throws IOException 
+	protected File createTempFile(File dir) throws IOException 
 	{
 		File f = File.createTempFile("repo", ".repo", dir);
 		f.deleteOnExit();
@@ -410,7 +410,7 @@ public class Command
 		return f;
 	}
 
-	private File saveToTempFile(int repoId) throws IOException 
+	protected File saveToTempFile(int repoId) throws IOException 
 	{
 		File f = createTempFile();
 		
@@ -459,7 +459,7 @@ public class Command
 		return repoId;
 	}
 
-	private  Path createTempDir() throws IOException
+	protected  Path createTempDir() throws IOException
 	{
 		String property = "java.io.tmpdir";
 
@@ -478,7 +478,7 @@ public class Command
 		expandVariables(p,p);
 	}
 
-	private void cleanup()
+	protected void cleanup()
 	{
 		for (String d: this.tempDirSet)
 		{
@@ -498,8 +498,8 @@ public class Command
 				f.delete();
 			}
 		}
-	
 	}
+	
 	private static void expandVariables(Properties p, Properties baseProps) 
 	{
 		for (Object o: p.keySet())

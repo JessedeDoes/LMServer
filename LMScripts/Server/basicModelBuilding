@@ -1,0 +1,7 @@
+export CORPUS=$1
+export CLASS_CHARSET=$2
+export CHARSET=$3
+export CUTOFF=$4
+export OUTPUT=$5 
+export ORDER=$6
+LMScripts/basicModelBuilding.sh

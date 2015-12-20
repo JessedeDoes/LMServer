@@ -85,14 +85,14 @@ public class WordFrequencySort
 
 		if (args == null)
 		{
-			System.out.println("please identy the parameters.....");
+			System.out.println("please specify parameters.....");
 			System.out
-					.println("-i input file name \n -o output file name, which is the word list\n -n number of frequency \n -s sorted file name.\n ");
+					.println(" -i input file name \n -o output file name, which is the word list\n -n number of frequency \n -s sorted file name.\n ");
 			// wait(0);
 		} else if (args.length < 8)
 		{
 			System.out
-					.println("please identy the parameters. The guideline is as follow:");
+					.println("please specify parameters. Usage is as follows: ");
 			System.out
 					.println("-i input file name \n -o output file name, which is the word list\n -n number of frequency \n -s sorted file name. ");
 
@@ -113,7 +113,7 @@ public class WordFrequencySort
 				if (this.characterSet != null)
 					normalizedOutput = new PrintWriter(new BufferedWriter(new FileWriter(args[7] + ".norm")));
 
-				System.out.println(" Starting " + getTopClass()
+				System.out.println(" Starting " + getTopClass() + " " 
 						+ StringUtils.join(args, " "));
 
 				// Map File from filename to byte buffer

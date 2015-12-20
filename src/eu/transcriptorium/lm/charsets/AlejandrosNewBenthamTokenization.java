@@ -117,6 +117,14 @@ public class AlejandrosNewBenthamTokenization implements eu.transcriptorium.lm.C
 				}
 			}
 		}
+		Set<Character> remove = new HashSet<Character>();
+		for (Character c: escapeMap.keySet())
+		{
+			if (!characterAccepted[c])
+				remove.add(c);
+		}
+		for (Character c: remove)
+			escapeMap.remove(c);
 	}
 	
 	public AlejandrosNewBenthamTokenization()

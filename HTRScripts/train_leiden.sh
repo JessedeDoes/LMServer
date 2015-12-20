@@ -66,7 +66,7 @@ defaultTextProcessing()
   Create_LM_fromconf.sh Leiden.conf
 }
 
-#defaultTextProcessing
+defaultTextProcessing
 
 
 otherTextProcessing()
@@ -128,7 +128,7 @@ otherTextProcessing()
 #  cp $BUILD_DIRECTORY/labelFile.mlf EXP-LEIDEN/TRAIN/Leiden.mlf
 }
 
-(otherTextProcessing)
+#(otherTextProcessing)
 
 ###### end of text processing 
 
@@ -147,7 +147,7 @@ sed -e 's/tokenized-trans/Features/g' -e 's/txt/fea/g' Train-lines.lst > Train-l
 #echo "../Scripts/HMM-Train_parallel_var.sh Train-lines-feas.lst hmms/ Leiden.mlf  Leiden-HMMs-NumStates.lst 32 64" |qsub -l h_vmem=1g,h_rt=144:00:00 -cwd -N "REIG" -o eixida -j y
 
 
-# HMM-Train_parallel_var.sh Leiden.conf
+HMM-Train_parallel_var.sh Leiden.conf
 
 #or 
 

@@ -116,12 +116,21 @@ public class SimpleTokenization implements CharacterSet
 				}
 			}
 		}
-
+		Set<Character> remove = new HashSet<Character>();
+		for (Character c: escapeMap.keySet())
+		{
+			if (!characterAccepted[c])
+				remove.add(c);
+		}
+		for (Character c: remove)
+			escapeMap.remove(c);
 	}
+	
 	public SimpleTokenization()
 	{
 		init();
 	}
+	
 	public static String deAccent(String str) 
 	{
 		String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 

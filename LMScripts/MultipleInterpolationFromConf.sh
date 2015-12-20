@@ -6,9 +6,25 @@
 
 source $1
 
+COMPONENT_MODEL_DIRS=$COMPONENT_0
+arg="dummy"
+i=1
+while [ -n  "$arg" ] ;
+do
+  echo "i=$i"
+  eval arg=\${COMPONENT_$i}
+  i=$[ $i+1 ]
+  if [ -n "$arg" ] ;
+  then
+    echo "|$arg|"
+    COMPONENT_MODEL_DIRS="$COMPONENT_MODEL_DIRS $arg"
+  fi
+done
+
 echo "charset type: $CLASS_CHARSET $CHARSET"
 TEXT=$VALIDATION_TEXT
 DESTINATION=$MODEL_DESTINATION_DIR
 SUBMODEL_DIRS=$COMPONENT_MODEL_DIRS
+echo $SUBMODEL_DIRS
 
-bash LMScripts/MultipleInterpolation.sh  $TEXT $DESTINATION $SUBMODEL_DIRS
+#bash LMScripts/MultipleInterpolation.sh  $TEXT $DESTINATION $SUBMODEL_DIRS

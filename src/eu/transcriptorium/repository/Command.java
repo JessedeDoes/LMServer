@@ -206,8 +206,8 @@ public class Command
 								formalParameter.referenceType == Command.referenceType.INSERT_INTO_CONFIG)
 						{
 							//File f = saveToTempFile(repoId); // why not???
-
-							File f = createTempFile();
+							int repoId = findRepositoryID(actualParameter, formalParameter.referenceType);
+							File f = saveToTempFile(repoId);
 							System.err.println("saved to temp file:" + f.getAbsolutePath());
 							args[i] = f.getAbsolutePath();
 							configuration.put(formalParameter.name, f.toString());

@@ -166,6 +166,14 @@ public class ExtractText
 		}
 	}
 
+	/**
+	 * 
+	 * @param dirName (directory where the text lines extracted by page-tool are)
+	 * @param trainingPartitionFilename (list of training pages)
+	 * @param trainingLinesFile (output: list of lines in the training partition)
+	 * @param textFilename (contains the same as the training lines, but in one text file)
+	 * @param labelFilename (output:  HTK MLF label file for training HTR)
+	 */
 	public void printLabelFileFromDirectoryWithLineTranscriptions(String dirName, 
 			String trainingPartitionFilename, String trainingLinesFile, 
 			String textFilename, 

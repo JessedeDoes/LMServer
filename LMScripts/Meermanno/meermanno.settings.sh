@@ -1,4 +1,4 @@
-CHARSET=resources/CharacterSets/meermanno.chars
+#CHARSET=resources/CharacterSets/meermanno.chars
 CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 #CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
 SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt

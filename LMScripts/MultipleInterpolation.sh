@@ -6,8 +6,8 @@
 
 echo "charset type: $CLASS_CHARSET $CHARSET"
 
-TEXT=$2
 DESTINATION=$1
+TEXT=$2
 SUBMODEL_DIRS="${@:3}"
 CLEANED_TEXTS=`echo "$SUBMODEL_DIRS" | perl -pe 's/\S+/$&\/cleanedText.txt/g'`
 SUBMODEL_FILES=`echo "$SUBMODEL_DIRS" | perl -pe 's/\S+/$&\/languageModel.lm/g'`

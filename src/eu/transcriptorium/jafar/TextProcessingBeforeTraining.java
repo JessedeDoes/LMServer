@@ -71,7 +71,7 @@ public class TextProcessingBeforeTraining
 	public static void main(String[] args)
 	{
 		TextProcessingBeforeTraining tpbt = new TextProcessingBeforeTraining();
-		if (args.length != 4)
+		if (args.length != 6)
 			args = defaultArgs;
 		tpbt.processText(args[0], args[1], args[2], args[3], args[4], args[5]);
 	}

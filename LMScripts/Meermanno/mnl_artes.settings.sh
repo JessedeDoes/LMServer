@@ -1,6 +1,4 @@
-MNLDIR=/media/jesse/Data/tranScriptorium/NederlandseData/MNL-plaintext/Corpora
 
-CHARSET=resources/CharacterSets/meermanno.chars
 CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 #CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
 SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
@@ -9,10 +7,16 @@ TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst
 TRAIN_LINES=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x
 BASIC_TRAINING_SOURCE=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/TC
 
+
+MNLDIR=/media/jesse/Data/tranScriptorium/NederlandseData/MNL-plaintext/Corpora
+######### 
 CORPUS=$MNLDIR/CDROM-artes.txt
 OUTPUT=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/MNL-ARTES
 CHARSET=$BASIC_TRAINING_SOURCE/charset.txt
 CUTOFF=0
+
+
+
 
 ### path and classpath settings
 

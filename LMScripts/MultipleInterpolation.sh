@@ -23,7 +23,7 @@ echo "Text=$TEXT; Destination=$DESTINATION"
 #export CLASSPATH=./build/classes
 # export HTK=/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14/
 # CHARSET=resources/CharacterSets/Konzil.chars.txt # foei
-CUTOFF=0 # for lexical processing of the interpolation lexicon
+# CUTOFF=0 # for lexical processing of the interpolation lexicon
 
 source LMScripts/LMBuildingFunctions.sh
 

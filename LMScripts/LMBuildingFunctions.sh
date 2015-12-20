@@ -107,7 +107,7 @@ RunHBuild()
 
 ComputeComponentPerplexities()
 {
-  $TEXT=$1;
+  TEXT=$1;
   for x in "${@:2}";
   do
     LM="$x/languageModel.lm"

@@ -1,22 +1,16 @@
-
+#CHARSET=resources/CharacterSets/meermanno.chars
 #CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
 SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
 TRANSCRIPTION_DIR=/home/jesse/TUTORIAL-HTR/EXP-LEIDEN/TRAIN/Transcriptions
 TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-LEIDEN/TRAIN/train.lst
 TRAIN_LINES=/home/jesse/TUTORIAL-HTR/EXP-LEIDEN/TRAIN/Train-Lines.lst.x
-BASIC_TRAINING_SOURCE=/home/jesse/TUTORIAL-HTR/EXP-LEIDEN/TRAIN/LM/TC
+BASIC_TRAINING_SOURCE=/home/jesse/TUTORIAL-HTR/EXP-LEIDEN/TRAIN/LM/PREBUILD-TEST
 
-
-MNLDIR=/media/jesse/Data/tranScriptorium/NederlandseData/MNL-plaintext/Corpora
-######### 
-CORPUS=$MNLDIR/CDROM-proza.txt
-OUTPUT=/home/jesse/TUTORIAL-HTR/EXP-LEIDEN/TRAIN/LM/MNL-PROZA
+CORPUS=$BASIC_TRAINING_SOURCE/trainingCorpus.txt
+OUTPUT=/home/jesse/TUTORIAL-HTR/EXP-LEIDEN/TRAIN/LM/TEST-SET
 CHARSET=$BASIC_TRAINING_SOURCE/charset.txt
-CUTOFF=3
-
-
-
+CUTOFF=0
 
 ### path and classpath settings
 

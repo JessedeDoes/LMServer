@@ -1,7 +1,7 @@
 #CHARSET=resources/CharacterSets/meermanno.chars
 #CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
 CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
-SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
+SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels_hattem.txt
 TRANSCRIPTION_DIR=/home/jesse/TUTORIAL-HTR/EXP-HATTEM/TRAIN/Transcriptions
 TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-HATTEM/TRAIN/train.lst
 TRAIN_LINES=/home/jesse/TUTORIAL-HTR/EXP-HATTEM/TRAIN/Train-Lines.lst.x

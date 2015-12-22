@@ -141,6 +141,79 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		return lm;
 	}
 
+	protected File createTempFile() throws IOException 
+	{
+		File f = File.createTempFile("repo", ".repo");
+		f.deleteOnExit();
+		//tempFileSet.add(f.getCanonicalPath());
+		return f;
+	}
+
+	protected File saveToTempFile(int repoId) throws IOException 
+	{
+		File f = createTempFile();
+
+		InputStream stream = repository.openFile(repoId);
+		try 
+		{
+			FileUtils.copyStream(stream, f);
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return f;
+	}
+	
+	private NgramLanguageModel getModelFromRepository(String name)
+	{
+		NgramLanguageModel lm = null;
+		System.err.println("requesting model for " + name);
+		if ((lm = modelMap.get(name)) != null)
+		{
+			System.err.println("lm already loaded for " + name + ":" + lm);
+			return lm;
+		}
+		String languageModelFilename = null;
+		File languageModelFile = null;
+		
+		int id = repository.search(name);
+		
+		if (id >= 0)
+		{
+			try
+			{
+				languageModelFile = saveToTempFile(id);
+				languageModelFilename = languageModelFile.getCanonicalPath();
+			} catch (Exception e)
+			{
+
+			}
+		}
+		
+		if (languageModelFilename != null)
+		{
+			System.err.println("attempt to read model from " + languageModelFilename);
+			try
+			{
+				if (!languageModelFilename.endsWith(".bin")) // verkeerde check...
+					lm = LmReaders.readArrayEncodedLmFromArpa(languageModelFilename,false);
+				else
+					lm = LmReaders.readLmBinary(languageModelFilename);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			System.err.println("finished reading LM");
+			modelMap.put(name,lm);
+		} else
+		{
+			System.err.println("no model found for: " + name);
+		}
+		if (languageModelFile != null)
+			languageModelFile.delete();
+		return lm;
+	}
+
 	private ScoreWordSubstitutions getScoreWordSubstitutions(String name)
 	{
 		ScoreWordSubstitutions s;
@@ -215,7 +288,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	{
 		switch(action)
 		{
-		
+
 
 		// repository functions (make this a separate servlet? )
 		case LIST:
@@ -276,7 +349,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			out.println("No valid action specified. Doing nothing!");
 		}
 	}
-	
+
 	private void demoAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
 			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException {
 		switch(action)
@@ -286,7 +359,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 
 		case SUGGESTION: // bijvoorbeeld
-							// http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
+			// http://svprre02:8080/LMServer/LMServer?action=suggestion&lm=Bentham&left=sinister
 			System.err.println("suggestion action requested....");
 			suggest(parameterMap, out);
 			break;
@@ -303,8 +376,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			scoreSubstitution(parameterMap, out);
 			break;
 
-		// repository functions (make this a separate servlet? )
-		
+			// repository functions (make this a separate servlet? )
+
 
 		default:
 			out.println("No valid action specified. Doing nothing!");
@@ -317,10 +390,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		case LIST_LMS: case SUGGESTION: case BUILD_LM: case DECODE_WG: case SUBSTITUTION:
 			this.demoAction(response, parameterMap, mpfd, out, action);
 			break;
-		// repository functions (make this a separate servlet? )
+			// repository functions (make this a separate servlet? )
 		case LIST: case GETMETADATA: case SEARCHBYNAME: case SEARCH: 
-			case SETMETADATA: case CLEAR: case DELETE: case EXTRACT: 
-			case STORE: case INVOKE: 
+		case SETMETADATA: case CLEAR: case DELETE: case EXTRACT: 
+		case STORE: case INVOKE: 
 			this.repositoryAction(response, parameterMap, mpfd, out, action);
 			break;
 

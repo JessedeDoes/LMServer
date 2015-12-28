@@ -47,6 +47,17 @@ public class JSON
 		return o;
 	}
 	
+	static public JsonObject mapToJson(Map<String,String > p)
+	{
+		JsonObject o = new JsonObject();
+		for (Object k: p.keySet())
+		{
+			String key = (String) k;
+			o.addProperty(key, p.get(key));
+		}
+		return o;
+	}
+	
 	static public Map<String,Object>  toMap(JsonObject o)
 	{
 		if (o == null)

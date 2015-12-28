@@ -146,6 +146,7 @@ public class PostgresRepository implements Repository
 				query = "update " + tableName + " set content=?  where id=? ";
 			}
 		}
+		System.err.println(query);
 		try 
 		{
 			PreparedStatement stmt = database.getConnection().prepareStatement(query);

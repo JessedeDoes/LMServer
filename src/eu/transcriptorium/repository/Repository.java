@@ -56,7 +56,7 @@ public interface Repository
 			return eu.transcriptorium.util.JSON.propertiesToJson(p);
 		}
 		
-		public static JsonObject search(Repository r, Properties p)
+		public static JsonArray search(Repository r, Properties p)
 		{
 			JsonArray l = new JsonArray();
 			Set<Integer> V0 = r.search(p);
@@ -65,10 +65,10 @@ public interface Repository
 				JsonElement j = new JsonPrimitive(i);
 				l.add(j);
 			}
-			return l.getAsJsonObject();
+			return l;
 		}
 		
-		public static JsonObject searchByName(Repository r, String name)
+		public static JsonArray searchByName(Repository r, String name)
 		{
 			JsonArray l = new JsonArray();
 			Set<Integer> V0 = r.searchByName(name);
@@ -77,7 +77,7 @@ public interface Repository
 				JsonElement j = new JsonPrimitive(i);
 				l.add(j);
 			}
-			return l.getAsJsonObject();
+			return l;
 		}
 	};
 	

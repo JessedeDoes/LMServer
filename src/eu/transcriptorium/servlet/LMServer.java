@@ -305,16 +305,16 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 		case SEARCHBYNAME:
 		{
-			com.google.gson.JsonObject result = Repository.Static.searchByName(repository, parameterMap.get("filename"));
+			com.google.gson.JsonArray result = Repository.Static.searchByName(repository, parameterMap.get("filename"));
+			out.println(result.toString());
 			break;
 		}
 		case SEARCH:
 		{
-			int id = Integer.parseInt(parameterMap.get("id"));
 			String metadata = parameterMap.get("metadata");
 			com.google.gson.JsonObject o = JSON.fromString(metadata);
 			Properties p1 = JSON.toProperties(o);
-			com.google.gson.JsonObject result = Repository.Static.search(repository, p1);
+			com.google.gson.JsonArray result = Repository.Static.search(repository, p1);
 			out.println(result.toString());
 			break;
 		}
@@ -342,7 +342,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				e.printStackTrace();
 			}
 		case STORE: // upload a list of files and one metadata JSON object
-			handleUpload(parameterMap, mpfd);
+			handleUpload(parameterMap, mpfd,out);
 			break;
 
 		case INVOKE:
@@ -434,7 +434,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	}
 
 	private void handleUpload(Map<String, String> parameterMap,
-			MultipartFormData mpfd) throws FileNotFoundException, IOException
+			MultipartFormData mpfd, java.io.PrintWriter out) throws FileNotFoundException, IOException
 	{
 		Map <String, File> files = mpfd.getFileMap();
 
@@ -447,7 +447,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			p.setProperty("uploadFieldName", n);
 			p.setProperty("uploadName", mpfd.getUploadName(n));
 			int id = repository.storeFile(new FileInputStream(f), f.getCanonicalPath(), p);
+			out.println(mpfd.getUploadName(n) + ":" + id + " " + p);
 		}
+		this.getLMsFromRepository(); // you might have uploaded an LM
 	}
 
 	private void scoreSubstitution(Map<String, String> parameterMap,
@@ -607,25 +609,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		StringWriter  strw = new StringWriter();
 		BufferedWriter sw = new BufferedWriter(strw);
 		Map<String, Object> properties = new HashMap<String, Object>(1);
-		properties.put(JsonGenerator.PRETTY_PRINTING, false); // dit heeft dus geen invloed ...
-
-		JsonGeneratorFactory jgf = Json.createGeneratorFactory(properties);
-		JsonGenerator jg = jgf.createGenerator(sw);
-
-		jg = jg.writeStartObject();
-		int i=0;
-
-		for (Map.Entry<String, String> e: 	map.entrySet())
-		{
-			//System.err.println(sw.toString());
-			System.err.println(e);
-			jg = jg.write(e.getKey(), e.getValue());
-		}
-
-		jg = jg.writeEnd();
-		jg.close();
-
-		return strw.getBuffer().toString();
+		com.google.gson.JsonObject o = JSON.mapToJson(map);
+		return o.toString();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

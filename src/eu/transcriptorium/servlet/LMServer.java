@@ -416,7 +416,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 		for (String s: parameterMap.keySet())
 		{
-			if (!s.equalsIgnoreCase("command ") && !s.equalsIgnoreCase("action"))
+			if (!s.equalsIgnoreCase("command") && !s.equalsIgnoreCase("action"))
 				args.put(s, parameterMap.get(s));
 		}
 

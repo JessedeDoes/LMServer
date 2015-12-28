@@ -69,6 +69,7 @@ public class RepositoryCL
 			break;
 		case GETMETADATA:
 			Properties p = r.getMetadata(Integer.parseInt(args[0]));
+			System.err.println(p.keySet());
 			p.store(System.out, "jippie");
 			break;
 		case SEARCH:

@@ -39,7 +39,7 @@ public interface Repository
 	
 	public static class Static
 	{
-		public static JsonObject list(Repository r)
+		public static JsonArray list(Repository r)
 		{
 			JsonArray l = new JsonArray();
 			for (FileInfo f: r.list())
@@ -47,7 +47,7 @@ public interface Repository
 				JsonObject o = f.toJsonObject();
 				l.add(o);
 			}
-			return l.getAsJsonObject();
+			return l;
 		}
 		
 		public static JsonObject getMetadata(Repository r, int id)

@@ -485,7 +485,7 @@ public class PostgresRepository implements Repository
 		{
 			return null;
 		}
-		p.put("content-length", this.getContentLength(id));
+		p.put("content-length", this.getContentLength(id) + "");
 		return p;
 	}
 

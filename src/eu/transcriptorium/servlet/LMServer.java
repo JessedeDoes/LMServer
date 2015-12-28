@@ -101,7 +101,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private Map<String,Suggest> suggesterMap = new HashMap<String,Suggest>();
 	private Map<String,NgramLanguageModel> modelMap = new HashMap<String,NgramLanguageModel>();
 	private Map<String, String> modelDescriptionMap = new HashMap<String,String>();
-
+    static String lmType = "{type:lm}";
+    static Properties lmProps = JSON.toProperties(JSON.fromString(lmType));
+    
+    
 	private NgramLanguageModel getModel(String name)
 	{
 		NgramLanguageModel lm = null;
@@ -183,6 +186,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			try
 			{
 				languageModelFile = saveToTempFile(id);
+				languageModelFile.deleteOnExit();
 				languageModelFilename = languageModelFile.getCanonicalPath();
 			} catch (Exception e)
 			{
@@ -292,12 +296,12 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 		// repository functions (make this a separate servlet? )
 		case LIST:
-			com.google.gson.JsonObject L = Repository.Static.list(repository);
-			out.println(L.getAsString());
+			com.google.gson.JsonArray L = Repository.Static.list(repository);
+			out.println(L.toString());
 			break;
 		case GETMETADATA:
 			com.google.gson.JsonObject p = Repository.Static.getMetadata(repository, Integer.parseInt(parameterMap.get("id")));
-			out.println(p.getAsString());
+			out.println(p.toString());
 			break;
 		case SEARCHBYNAME:
 		{
@@ -311,7 +315,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			com.google.gson.JsonObject o = JSON.fromString(metadata);
 			Properties p1 = JSON.toProperties(o);
 			com.google.gson.JsonObject result = Repository.Static.search(repository, p1);
-			out.println(result.getAsString());
+			out.println(result.toString());
 			break;
 		}
 		case SETMETADATA:
@@ -578,14 +582,26 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		return null;
 	}
 
-	public void init()
+	public void init() // hierin moet je dus al de database uitlezen
 	{
 		for (String [] x: this.lmLocations)
 		{
 			this.modelDescriptionMap.put(x[0], x[2]);
 		}
+		getLMsFromRepository();
 	}
 
+	private void getLMsFromRepository()
+	{
+		Set<Integer> lmids = repository.search(lmProps);
+		for (int id: lmids)
+		{
+			String name = repository.getName(id);
+			//NgramLanguageModel lm = this.getModelFromRepository(name);
+			this.modelDescriptionMap.put(name, repository.getMetadataProperty(id, "description"));
+		}
+	}
+	
 	public static String mapToJSON(Map<String,String> map)
 	{
 		StringWriter  strw = new StringWriter();

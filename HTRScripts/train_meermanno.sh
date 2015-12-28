@@ -2,7 +2,7 @@
 # Training Phase
 ###################
 STARTDIR=`pwd`
-# rm -rf EXP-MEERMANNO/TRAIN/hmms
+rm -rf EXP-MEERMANNO/TRAIN/hmms
 cd EXP-MEERMANNO/TRAIN
 
 #Useful links
@@ -40,7 +40,7 @@ defaultTextProcessing()
    rm -r filter-trans
 
    #Make the list of lines to train the models
-   for f in `perl -pe 's/^/tokenized-trans\//'  train.lst`; do ls ${f}*;  done > Train-lines.lst
+   for f in `perl -pe 's/^/tokenized-trans\/Meermanno./'  train.lst`; do ls ${f}*;  done > Train-lines.lst
 
 
    #Put the transcription lines in a file (for training the LM)
@@ -66,7 +66,7 @@ defaultTextProcessing()
   Create_LM_fromconf.sh Meermanno.conf
 }
 
-# defaultTextProcessing
+defaultTextProcessing
 
 
 otherTextProcessing()
@@ -82,14 +82,20 @@ otherTextProcessing()
 
   source LMScripts/LMBuildingFunctions.sh;
   #CLASS_CHARSET=eu.transcriptorium.lm.charsets.DutchArtesTokenization
-  CLASS_CHARSET=eu.transcriptorium.lm.charsets.ProcessingForCharacterLM
+  CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
   SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
   TRANSCRIPTIONS=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions
+ 
   TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst
   TRAINING_LINES=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst
-  BUILD_DIRECTORY=/tmp/MMTest
-  TextProcessingBeforeTraining  $CLASS_CHARSET $SPECIAL_LABELS $TRANSCRIPTIONS $TRAINING_PARTITION $TRAINING_LINES $BUILD_DIRECTORY
+  BUILD_DIRECTORY=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/PREBUILD
 
+  TEST_PARTITION=/home/jesse/TUTORIAL-HTR/corpora/Meermanno/test.noprefix.lst
+  TEST_LINES=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Test-Lines.lst
+  TEST_BUILD_DIRECTORY=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/PREBUILD-TEST
+  TextProcessingBeforeTraining  $CLASS_CHARSET $SPECIAL_LABELS $TRANSCRIPTIONS $TRAINING_PARTITION $TRAINING_LINES $BUILD_DIRECTORY
+  TextProcessingBeforeTraining  $CLASS_CHARSET $SPECIAL_LABELS $TRANSCRIPTIONS $TEST_PARTITION $TEST_LINES $TEST_BUILD_DIRECTORY
+  
 
   # second step is to go for simple language modeling
 
@@ -97,12 +103,12 @@ otherTextProcessing()
   LM_TRAINING_CORPUS=$BUILD_DIRECTORY/trainingCorpus.txt
   CHARSET=$BUILD_DIRECTORY/charset.txt
 
-  LM_OUTPUT=EXP-MEERMANNO/TRAIN/LM
+  LM_OUTPUT=EXP-MEERMANNO/TRAIN/LM/TC
   CUTOFF=0
 
-  syllableSplitting $LM_TRAINING_CORPUS $LM_TRAINING_CORPUS.syl
-  CLASS_CHARSET=eu.transcriptorium.lm.charsets.SyllableTokenization
-  TextAndLexicalProcessing2 $LM_TRAINING_CORPUS.syl $CLASS_CHARSET $CHARSET $CUTOFF $LM_OUTPUT
+#  syllableSplitting $LM_TRAINING_CORPUS $LM_TRAINING_CORPUS.syl
+#  CLASS_CHARSET=eu.transcriptorium.lm.charsets.SyllableTokenization
+  TextAndLexicalProcessing2 $LM_TRAINING_CORPUS $CLASS_CHARSET $CHARSET $CUTOFF $LM_OUTPUT
 
   LanguageModelingWithoutBigLM $LM_OUTPUT/normalizedText.txt $LM_OUTPUT/normalizedWordList.txt $LM_OUTPUT/languageModel.lm
 
@@ -116,14 +122,13 @@ otherTextProcessing()
   # LANGUAGE_MODEL=Meermanno-LM
   # some copying to comply with the other variant
 
-  cp $LM_OUTPUT/latticeFile.txt EXP-MEERMANNO/TRAIN/Meermanno-LM.slf
-  cp $LM_OUTPUT/dictionary.txt EXP-MEERMANNO/TRAIN/Meermanno.dic
-  cp $HMM_LIST EXP-MEERMANNO/TRAIN/Meermanno-HMMs.lst
-  cp $BUILD_DIRECTORY/labelFile.mlf EXP-MEERMANNO/TRAIN/Meermanno.mlf
+#  cp $LM_OUTPUT/latticeFile.txt EXP-MEERMANNO/TRAIN/Meermanno-LM.slf
+#  cp $LM_OUTPUT/dictionary.txt EXP-MEERMANNO/TRAIN/Meermanno.dic
+#  cp $HMM_LIST EXP-MEERMANNO/TRAIN/Meermanno-HMMs.lst
+#  cp $BUILD_DIRECTORY/labelFile.mlf EXP-MEERMANNO/TRAIN/Meermanno.mlf
 }
 
-(otherTextProcessing)
-
+#(otherTextProcessing)
 
 ###### end of text processing 
 

@@ -1,7 +1,7 @@
 
-CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
-#CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
-SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels.txt
+#CLASS_CHARSET=eu.transcriptorium.lm.charsets.AlejandrosNewBenthamTokenization
+CLASS_CHARSET=eu.transcriptorium.lm.charsets.SimpleTokenization
+SPECIAL_LABELS=/home/jesse/workspace/LMServer/resources/CharacterSets/special_labels_hattem.txt
 TRANSCRIPTION_DIR=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Transcriptions
 TRAINING_PARTITION=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/train.lst
 TRAIN_LINES=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/Train-Lines.lst.x
@@ -11,7 +11,7 @@ BASIC_TRAINING_SOURCE=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/TC
 MNLDIR=/media/jesse/Data/tranScriptorium/NederlandseData/MNL-plaintext/Corpora
 ######### 
 CORPUS=$MNLDIR/Hattem-rest.txt
-OUTPUT=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/HATTEM-LM
+OUTPUT=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/MEERMANNO-LM
 CHARSET=$BASIC_TRAINING_SOURCE/charset.txt
 CUTOFF=0
 

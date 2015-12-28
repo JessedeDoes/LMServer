@@ -40,7 +40,11 @@ INTERPOLATION_ARGS=`interleave "$SUBMODEL_FILES $INTERPOLATION_LAMBDAS"`
 # HACK
 INTERPOLATION_ARGS=`echo $INTERPOLATION_ARGS | perl -pe 's/LMTrain/LMTrainFull/'`
 echo "Interleaved args=$INTERPOLATION_ARGS"
+
 ## build the combined HTR dictionary, and the vocabulary for the interpolation
+## here we have one cutoff for the combined corpus, which is not what we want
+## instead: per-component cutoff, build vocabulary, etc...
+
 # $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
 LexicalProcessing2  $DESTINATION/cleanedText.txt $CLASS_CHARSET $CHARSET $CUTOFF $DESTINATION
 ## carry out the interpolation

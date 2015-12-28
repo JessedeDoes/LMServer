@@ -2,7 +2,7 @@
 # Training Phase
 ###################
 STARTDIR=`pwd`
-rm -rf EXP-HATTEM/TRAIN/hmms
+#rm -rf EXP-HATTEM/TRAIN/hmms
 cd EXP-HATTEM/TRAIN
 
 #Useful links

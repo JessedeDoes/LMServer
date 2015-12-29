@@ -51,7 +51,7 @@ import java.nio.file.Paths;
  */
 public class Command
 {
-	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties()); // do this differently...
 	static private Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
 	public String commandName;
 	List<FormalParameter> formalParameters = null;
@@ -242,10 +242,19 @@ public class Command
 								configuration.put(formalParameter.name, f.toString());
 							} else if (String.class.isAssignableFrom(actualParameter.getClass()))
 							{
-								// dit is niet goed: je moet opslaan in een temp file
-								// maar wel de in de parameters gegeven naam in de repository zetten
-								String s = (String) actualParameter;
-								args[i] = s;
+								if (formalParameter.referenceType == Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY)
+								{
+									String s = (String) actualParameter;
+									args[i] = s;
+								} else
+								{
+									// dit is niet goed: je moet opslaan in een temp file
+									// maar wel de in de parameters gegeven naam in de repository zetten
+									
+									File f = createTempFile();
+									args[i] = f.toString();
+								}
+								// args[i] = s;
 							}
 						} else if (formalParameter.ioType == Command.ioType.OUTPUT_DIRECTORY)
 						{
@@ -413,7 +422,7 @@ public class Command
 	protected File saveToTempFile(int repoId) throws IOException 
 	{
 		File f = createTempFile();
-		
+
 		InputStream stream = repository.openFile(repoId);
 		try 
 		{
@@ -499,7 +508,7 @@ public class Command
 			}
 		}
 	}
-	
+
 	private static void expandVariables(Properties p, Properties baseProps) 
 	{
 		for (Object o: p.keySet())

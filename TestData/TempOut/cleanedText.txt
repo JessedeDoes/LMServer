@@ -5,7 +5,7 @@ instrument ,↵ instead of a fixed Book .↵ ↳_ Taken from Exche -↵
 quer Bills ,_↵ Differs from Stock Annuities ↳_ Agrees with 
 Irish Debentures ,↵ and the now disused Navy Victu -↵ 
 alling Transport and Ordnance Bills or Debentures :↵ ↳_ 
-also with India Bonds ,↵ Bank Notes ,↵ Banker\'s Promissory 
+also with India Bonds ,↵ Bank Notes ,↵ Banker's Promissory 
 Notes ;↵ and private Promissory Notes and Bills of Exchange .↵ 
 ↳7↵ .↵ The Paper ,↵ by its size ,↵ shape ,↵ texture ,↵ are thinness ,↵ par -↵ 
 ticularly fitted for circulation ↳_ Taken from Bank Paper .↵ 
@@ -108,10 +108,10 @@ ceived without them .↵
 ↳5↵ .↵ 
 Body ,↵ to exist ,↵ must in like manner possess three things :↵ length ,↵ ↳_ 
 breadth and thickness .↵ They constantly belong to it :↵ it cannot be con -↵ 
-ceived without them .↵ Of them it is said in a certain sense to be compos\'d 
+ceived without them .↵ Of them it is said in a certain sense to be compos'd 
 Under them it is said to be comprised :↵ By them it is measured .↵ Mathe 
-maticians call them it\'s dimensions .↵ Dimensions \"↵ comes from ↳\" Di -↵ 
-mitior \".↵ ↳\" dimitior \"↵ is ↳\" to measure \".↵ 
+maticians call them it's dimensions .↵ Dimensions "↵ comes from ↳" Di -↵ 
+mitior ".↵ ↳" dimitior "↵ is ↳" to measure ".↵ 
 ↳6↵ .↵ 
 then begin with 
 Of Mathematicians let us borrow the appellation :↵ and let us saying ;↵ 
@@ -210,27 +210,27 @@ the persons of others in order to guard against Danger
 ↳: ings .↵ 
 ↳2↵ .↵ From inundation .↵ See the Law concerning Inundation .↵ 
 ↳3↵ .↵ From the sinking or stranding of navigable Vessels .↵ See the 
-Sea-faring-Man\'s Law :↵ 
+Sea-faring-Man's Law :↵ 
 ↳4↵ .↵ From the Explosion of Gunpowder .↵ See Laws concerning the 
 keeping and carriage of Gunpowder .↵ 
 ↳5↵ .↵ From Fire .↵ See ↳1↵ .↵ Laws concerning buildings ↳2↵ .↵ The House :↵ 
 Sect .↵ 
-↳: holder\'s Law ,↵ concerning accidents by Fire .↵ ↳3↵ .↵ The Sea-faring -↵ 
-man\'s Law .↵ Sect concerning accidents by Fire .↵ ↳5↵ .↵ The Miner\'s 
+↳: holder's Law ,↵ concerning accidents by Fire .↵ ↳3↵ .↵ The Sea-faring -↵ 
+man's Law .↵ Sect concerning accidents by Fire .↵ ↳5↵ .↵ The Miner's 
 Law ↳- Sect concerning accidents by Fire .↵ ↳6↵ .↵ The Turpentine 
-Distiller\'s Law :↵ Sect .↵ Concerning accidents by Fire ↳7↵ .↵ The 
-founder\'s 
+Distiller's Law :↵ Sect .↵ Concerning accidents by Fire ↳7↵ .↵ The 
+founder's 
 C 
 ↳7↵ .↵ 
 Of Justifications .↵ 
-founder\'s Law .↵ ↳8↵ .↵ The Chymists Law ↳& c .↵ ↳& c .↵ 
-↳6↵ .↵ From Storms .↵ See the Seafaring-man\'s Law Sect .↵ Con -↵ 
+founder's Law .↵ ↳8↵ .↵ The Chymists Law ↳& c .↵ ↳& c .↵ 
+↳6↵ .↵ From Storms .↵ See the Seafaring-man's Law Sect .↵ Con -↵ 
 ↳: cerning Storms .↵ 
 ↳7↵ .↵ From the Plague and other infectious diseases .↵ See Laws 
 concerning the Plague ↳& c .↵ 
 ↳8↵ .↵ From Persons insane :↵ See Laws concerning persons 
-insane or ↳1↵ .↵ The Madman\'s Law :↵ ↳2↵ .↵ The Ideot\'s Law .↵ ↳2↵ .↵ The 
-Maniac\'s Law 
+insane or ↳1↵ .↵ The Madman's Law :↵ ↳2↵ .↵ The Ideot's Law .↵ ↳2↵ .↵ The 
+Maniac's Law 
 Instructions to the Legislator .↵ 
 It is not clear that in every one of the several titles of 
 Law above mentioned there will need a provision or set of 
@@ -292,7 +292,7 @@ Instructions to the Legislator .↵ ↳_ Analytical View .↵
 With regard to the object ,↵ whatever is done for the purpos= 
 ↳: es of Justice must be performed either upon the person of 
 a man ,↵ or upon something that is ,↵ or is capable of being ,↵ a 
-man\'s property .↵ With regard to the occasion ,↵ it may be 
+man's property .↵ With regard to the occasion ,↵ it may be 
 performed either in the way of execution that is at the con= 
 ↳: clusion of a suit ;↵ or in the way of process ;↵ that is during 
 the continuance of a suit .↵ With regard to the person of 
@@ -301,7 +301,7 @@ the agent ,↵ it may be perfomed either by a regular offi=
 ↳: son at large ,↵ either by special authority from an Officer 
 of Justice ,↵ or without such authority .↵ 
 Main ↳- Text .↵ 
-Any thing done to a man\'s person by a Judge or 
+Any thing done to a man's person by a Judge or 
 other Officer of Justice in pursuance of his authority ,↵ or by 
 any gap/ person whatsoever in due execution 
 due execution of any legal warrant given by a judge or 
@@ -330,7 +330,7 @@ are
 the greater ,↵ 
 ↳[( B )↵ Degree ]↵ ↳1↵ .↵ The degree of heedlessness is the greater the 
 danger would appear to a person of ordinary prudence ;↵ in case of 
-a man\'s engaging in the act in question in the circumstances 
+a man's engaging in the act in question in the circumstances 
 in question .↵ 
 ↳2↵ .↵ The greatness of the danger will depend upon a great 
 number 
@@ -347,7 +347,7 @@ which you suppose is mad ,↵
 ↳( as you suppose )↵ by a mad dog ,↵ you cut off the finger 
 against his will .↵ here ↳1↵ .↵ If the dog was not mad at 
 it 
-the time he bit the person\'s finger ,↵ this was a mistake re= 
+the time he bit the person's finger ,↵ this was a mistake re= 
 ↳: specting the actual past and present matter of fact .↵ ↳2↵ .↵ If 
 immediate amputation does not surely cure ,↵ or if a cure 
 might for a certainty be effected at a cheaper rate ,↵ either 
@@ -356,7 +356,7 @@ fact .↵ ↳3↵ .↵ If notwithstanding that the dog was mad at
 the time and that the amputation cured ,↵ and that a cure 
 could not be effected at a cheaper rate ,↵ the law admitt= 
 ↳: ed not the concurrence of these circumstaces as a 
-justification for the cutting off a man\'s finger ,↵ this would 
+justification for the cutting off a man's finger ,↵ this would 
 be a mistake with regard to the matter of right ,↵ or in 
 other words of the matter of Law 
 Extenuation 
@@ -660,13 +660,13 @@ reason to think requisite in order for a person in
 whose custody or possession it was to know who 
 the person was that took it :↵ As if a stranger passing 
 by a shop ,↵ snatches up a thing and runs away with 
-it before the shopman\'s face .↵ Much more if he takes 
+it before the shopman's face .↵ Much more if he takes 
 measures to prevent his being known :↵ as if he wraps himself 
 up or disguises himself for the purpose .↵ 
 By a stranger in this case is meant any 
 one who has no reason to think himself already 
 known to the owner in such a manner as to be made 
-amenable ,↵ if it was before the owner\'s face that it 
+amenable ,↵ if it was before the owner's face that it 
 was taken ,↵ or to any one who would be expected of 
 course to inform the owners .↵ gap/ to gap/ if gap/gap/ 
 gap/ 
@@ -760,7 +760,7 @@ more severe
 C 
 Of Falshoods in general 
 pernicious consequences ;↵ since as far as it extended it would 
-admit of a man\'s doing mischief with impunity .↵ 
+admit of a man's doing mischief with impunity .↵ 
 Heterogeneous as the several species of Forgery are 
 I thought it best to comprehend them under one title ;↵ 1st 
 Because the only name they are known by belongs to all 
@@ -809,7 +809,7 @@ Of Adultery .↵
 ↳1↵ .↵ He may be reprimanded and his name registered in the 
 Book of Adultery .↵ 
 ↳2↵ .↵ For the second offence he may be made to wear the A= 
-=dulterer\'s Coat ,↵ for a certain time in a manner more or less 
+=dulterer's Coat ,↵ for a certain time in a manner more or less 
 public .↵ 
 ↳3↵ .↵ For a third or any subsequent offence his wife may be 
 allowed to put him away and marry again ,↵ or the power 
@@ -926,7 +926,7 @@ of Punishment ,↵ he may be fined .↵
 ↳2↵ .↵ Upon petition of the Husband he shall be banished 
 from the presence of the Husband and of the Wife or ei= 
 ↳: ther ,↵ for a time or forever :↵ so also may he from the presence 
-of any relation or relations of the Wife\'s .↵ 
+of any relation or relations of the Wife's .↵ 
 ↳3↵ .↵ If there be no disproportion of rank ,↵ ↳( a )↵ and the adulte= 
 ↳: ress 
 Note .↵ 
@@ -939,7 +939,7 @@ Of Adultery .↵
 adulteress were otherwise of good fame for chastity and 
 the husband chooses to put away the adulteress the Of= 
 ↳: fender may be obliged to marry her .↵ Qu .↵ 
-↳4↵ .↵ He may be made to wear the Adulterer\'s Coat for 
+↳4↵ .↵ He may be made to wear the Adulterer's Coat for 
 a certain time in a manner more or less public .↵ 
 Extenuation Excuse I .↵ Adulteress a Prostitute .↵ 
 ↳1↵ .↵ If before the Offence the Woman prostituted herself for 
@@ -1013,7 +1013,7 @@ Next with regard to Sharping .↵ It is not always that
 a Woman thus imposed upon suffers in her fortune .↵ Perhaps 
 she had none :↵ the only bait that tempted the Offender was her 
 person .↵ It is only in case of her having had a fortune ,↵ and 
-that fortune\'s having been dissipated by the Offender ,↵ that she 
+that fortune's having been dissipated by the Offender ,↵ that she 
 is a sufferer in this way .↵ In the account of dissipation ,↵ so 
 much as it is supposed she would have expended had she 
 remained single ,↵ must be deducted .↵ 
@@ -1055,7 +1055,7 @@ C
 Of Matrimonial Disturbance .↵ 
 Punishment .↵ 
 For disturbing a man in the exercise of conjugal rights 
-the Offender\'s punishment may be as follows 
+the Offender's punishment may be as follows 
 ↳1↵ .↵ He may be banished the presence of the husband or that 
 of the Wife or both for a time or forever .↵ 
 ↳2↵ .↵ He may be prohibited from holding correspondence with 
@@ -1154,7 +1154,7 @@ Punishment .↵
 For Family Imposture the Punishment of an Impostor 
 himself shall be as follows .↵ 
 ↳1↵ .↵ He shall be punished ignominiously and afflictively with the 
-Impostor\'s Mask .↵ See ↳[ Punishments ]↵ 
+Impostor's Mask .↵ See ↳[ Punishments ]↵ 
 ↳2↵ .↵ He shall be imprisoned or confined to hard Labour for Life .↵ 
 ↳( A )↵ 
 The Punishment of a Suborner shall be as follows :↵ 
@@ -1221,7 +1221,7 @@ the exercise is limited to a certain place ,↵ or any public
 or private trust .↵ 
 ↳4↵ ._↵ Of partaking of public diversions attached to a par= 
 ↳: ticular place ,↵ such as Races ,↵ Plays ,↵ Concerts ,↵ Balls ,↵ ↳& c .↵ 
-↳5↵ .↵ ↳_ Of putting one\'s self in the way of chance opportunities 
+↳5↵ .↵ ↳_ Of putting one's self in the way of chance opportunities 
 of taking pleasure .↵ 
 ↳6↵ .↵ ↳_ Of taking journies which may occasionally become 
 requisite for the purpose of preserving Health ;↵ for in= 
@@ -1231,7 +1231,7 @@ medical advice .↵
 Privation or 
 ↳7↵ .↵ On abridgement of the Liberty of carrying on busi= 
 ↳: ness for a livelyhood .↵ 
-↳8↵ .↵ ↳_ Of putting one\'s self in the way of accidental opportu-= 
+↳8↵ .↵ ↳_ Of putting one's self in the way of accidental opportu-= 
 ↳: nities 
 ↳1↵ 
 C 
@@ -1315,7 +1315,7 @@ the condition is constituted .↵ It is only on person or property that cala=
 ↳: mities 
 Note .↵ 
 the medical sciences .↵ The prophylactic regimen is employed to signify 
-that method of living which is resorted to for the sake of guarding one\'s 
+that method of living which is resorted to for the sake of guarding one's 
 self against a disease of any kind before it appears .↵ 
 ↳1 1↵ .↵ 
 C 
@@ -1400,7 +1400,7 @@ System .↵ Nal .↵ ↳9 1↵ .↵ ↳1↵ .↵ ed .↵ dec .↵ Flora Suecica 
 Linn .↵ Iter 
 Helm .↵ Arundo arenaria Linn .↵ System :↵ ↳8 7↵ .↵ ↳6↵ .↵ Flor :↵ Suec .↵ ↳1 0 8↵ .↵ gap/ Scan= 
 ↳: icum ↳3 3 6↵ .↵ and several other Plants .↵ See Lettres sur le Dannemarc Vol .↵ ↳2↵ .↵ 
-Lett .↵ ↳2 6↵ .↵ p .↵ ↳1 6 2↵ ,↵ ↳1 6 3↵ .↵ And Cod .↵ Dan .↵ L ↳6↵ .↵ c .↵ ↳1 7↵ .↵ § .↵ ↳1 9↵ .↵ See also Barrington\'s 
+Lett .↵ ↳2 6↵ .↵ p .↵ ↳1 6 2↵ ,↵ ↳1 6 3↵ .↵ And Cod .↵ Dan .↵ L ↳6↵ .↵ c .↵ ↳1 7↵ .↵ § .↵ ↳1 9↵ .↵ See also Barrington's 
 Observations ,↵ on the Stat .↵ sub regno Mariae ↳. 
 By the British Law a kind of Rush is forbidden to be cut 
 on the North West Coasts of England or in any part of Scotland .↵ See Stat .↵ 
@@ -1581,7 +1581,7 @@ Justification II .↵
 Precaution against Calamity .↵ See Tit .↵ ↳[ Justi= 
 ↳: fications ]↵ 
 Justification III .↵ 
-Defence of one\'s self ;↵ if the attack portend 
+Defence of one's self ;↵ if the attack portend 
 irreparable 
 instant inevitable and indelible injury to life 
 or member ;↵ and provided the party do his utmost 
@@ -1662,7 +1662,7 @@ a man ,↵ by false suggestions or deceitful behavi :↵
 ↳( C )↵ 
 ↳( D )↵ 
 ↳: self is conscious ,↵ is concerned in obtaining money 
-or money\'s worth ,↵ intending not to be amenable 
+or money's worth ,↵ intending not to be amenable 
 to Law .↵ 
 Exposition 
 
@@ -1931,10 +1931,10 @@ for a thing pretended to be of equal but which in fact is of
 less Value ,↵ that produces all the Mischief .↵ 
 Coining is a species of Forgery .↵ The impression given 
 to a piece of coin is designed to answer the purpose of a dis= 
-↳: course to this effect ;↵ ↳\" I the Officer in this case appointed by 
-↳\" the Law ,↵ do certify ,↵ that the substance which you here see con= 
+↳: course to this effect ;↵ ↳" I the Officer in this case appointed by 
+↳" the Law ,↵ do certify ,↵ that the substance which you here see con= 
 ↳: tains such or such a quantity or quantities of such or such 
-↳\" a metal or metals .\"↵ Now in every state there are but one or 
+↳" a metal or metals ."↵ Now in every state there are but one or 
 more particular set or sets of Officers appointed for this pur= 
 ↳: pose .↵ If then any person who is not of any such set takes 
 upon him to fashion any portion of matter in the view of 
@@ -2107,19 +2107,19 @@ ingredients and which has any particular properties which
 would be discoverable by tests so obvious as not to require 
 the piece to be defaced ;↵ that composition and that alone might 
 be appropriated to the Coinage ,↵ and it might be made penal 
-to have it in one\'s possession or to apply it to any other pur= 
+to have it in one's possession or to apply it to any other pur= 
 ↳: pose.(a )↵ 
 ↳1↵ .↵ 
 Let the coin be constantly kept fresh ↳; and for this purpose Let the 
 coinage be periodically renewed.(b)+ ↳2↵ .↵ Let such Compositions be pre= 
-ferr\'d 
+ferr'd 
 Note 
 ↳( a )↵ If any Legislator should think proper to pursue this idea and 
 prohibit any metallic composition in order to guard against its being 
 to be 
 thus abused it is hoped he will be a little more careful in the descrip= 
 ↳: tion of it than the English Legislator was who in the Statute of Will.III .↵ 
-↳[ ↳8↵ and ↳9↵ Will .↵ ↳3↵ .↵ C.\'26 S .↵ ↳6↵ and ↳9↵ ]↵ took upon him to prohibit un= 
+↳[ ↳8↵ and ↳9↵ Will .↵ ↳3↵ .↵ C.'26 S .↵ ↳6↵ and ↳9↵ ]↵ took upon him to prohibit un= 
 ↳: der pain of death the use of certain metallic substances .↵ These substances 
 he 
 ↳( b )↵ + See p.17 
@@ -2190,9 +2190,9 @@ Quest .↵ II ↳. Why foreign Coin is put upon the same
 footing 
 Note 
 bad money at the price of genuine .↵ The reason indeed given is 
-that ↳\" the utterers often are the Coiners or in confederacy with them \";↵ 
+that ↳" the utterers often are the Coiners or in confederacy with them ";↵ 
 but the conviction is not made to depend in any manner upon 
-the Jury\'s persuasion of that circumstance .↵ The punishment is 
+the Jury's persuasion of that circumstance .↵ The punishment is 
 for the first offence Six Months imprisonment ;↵ for the Second 
 Two Years Imprisonment ;↵ and for the Third ,↵ Death .↵ 
 This statute ,↵ as any one may imagine ,↵ is not executed .↵ 
@@ -2225,7 +2225,7 @@ In both these instances indeed ,↵ it may be said that gener=
 ↳: ally speaking there is no knowledge in the case ;↵ that there is 
 nothing more than bare suspicion .↵ There is however very fre= 
 =quently a persuasion ;↵ and that as entire as any which the Evi= 
-=dence of a man\'s senses can produce .↵ If then all that the term 
+=dence of a man's senses can produce .↵ If then all that the term 
 knowledge imports is that the matter of fact is true ,↵ or that 
 the party who is said to know it is persuaded of its being so ,↵ 
 there is often as much knowledge in this case as there can be 
@@ -2270,7 +2270,7 @@ worth while to detract from the simplicity of the Law for the
 sake 
 Note .↵ 
 either false money in payment :↵ or at the time of such tendering have 
-more in his custody ;↵ he is for the First Offence to suffer a year\'s 
+more in his custody ;↵ he is for the First Offence to suffer a year's 
 Imprisonment ,↵ and ,↵ for the second Offence ,↵ Death .↵ 
 In no state of things could a remedy so violent and hazard= 
 ↳: ous as this be advantageous .↵ When the Coingage is in a good state ;↵ 
@@ -2367,7 +2367,7 @@ subjects should be extended ,↵ where it is wanted ,↵ to the indivi=
 states makes no difference ;↵ for howsoever the happiness of a na= 
 ↳: tion one is at war with may be impaired yet the strength of 
 it is not in any sensible degree diminished nor consequently 
-the Security of one\'s own nation promoted by these minute in= 
+the Security of one's own nation promoted by these minute in= 
 ↳: vasions of private property .↵ 
 It may occur on the other side that domestic Coin is the 
 only 
@@ -2404,8 +2404,8 @@ upon the degree of currency which the foreign Coin in ques=
 ↳: tion may happen to have .↵ Besides by knowing that a 
 fraud has been practised upon that Coin they know that there 
 is a criminal who has the inclination and the power to do 
-mischief in this way ,↵ or ↳\" yesterday \"↵ they will say to themselves ,↵ 
-↳\" he practised it upon foreign Coin ↳; but to morrow he may 
+mischief in this way ,↵ or ↳" yesterday "↵ they will say to themselves ,↵ 
+↳" he practised it upon foreign Coin ↳; but to morrow he may 
 practise it upon our own ↳. 
 ↳3↵ .↵ The Profit is just the same :↵ for the gain of half a 
 for example ↳, 
@@ -2549,7 +2549,7 @@ reputation ,↵ if he ever had any ,↵ is gone .↵ Frighten him from
 practising Theft ,↵ he will have nothing left for it but to 
 turn Robber .↵ 
 Between Coining and Robbery the case is different .↵ A 
-man\'s being in the habit of Coining may in general be looked 
+man's being in the habit of Coining may in general be looked 
 upon as a presumption of his possessing some honest Art from 
 which this illicit practise is only an occasional deviation ,↵ and 
 to which if forced back by salutary terrors ,↵ he may at any 
@@ -2949,7 +2949,7 @@ before his face ;↵ and therefore ought to be more severely
 punished .↵ 
 Reasons .↵ 
 Defamation ,↵ it is true ,↵ is rather more likely to pro= 
-↳: duce quarrels when delivered before a man\'s face than 
+↳: duce quarrels when delivered before a man's face than 
 when behind his back ;↵ particularly in proportion as it is 
 accompanied by reproach :↵ and this produces at any rate 
 a present pain .↵ But then on the other hand this is all 
@@ -2975,7 +2975,7 @@ in this figured stile it is more apt to be consigned to verse .↵
 Defamation when thus embellished is called Satire .↵ Sa :↵ 
 ↳: tire whether in prose or in verse is not only more apt to be 
 remembered than downright defamation and reproach but 
-the impression it makes to the party\'s disadvantage is 
+the impression it makes to the party's disadvantage is 
 much stronger ,↵ even when the substance of the imputation 
 is the same .↵ The pleasure of surprize which the hearer or reader 
 reaps from the novelty of the image ,↵ the pleasure he reaps at the 
@@ -3045,10 +3045,10 @@ C
 ↳9↵ .↵ 
 Offences against the external Security of the State .↵ 
 about the manner in which it should be punished .↵ It is 
-an offence against one\'s own state ,↵ as such it ought to be 
+an offence against one's own state ,↵ as such it ought to be 
 punished in the same manner as an offence of the same 
 kind committed against a native .↵ While the foreigner conti= 
-↳: nues in the dominions of one\'s own state ,↵ and as such 
+↳: nues in the dominions of one's own state ,↵ and as such 
 remains contributory to its well-being and subject to its 
 authority it has the same reason nearly for affording 
 protection to him as to a native .↵ In this point of view 
@@ -3149,20 +3149,20 @@ is
 C 
 ↳1 8↵ .↵ 
 Offences against the external Security of the State .↵ 
-common case of this sort is where a subject of one\'s own 
+common case of this sort is where a subject of one's own 
 state furnishes military stores to the enemies or revolted sub= 
 ↳: jects of the foreign state .↵ This is the most common case ,↵ because 
 the gain to be made by such a traffic is a motive that is more 
-apt to be in people\'s way than any which could lead a man 
+apt to be in people's way than any which could lead a man 
 to prejudice a foreign state in any other manner .↵ It is 
 however 
-also not an uncommon case for a subject of one\'s own 
+also not an uncommon case for a subject of one's own 
 state to enlist himself or to engage others to enlist in the 
 military service of the enemies or revolted subjects of a 
 two 
 foreign state .↵ These cases are the most common ;↵ but there 
 are few of the acts that can be committed to the preju= 
-↳: dice of one\'s own State but may also be committed to 
+↳: dice of one's own State but may also be committed to 
 the prejudice of a foreign state .↵ 
 countenance or discountenance 
 The degree of contenance or discontenance which 
@@ -3170,7 +3170,7 @@ it may be proper to give to such acts will depend altogether
 upon the particular connections between the several states 
 that may be concerned .↵ It is impossible therefore to as :↵ 
 ↳: certain it by the letter of any universal Law .↵ It will depend 
-partly upon the reason that one\'s own state may have for 
+partly upon the reason that one's own state may have for 
 partly 
 wishing well to the foreign one :↵ that is ,↵ upon what it may 
 have to hope from the foreign :↵ partly upon what it may 
@@ -3186,7 +3186,7 @@ of the former
 ↳: dice upon as high a footing as an act of the same sort 
 the latter ,↵ 
 our ,↵ 
-done to the prejudice of one\'s own state ↳: it can hardly be 
+done to the prejudice of one's own state ↳: it can hardly be 
 requisite to treat it upon a higher footing .↵ 
 In states or confederacies of states in which the ju :↵ 
 that branch of the 
@@ -3200,7 +3200,7 @@ seems to be ↳, to invest the latter magistracy with a pow=
 to ↳( the interests of )↵ the amicable foreign state :↵ 
 backing them with any penalties not greater than 
 what would attach upon the same acts if committed 
-to the prejudice of the offender\'s own state .↵ The defini= 
+to the prejudice of the offender's own state .↵ The defini= 
 ↳: tions of the one ought to be copied as closely as may 
 be from those of the other ↳. If the penalties were also 
 to be the same ,↵ the business might be done by a single 
@@ -3211,7 +3211,7 @@ C
 ↳2 2↵ .↵ 
 Offences against the external Security of the State .↵ 
 hostility to other states have a tendency to bring on a reta= 
-↳: liation of those hostilities on one\'s own state .↵ 
+↳: liation of those hostilities on one's own state .↵ 
 Offences of the former class may all be comprised 
 under the head of treason 
 Those of the latter Class are reducible to the following 
@@ -3307,7 +3307,7 @@ Note .↵
 the 
 ↳( a )↵ A Lewis in France and a Catharine in Russia have given re= 
 wards for services rendered to all mankind .↵ But all Sovereigns are not either 
-Lewis\'s or Catharines .↵ 
+Lewis's or Catharines .↵ 
 Among 
 C 
 ↳1↵ 
@@ -3472,7 +3472,7 @@ window .↵ Having occasion for a piece of paper he
 takes it up imagining it to be an ordinary scrap of paper 
 any 
 and not suspecting it be of value worth regarding 
-This being the case it will be allow\'d that he has not 
+This being the case it will be allow'd that he has not 
 stolen it 
 He is just going to throw it away ↳: but another person 
 seeing it tells him what it is :↵ He then determines to keep 
@@ -3506,7 +3506,7 @@ his opportunity mounts the horse and runs away with
 is will 
 it .↵ This what every body may call Theft .↵ If instead of 
 taking the horse in this clandestine manner by sur= 
-=prize he had got the owner\'s leave to mount on its 
+=prize he had got the owner's leave to mount on its 
 back on pretence of trying its paces ,↵ this too according 
 to decisions that have been given by English Lawyers 
 would have been Theft for they saw plainly that in point 
@@ -3592,7 +3592,7 @@ that is whether it be valuable to any person in general ;↵ as a piece
 of current money or an ordinary Article of food ↳: or confined only :↵ 
 that is whether it be valuable to any particular person or per= 
 =sons only ↳; as a Paper containing nothing but memorandums 
-for such person\'s private use .↵ 
+for such person's private use .↵ 
 ↳2↵ .↵ It mattes not whether the Value of it be constant as an 
 Article of Food or Cloathing ↳, or occasional only :↵ provided the time 
 when it is taken be a time at which it possesses or appears about 
@@ -3662,7 +3662,7 @@ to law for taking a thing when he intends either to keep the affair
 concealed from the knowledge of the Judge ,↵ or not to conform to that 
 which upon the knowledge of the affair ,↵ the Judge shall order .↵ 
 Instructions to the Judge .↵ X 
-The signs of a man\'s intending not to be amenable to law 
+The signs of a man's intending not to be amenable to law 
 for taking a thing which he has no right to take are as follows .↵ 
 ↳1↵ .↵ 
 Note .↵ 
@@ -3688,10 +3688,10 @@ as if upon being asked whether he has taken it ,↵ he denies it .↵
 think requisite in order for a person in whose custody or posses :↵ 
 ↳: sion it was to know who the person was that took it .↵ As if 
 a stranger passing by a Shop snatches up a thing and runs 
-away with it before the Shopman\'s face .↵ 
+away with it before the Shopman's face .↵ 
 By a stranger in this case is meant any one who has 
 no reason to think himself already known to the owner in such 
-manner as to be made amenable if it was before the owner\'s 
+manner as to be made amenable if it was before the owner's 
 face that it was taken ,↵ or to any one who would be expected of 
 course to inform the owner ;↵ much more if he takes measures to 
 prevent 
@@ -3704,7 +3704,7 @@ disguises himself for the purpose .↵
 to be unable to make conpensation for the loss :↵ and this al :↵ 
 ↳: though he should fully make known what it is he has 
 taken ,↵ and who he is .↵ 
-↳4↵ .↵ If he takes it trusting to the party\'s not being able 
+↳4↵ .↵ If he takes it trusting to the party's not being able 
 to call him to account .↵ As if a man takes it before your 
 face ,↵ believing you to be at the point of death ,↵ or too poor to 
 prosecute him ,↵ or under an indispensible engagement to de :↵ 
@@ -3719,7 +3719,7 @@ his having the power .↵ Now if in any case the Judge can be prevented from
 doing Justice ,↵ it can only be ↳( as we shall see more particularly hereafter )↵ 
 by depriving him of one or other of these qualifications ,↵ the knowledge ;↵ 
 the inclination or the power .↵ But the inclination in a case like this is out of 
-the question .↵ It appears therefore that these can be no other signs of a man\'s 
+the question .↵ It appears therefore that these can be no other signs of a man's 
 intending 
 ↳9↵ .↵ 
 C 
@@ -3741,10 +3741,10 @@ intending not to be amendable to Law but what are here mentioned and
 that therefore the enumeration above given is exhaustive .↵ 
 ↳[( a )↵ Sixpence ]↵ The sum will of course require to be different accord= 
 ↳: ing to the different values of money in different countries .↵ The rule might 
-be that it should amount to half a day\'s Wages according to the ordi= 
+be that it should amount to half a day's Wages according to the ordi= 
 ↳: nary price of labour .↵ On this plan a man of the lowest Class which is the 
 Class to which the greater part of thieves will belong will be made to work 
-two days in a state of humiliation and confinement for every day\'s Sub= 
+two days in a state of humiliation and confinement for every day's Sub= 
 ↳: sistence ,↵ which he would have got without working had he escaped de= 
 ↳: tection .↵ 
 ↳1 0↵ .↵ 
@@ -3753,7 +3753,7 @@ Of Theft or Stealing .↵
 thus to suffer amounts to more than ↳[ a year ]↵ the Judge may convert 
 as much as he thinks proper of the confinement exceeding that term 
 into whipping at the rate of not fewer than one stripe nor more 
-than five for every day\'s confinement .↵ The stripes to be inflicted 
+than five for every day's confinement .↵ The stripes to be inflicted 
 at such times and such a number at a time as he shall appoint .↵ 
 ↳5↵ .↵ As to so much of the Confinement to hard labour as exceeds the 
 fixed term of a quarter of a year the Judge may also convert as much 
@@ -3845,7 +3845,7 @@ Justification II .↵
 Precaution against Calamity .↵ See Tit :↵ ↳[ Justi= 
 ↳: fications ]↵ 
 Justification III .↵ 
-Defence of one\'s self ;↵ if the attack portend 
+Defence of one's self ;↵ if the attack portend 
 instant inevitable and indelible injury to life 
 or member ;↵ and provided the party do his ut= 
 =most 
@@ -3924,7 +3924,7 @@ or lucre .↵
 cloathes take fire ;↵ and You instead of endeavouring to put it 
 out ↳, sit still and look at him .↵ 
 Punishment .↵ 
-For a Simple Personal Injury the Offender\'s Punish :↵ 
+For a Simple Personal Injury the Offender's Punish :↵ 
 ↳: ment shall be as follows 
 ↳1↵ .↵ He may be fined 
 ↳2↵ .↵ He may be imprisoned .↵ 
@@ -4009,7 +4009,7 @@ against
 ↳3↵ 
 C 
 Of Insulting Threats .↵ 
-against a man\'s Life .↵ 
+against a man's Life .↵ 
 Reasons 
 Let the mischief threatened be ever so great ,↵ if it 
 be threatened openly ,↵ a man may guard against it by 
@@ -4045,7 +4045,7 @@ she
 having been taken or detained by force or fraud for the pur= 
 ↳: pose of extorting her consent .↵ 
 Punishment 
-For Rape the offender\'s punishment shall be as follows :↵ 
+For Rape the offender's punishment shall be as follows :↵ 
 ↳1↵ .↵ He may be banished the presence of the person ravished as 
 also of any friend or friends of that person for a time or forever .↵ 
 ↳2↵ .↵ 
@@ -4187,16 +4187,16 @@ a Demand ↳_ she dies ↳_ after that on some
 pretence or other he renews his Application ↳_ By 
 this Time I have perused the 1.st and part of the 
 2.d Volume of this celebrated Work ↳_ I there read in 
-so many Words that ↳\" a Man and his Wife are one 
-↳\" person in Law \"↵ + ↳\" that whatever personal property 
-↳\" belonged to the Wife is by Marriage absolutely vested 
-↳\" in the Husband \"↵ || ↳\" to be disposed of at his Pleasure ↳# 
-↳\" That a Man cannot grant any Thing to his Wife ,↵ or 
-↳\" enter into Covenant with her \"↵ ↳_ ↳( a point of Doctrine 
+so many Words that ↳" a Man and his Wife are one 
+↳" person in Law "↵ + ↳" that whatever personal property 
+↳" belonged to the Wife is by Marriage absolutely vested 
+↳" in the Husband "↵ || ↳" to be disposed of at his Pleasure ↳# 
+↳" That a Man cannot grant any Thing to his Wife ,↵ or 
+↳" enter into Covenant with her "↵ ↳_ ↳( a point of Doctrine 
 a 
-which is even fortified by Reason )↵ ↳# ↳\" That all 
-↳\" Compacts made between them when single are 
-↳\" voided by the Intermarriage \"↵ 
+which is even fortified by Reason )↵ ↳# ↳" That all 
+↳" Compacts made between them when single are 
+↳" voided by the Intermarriage "↵ 
 What can be more intelligible or explicit ?↵ 
 for 
 What need have I of any further Advice ?↵ gap/ 
@@ -4205,8 +4205,8 @@ were
 disposed 
 were I even used to search ,↵ could I expect to find 
 any Lawyer to consult of equal ,↵ not to say superior ,↵ 
-Reputation ?↵ My Neighbour\'s Interest for my Money 
-is as good as any body\'s else ,↵ why should not I 
+Reputation ?↵ My Neighbour's Interest for my Money 
+is as good as any body's else ,↵ why should not I 
 let him have it ?↵ All this while this Fortune 
 to which I trusted had been every penny of it settled 
 upon the Wife to her separate Use for her Life ,↵ 
@@ -4215,9 +4215,9 @@ ecuted that Power in Favor of John Miles :↵ my
 Neighbour the Widower who was not worth a Groat 
 makes himself very merry with my £200 and 
 I hear no more of him .↵ Much Consolation 
-does it give me when my Money\'s gone to be 
-told ,↵ that the Instruction is right tho \'↵ I am 
-ruined by the following of it :↵ and tho \'↵ what is 
+does it give me when my Money's gone to be 
+told ,↵ that the Instruction is right tho '↵ I am 
+ruined by the following of it :↵ and tho '↵ what is 
 there said is in Effect false ,↵ yet with a mental 
 Reservation it is also true .↵ I then begin to ask 
 whether all the Truths in these Lectures are of that 
@@ -4243,7 +4243,7 @@ qualify it in another ?↵
 It happens that the Court whereby 
 that part of Jurisprudence to which this latter 
 belongs is administered ,↵ has entitled itself a 
-Court of Equity :↵ and tho \'↵ it\'s Decisions ,↵ in this 
+Court of Equity :↵ and tho '↵ it's Decisions ,↵ in this 
 Behalf at least ,↵ are governed by Rules of Law 
 as well settled ,↵ as steadily pursued ,↵ as well known 
 and as much required to be so ,↵ as any other part 
@@ -4293,10 +4293,10 @@ of that Subject ↳, ↳# or are perpetrable only By Persons of a
 particular Description ↳. ↳# 
 Simple however as this is in the Mode ↳& Principle 
 of its Perpetration there is no Offence that has in many 
-Cases the Conception of it\'s distinctive Characters more 
+Cases the Conception of it's distinctive Characters more 
 intricate ,↵ nor therefore the Doctrine relative to it more 
-complicated :↵ owing partly to what Intricacy of it\'s natural 
-Character ,↵ and partly to it\'s having been made by our 
+complicated :↵ owing partly to what Intricacy of it's natural 
+Character ,↵ and partly to it's having been made by our 
 own Laws especially to take a different factitious one 
 from every one of a great Variety of Modifications ↳& 
 Relations ,↵ as will be hereafter explained ,↵ of which that 
@@ -4317,7 +4317,7 @@ the positive Establishment of our Common Law ,↵ to
 which I shall give the Title of Anomalities 
 restrictive .↵ 
 3dly .↵ The various correctives that have been 
-administer\'d to them respectively by the Hand of 
+administer'd to them respectively by the Hand of 
 Legislature .↵ These I shall call Corrections 
 to those Anomalities .↵ 
 4thly .↵ I shall give an Account of such legislative 
@@ -4342,12 +4342,12 @@ Writers have appeared little sollicitous to transmit
 or to acquire .↵ 
 There are two Terms employed and that often 
 promiscuously in speaking of the Offence in Question 
-↳_ The one more popular in it\'s Use and ample in 
-it\'s Signification ↳_ Theft ↳_ The other more technical 
-in it\'s Use and confined in it\'s Signification ↳_ Larceny .↵ 
-The Verb ↳\" to steal \"↵ with it\'s Participle ↳\" stealing \"↵ 
-is exactly parallel in it\'s Use and commensurate in 
-it\'s Signification with the former of these ,↵ being the 
+↳_ The one more popular in it's Use and ample in 
+it's Signification ↳_ Theft ↳_ The other more technical 
+in it's Use and confined in it's Signification ↳_ Larceny .↵ 
+The Verb ↳" to steal "↵ with it's Participle ↳" stealing "↵ 
+is exactly parallel in it's Use and commensurate in 
+it's Signification with the former of these ,↵ being the 
 same 
 ↳1 4↵ 
 THEFT .↵ 
@@ -4356,13 +4356,13 @@ different grammatical Modification ↳_ the two first
 being used where a Verb or a Participle ,↵ the latter 
 where a Substantive is required .↵ 
 The Use of the Word Theft is governed by the 
-Nature of the Act ;↵ and ↳\' tis from thence as we gap/ shall 
-soon see that it takes it\'s Definition .↵ 
+Nature of the Act ;↵ and ↳' tis from thence as we gap/ shall 
+soon see that it takes it's Definition .↵ 
 The Word Larceny has its Import coextensive only 
 the 
 with Punishment annexed by the peculiar Jurisprudence 
 of our own Country to the main Body of the other 
-Title :↵ applying in it\'s proper Signification to such 
+Title :↵ applying in it's proper Signification to such 
 Cases only of Theft as are punished with the Punishment 
 called Felony .↵ 
 With Regard to this Definition ,↵ the Source of 
@@ -4386,7 +4386,7 @@ Theft then may be defined ,↵ The taking of a
 moveable thing ,↵ by one conscious of his not having 
 any Title so to do ,↵ and without the Consent of any 
 one who has ,↵ in the Intention of making it his own .↵ 
-Distinguishable from this in it\'s Conception ,↵ though 
+Distinguishable from this in it's Conception ,↵ though 
 actually distinguished from it by the Law ,↵ in some 
 Instances only ,↵ whilst in others it is confounded with 
 it ,↵ is the Offence of Embezzlement .↵ 
@@ -4398,7 +4398,7 @@ Intention of making it his own in the consciousness of
 having no Title so to do .↵ 
 Having for a Moment introduced the Mention of 
 this Offence here ,↵ for the sake of narrowing the Notion of 
-Theft on all sides to it\'s proper Point ,↵ I shall dismiss the 
+Theft on all sides to it's proper Point ,↵ I shall dismiss the 
 further 
 ↳2 6↵ 
 THEFT 
@@ -4434,11 +4434,11 @@ from the Necessity of giving some Name for an Idea
 I have frequent Occasion to recall 
 + If this Mode of Expression should be thought too 
 remote from ordinary Language it might run 
-thus :↵ ↳\" The Action of the Taker being exerted 
+thus :↵ ↳" The Action of the Taker being exerted 
 directly on the Thing taken ,↵ 
 || In like Manner for the same reason instead of 
-↳\" Agent rational or irrational \"↵ might be put 
-↳\" Person or Thing \"↵ 
+↳" Agent rational or irrational "↵ might be put 
+↳" Person or Thing "↵ 
 ↳# For if the Bystander in Question were in Confederacy 
 he would be the criminal Taken i:e :↵ the Thief 
 and the Commander an Accomplice with him .↵ 
@@ -4471,7 +4471,7 @@ concisely ,↵ but whether with sufficient precision
 I must leave to the Reader to determine ,↵ thus ↳_ 
 A taking may be by the person himself ,↵ or by 
 means of some thing or person else 
-+ Or ↳\" Thing \"↵ 
++ Or ↳" Thing "↵ 
 || In other words ,↵ It must have been completely 
 separated from every Thing which it touched before 
 ↳3 4↵ 
@@ -4519,7 +4519,7 @@ Guilt .↵ ↳#
 These Cases are indeed adduced by the practical 
 Writers as Instances of the carrying away ,↵ the Asportation 
 which the Forms require to be charged as a Fact contradistinct 
-from and over and above the taking :↵ tho \'↵ I believe it 
+from and over and above the taking :↵ tho '↵ I believe it 
 would somewhat puzzle a Man using the Language of 
 common 
 ↳# Hawkins 92.93 
@@ -4535,11 +4535,11 @@ seized before he could carry them away .↵ |||
 On the negative side I find neither 
 Decision nor Opinion .↵ 
 I have drawn the Line of Consummation 
-at this stage of the guilty Process ,↵ because ↳\' twas at 
+at this stage of the guilty Process ,↵ because ↳' twas at 
 this that I thought it would be most gap/ conspicuous 
 and least liable to Controversy .↵ If not ,↵ let there be 
 supposed some Period posterior to and distinct from the 
-↳\" taking \"↵ and let it be called the ↳\" carrying away \"↵ ↳# 
+↳" taking "↵ and let it be called the ↳" carrying away "↵ ↳# 
 Now carrying away must be from some place 
 by 
 to some other :↵ but to settle the explanatory Aphorisms 
@@ -4560,29 +4560,29 @@ may occur ↳( for it has already occurred to Writers +
 in other Words )↵ whether the presence of this Consciousness 
 is to be left to the Jury,(to whom I refer the Cognizance 
 of it without Hesitation for the Reasons mentioned 
-under the word ↳\" Taking \")↵ to infer without further 
+under the word ↳" Taking ")↵ to infer without further 
 without further rule 
 Rule by their Discretion ;↵ or whether any such points 
 conclusively 
-of Behaviour from which it may be infer\'d by Law are 
-capable of being number\'d ↳& ascertained ?↵ 
+of Behaviour from which it may be infer'd by Law are 
+capable of being number'd ↳& ascertained ?↵ 
 I have taken no small pains to find an 
 Answer to this Question ,↵ and the Results is that I 
 conceive they are reducible to one of these ↳4↵ viz :↵ 
 1st .↵ Concealment of the Act of taking 2d Conceal -↵ 
 
 ↳- ment afterwards of the Thing taken .↵ 3d Concealment 
-of the taking Taker\'s own Person .↵ 4th Flight .↵ 
+of the taking Taker's own Person .↵ 4th Flight .↵ 
 I also carried on the Disquisition to a 
 still further Degree of Minuteness by tracing 
 out other Circumstances which being such 
 wherefrom 
-+ v .↵ Hale\'s Hist .↵ P.C le Common .↵ 
++ v .↵ Hale's Hist .↵ P.C le Common .↵ 
 ↳6 6↵ 
 THEFT 
 For Examples in Proof of this ,↵ to avoid tedious 
 Details ,↵ I must be content to refer myself to the 
-Reader\'s Imagination .↵ 
+Reader's Imagination .↵ 
 The inserting Aphorisms concerning them 
 in the popular Code would have a mischievous 
 Consequence ,↵ if any ;↵ in as much as it would 
@@ -4599,22 +4599,22 @@ each other will be seen in its proper place .↵
 his own .↵ 
 I believe this Expression will be deemed less 
 equivocal than another which I had under Consideration ;↵ 
-viz :↵ ↳\" converting it to his own use \"↵ which latter 
+viz :↵ ↳" converting it to his own use "↵ which latter 
 might in strictness perhaps be used of a Man 
-who took away any Utensil of his Neighbour\'s tho \'↵ 
+who took away any Utensil of his Neighbour's tho '↵ 
 in 
 ↳6 8↵ 
 THEFT 
 in the Intention of returning it :↵ True it is indeed 
 that in this Case he might be said to make 
-it his own by adding ↳\" for a Time \";↵ but certainly 
+it his own by adding ↳" for a Time ";↵ but certainly 
 not simply and without Addition .↵ 
 that of 
-If the Expression instead of ↳\" making it 
-his own \"↵ which I have adopted ,↵ or of ↳\" converting it to 
-his own use \"↵ which for the above Reason I have 
+If the Expression instead of ↳" making it 
+his own "↵ which I have adopted ,↵ or of ↳" converting it to 
+his own use "↵ which for the above Reason I have 
 that 
-rejected were to see of the not returning it \"↵ an 
+rejected were to see of the not returning it "↵ an 
 Expression which a scrutinizing Reader ↳( and such 
 I wish for)might be apt to object to me as 
 answering the purpose better than either ,↵ because 
@@ -4622,9 +4622,9 @@ adopted to fix the sense of one of them ,↵ an Inconvenience
 might ensue of which the following Supposition 
 may serve for an Example 
 A .↵ agrees with B .↵ to buy 
-B\'s Plow :↵ he is to take it away in six Days ,↵ and 
+B's Plow :↵ he is to take it away in six Days ,↵ and 
 pay for it in a Month _↵ C knowing of this 
-Agreement takes the Plow from B\'s House 
+Agreement takes the Plow from B's House 
 without leave on the 5th Day ,↵ in the Intention 
 which 
 ↳( we will suppose sufficiently evinced by his Conduct 
@@ -4636,7 +4636,7 @@ THEFT .↵
 B 
 but carrying it to A _↵ This we see would come 
 within the Letter of such an Expression :↵ And 
-tho \'↵ it is probable that a Jury would hold themselves 
+tho '↵ it is probable that a Jury would hold themselves 
 entitled to refuse giving such a Decision ,↵ even if 
 this were the Clause adopted ,↵ as should subject a 
 Man under such Circumstances to Punishment 
@@ -4660,10 +4660,10 @@ a
 ↳7 2↵ 
 THEFT 
 a greater Degree :↵ Questions are started to what 
-Degree ,↵ in what Instances ,↵ to what Purposes it\'s 
+Degree ,↵ in what Instances ,↵ to what Purposes it's 
 Violation may be permitted _↵ The Word is warped 
 aside and turns technical ↳_ Men lose their 
-Confidence in their Conception of it\'s Import _↵ 
+Confidence in their Conception of it's Import _↵ 
 Glosses and Explanations and Modifications ↳& 
 Restrictions become necessary to keep it streight ;↵ 
 and the Definition loses that Simplicity ↳& 
@@ -4696,7 +4696,7 @@ Expressions are to indemnity ,↵ is for the sake of
 Lucre :↵ viz :↵ not indeed so much of Luere as 
 accrues from the using it as long as it lasts ,↵ but 
 so much as accrues from the using it for a Time .↵ 
-This much for those Acts ,↵ which tho \'↵ 
+This much for those Acts ,↵ which tho '↵ 
 only petty ones are yet Offences but this 
 serves not any better to indemnity and kind of 
 innocent ↳& laudable Acts done in the way of 
@@ -4711,15 +4711,15 @@ of the Law .↵
 And now it may be Time to observe ,↵ that 
 and together ,↵ 
 this last Clause together with the third ,↵ and not 
-the unmeaning Word ↳\" Felonious \",↵ nor the equally 
-unmeaning Expression ↳\" animus furandi,||| nor 
-that of ↳\" Lucri Causa\"+ which has a meaning 
+the unmeaning Word ↳" Felonious ",↵ nor the equally 
+unmeaning Expression ↳" animus furandi,||| nor 
+that of ↳" Lucri Causa"+ which has a meaning 
 but one no ways relevant to the Purpose of 
 discriminating Innocence from Guilt ,↵ all 
 which are brought together by the Author of 
 the Commentaries as synonimous ,↵ will serve 
-to ↳\" indemnify more Trespassers ↳& other petty 
-offenders \"↵ || 
+to ↳" indemnify more Trespassers ↳& other petty 
+offenders "↵ || 
 two 
 It is impossible that the former Expressions 
 can serve for any Thing ,↵ like they come to be 
@@ -4739,20 +4739,20 @@ It may now also be Time to take a short
 review of the Definitions given by expository Writers ,↵ 
 and to observe with what success they have illustrated 
 a favourite Aphorism of their own ,↵ that to 
-define is in Law a perilous Undertaking \"↵ ↳# 
+define is in Law a perilous Undertaking "↵ ↳# 
 Larceny ,↵ ↳( for that we may remember is 
 the Term employed by them )↵ is defined by the 
-Author of the Commentaries ↳_ ↳\" the felonious 
+Author of the Commentaries ↳_ ↳" the felonious 
 taking and carrying away the personal Goods 
 of another .↵ 
-1st .↵ The word ↳\" felonious \"↵ is afterwards explained 
+1st .↵ The word ↳" felonious "↵ is afterwards explained 
 we have seen how .↵ 
 Take it before or after the Explanation 
 it is altogether as edifying and instructive 
 for the Purpose of characterizing the Offence 
-as the word ↳\" Cabalistical \"↵ or any other 
+as the word ↳" Cabalistical "↵ or any other 
 uncouth Word that might be substituted 
-in it\'s Room .↵ 
+in it's Room .↵ 
 It indicates ,↵ as we have seen ,↵ + the 
 punishment ;↵ and it indicates nothing else ,↵ 
 what we learn by means of it is ,↵ that 
@@ -4788,16 +4788,16 @@ in
 corrobora characterize these Characteristics .↵ 
 Five Men were in Discourse ,↵ one of whom being 
 fond of shewing his Learning ,↵ happened to use 
-the Word ↳\" corroborate \"↵ ↳- ↳\" corroborate \"?↵ says the 
-other ↳\" what is that ?\"↵ ↳\" corroborate ↳_ aw ↳_ 
+the Word ↳" corroborate "↵ ↳- ↳" corroborate "?↵ says the 
+other ↳" what is that ?"↵ ↳" corroborate ↳_ aw ↳_ 
 is ↳_ aw ↳_ aw ,↵ to corroborate :↵ just now 
 as if I was to corroborate you ,↵ or you was to 
-corroborate me \".↵ 
+corroborate me ".↵ 
 || A Highway man has robbed me ;↵ I see a Friend 
 well mounted and armed ,↵ I shew him which the 
 Road the Highway man has taken ,↵ and desire 
 him to pursue .↵ He asks me how he is to 
-know him .↵ O cry I ,↵ that\'s easily done ,↵ it\'s 
+know him .↵ O cry I ,↵ that's easily done ,↵ it's 
 the Man you are to apprehend .↵ Must not 
 this be a needs be a Description singularly satisfactory ?↵ 
 Just so much the Reader sees ,↵ as to this part of it ,↵ in 
@@ -4810,19 +4810,19 @@ THEFT .↵
 be not amiss to subjoin yet another Aphorism to 
 the following Effect .↵ 
 APHORISM 6th .↵ 
-He who takes away a Thing tho \'↵ his own 
+He who takes away a Thing tho '↵ his own 
 with Intent that another shall be chargeable on 
 Account of it shall be deemed conscious of having 
 no pretence of Title so to do .↵ || 
 The Definition of Sir Edw .↵ Coke + is plainly that of 
-which the above in an Abridgement ↳_ ↳\" The felonious 
+which the above in an Abridgement ↳_ ↳" The felonious 
 and fraudulent taking away and carrying away 
-↳\" by any Man or Woman of the meer personal 
-↳\" Goods of another ,↵ neither from the Person ,↵ nor by 
-↳\" Night in the House of the Owner .\"↵ 
+↳" by any Man or Woman of the meer personal 
+↳" Goods of another ,↵ neither from the Person ,↵ nor by 
+↳" Night in the House of the Owner ."↵ 
 The Specification attempted in the Term 
-↳\" Woman \"↵ is nugatory ,↵ and being incomplete without 
-that of ↳\" Child \"↵ is mischievous .↵ 
+↳" Woman "↵ is nugatory ,↵ and being incomplete without 
+that of ↳" Child "↵ is mischievous .↵ 
 The last negative Clause is inserted for the 
 sake of distinguishing this Offence from Burglary :↵ 
 the first from that of Robbery which it does not 
@@ -4834,17 +4834,17 @@ which
 + 4th .↵ Inst .↵ ↳1 0 7↵ .↵ 
 To be omitted 
 To act 
-↳\" Law is a rule of action prescribed by some 
-↳\" superior ,↵ which the inferior is bound 
-↳\" to obey .\"↵ The Obligor ,↵ and the Obligee ,↵ he who 
+↳" Law is a rule of action prescribed by some 
+↳" superior ,↵ which the inferior is bound 
+↳" to obey ."↵ The Obligor ,↵ and the Obligee ,↵ he who 
 prescribes ,↵ and he who is bound to obey ,↵ 
 the Superior ,↵ and the inferior must there -↵ 
 ↳- fore be seperate ,↵ and distinct beings .↵ Yet 
 our Author very philosophically suppo -↵ 
 ↳- ses a being prescribing laws to himself .↵ 
-↳\" A being/says he/independent of any 
-↳\" other ,↵ has no rule to pursue ,↵ but such as 
-↳\" he prescribes to himself .\"↵ ↳_ This may be 
+↳" A being/says he/independent of any 
+↳" other ,↵ has no rule to pursue ,↵ but such as 
+↳" he prescribes to himself ."↵ ↳_ This may be 
 very intelligible to an enlightened follower of 
 Athanasius ,↵ but must ,↵ I think ,↵ be very 
 unintelligible 
@@ -4855,14 +4855,14 @@ understanding .↵
 Our Author seems to have been led into this 
 inaccurate use of the term law ,↵ by a servile 
 imitation of Montesquieu .↵ Montesquieu 
-had said before him ,↵ ↳\" Tous les etres ont leurs 
-↳\" loix ,↵ la divinite a ses loix ,↵ le monde mate= 
-↳\" riel a ses loix ,↵ les intelligences superieures 
-↳\" a l\'homme ont leurs loix ,↵ les betes ont leurs 
-↳\" loix ,↵ l\'homme a ses loix .\"↵ But then 
+had said before him ,↵ ↳" Tous les etres ont leurs 
+↳" loix ,↵ la divinite a ses loix ,↵ le monde mate= 
+↳" riel a ses loix ,↵ les intelligences superieures 
+↳" a l'homme ont leurs loix ,↵ les betes ont leurs 
+↳" loix ,↵ l'homme a ses loix ."↵ But then 
 Montesquieu had given a different diff 
-definition of law :↵ he had said ,↵ ↳\" les loix sont les 
-↳\" rapports ,↵ qui derivent de la nature des choses .\"↵ 
+definition of law :↵ he had said ,↵ ↳" les loix sont les 
+↳" rapports ,↵ qui derivent de la nature des choses ."↵ 
 and ,↵ supposing this definition to be just ,↵ 
 his 
 supposing it not to have mistaken the 
@@ -4882,7 +4882,7 @@ among all men ,↵ the same motives ,↵
 ↳& the same circumstances supposed ,↵ 
 the same actions will follow .↵ Even 
 this will not be sufficient to justify our 
-Author\'s assertion that man must 
+Author's assertion that man must 
 inevitably ↳& in all things obey 
 the Will of his Creator ,↵ unless he 
 supposes too that the Creator has 
@@ -4968,24 +4968,24 @@ To be copied
 manifested by external signs .↵ 
 But let us see however where we are to 
 look for these laws of nations ,↵ if so they 
-must be called .↵ ↳\" They depend entirely ↳( says 
-↳\" our author )↵ upon the rules of natural law ,↵ 
-↳\" or upon mutual compacts ,↵ treaties ,↵ leagues ,↵ 
-↳\" and agreements ,↵ between these several ↳_ 
-↳\" Communities :↵ in the construction also of 
-↳\" which compacts ,↵ we have no other rule to ↳_ 
-↳\" resort to ,↵ but the law of nature :↵ being the 
-↳\" only one ,↵ to which both communities are equal -↵ 
-↳- ly subject .\"↵ 
+must be called .↵ ↳" They depend entirely ↳( says 
+↳" our author )↵ upon the rules of natural law ,↵ 
+↳" or upon mutual compacts ,↵ treaties ,↵ leagues ,↵ 
+↳" and agreements ,↵ between these several ↳_ 
+↳" Communities :↵ in the construction also of 
+↳" which compacts ,↵ we have no other rule to ↳_ 
+↳" resort to ,↵ but the law of nature :↵ being the 
+↳" only one ,↵ to which both communities are equal -↵ 
+↳- ly subject ."↵ 
 It was happy enough ,↵ that our Author recol= 
 ↳: lected this last circumstance ,↵ or he might 
 perhaps 
 ↳5 9↵ )↵ 
 To be copied 
 Section V .↵ 
-Review for our Author\'s Argu= 
+Review for our Author's Argu= 
 ments .↵ 
-Before we proceed to examine our author\'s 
+Before we proceed to examine our author's 
 account of municipal law ,↵ it may be proper 
 to stop a moment ,↵ and take a review of the ↳_ 
 arguments he has advanced ,↵ and the princi -↵ 
@@ -5007,25 +5007,25 @@ of
 declares it to be in direct opposition to 
 his present distinction )↵ then it is in ex 
 post facto law ,↵ making that criminal 
-which at the time of it\'s commission was 
+which at the time of it's commission was 
 indifferent :↵ it is a privilegium of which 
 Cicero ,↵ as quoted by our Author ,↵ says ↳_ 
 with a spirit ,↵ which I wish he had im -↵ 
-↳- parted to our author ,↵ ↳\" Nemo unquam 
-↳\" tulit ,↵ nihil est crudelius ,↵ nihil perni -↵ 
+↳- parted to our author ,↵ ↳" Nemo unquam 
+↳" tulit ,↵ nihil est crudelius ,↵ nihil perni -↵ 
 ↳- ciosius ,↵ nihil quod minus hoc civitas 
-↳\" ferre possit .\"↵ 
-↳[\" Municipal law ↳( says our Author )↵ 
-↳\" is also a rule of civil conduct ,↵ and this 
-↳\" he says distinguishes municipal 
+↳" ferre possit ."↵ 
+↳[" Municipal law ↳( says our Author )↵ 
+↳" is also a rule of civil conduct ,↵ and this 
+↳" he says distinguishes municipal 
 law 
 ↳8 2↵ 
 To be copied 
-↳\" law from the natural ,↵ and revealed :↵ 
-↳\" the former of which is the rule of moral 
-↳\" conduct ,↵ and the latter ,↵ not only the 
-↳\" rule of moral conduct ,↵ but also ,↵ the ↳_ 
-↳\" rule of faith .\"↵ ↳[ Here our Author has con -↵ 
+↳" law from the natural ,↵ and revealed :↵ 
+↳" the former of which is the rule of moral 
+↳" conduct ,↵ and the latter ,↵ not only the 
+↳" rule of moral conduct ,↵ but also ,↵ the ↳_ 
+↳" rule of faith ."↵ ↳[ Here our Author has con -↵ 
 founded things which are really dif -↵ 
 ferent ,↵ and has distinguished things 
 made distinctions where there is no 
@@ -5039,7 +5039,7 @@ of
 being 
 but if when convicted ,↵ and called upon ,↵ 
 he submits quietly to be hanged :↵ he is ,↵ therefore 
-according to our Author\'s principles ,↵ 
+according to our Author's principles ,↵ 
 a good Citizen :↵ for he too has embraced 
 one of the Alternatives of oproposed by the law .↵ 
 Will our author stand to this conclusion ?↵ 
@@ -5054,30 +5054,30 @@ hibitum merely :↵ for ,↵ if the laws of the
 land 
 ↳9 1↵ 
 is thrown upon the Subject :↵ and the Defi -↵ 
-nition will amount to this ,↵ that ↳\" municipal 
-↳\" law is a rule of civil conduct ,↵ prescribed by 
-↳\" him who prescribes it ,↵ commanding what it 
-↳\" commands ,↵ and prohibiting what it pro -↵ 
-↳\" hibits .↵ 
+nition will amount to this ,↵ that ↳" municipal 
+↳" law is a rule of civil conduct ,↵ prescribed by 
+↳" him who prescribes it ,↵ commanding what it 
+↳" commands ,↵ and prohibiting what it pro -↵ 
+↳" hibits .↵ 
 ↳[ Right ,↵ and wrong are relative terms ,↵ and 
 signify meerly the agreement ,↵ or disagreement 
 of a thing with some given rule .↵ Our Author 
 therefore would have spoken more intelligi -↵ 
 bly ,↵ had he laid down the rule itself ,↵ and ↳_ 
-instead of ↳\" wright ,↵ or wrong \",↵ had used the terms ,↵ 
-↳\" useful ,↵ or hurtful to the Community :\"↵ for 
+instead of ↳" wright ,↵ or wrong ",↵ had used the terms ,↵ 
+↳" useful ,↵ or hurtful to the Community :"↵ for 
 the End of all Legislation is ,↵ or ought to be ,↵ to 
 promote 
 ↳1 0 8↵ 
 SECT .↵ ↳1↵ .↵ Law in General ↳( ↳1↵ 
-↳\" Law \"↵ our Author begins with telling us ,↵ ↳\" in it\'s most general and 
-↳\" comprehensive venue ,↵ signifies a rule of action ;↵ and is applied 
-↳\" indiscriminately to all kinds of action ,↵ whether animate or 
-↳\" inanimate ,↵ rational or irrational .↵ Thus we say the Laws of -↵ 
-↳\" motion ,↵ of gravitation ,↵ of optics ,↵ of mechanics ,↵ as well as the Laws 
-↳\" of nature and of nations .↵ And it is that rule of action ,↵ which 
-↳\" is prescribed by some superior ,↵ and which the inferior is bound 
-↳\" to Obey .\"↵ 
+↳" Law "↵ our Author begins with telling us ,↵ ↳" in it's most general and 
+↳" comprehensive venue ,↵ signifies a rule of action ;↵ and is applied 
+↳" indiscriminately to all kinds of action ,↵ whether animate or 
+↳" inanimate ,↵ rational or irrational .↵ Thus we say the Laws of -↵ 
+↳" motion ,↵ of gravitation ,↵ of optics ,↵ of mechanics ,↵ as well as the Laws 
+↳" of nature and of nations .↵ And it is that rule of action ,↵ which 
+↳" is prescribed by some superior ,↵ and which the inferior is bound 
+↳" to Obey ."↵ 
 This is what our Author says ,↵ of the word Law :↵ and this or so ↳_ 
 much at least as is printed in Italics ,↵ is what is intended ,↵ I suppose 
 NOTE 
@@ -5087,21 +5087,21 @@ abide by it :↵ that it should be always his sense at least whosoever
 else it be :↵ that in that sense he should always use the word ,↵ ↳& 
 and in that only .↵ If after pretending thus to fix it he lets it ↳_ 
 slip from him ,↵ and another slide into its place ;↵ how is it that his 
-readers are to understand him ?↵ about as well as Dr .↵ Brown\'s 
+readers are to understand him ?↵ about as well as Dr .↵ Brown's 
 facetious story teller was understood who had a Wind mill 
 that used to lays its eggs and hatch its young ones .↵ This 
-producing asort of a stare ↳_ ↳\" Ah \"↵ says he ,↵ ↳\" but you are to 
-know when I say a Windmill ,↵ I mean a goose .\"↵ I fear ma -↵ 
-ny of our Author\'s Windmills will prove geese .↵ 
+producing asort of a stare ↳_ ↳" Ah "↵ says he ,↵ ↳" but you are to 
+know when I say a Windmill ,↵ I mean a goose ."↵ I fear ma -↵ 
+ny of our Author's Windmills will prove geese .↵ 
 Sect .↵ I .↵ Law in General .↵ ↳( ↳1↵ 
 ↳2↵ 
 SECT .↵ I .↵ Law in general .↵ 
 A Definition should be composed of terms that 
-↳[ The terms employ\'d in a Definition should ]↵ have a meaning 
+↳[ The terms employ'd in a Definition should ]↵ have a meaning 
 in the mind of him who uses them ;↵ that meaning should be such 
 as may be made visible to those whom they are addressed to :↵ it 
 easy to apprehend 
-should be more simple in it\'s conception than that of the term 
+should be more simple in it's conception than that of the term 
 they are made use of to define 
 to be defined :↵ it should be the same at one time as at ano -↵ 
 ↳- ther :↵ it should be true of one as well as another of the things cha -↵ 
@@ -5112,12 +5112,12 @@ In short if we may be allowed to say what it ought not to be :↵ it ought
 uninstructive 
 not to be unmeaning ,↵ dark ,↵ ambiguous ,↵ fluctuating ,↵ narrow ,↵ 
 or uncharacteristic .↵ I am in great doubt how this description 
-of a good definition will tally with our Author\'s .↵ 
+of a good definition will tally with our Author's .↵ 
 The first thing we are told of Law is ,↵ that it is a rule of action 
 This is what may be very true .↵ But what we are the wiser for it ,↵ 
 or how it ,↵ or how it can serve to distinguish Law from any thing 
 it is in danger of being confounded with is rather more than I 
-can conceive .↵ The signification of the world ↳\" rule \"↵ is so loose 
+can conceive .↵ The signification of the world ↳" rule "↵ is so loose 
 and vague that it is still more difficult to fix the import of it 
 than that of the term Law :↵ and the entire expression a rule 
 of action ,↵ as soon as it appears to express any thing ,↵ appears to 
@@ -5129,38 +5129,38 @@ Sect.1 .↵
 Of Law in General .↵ 
 in the second case it means neither more nor less than a com -↵ 
 ↳- mand only expressed in an obscure and far fetched manner .↵ 
-The next thing the definition tells us of a Law ,↵ is that it is ↳\" prescri -↵ 
-↳- bed \".↵ As to the word ↳\" prescribed ,\"↵ what it was intended to mean ↳- 
+The next thing the definition tells us of a Law ,↵ is that it is ↳" prescri -↵ 
+↳- bed ".↵ As to the word ↳" prescribed ,"↵ what it was intended to mean ↳- 
 here ,↵ it would be dangerous to say :↵ especially if what I suspect 
 be true ,↵ that with the appearance of meaning something ,↵ it was 
 intended to mean nothing .↵ 
 I can speak with a little more certainty as to what it means a 
 page or two farther on.+ It there means either to speak,to write 
 or in general to make signs ,↵ at any rate to communicate ideas .↵ 
-It ↳( that is ,↵ Law )↵ says he ,↵ ↳\" is likewise a rule prescribed .↵ Be -↵ 
+It ↳( that is ,↵ Law )↵ says he ,↵ ↳" is likewise a rule prescribed .↵ Be -↵ 
 ↳- cause a bare resolution confined in the breast of the Legisla -↵ 
 ↳- tor ,↵ with out manifesting itself by some external sign,can never 
 be properly a Law .↵ It is requisite that this resolution be no -↵ 
-↳- tified to those who are to know it \"↵ ↳[ p .↵ ↳4 5↵ ].↵ 
+↳- tified to those who are to know it "↵ ↳[ p .↵ ↳4 5↵ ].↵ 
 To do our Author justice ,↵ it must be acknowledged ,↵ that though 
 what is said of Law here ,↵ is said of Law general without res -↵ 
 ↳- triction ,↵ the paragraph in which it occurs stands next after a 
 Paragraph in which municipal Law alone is mentioned .↵ 
-But ↳\" dictated \"↵ is the word he uses in the next page after that 
+But ↳" dictated "↵ is the word he uses in the next page after that 
 we are now considering ;↵ the subject of Law in general still upon 
-the carpet ↳\" dictated ,\"↵ a word which plainly refers to speech 
+the carpet ↳" dictated ,"↵ a word which plainly refers to speech 
 or writing .↵ This being the case ,↵ the work he has cut out for 
 ↳4↵ 
 Sect .↵ I .↵ Law in General .↵ 
 Law in General .↵ ↳( ↳5↵ 
 for the Law giver is somewhat curious :↵ Beside man ,↵ the following 
-are the set of ↳\" inferiors \"↵ he has given him already to talk to write or ↳_ 
+are the set of ↳" inferiors "↵ he has given him already to talk to write or ↳_ 
 to make signs to :↵ He has given him in the first place all sorts of ↳_ 
 things that are moveable ,↵ gravitating ,↵ visible ,↵ and susceptible of me -↵ 
 ↳[ as we have seen already )↵ 
 ↳- chanisim :↵ and in particular ↳( as we shall see presently ↳] amongst the 
 rest all animals and vegetables by name .↵ This being the case with 
-the word ↳[\" prescribed \"]↵ and ↳[\" dictated \"]↵ the best that can be said of them 
+the word ↳[" prescribed "]↵ and ↳[" dictated "]↵ the best that can be said of them 
 and it was this no-meaning 
 is that they have no meaning ;↵ that our Author seems to have depended 
 on to save them from being seen to have a false one .↵ That Clocks ↳_ 
@@ -5191,7 +5191,7 @@ It
 uncommon to observe the attention flag and by the time a numer 
 ous train of species have been displayed let the true that is the 
 originally assumed character of the genus slip insensibly out 
-of the memory ,↵ and a spurious one steal into it\'s place .↵ But ↳_ 
+of the memory ,↵ and a spurious one steal into it's place .↵ But ↳_ 
 what is uncommon ,↵ is to find this falsification take place in 
 the first instance :↵ and to see a part of the generic character ↳_ 
 wanting in the very first instance of all that is adduced .↵ This 
@@ -5209,7 +5209,7 @@ might put a mask on the generic character so that the repug -↵
 ↳- nances between the first species and those that were to follow ↳_ 
 no 
 might pass off unperceived .↵ For this purpose a word could not 
-be better calculated than the word ↳\" prescribed :\"↵ It might upon oc -↵ 
+be better calculated than the word ↳" prescribed :"↵ It might upon oc -↵ 
 ↳- casion signify writing ,↵ speaking or any mode of utterance wherein 
 the 
 ↳6↵ 
@@ -5240,7 +5240,7 @@ Sometimes by dint of good fortune ,↵ one may understand our Au -↵
 ↳, not a jot 
 ↳- thor :↵ at the same time as to understand :↵ the subject be ↳[ never ]↵ the 
 the subject ,↵ but by understanding 
-nearer .↵ But if there\'s no way of understanding our Author ;↵ our ↳_ 
+nearer .↵ But if there's no way of understanding our Author ;↵ our ↳_ 
 hopes had best be moderate :↵ it is a small portion of understand -↵ 
 ing that must content us .↵ 
 ↳1 2↵ 
@@ -5252,7 +5252,7 @@ the Unhappiness produced by it therefore a mixt Mass
 flowing from both these sources .↵ 
 i.e .↵ creating a new Obligation or enforcing an old 
 one by a new penalty .↵ 
-This End may be said to be answer\'d in an ordi -↵ 
+This End may be said to be answer'd in an ordi -↵ 
 ↳- nary degree when the examples of obedience 
 are more numerous than those of disobedience ,↵ 
 ↳& those of disobedience unpunished less so than 
@@ -5303,9 +5303,9 @@ to expose him to the present trend of the resistance
 of the person robbed ,↵ together with the more distant 
 trends of the Religious ↳& Moral Sanctions 
 But our business at present is only with the politi -↵ 
-↳- cal one ↳[ consider\'d apart from the rest ]↵ tho effica -↵ 
+↳- cal one ↳[ consider'd apart from the rest ]↵ tho effica -↵ 
 ↳- cy ↳[ effects ]↵ of which we are endeavouring to continual 
-↳[ gap/ ]↵ in the several verdicts of it\'s application ,↵ 
+↳[ gap/ ]↵ in the several verdicts of it's application ,↵ 
 without humbling ourselves for the present with any 
 other .↵ 
 ↳1 4↵ 
@@ -5331,22 +5331,22 @@ The same is to be observed mutatis mutandis
 concerning a mandatory Law .↵ 
 As the Result of our Inquiries brings 
 us to conclude in Approbation or Disapprobation of 
-any Law ,↵ as far as it concerns it\'s Substance ,↵ it will 
+any Law ,↵ as far as it concerns it's Substance ,↵ it will 
 or other 
 bring us to refer it to some one of these Cases :↵ Nor 
 can 
-The King\'s Majesty\'s Declaration to his subjects concerning lawful 
+The King's Majesty's Declaration to his subjects concerning lawful 
 sports to be used .↵ 
-↳\" After the end of divine service our good People may 
-↳\" not be disturbed letted or discouraged from any lawful 
-↳\" recreation such as dauncing either men or women ,↵ 
-↳\" archery for men ,↵ leaping vaulting or any other 
-↳\" such harmless recreation nor from having of May 
-↳\" Games Whitsun Ales ↳& Morris dauncing ↳& the setting 
-↳\" of May Poles ↳& other Sports therewith used so as the 
-↳\" same be had in due ↳& convenient time without 
-↳\" impediment or neglect of divine service pp 10,11 .↵ 
-pp ↳1 7↵ in the whole to page ↳1 4↵ by James ↳- ↳\" ↳2 4↵ May 10th 
+↳" After the end of divine service our good People may 
+↳" not be disturbed letted or discouraged from any lawful 
+↳" recreation such as dauncing either men or women ,↵ 
+↳" archery for men ,↵ leaping vaulting or any other 
+↳" such harmless recreation nor from having of May 
+↳" Games Whitsun Ales ↳& Morris dauncing ↳& the setting 
+↳" of May Poles ↳& other Sports therewith used so as the 
+↳" same be had in due ↳& convenient time without 
+↳" impediment or neglect of divine service pp 10,11 .↵ 
+pp ↳1 7↵ in the whole to page ↳1 4↵ by James ↳- ↳" ↳2 4↵ May 10th 
 year of our Reign in England ↳& of Scotland the 50th 
 command to all the Judges to prevent molestation 
 ↳& to be published by the Bishops .↵ 
@@ -5397,7 +5397,7 @@ make amends in most instances for any accident
 of its failure ,↵ by paying a sum of money for every 
 prisoner convicted of a felony after his discharge ,↵ 
 at a rate increasing according to the number of years 
-he had been under the proposer\'s care :↵ viz :↵ a sum 
+he had been under the proposer's care :↵ viz :↵ a sum 
 not exceeding £10 if the prisoner had been in the 
 Penitentiary Panopticon two years :↵ not exceeding £15 
 if ↳3↵ years :↵ not exceeding £20 if ↳4↵ years :↵ not exceeding 
@@ -5505,7 +5505,7 @@ the reformatory efficacy of his management ,↵ and e -↵
 ↳- dent of its failure ,↵ by paying a sum of money for 
 every prisoner convicted of a felony after his discharge ,↵ 
 at a rate increasing according to the number of years 
-he had been under the proposer\'s care :↵ viz :↵ a sum 
+he had been under the proposer's care :↵ viz :↵ a sum 
 not exceeding £10 if the prisoner had been in the 
 Penitentiary Panopticon two years :↵ not exceeding 
 £15 if three years :↵ not exceeding £20 if four years :↵ 
@@ -5515,7 +5515,7 @@ be applied to the indemnification of the persons in -↵
 ↳- jured by such subsequent offence ,↵ and to be equal 
 in amount to the value of the injury ,↵ so long as it 
 did not exceed the sums respectively above specified .↵ 
-15th .↵ To present to the Court of King\'s Bench on a 
+15th .↵ To present to the Court of King's Bench on a 
 certain day of every term ,↵ and afterwards print and 
 publish at his own expence ,↵ a Report ,↵ exhibiting 
 in 
@@ -5550,7 +5550,7 @@ Upon the abovementioned terms he would engage
 as follows .↵ 
 1.st To furnish the Prisoners with a constant supply 
 of wholesome food ,↵ ↳[ not limited in quantity ,↵ but ade -↵ 
-↳- quate to each man\'s desires .]↵ 
+↳- quate to each man's desires .]↵ 
 2nd To keep them clad in a state of tightness and neat -↵ 
 ↳- ness ↳[ superior to what is usual among the lower 
 classes or even in the improved prisons .]↵ 
@@ -5562,7 +5562,7 @@ Proposal
 For maintaining and employing Convicts in a new invented building in 
 which they will remain universally subject to uninterrupted inspection 
 by 
-Jeremy Bentham of Lincoln\'s Inn Esquire .↵ 
+Jeremy Bentham of Lincoln's Inn Esquire .↵ 
 I .↵ Articles to be performed on the part of Government .↵ 
 ↳1↵ .↵ A spot for the erection of the building to be provided at the 
 expense of the Crown :↵ viz :↵ the spot at Battersea Rise of which 
@@ -5595,7 +5595,7 @@ bed and bedding competent to his situation and kept in a
 state of constant cleanliness the sheeting being changed at least 
 once in every fortnight .↵ 
 ↳5↵ .↵ The Prison shall be warmed in every part whenever the 
-season renders it necessary ,↵ and lighted at the Proposer\'s expence 
+season renders it necessary ,↵ and lighted at the Proposer's expence 
 ↳6↵ .↵ No Prisoner shall be suffered to have access to any kind of 
 spirituous liquor ,↵ except where ordered in the way of medicine .↵ 
 ↳7↵ .↵ A Chaplain ,↵ being a Clergyman of the Church of En -↵ 
@@ -5610,9 +5610,9 @@ arithmetic to as many of the Prisoners as shall be found to
 stand in need of it .↵ 
 ↳1 0↵ .↵ Each prisoner shall be allowed a share of his earnings 
 to the amount of not less than 1/4 part of the fair value thereof 
-↳1 1↵ .↵ A portion of such share ↳( but unless with the Prisoner\'s 
+↳1 1↵ .↵ A portion of such share ↳( but unless with the Prisoner's 
 consent not greater than one half )↵ shall be laid up to serve as 
-a fund for an annuity for the Prisoner\'s life to a certain 
+a fund for an annuity for the Prisoner's life to a certain 
 amount 
 Draught Contract J.B .↵ 
 Articles of Agreement had ,↵ made ,↵ concluded and agreed 
@@ -5621,12 +5621,12 @@ year of our Sovereign Lord George the 3rd ,↵ by the Grace of
 God of Great Britain France and Ireland King ,↵ Defender of 
 the faith and so forth :↵ and in the year of our Lord one 
 thousand seven hundred and ninety-five ,↵ between The Right 
-Honourable the Lords Commissioners of his Majesty\'s Treasury 
+Honourable the Lords Commissioners of his Majesty's Treasury 
 on the part and behalf of his Majesty of the one part and 
-Jeremy Benthamm of Lincoln\'s Inn Esquire ,↵ of the other part .↵ 
+Jeremy Benthamm of Lincoln's Inn Esquire ,↵ of the other part .↵ 
 Whereas in and by the Statute passed on the seventh 
 day of July in the year of our Lord one thousand seven hundred 
-and ninety-four and of his Majesty\'s Reign the thirty fourth 
+and ninety-four and of his Majesty's Reign the thirty fourth 
 intitled An Act for erecting a Penitentiary House or Houses for 
 confining and employing Convicts it is provided among other 
 things that the Commissioners of the Treasury for the time be -↵ 
@@ -5656,7 +5656,7 @@ for such considerations as are hereinafter mentioned ,↵ to erect
 and adapt to the purpose aforesaid a building of a new and pe -↵ 
 ↳- culiar nature invented by Samuel Bentham Knight of the 
 Military Order of St George of Russia and Brigadier General 
-in her Imperial Majesty\'s Service ,↵ Brother of the said Je -↵ 
+in her Imperial Majesty's Service ,↵ Brother of the said Je -↵ 
 ↳- remy Bentham ,↵ under the name of a Panopticon or In -↵ 
 ↳- spection House in and by means of which said Building 
 any number of persons may ,↵ in as far as it shall be thought 
@@ -5804,10 +5804,10 @@ Penitentiary Establishment the more constantly and effectually
 under the eye of Justice ,↵ it is hereby also agreed that the said 
 first intended Governor and his said Successors shall on the 
 first day of every term by themselves respectively or their 
-sufficient Deputy present to the Court of King\'s Bench a 
+sufficient Deputy present to the Court of King's Bench a 
 Report ,↵ exhibiting in detail the whole state ,↵ moral and me -↵ 
 ↳- dical of the Establishment ↳: together with the economical 
-her Majesty\'s government 
+her Majesty's government 
 state thereof ,↵ at least in so far as the Public on behalf of the 
 Prisoners is interested therein ↳: and moreover that they shall 
 also by such Deputy or ,↵ if thereto ordered or required by the 
@@ -5829,7 +5829,7 @@ Establishment would be in great measure wanting ,↵ And
 Whereas on the other hand the fee simple of the said piece of 
 ground will when purchased be according to the provision of 
 the said Statute vested in some Feoffee appointed for that pur -↵ 
-↳- pose by the King\'s Majesty his Heirs or Successors ,↵ which Feoffee 
+↳- pose by the King's Majesty his Heirs or Successors ,↵ which Feoffee 
 after the decease of the Survivor of the said Jeremy and Samuel 
 Bentham under the powers of the said Act might if some pro -↵ 
 ↳- vision were not herein and hereby made to the contrary take 
@@ -5905,7 +5905,7 @@ and of all and every offender and offenders who shall be delivered into
 his or their custody ↳, by the direction of his Majesty ,↵ his Heirs or Suc -↵ 
 ↳- cessors ,↵ under such powers directions limitations and restrictions as 
 are contained in an Act made in the twenty fourth year of his 
-present Majesty\'s reign ↳, intituted An Act for the effectual Trans -↵ 
+present Majesty's reign ↳, intituted An Act for the effectual Trans -↵ 
 ↳- portation of Felons and other Offenders and to authorise the remo -↵ 
 ↳- val of prisoners in certain cases ↳, and for other purposes therein 
 mentioned ,↵ or under such other directions ,↵ limitations and restrict -↵ 
@@ -5996,7 +5996,7 @@ and his said Successors the more forcibly to the reformatory
 part of the management of the said intended Penitentiary House ,↵ 
 and even make amends in most instances for any accident of its 
 failure ,↵ it is moreover agreed that in the event of any such 
-prisoner\'s committing any felony after his discharge ,↵ there shall 
+prisoner's committing any felony after his discharge ,↵ there shall 
 be paid by the said Jeremy Bentham or his said Successors ,↵ on 
 the conviction of such felon ↳, a sum of money applicable to the 
 indemnification of the party or parties damnified by such felony ,↵ 
@@ -6021,7 +6021,7 @@ Penitentiary Establishment the more constantly and effectually
 under the eye of Justice ,↵ it is hereby also agreed that the said first 
 intended Governor and his said Successors shall on the first 
 day of every term by themselves respectively or their sufficient 
-Deputy present to the Court of King\'s Bench a Report ,↵ exhibiting 
+Deputy present to the Court of King's Bench a Report ,↵ exhibiting 
 in detail the whole state ↳, moral and medical of the establishment :↵ 
 together with the economical state thereof ↳, at least in so far as 
 the Public on behalf of the Prisoners is interested therein ↳: and 
@@ -6079,7 +6079,7 @@ ground will when purchased be according to the provision of the
 said Statute vested in some Feoffee appointed for that purpose 
 by 
 ↳1 6↵ 
-by the King\'s Majesty his Heirs or Successors ,↵ which Feoffee after the 
+by the King's Majesty his Heirs or Successors ,↵ which Feoffee after the 
 decease of the Survivor of the said Jeremy and Samuel Bentham 
 under the powers of the said Act might if some provision were 
 not herein and hereby made to the contrary take possession of the 
@@ -6125,12 +6125,12 @@ Grace of God of Great Britain France and Ireland
 King ,↵ Defender of the faith ,↵ and so forth :↵ and in the 
 year of our Lord one thousand seven hundred and nine -↵ 
 ↳- ty five ,↵ between the Right Honourable the Lords Com -↵ 
-↳- missioners of his Majesty\'s Treasury on the part ↳& 
+↳- missioners of his Majesty's Treasury on the part ↳& 
 behalf of his Majesty of the one part and Jeremy 
-Bentham of Lincoln\'s Inn Esquire ,↵ of the other part .↵ 
+Bentham of Lincoln's Inn Esquire ,↵ of the other part .↵ 
 Whereas in and by the Statute passed on the se -↵ 
 ↳- venth day of July in the year of our Lord one thousand 
-seven hundred and ninety four and of his Majesty\'s 
+seven hundred and ninety four and of his Majesty's 
 reign the thirty fourth intitled an Act for erecting a 
 Penitentiary House or Houses for confining and employ -↵ 
 ↳- ing Convicts it is provided among other things that 
@@ -6210,7 +6210,7 @@ expence of which maintenance for the first year was included in
 the said estimate of £27,000 may by the cirumstances of the 
 times be found to have undergone a considerable enhancement 
 in consequence whereof the effective power of the said proposed 
-partial allowance of £27,000 as of the said Proposer\'s private 
+partial allowance of £27,000 as of the said Proposer's private 
 stock destined to have been added thereto is though nominally the 
 same ,↵ become in effect so much the less and proportionably insufficient 
 for the said intended purposes And Whereas in parti -↵ 
@@ -6277,7 +6277,7 @@ labour at such places and under such directions
 as his Majesty ↳[ or three such Justices ]↵ shall by order 
 directed to such Overseer appoint now therefore it is 
 farther agreed that in pursuance of the said Act 
-of the 7th of July ↳1 7 9 4↵ the said Lord\'s Commissioners 
+of the 7th of July ↳1 7 9 4↵ the said Lord's Commissioners 
 shall humbly recommend to his Majesty that he 
 would be graciously pleased to appoint the said 
 Jeremy Bentham to be Governor of the said 
@@ -6386,7 +6386,7 @@ any individual
 will be to be made Creditor on account of each prisoner 
 on the day when delivered to his charge ,↵ on condition 
 of being made debtor to the amount of £100 in the 
-event of such prisoner\'s dying in his custody within 
+event of such prisoner's dying in his custody within 
 the compass of a year reckoning from the said day :↵ 
 and so in proportion for any term less than a year .↵ 
 Moreover in case of any dispute touching the a -↵ 
@@ -6449,7 +6449,7 @@ money to the improvement of the said establish -↵
 ↳- as on the other hand the fee simple of the said 
 piece of ground will when purchased be according 
 to the provision of the said Statute vested in some 
-Feoffee appointed for that purpose by the King\'s Ma -↵ 
+Feoffee appointed for that purpose by the King's Ma -↵ 
 ↳- jesty his Heirs or Successors which Feoffee might after 
 the decease of the survivor of the said Jeremy and 
 Samuel Bentham under the powers of the said 
@@ -6468,7 +6468,7 @@ seized of the premises at and from the term of such
 decease then such Feoffee shall stand seized of the said 
 real Estate and possessed of the said Stock and other per -↵ 
 ↳- sonal Estate occupied with the same in trust to permit 
-the same to be occupied and enjoy\'d by the Devisee or 
+the same to be occupied and enjoy'd by the Devisee or 
 Devisees 
 ↳2 0↵ 
 Devisees of such survivor as aforesaid and in default 
@@ -6509,7 +6509,7 @@ but upon such terms and conditions and for such considera -↵
 purpose aforesaid a building of a new and peculiar nature 
 invented by Samuel Bentham Knight of the Military 
 Order of St George of Russia and Brigadier General in her 
-Imperial Majesty\'s Service ,↵ Brother of the said Jeremy 
+Imperial Majesty's Service ,↵ Brother of the said Jeremy 
 Bentham ,↵ under the name of a Panopticon or Inspection 
 House in and by means of which said Building any num -↵ 
 ↳- ber of persons may ,↵ in as far as it shall be thought 
@@ -6572,7 +6572,7 @@ the first year was included in the said estimate of
 £27,000 ,↵ may by the circumstances of the times be found 
 to have undergone a considerable enhancement ;↵ in conse -↵ 
 ↳- quence whereof the effective power of the said proposed 
-partial allowance of £27,000 as well of the said Proposer\'s 
+partial allowance of £27,000 as well of the said Proposer's 
 private stock destined to have been added thereto is though 
 nominally the same ,↵ become in effect so much the less 
 and proportionably insufficient for the said intended pur -↵ 
@@ -6607,12 +6607,12 @@ every offender and offenders who shall be delivered into his
 or their custody ,↵ by the direction of his Majesty ,↵ His Heirs 
 or Successors ,↵ under such powers ,↵ directions ,↵ limitations and 
 restrictions as are contained in an Act made in the twenty 
-fourth year of his present Majesty\'s reign intitled An Act 
+fourth year of his present Majesty's reign intitled An Act 
 for the effectual transportation of Felons and other Offenders ↳& 
 to authorize the removal of Prisoners in certain cases ,↵ and for 
 other purposes therein mentioned ,↵ or under such other direct -↵ 
 ↳- ions limitations and restrictions as his Majesty shall un -↵ 
-↳- der the powers of the said Act from time to time appoint ↳\" 
+↳- der the powers of the said Act from time to time appoint ↳" 
 And whereas in and by the said last mentioned Act power 
 is given to his Majesty to direct the removal of any Male 
 offender under sentence of death but reprieved during pleasure 
@@ -6626,7 +6626,7 @@ that every offender so removed shall continue in the place of con -↵
 Majesty shall appoint ,↵ untill such offender shall be transported 
 or by the expiration of his term shall be entitled to his liberty 
 or untill his Majesty shall direct the return of such offender 
-to the Goal from which he shall have been removed ;↵ ↳\" And 
+to the Goal from which he shall have been removed ;↵ ↳" And 
 
 Whereas it is therein also provided that after the removal 
 of 
@@ -6711,7 +6711,7 @@ sum total of
 standard the annual proportion of the deaths at the end of 
 a year to that of persons living at the commencement of the 
 said year ,↵ according to the London Bills of Mortality ,↵ and 
-↳\' the calculations thereon grounded by the late Rev:d Dr Price .↵ 
+↳' the calculations thereon grounded by the late Rev:d Dr Price .↵ 
 Such computation being made ,↵ the said Jeremy Bentham ↳& 
 his Successors shall at the end of each year be on the one 
 hand be made Creditors to the amount of £100 for every death 
@@ -6741,7 +6741,7 @@ the above computation ,↵ £4 will be the premium for which such
 intended Governor will be to be made Creditor on account 
 of any individual Prisoner on the day which delivered to his 
 charge ,↵ on condition of his being made Debtor to the amount 
-of £100 in the event of such Prisoner\'s dying in his custody 
+of £100 in the event of such Prisoner's dying in his custody 
 within the compass of a year reckoning from the said day :↵ 
 and so in proportion for any term less than a year 
 Moreover in case of any dispute touching the amount of 
@@ -6767,7 +6767,7 @@ Bentham and his said Successors the more forcibly to the
 reformatory part of the management of the said intended 
 Penitentiary House and even make amends in most instances 
 for any accident of its failure ,↵ it is moreover agreed that in 
-the event of any such Prisoner\'s committing any felony after 
+the event of any such Prisoner's committing any felony after 
 his discharge ,↵ there shall be paid by the said Jeremy 
 Bentham or his said Successors ,↵ on the conviction of such 
 Felon ,↵ a sum of money applicable to the indemnification of 
@@ -6792,7 +6792,7 @@ Penitentiary Establishment the more constantly and effectually
 under the eye of Justice ,↵ it is hereby also agreed that the said 
 first intended Governor and his said Successors shall on the 
 first day of every term by themselves respecttively or their 
-sufficient Deputy present to the Court of King\'s Bench a 
+sufficient Deputy present to the Court of King's Bench a 
 Report ,↵ exhibiting in detail the whole state ,↵ moral and 
 medical of the establishment ↳: together with the economical 
 state thereof ,↵ at least in so far as the Public on behalf of 
@@ -6852,7 +6852,7 @@ wanting
 wanting ↳, And Whereas on the other hand the fee simple of 
 the said piece of Ground will when purchased be according to 
 the provision of the said Statute vested in some Feoffee appoint 
-↳- ed for that purpose by the King\'s Majesty his Heirs or 
+↳- ed for that purpose by the King's Majesty his Heirs or 
 Successors ,↵ which Feoffee after the decease of the Survivor of the 
 said Jeremy and Samuel Bentham under the powers of the 
 said Act might if some provision were not herein ↳& hereby 
@@ -6897,7 +6897,7 @@ an umpire .↵
 To all to whom these presents shall come greeting 
 Whereas in and by the Statute passed on the se -↵ 
 ↳- venth day of July in the year of our Lord one thousand 
-seven hundred and ninety four and of his Majesty\'s 
+seven hundred and ninety four and of his Majesty's 
 reign the thirty fourth intitled An Act for erecting a 
 Penitentiary House or Houses for confining and em -↵ 
 the Lord High Treasurer or 
@@ -6921,7 +6921,7 @@ to accept a conveyance thereof And it is thereby
 enacted and declared that the inheritance in fee 
 simple of such piece or pieces of ground with the 
 appurtenances shall be vested in and that the 
-same shall be convey\'d and assured to such ffeoffee 
+same shall be convey'd and assured to such ffeoffee 
 or ffeoffees when so appointed to the use of such ffeof -↵ 
 ↳- fe or feoffees and his or their successors for ever 
 and 
@@ -6941,7 +6941,7 @@ in
 good purposes and by the said Act declared and 
 in pursuance of the powers therein and thereby 
 to us committed it hath seemed good to us the Com -↵ 
-↳- missioners of his Majesty\'s Treasury to fix and we 
+↳- missioners of his Majesty's Treasury to fix and we 
 do accordingly by these presents fix upon the spot 
 of ground at Battersea Rise in the County of Surry 
 in the said Act and herein after particularly 
@@ -6983,7 +6983,7 @@ Convicts for the purpose of ensuring good treatment
 to them during their voyage to the place of 
 transportation .↵ 
 The 
-The date of Mr Bentham\'s Proposal of which the 
+The date of Mr Bentham's Proposal of which the 
 article in question forms a part ,↵ is considerably prior 
 to the application made of it in both those instances .↵ 
 Seeing it universally approved and applauded in these 
@@ -7002,13 +7002,13 @@ die fast enough in the Prison ↳? Should no mortal
 ever die there Government know the worst :↵ two or three 
 thousand a year is not too much to pay for a receipt 
 for immortality .↵ 
-Mr .↵ Ford\'s Observations upon a Contract between the 
-Lords of His Majesty\'s Treasury ↳& Jer :↵ Bentham Esqre .↵ 
+Mr .↵ Ford's Observations upon a Contract between the 
+Lords of His Majesty's Treasury ↳& Jer :↵ Bentham Esqre .↵ 
 for building a penetentiary House ,↵ ↳& c ↳& c ↳_ 
 The Title proposed by Mr .↵ Bentham of 
 Panopticon is in every respect obviously 
 objectionable ↳_ The word in the Act of 
-Parliament is ↳\" penitentiary House \",↵ which had 
+Parliament is ↳" penitentiary House ",↵ which had 
 better be retained .↵ ↳_ 
 Instead of having an Estimate made 
 of the encreased prices of sundry Articles 
@@ -7016,7 +7016,7 @@ since March ↳1 7 9 3↵ ,↵ when the proposals by
 Mr .↵ Bentham were delivered ,↵ it will be better 
 to fix the Sum at £30,000 ↳._ 
 
-The words ↳\" wholesome Food \"↵ should be 
+The words ↳" wholesome Food "↵ should be 
 explained specifically ,↵ ↳& this may be done 
 without injuring the principle ,↵ upon which 
 Mr .↵ B .↵ intends to act ,↵ as he may enumerate 
@@ -7027,7 +7027,7 @@ provided any Alteration in their Diet
 becomes necessary for the purpose of inforcing 
 amendment ↳& c ,↵ but to leave the matter 
 entirely open under the general Words 
-↳\" Wholsome Food \"↵ would be reposing too great 
+↳" Wholsome Food "↵ would be reposing too great 
 a discretion in any Government ,↵ who is not 
 only irremoveable ,↵ according to the Contract ,↵ 
 but 
@@ -7042,7 +7042,7 @@ The whole Article had better be omitted ,↵ or the
 Estimate made so as to exclude all persons 
 under ten years old .↵ 
 A Report is to be made by the Governor 
-to the Court of King\'s Bench on the first day of 
+to the Court of King's Bench on the first day of 
 every Term ,↵ ↳& the Court is to give such orders 
 thereupon as shall be judged proper ,↵ but there 
 is no provision made in case the Governor 
@@ -7053,23 +7053,23 @@ his neglect or refusal .↵ In order to make
 this Article of force ,↵ the Governor should 
 enter into a Bond ,↵ conditioned ,↵ in a large 
 Sum ,↵ to abide by such orders ,↵ as the Court 
-of King\'s Bench should issue to him ,↵ upon an 
-Examination of his Report \"↵ ↳. As this Article 
+of King's Bench should issue to him ,↵ upon an 
+Examination of his Report "↵ ↳. As this Article 
 now stands ,↵ after the decease of Mr .↵ B .↵ ↳& 
-his Successor ↳, Government are to pay Mr.B\'s .↵ 
+his Successor ↳, Government are to pay Mr.B's .↵ 
 Representatives for all the Buildings ,↵ Stock ↳& c ,↵ 
 upon 
 Panopticon 
-Extract from Mr Ford\'s ↳\" Observations upon 
-↳\" a Contract between the Lords of the Treasury 
-↳\" and Jer .↵ Bentham Esq :↵ for building a 
-↳\" Penitentiary House ↳& c \"↵ ↳_ being his Observa -↵ 
+Extract from Mr Ford's ↳" Observations upon 
+↳" a Contract between the Lords of the Treasury 
+↳" and Jer .↵ Bentham Esq :↵ for building a 
+↳" Penitentiary House ↳& c "↵ ↳_ being his Observa -↵ 
 ↳- tion on Art .↵ ↳2 2↵ ↳- relative to the satisfaction 
-to be made to Mr Bentham\'s Representatives .↵ 
-↳_ together with Mr Bentham\'s answer .↵ 
+to be made to Mr Bentham's Representatives .↵ 
+↳_ together with Mr Bentham's answer .↵ 
 As this Article now stands ,↵ after the decease 
 of Mr B .↵ ↳& his Successor ,↵ Government are to 
-pay Mr B\'s Representatives for all the Buildings ,↵ 
+pay Mr B's Representatives for all the Buildings ,↵ 
 Stock ,↵ ↳& c upon the premises ,↵ notwithstanding 
 ↳1 5↵ 
 Government supply a large sum ,↵ viz :↵ £13,000 
@@ -7082,7 +7082,7 @@ habitation and enlarging his premises .↵ This ap -↵
 ↳- pears much too hard upon Government ,↵ and it 
 would be fairer to let that matter be referred to 
 Arbitrators ,↵ one to be chosen by Government ,↵ 
-the other by Mr B\'s Representatives ,↵ with 
+the other by Mr B's Representatives ,↵ with 
 power for them to choose an Umpire in case 
 of a variance in Opinion .↵ Such Arbitrators 
 to 
@@ -7102,22 +7102,22 @@ upon Government would have appeared to him in a
 different light .↵ A proposition that seems to be 
 tacitly assumed is ,↵ that the money in question 
 is so much clear money out of the pocket of 
-Government on account of Mr Bentham\'s plan ,↵ 
+Government on account of Mr Bentham's plan ,↵ 
 over and above what it would have paid otherwise :↵ 
 Whereas ↳( except as to an article of £6000 of which 
 presently )↵ Government is at no expence at all 
 upon 
 ↳7↵ 
 upon it .↵ In the mean time having been repeatedly 
-called upon to ↳\" make his arrangements \"↵ he had accord -↵ 
+called upon to ↳" make his arrangements "↵ he had accord -↵ 
 ↳- ingly laid out thousands ,↵ upon the faith of the 
 original agreement as above stated .↵ 
 It is now two years since every thing was agreed 
 upon ,↵ every thing in black and white ,↵ ready for signa -↵ 
 ↳- ture ,↵ had the consent of the Land-owners been forth -↵ 
 ↳- coming .↵ During all this time the benefit of General 
-Bentham\'s mechanical inventions ,↵ diverted at Mr Ben -↵ 
-↳- tham\'s instance from what would otherwise have been 
+Bentham's mechanical inventions ,↵ diverted at Mr Ben -↵ 
+↳- tham's instance from what would otherwise have been 
 their application to this ↳( of doing the work by the 
 labour of Convicts instead of the more advantageous 
 mode by steam )↵ has been lost :↵ one seventh of the 
@@ -7129,7 +7129,7 @@ been ever entertained of making Mr Bentham
 any sort of satisfaction for these losses .↵ Such are 
 the circumstances under which Mr Ford ↳( surely for 
 want of being sufficiently apprised of these )↵ proposes 
-that Mr Bentham\'s Representatives should be 
+that Mr Bentham's Representatives should be 
 loaded with a new charge to the amount of £15,000 .↵ 
 As to arbitration ,↵ it is what Mr Bentham pro -↵ 
 ↳- posed in regard to other points ,↵ and could have very 
@@ -7158,7 +7158,7 @@ not half compleated for such a number ,↵ has already
 cost several thousand pounds .↵ So far therefore from 
 having been understood that the £15,000 was all of it 
 for the building ↳, it is not true ,↵ nor any thing like 
-true ↳. Mr Campbel\'s charge ,↵ as appears from the 
+true ↳. Mr Campbel's charge ,↵ as appears from the 
 Reports of the House of Commons ,↵ was at the 
 rate of £30,000 instead of the £27,000 and that 
 for several years together .↵ 
@@ -7179,29 +7179,29 @@ was ↳, that ,↵ as Government had paid that sum once
 for the Building to Mr Bentham ,↵ it should not 
 have to pay that sum over again to his Represen -↵ 
 ↳- tatives .↵ But no such line of distinction was ever 
-drawn on either side till now .↵ Mr Bentham\'s pro -↵ 
-↳- position was ↳_ ↳\" Land with a fixed price to it has 
+drawn on either side till now .↵ Mr Bentham's pro -↵ 
+↳- position was ↳_ ↳" Land with a fixed price to it has 
 been appropriated to the purpose of a Penitentiary 
-↳\" House ↳_ You give Mr Campbell £27,000 for every 
-↳\" year for maintaining Prisoners on the Hulk Plan _↵ 
-↳\" Give me that sum for the first year only ,↵ I will 
-↳\" buy the Land ,↵ I will find Buildings ,↵ ↳& c .↵ and for every 
-↳\" year I will maintain the same number for £12,000 .↵ 
-↳\" Here then you have the Penitentiary Plan for the 
-↳\" first year at no more than the expence of the 
+↳" House ↳_ You give Mr Campbell £27,000 for every 
+↳" year for maintaining Prisoners on the Hulk Plan _↵ 
+↳" Give me that sum for the first year only ,↵ I will 
+↳" buy the Land ,↵ I will find Buildings ,↵ ↳& c .↵ and for every 
+↳" year I will maintain the same number for £12,000 .↵ 
+↳" Here then you have the Penitentiary Plan for the 
+↳" first year at no more than the expence of the 
 Hulk 
 ↳4↵ 
-↳\" Hulk Plan ,↵ and for every other year and for little more 
-↳\" than half that expence .\"↵ This was the proposition 
+↳" Hulk Plan ,↵ and for every other year and for little more 
+↳" than half that expence ."↵ This was the proposition 
 acceded to :↵ not a syllable ,↵ so much as hinted ,↵ about 
-refunding any part of the money :↵ Mr Bentham\'s 
+refunding any part of the money :↵ Mr Bentham's 
 having the Land in Fee Simple was incompatible 
 with it .↵ Afterwards it appeared that before the 
 Proposal had been given in ,↵ the expence of the 
 Hulk Plan had been reduced to £21,000 :↵ but the 
 demand of the £27,000 having been made and acceded 
 to ,↵ the reduction made no difference with regard 
-to Mr Bentham\'s treaty ,↵ nor was any notice 
+to Mr Bentham's treaty ,↵ nor was any notice 
 ever taken of it .↵ Had the Hulk price been 
 what the only documents then public shewed it 
 to be ,↵ Government would have got an annuity of 
@@ -7220,10 +7220,10 @@ It was on this latter basis that Mr Bentham
 grounded 
 ↳5↵ 
 grounded his recent Proposal for the lodging of 
-Supernumeraries .↵ ↳\" Give me for only two years what 
-↳\" you are now giving to Mr Campbel ,↵ viz :↵ ↳2 1↵ a 
-↳\" man ,↵ for every subsequent year I will maintain 
-↳\" them forever after at my own price of ↳1 2↵ .\"↵ 
+Supernumeraries .↵ ↳" Give me for only two years what 
+↳" you are now giving to Mr Campbel ,↵ viz :↵ ↳2 1↵ a 
+↳" man ,↵ for every subsequent year I will maintain 
+↳" them forever after at my own price of ↳1 2↵ ."↵ 
 What then will it cost Government ,↵ even for these 
 two years ,↵ to give them to Mr Bentham rather 
 than Mr Campbel ?↵ Not a penny .↵ For every 
@@ -7240,18 +7240,18 @@ in :↵ and upon the common plans not a single super -↵
 ↳- numerary could be taken in to the first house .↵ 
 The second must be built for the greatest probable 
 number ,↵ say ↳1 0 0 0↵ .↵ With the benefit of Mr Black -↵ 
-↳- burne\'s frugality a Penitentiary House for a thousand 
+↳- burne's frugality a Penitentiary House for a thousand 
 could not be had for so little as 200,000 .↵ It might 
 now be had ↳( say )↵ for 100,000 .↵ But for one reason 
 or other ↳( such as diminution in the number of 
 Criminals ,↵ improvement of the County Prisons ,↵ 
 extension 
 ↳1↵ 
-Mr Bentham\'s Answer to a Paper intitled 
-↳\" Mr Fords Observations upon a Contract between 
-the Lords of His Majesty\'s Treasury and Jer :↵ 
+Mr Bentham's Answer to a Paper intitled 
+↳" Mr Fords Observations upon a Contract between 
+the Lords of His Majesty's Treasury and Jer :↵ 
 Bentham Esq:r for building a Penitentiary House 
-↳\"& c ↳& c \"↵ 
+↳"& c ↳& c "↵ 
 Article ↳1↵ .↵ Already acceded to at the first word ,↵ 
 and for the reasons given by Mr Ford .↵ 
 Article ↳2↵ .↵ Mr Bentham would be very glad 
@@ -7270,7 +7270,7 @@ the Building cannot in any part of it be post -↵
 ↳- poned to the other period .↵ 
 Article ↳7↵ .↵ As to what concerns the specification 
 in regard to wholesome food ,↵ Mr Bentham will 
-do his endeavours to meet Mr Ford\'s ideas 
+do his endeavours to meet Mr Ford's ideas 
 without 
 ↳2↵ 
 without further discussion ,↵ sensible to the obliging 
@@ -7304,7 +7304,7 @@ no specification at all with regard to food in any of the Hulk Contracts .↵
 Article p .↵ 
 ↳3↵ 
 Article ↳1 8↵ .↵ Mr Bentham submits to Mr 
-Ford\'s Proposal in regard to the excluding out of 
+Ford's Proposal in regard to the excluding out of 
 the Estimate all ages under ten years :↵ but he flatters 
 himself Mr Ford will not think it unreasonable 
 that the exclusion should be suspended for the first 
@@ -7317,42 +7317,42 @@ as not to be occasionally the seats of pestilence )↵
 into an unseasoned building :↵ dangers against which 
 the best professional advice seconded by the strictest 
 attention may be no adequate defense .↵ 
-In the Hulks under Mr Campbel\'s care the 
+In the Hulks under Mr Campbel's care the 
 mortality was very considerable at first as appears 
-by Howard\'s Books ,↵ and by the Reports made 
+by Howard's Books ,↵ and by the Reports made 
 to the House of Commons .↵ At Portsmouth or 
 Plymouth out of about ↳7 0 0↵ there died in one year 
 between 1/6 and 1/5 of the whole number ,↵ as appears 
-from the Reports made to the King\'s Bench from 
+from the Reports made to the King's Bench from 
 which Mr Bentham has extracts .↵ 
 According to this alteration the words to be 
 inserted might stand as follows .↵ After the words 
-↳\" Dr Price \"↵ insert ,↵ ↳\" Provided that in the first year\'s 
-↳\" account ,↵ in the computation of the deaths so to 
+↳" Dr Price "↵ insert ,↵ ↳" Provided that in the first year's 
+↳" account ,↵ in the computation of the deaths so to 
 be 
 Letter 2d or ↳3↵ 
 New York ;↵ ↳1 8 0 2↵ :↵ Eddy ,↵ 
-Page ↳5 8↵ .↵ ↳\" It is certain also ,↵ that under the present system of 
-↳\" punishment ,↵ a much less number of offenders escape conviction .↵ 
-↳\" Individuals do not ,↵ from a sense of the terrible consequences to the 
-↳\" party ,↵ refuse to prosecute ;↵ nor juries ,↵ from motives of compassion ,↵ 
-↳\" forbear to convict the guilty .↵ This is a most salutary consequence 
-↳\" of the amelioration of our penallaws ↳_ 
+Page ↳5 8↵ .↵ ↳" It is certain also ,↵ that under the present system of 
+↳" punishment ,↵ a much less number of offenders escape conviction .↵ 
+↳" Individuals do not ,↵ from a sense of the terrible consequences to the 
+↳" party ,↵ refuse to prosecute ;↵ nor juries ,↵ from motives of compassion ,↵ 
+↳" forbear to convict the guilty .↵ This is a most salutary consequence 
+↳" of the amelioration of our penallaws ↳_ 
 Philadelphia 
-gap/ ;↵ ↳1 7 9 3↵ :↵ gap/ p .↵ ↳9 2↵ .↵ ↳\" Juries are not now unwilling to 
-↳\" convict ;↵ and pardons are not granted till they ↳[ the prisoners ]↵ 
-↳\" discover some appearances of amendment .↵ 
-Philadelphia ;↵ ↳1 7 9 5↵ .↵ Liancourt ,↵ p .↵ ↳2 9↵ .↵ ↳\" Juries ,↵ who naturally feel 
-↳\" repugnant to the punishment of death ,↵ ↳& incline rather to doubt 
-↳\" of ,↵ than add strength to the evidence adduced ,↵ when they find ,↵ as is 
-↳\" now the case ,↵ the punishment proportioned to the crime ,↵ and 
-↳\" are convinced of the utility of the scheme ,↵ will be less averse 
-↳\" to investigate ↳& and admit the proofs of guilt .↵ The executive also 
-↳\" has no sufficient motive to pardon a convict previous to the 
-↳\" execution of his sentence ,↵ since at any time he has the power 
-↳\" of doing it ,↵ after the criminal has demonstrated that he is 
-↳\" worthy of the indulgence .↵ This certainty of punishment has 
-↳\" already proved a great check upon criminality \".↵ 
+gap/ ;↵ ↳1 7 9 3↵ :↵ gap/ p .↵ ↳9 2↵ .↵ ↳" Juries are not now unwilling to 
+↳" convict ;↵ and pardons are not granted till they ↳[ the prisoners ]↵ 
+↳" discover some appearances of amendment .↵ 
+Philadelphia ;↵ ↳1 7 9 5↵ .↵ Liancourt ,↵ p .↵ ↳2 9↵ .↵ ↳" Juries ,↵ who naturally feel 
+↳" repugnant to the punishment of death ,↵ ↳& incline rather to doubt 
+↳" of ,↵ than add strength to the evidence adduced ,↵ when they find ,↵ as is 
+↳" now the case ,↵ the punishment proportioned to the crime ,↵ and 
+↳" are convinced of the utility of the scheme ,↵ will be less averse 
+↳" to investigate ↳& and admit the proofs of guilt .↵ The executive also 
+↳" has no sufficient motive to pardon a convict previous to the 
+↳" execution of his sentence ,↵ since at any time he has the power 
+↳" of doing it ,↵ after the criminal has demonstrated that he is 
+↳" worthy of the indulgence .↵ This certainty of punishment has 
+↳" already proved a great check upon criminality ".↵ 
 ↳1↵ 
 No ↳1↵ P .↵ ↳1 3 6↵ .↵ Decr ↳1 7 9 0↵ .↵ The harvest which was begun in the last ,↵ 
 was completed in this month .↵ In the abundance that was expected ,↵ 
@@ -7394,316 +7394,316 @@ The state of the public stores with respect to salt provisions
 having been carefully examined ,↵ it became necessary to make a small 
 reduction of the ration in time ,↵ in order to prevent a greater .↵ 
 ↳6↵ 
-P.27 ↳- March ↳1 7 9 7↵ .↵ ↳\" However unpleasant it was to the governor ,↵ that 
-↳\" the lives of so many of these people should have been taken ,↵ no other 
-↳\" course could possibly be pursued ;↵ for it was their custom ,↵ when 
-↳\" they found themselves more numerous and better armed than 
-↳\" the white people ,↵ to demand with insolence whatever they wanted ;↵ and ,↵ 
-↳\" if refused ,↵ to have recourse to murder .↵ This check ,↵ it was hoped ,↵ 
-↳\" would have a good effect ;↵ and presumably ,↵ who had received seven 
-↳\" buck shots in his head and different parts of his body ,↵ was taken 
-↳\" extremely ill to the hospital .↵ This man was first known in the 
-↳\" settlement by the murder of John McIntire in the year ↳1 7 9 0↵ ;↵ 
-↳\" since which he had been a most active enemy to the settlers ,↵ 
-↳\" plundering them of their property ,↵ and endangering their personal 
-↳\" safety \".↵ 
+P.27 ↳- March ↳1 7 9 7↵ .↵ ↳" However unpleasant it was to the governor ,↵ that 
+↳" the lives of so many of these people should have been taken ,↵ no other 
+↳" course could possibly be pursued ;↵ for it was their custom ,↵ when 
+↳" they found themselves more numerous and better armed than 
+↳" the white people ,↵ to demand with insolence whatever they wanted ;↵ and ,↵ 
+↳" if refused ,↵ to have recourse to murder .↵ This check ,↵ it was hoped ,↵ 
+↳" would have a good effect ;↵ and presumably ,↵ who had received seven 
+↳" buck shots in his head and different parts of his body ,↵ was taken 
+↳" extremely ill to the hospital .↵ This man was first known in the 
+↳" settlement by the murder of John McIntire in the year ↳1 7 9 0↵ ;↵ 
+↳" since which he had been a most active enemy to the settlers ,↵ 
+↳" plundering them of their property ,↵ and endangering their personal 
+↳" safety ".↵ 
 P.31 ↳- April ↳1 7 9 7↵ .↵ The natives at the Hawkesbury were at this 
-↳\" time very troublesome ,↵ burning a dwelling house and a stack 
-↳\" of wheat belonging to a settler there ,↵ after having plundered him 
-↳\" of all his other possessions .\"↵ 
+↳" time very troublesome ,↵ burning a dwelling house and a stack 
+↳" of wheat belonging to a settler there ,↵ after having plundered him 
+↳" of all his other possessions ."↵ 
 April ↳1 7 9 7↵ 
 P.32 ↳- ↳. Pemulwuy ↳... saw and spoke with one of the gentlemen 
-↳\" of the party ;↵ enquiring of him whether the governor was 
-angry ,↵ ↳\" and seemed pleased at being told that he was not :↵ not -↵ 
-↳-\" withstanding which ,↵ there could be but little doubt ,↵ that this 
-↳\" savage brutal dispostion would manifest itself whenever excited 
-by the appearance of an unarmed man \".↵ 
-P.33 ↳- May ↳1 7 9 7↵ .↵ ↳\" Notwithstanding the example which had lately 
-↳\" been made of the natives ,↵ they were exceedingly troublesome to the 
-↳\" settlers in Lane-Cove ,↵ burning a house and felling some hogs belong -↵ 
-↳-\" ing to one of them .↵ This was certainly committing a wanton injury ;↵ 
-↳\" for neither the burnt house ,↵ nor the slaughtered animals ,↵ which 
-↳\" they left on the spot ,↵ could be of any benefit to them .↵ At 
+↳" of the party ;↵ enquiring of him whether the governor was 
+angry ,↵ ↳" and seemed pleased at being told that he was not :↵ not -↵ 
+↳-" withstanding which ,↵ there could be but little doubt ,↵ that this 
+↳" savage brutal dispostion would manifest itself whenever excited 
+by the appearance of an unarmed man ".↵ 
+P.33 ↳- May ↳1 7 9 7↵ .↵ ↳" Notwithstanding the example which had lately 
+↳" been made of the natives ,↵ they were exceedingly troublesome to the 
+↳" settlers in Lane-Cove ,↵ burning a house and felling some hogs belong -↵ 
+↳-" ing to one of them .↵ This was certainly committing a wanton injury ;↵ 
+↳" for neither the burnt house ,↵ nor the slaughtered animals ,↵ which 
+↳" they left on the spot ,↵ could be of any benefit to them .↵ At 
 Kissing Point ,↵ another district ,↵ they dangerously wounded a 
-↳\" settler ↳& his wife ,↵ first burning every article belonging to them .↵ 
-↳\" The settlers in Lane Cove were so much gap/ so perpetually alarmed 
-↳\" by their people ,↵ that they collected their whole force ,↵ and ,↵ a few 
-↳\" soldiers being sent to their assistance ,↵ went out in the night ;↵ 
-↳\" and ,↵ being directed by their fires to the place where they lay ,↵ 
-↳\" they discovered a large body of natives ,↵ collected ,↵ no doubt ,↵ for the pur -↵ 
-↳-\" pose of attacking and plundering the settlers ,↵ Being unwilling to take 
-↳\" any of their lives ,↵ a volley of musketry was fired over the heads ,↵ 
-which \"↵ 
+↳" settler ↳& his wife ,↵ first burning every article belonging to them .↵ 
+↳" The settlers in Lane Cove were so much gap/ so perpetually alarmed 
+↳" by their people ,↵ that they collected their whole force ,↵ and ,↵ a few 
+↳" soldiers being sent to their assistance ,↵ went out in the night ;↵ 
+↳" and ,↵ being directed by their fires to the place where they lay ,↵ 
+↳" they discovered a large body of natives ,↵ collected ,↵ no doubt ,↵ for the pur -↵ 
+↳-" pose of attacking and plundering the settlers ,↵ Being unwilling to take 
+↳" any of their lives ,↵ a volley of musketry was fired over the heads ,↵ 
+which "↵ 
 ↳9↵ 
 Economy 
 II Collins 
-↳9↵ P.68 .↵ December ↳1 7 9 7↵ .↵ ↳\" Ben-nil-ling ↳.... remains a silent specta -↵ 
-↳\"- tor of the tumil tumultuous scene ,↵ until the moment when 
-↳\" the soldiers rushed in to save the life of Cole-be .↵ His conduct 
-↳\" here became inexplicable .↵ On a sudden ,↵ he chose to be in a rage 
-↳\" at something or other ,↵ and ,↵ threw a spear among the soldiers ,↵ 
-↳\" which dreadfully took effect on one of them ,↵ entering at his back 
-↳\" and coming out at the belly ,↵ close to the navel ↳....... 
+↳9↵ P.68 .↵ December ↳1 7 9 7↵ .↵ ↳" Ben-nil-ling ↳.... remains a silent specta -↵ 
+↳"- tor of the tumil tumultuous scene ,↵ until the moment when 
+↳" the soldiers rushed in to save the life of Cole-be .↵ His conduct 
+↳" here became inexplicable .↵ On a sudden ,↵ he chose to be in a rage 
+↳" at something or other ,↵ and ,↵ threw a spear among the soldiers ,↵ 
+↳" which dreadfully took effect on one of them ,↵ entering at his back 
+↳" and coming out at the belly ,↵ close to the navel ↳....... 
 
-↳\" This man ↳[ Ben-nil-long ]↵ instead of making himself useful ,↵ 
-↳\" or shewing the least gratitude for the attentions which he received ,↵ 
-↳\" from every one ,↵ has become a most insolent and troublesome 
-↳\" savage .↵ As it was impossible sometimes to avoid censuring 
-↳\" him for his conduilt conduct ,↵ he had been known to walk 
-↳\" about armed ,↵ and heard to declare it was for the express 
-↳\" purpose of spearing the governor whenever he saw him .\"↵ ↳_ 
-↳1 0↵ P.196 .↵ January ↳1 7 9 9↵ .↵ ↳[ A man was ↳\" sentenced to receive a 
-↳\" severe corporal punishment ,↵ for having shot a native ↳( man )↵ 
-↳\" at Botany Bay .↵ Could the evidence of some of these people have 
-↳\" been taken ,↵ it was supposed that he would have been capitally 
-↳\" convicted ,↵ in which case he would certainly have suffered ,↵ the 
-↳\" governor being determined to put that article of his Majesty\'s 
-↳\" instructions in force ,↵ which ,↵ in placing these people under the 
-↳\" protection of the British Government ,↵ enjoined the punishing 
-↳\" any injury done to their persons or property ,↵ according to the 
-↳\" degree and nature of the offence .↵ ↳_ 
-↳\" When this man was brought out to be punished ,↵ several of 
-↳\" the natives were assembled for the purpose ;↵ and he received in their 
-↳\" presence as much if of his sentence as he could bear ,↵ they wit -↵ 
-↳\"- nessing his sufferings with the most perfect indifference .\"↵ ↳_ 
+↳" This man ↳[ Ben-nil-long ]↵ instead of making himself useful ,↵ 
+↳" or shewing the least gratitude for the attentions which he received ,↵ 
+↳" from every one ,↵ has become a most insolent and troublesome 
+↳" savage .↵ As it was impossible sometimes to avoid censuring 
+↳" him for his conduilt conduct ,↵ he had been known to walk 
+↳" about armed ,↵ and heard to declare it was for the express 
+↳" purpose of spearing the governor whenever he saw him ."↵ ↳_ 
+↳1 0↵ P.196 .↵ January ↳1 7 9 9↵ .↵ ↳[ A man was ↳" sentenced to receive a 
+↳" severe corporal punishment ,↵ for having shot a native ↳( man )↵ 
+↳" at Botany Bay .↵ Could the evidence of some of these people have 
+↳" been taken ,↵ it was supposed that he would have been capitally 
+↳" convicted ,↵ in which case he would certainly have suffered ,↵ the 
+↳" governor being determined to put that article of his Majesty's 
+↳" instructions in force ,↵ which ,↵ in placing these people under the 
+↳" protection of the British Government ,↵ enjoined the punishing 
+↳" any injury done to their persons or property ,↵ according to the 
+↳" degree and nature of the offence .↵ ↳_ 
+↳" When this man was brought out to be punished ,↵ several of 
+↳" the natives were assembled for the purpose ;↵ and he received in their 
+↳" presence as much if of his sentence as he could bear ,↵ they wit -↵ 
+↳"- nessing his sufferings with the most perfect indifference ."↵ ↳_ 
 ↳1 0↵ 
-↳1 1↵ P ↳2 0 4↵ .↵ April ↳1 7 9 9↵ .↵ ↳\" It having been for several days reported ,↵ that 
-↳\" the crews of two boats ,↵ which had been permitted to go to Hunter\'s 
-↳\" River for a load of coals ,↵ had been cut off by the natives ,↵ the 
-↳\" governor ordered his whale boat to be well armed ,↵ and to proceed 
-↳\" thither ,↵ in quest of the boats and their crews ;↵ sending in her 
-↳\" Henry Hacking ,↵ a person on whom he could depend .↵ Upon his 
-↳\" return he informed the governor ,↵ that on his arrival he found 
-↳\" an attempt had been made to burn the smaller boat ,↵ which 
-↳\" had had three men in her ,↵ who were each provided with a 
-↳\" musquet .↵ The boat was there ,↵ but the men were not to be 
-↳\" found .↵ Going immediately in search of them ,↵ he fell in with 
-↳\" a large body of natives all armed .↵ On desiring them to inform 
-↳\" him what was become of the white men ,↵ they told him they 
-↳\" were gone to Sidney .↵ This did not satisfy him ,↵ as he found 
-↳\" they had taken away the sails of the boats ,↵ the men\'s blankets ,↵ 
-↳\" and every thing that they had with them .↵ He threatened 
-↳\" to kill them if they did not instantly inform him ,↵ ↳& presented 
-↳\" his musquet at them .↵ This they laughed at ,↵ and said ,↵ that 
-↳\" if he did not go away ,↵ and leave them a small two-oared 
-↳\" boat which he had brought with him ,↵ ↳& the whale boats ,↵ they 
-↳\" would destroy every white man there ,↵ and poised their spears in 
-↳\" a threatening manner .↵ He again levelled his piece at them ,↵ and 
-↳\" snapped it without priming ,↵ in the hope of alarming them ;↵ but 
-↳\" they were not so easily frightened ,↵ and became more noisy and 
-↳\" violent .↵ Finding that an attack was almost certain ,↵ he charged 
-↳\" his gun with buck shot ,↵ and ordered them to leave the place ;↵ 
-↳\" but ,↵ their clamour increasing ,↵ he fired ,↵ and four of them fell ,↵ one 
-↳\" of whom got up again and ran off ,↵ the other three remaining 
-↳\" upon the ground ,↵ probably mortally wounded .↵ The whole body 
-↳\" disappeared ,↵ and no more was seen seen of them ,↵ leaving Hacking 
-↳\" to fill his boat ↳& effect his gap/ retreat unmolested .↵ 
-↳\" Our people having frequently visited this river for coals ,↵ ↳& 
-↳\" always treated with kindness and civility the natives whom they 
-↳\" met ,↵ this behaviour was not to be accounted for ,↵ except by its 
-↳\" being allowed that all savages are under the dominion of a 
-↳\" sudden impulse ;↵ which renders it impossible to know when to 
-↳\" trust to them .\"↵ 
+↳1 1↵ P ↳2 0 4↵ .↵ April ↳1 7 9 9↵ .↵ ↳" It having been for several days reported ,↵ that 
+↳" the crews of two boats ,↵ which had been permitted to go to Hunter's 
+↳" River for a load of coals ,↵ had been cut off by the natives ,↵ the 
+↳" governor ordered his whale boat to be well armed ,↵ and to proceed 
+↳" thither ,↵ in quest of the boats and their crews ;↵ sending in her 
+↳" Henry Hacking ,↵ a person on whom he could depend .↵ Upon his 
+↳" return he informed the governor ,↵ that on his arrival he found 
+↳" an attempt had been made to burn the smaller boat ,↵ which 
+↳" had had three men in her ,↵ who were each provided with a 
+↳" musquet .↵ The boat was there ,↵ but the men were not to be 
+↳" found .↵ Going immediately in search of them ,↵ he fell in with 
+↳" a large body of natives all armed .↵ On desiring them to inform 
+↳" him what was become of the white men ,↵ they told him they 
+↳" were gone to Sidney .↵ This did not satisfy him ,↵ as he found 
+↳" they had taken away the sails of the boats ,↵ the men's blankets ,↵ 
+↳" and every thing that they had with them .↵ He threatened 
+↳" to kill them if they did not instantly inform him ,↵ ↳& presented 
+↳" his musquet at them .↵ This they laughed at ,↵ and said ,↵ that 
+↳" if he did not go away ,↵ and leave them a small two-oared 
+↳" boat which he had brought with him ,↵ ↳& the whale boats ,↵ they 
+↳" would destroy every white man there ,↵ and poised their spears in 
+↳" a threatening manner .↵ He again levelled his piece at them ,↵ and 
+↳" snapped it without priming ,↵ in the hope of alarming them ;↵ but 
+↳" they were not so easily frightened ,↵ and became more noisy and 
+↳" violent .↵ Finding that an attack was almost certain ,↵ he charged 
+↳" his gun with buck shot ,↵ and ordered them to leave the place ;↵ 
+↳" but ,↵ their clamour increasing ,↵ he fired ,↵ and four of them fell ,↵ one 
+↳" of whom got up again and ran off ,↵ the other three remaining 
+↳" upon the ground ,↵ probably mortally wounded .↵ The whole body 
+↳" disappeared ,↵ and no more was seen seen of them ,↵ leaving Hacking 
+↳" to fill his boat ↳& effect his gap/ retreat unmolested .↵ 
+↳" Our people having frequently visited this river for coals ,↵ ↳& 
+↳" always treated with kindness and civility the natives whom they 
+↳" met ,↵ this behaviour was not to be accounted for ,↵ except by its 
+↳" being allowed that all savages are under the dominion of a 
+↳" sudden impulse ;↵ which renders it impossible to know when to 
+↳" trust to them ."↵ 
 ↳1 1↵ 
 Economy 
 II Collins 
-P.209 .↵ May ↳1 7 9 9↵ .↵ ↳\" Some of the people ↳( Natives )↵ ever hostile to 
-↳\" the settlers ,↵ has lately speared one of them ,↵ a marine settler 
-↳\"( as those were stiled who had former formerly belonged to the 
-↳\" marine detachment )↵ at George\'s river ,↵ so effectually ,↵ that he died 
-↳\" of his wounds .↵ The natives belonged to the tribe of which 
-↳\" Pemulwy was the leader .\"↵ 
-Pp 281,282,283 .↵ ↳\" The natives having murdered two men who 
-↳\" possessed farms at the Hawkesbury ,↵ some of the settlers in that 
-↳\" district determined to revenge their death .↵ There were at this 
-↳\" time three native boys living with one Pavel ,↵ a settler ,↵ and two 
-↳\" others ,↵ his neighbors .↵ These unoffending lads they selected as the 
-↳\" objects of their revenge ↳....... 
+P.209 .↵ May ↳1 7 9 9↵ .↵ ↳" Some of the people ↳( Natives )↵ ever hostile to 
+↳" the settlers ,↵ has lately speared one of them ,↵ a marine settler 
+↳"( as those were stiled who had former formerly belonged to the 
+↳" marine detachment )↵ at George's river ,↵ so effectually ,↵ that he died 
+↳" of his wounds .↵ The natives belonged to the tribe of which 
+↳" Pemulwy was the leader ."↵ 
+Pp 281,282,283 .↵ ↳" The natives having murdered two men who 
+↳" possessed farms at the Hawkesbury ,↵ some of the settlers in that 
+↳" district determined to revenge their death .↵ There were at this 
+↳" time three native boys living with one Pavel ,↵ a settler ,↵ and two 
+↳" others ,↵ his neighbors .↵ These unoffending lads they selected as the 
+↳" objects of their revenge ↳....... 
 
-↳\" The prisoners ,↵ in their defence ,↵ brought forward a crowd of 
-↳\" witnesses to prove that a number of white people had at 
-↳\" various times been killed by the natives ;↵ but ,↵ could these peo -↵ 
-↳-\" ple have been sufficiently understood ,↵ proofs would not have 
-↳\" been wanting on their side ,↵ of the wanton ↳& barbarous manner 
-↳\" in which many of them had been destroyed ↳....... 
-↳\" As it was impossible to explain to the natives ,↵ or cause 
-↳\" them to comprehend the nature of these doubts ,↵ it was to be 
-↳\" expected that they would ill brook the return of the prisoners 
-↳\" to their farms and occupations ,↵ without having received some 
+↳" The prisoners ,↵ in their defence ,↵ brought forward a crowd of 
+↳" witnesses to prove that a number of white people had at 
+↳" various times been killed by the natives ;↵ but ,↵ could these peo -↵ 
+↳-" ple have been sufficiently understood ,↵ proofs would not have 
+↳" been wanting on their side ,↵ of the wanton ↳& barbarous manner 
+↳" in which many of them had been destroyed ↳....... 
+↳" As it was impossible to explain to the natives ,↵ or cause 
+↳" them to comprehend the nature of these doubts ,↵ it was to be 
+↳" expected that they would ill brook the return of the prisoners 
+↳" to their farms and occupations ,↵ without having received some 
 punishment :↵ a circumstance wholly inconsistent with their 
-↳\" own ideas and customs ;↵ and ,↵ indeed ,↵ they loudly threatened 
-↳\" to burn the crops as soon as it could be effected .↵ Fire ,↵ in 
-↳\" the hands of a body of a irritated and hostile natives ,↵ 
-↳\" might ,↵ with but little trouble to them ,↵ ruin the prospect 
-↳\" of an abundant harvest ;↵ and it appeared by this threat ,↵ 
-↳\" that they were not ignorant of having this power in their 
-↳\" hands ;↵ it was ,↵ therefore ,↵ certainly very essential to the comfort 
-↳\"& security of the settlers in particular ,↵ that they should live 
-↳\" with them upon amicable terms .\"↵ 
+↳" own ideas and customs ;↵ and ,↵ indeed ,↵ they loudly threatened 
+↳" to burn the crops as soon as it could be effected .↵ Fire ,↵ in 
+↳" the hands of a body of a irritated and hostile natives ,↵ 
+↳" might ,↵ with but little trouble to them ,↵ ruin the prospect 
+↳" of an abundant harvest ;↵ and it appeared by this threat ,↵ 
+↳" that they were not ignorant of having this power in their 
+↳" hands ;↵ it was ,↵ therefore ,↵ certainly very essential to the comfort 
+↳"& security of the settlers in particular ,↵ that they should live 
+↳" with them upon amicable terms ."↵ 
 ↳1↵ 
 II Collins Extracts Supplement 
-P .↵ ↳9 2↵ .↵ February ↳1 7 9 6↵ .↵ ↳\" A general muster took place on the 
-↳\" 14th in every district of the colony ,↵ at which every labouring 
-↳\" man ,↵ whether free or conict convict ,↵ was obliged to appear .↵ on the 
-↳\" following morning the settlers were called over ,↵ previous to which ,↵ 
-↳\" the governor ,↵ who was present ,↵ informed them ,↵ that he had 
-↳\" heard of much discontent prevailing among them in consequence 
-↳\" of certain heavy grievances which they said they laboured under .↵ For 
-↳\" then ,↵ as he was unacquainted with the nature of them ,↵ he was 
-↳\" unable to suggest any remedy ,↵ he therefore desure desired that 
-↳\" they might be represented to him in writing ;↵ and ,↵ to spare 
-↳\" them as much trouble as possible ,↵ he would direct two gentle -↵ 
-↳-\" men on whom he had much dependance to visit the different 
-↳\" districts ,↵ and collect from the respective settlers such of their 
-↳\" distresses and grievances as they were desier desire desirous of 
-↳\" making known .↵ Before they were dismissed ,↵ he gave them much 
-↳\" good advice ;↵ and assured them ,↵ that he had already ,↵ from his 
-↳\" own ideas ,↵ offered a plan to the secretary of state for their 
-↳\" benefit ,↵ which he hoped in due time would be attended to ↳_ 
-↳\" After then ,↵ the women and children were mustered ,↵ and 
-↳\" were found to compose a very considerable part of the settlement .\"↵ 
+P .↵ ↳9 2↵ .↵ February ↳1 7 9 6↵ .↵ ↳" A general muster took place on the 
+↳" 14th in every district of the colony ,↵ at which every labouring 
+↳" man ,↵ whether free or conict convict ,↵ was obliged to appear .↵ on the 
+↳" following morning the settlers were called over ,↵ previous to which ,↵ 
+↳" the governor ,↵ who was present ,↵ informed them ,↵ that he had 
+↳" heard of much discontent prevailing among them in consequence 
+↳" of certain heavy grievances which they said they laboured under .↵ For 
+↳" then ,↵ as he was unacquainted with the nature of them ,↵ he was 
+↳" unable to suggest any remedy ,↵ he therefore desure desired that 
+↳" they might be represented to him in writing ;↵ and ,↵ to spare 
+↳" them as much trouble as possible ,↵ he would direct two gentle -↵ 
+↳-" men on whom he had much dependance to visit the different 
+↳" districts ,↵ and collect from the respective settlers such of their 
+↳" distresses and grievances as they were desier desire desirous of 
+↳" making known .↵ Before they were dismissed ,↵ he gave them much 
+↳" good advice ;↵ and assured them ,↵ that he had already ,↵ from his 
+↳" own ideas ,↵ offered a plan to the secretary of state for their 
+↳" benefit ,↵ which he hoped in due time would be attended to ↳_ 
+↳" After then ,↵ the women and children were mustered ,↵ and 
+↳" were found to compose a very considerable part of the settlement ."↵ 
 ↳2↵ 
 ↳1 5↵ Oct ↳1 8 0 2↵ 
 II Collins Extracts 
 Want of regular market for sale of produce 
 gap/ p ↳9 2↵ .↵ ↳2↵ .↵ p.109 .↵ ↳. ↳. ↳. 
-↳1↵ .↵ Page ↳1 0 9↵ .↵ April ↳1 7 9 8↵ .↵ ↳\" The gap/ delivery of grain was so 
+↳1↵ .↵ Page ↳1 0 9↵ .↵ April ↳1 7 9 8↵ .↵ ↳" The gap/ delivery of grain was so 
 + 
-↳\" completely monopolized ,↵ that the settlers had but few opportunities 
-↳\" of getting the full value for their crops .↵ A few wo words will 
-↳\" place this iniquitous combination in its proper light .↵ 
-↳\" The settler found himself thrust out from the granary ,↵ by 
-↳\" a man whose greater opulence created greater influence .↵ He 
-↳\" was then driven by his necessities to dispose of his grain 
-↳\" for less than half its value .↵ To whom did he dispose of it !↵ 
-↳\" to the very man whose greater opulence enabled him to 
-↳\" purchase it ,↵ and whose greater influence could get it 
-↳\" received into the public store \"↵ ↳_ 
+↳" completely monopolized ,↵ that the settlers had but few opportunities 
+↳" of getting the full value for their crops .↵ A few wo words will 
+↳" place this iniquitous combination in its proper light .↵ 
+↳" The settler found himself thrust out from the granary ,↵ by 
+↳" a man whose greater opulence created greater influence .↵ He 
+↳" was then driven by his necessities to dispose of his grain 
+↳" for less than half its value .↵ To whom did he dispose of it !↵ 
+↳" to the very man whose greater opulence enabled him to 
+↳" purchase it ,↵ and whose greater influence could get it 
+↳" received into the public store "↵ ↳_ 
 Orders had been repeatedly issued on this very subject ,↵ 
-↳\" the store keepers being most pointedly directed to give the 
-↳\" preference to the man whose grain was the pro produce 
-↳\" of his own labour ;↵ and if any favour were shewn ,↵ to let 
+↳" the store keepers being most pointedly directed to give the 
+↳" preference to the man whose grain was the pro produce 
+↳" of his own labour ;↵ and if any favour were shewn ,↵ to let 
 it be to the poor but industrious settler who might be 
-↳\" encumbered with a large family .↵ But the necessary and 
-↳\" humane directions had been too often frustrated by circum -↵ 
-↳-\" stances which were carefully kept from the knowledge of 
-↳\" the governor ;↵ it was ,↵ however ,↵ proved to him ,↵ that on occasion 
-↳\" if the store at the Hawkesbury being opened for the recept -↵ 
-↳-\" ion of ↳1 5 0 0↵ bushels of wheat ,↵ the whole was engrossed by 
-↳\" two or three of these opulent traders ,↵ to the exclusion and 
-↳\" injury of others ,↵ and the petty farmers in general .↵ 
+↳" encumbered with a large family .↵ But the necessary and 
+↳" humane directions had been too often frustrated by circum -↵ 
+↳-" stances which were carefully kept from the knowledge of 
+↳" the governor ;↵ it was ,↵ however ,↵ proved to him ,↵ that on occasion 
+↳" if the store at the Hawkesbury being opened for the recept -↵ 
+↳-" ion of ↳1 5 0 0↵ bushels of wheat ,↵ the whole was engrossed by 
+↳" two or three of these opulent traders ,↵ to the exclusion and 
+↳" injury of others ,↵ and the petty farmers in general .↵ 
 ↳4↵ 
-P .↵ ↳2 6 8↵ .↵ October ↳1 7 9 9↵ .↵ ↳\" The scarcity of wheat at this time 
-↳\" in the public stores rendering it necessary to deduct two pounds 
-↳\" from the twelve which were issued ,↵ addition was made to the 
-↳\" weekly allowance of salt meat ,↵ eight pounds and a half of beef 
-↳\" being issued in lieu of five ,↵ and five pounds of port in lieu 
-↳\" of three .↵ This alteration was to continue until the new crops 
-↳\" came in .↵ ↳_ 
-↳\" Then wearing at present a very promising app appearance ,↵ 
-↳\" and the various and unforeseen misfortunes which had from time 
-↳\" to time attended the exertions of the industrious in agriculture ,↵ 
-↳\" being ,↵ it was hoped ,↵ now at an end ,↵ the governor ,↵ conceiving it 
-↳\" to be no longer consistent with his duty to continue the original 
-↳\" prices of grain ,↵ directed in future that the following should be 
-↳\" given ,↵ viz .↵ 
-↳\" For wheat ,↵ per bushel ↳_ ↳_ ↳8↵ shillings .↵ 
-↳\" For the present barley ,↵ do .↵ ↳_ ↳_ ↳6↵ ditto .↵ 
-↳\" And for maize ,↵ do .↵ ↳_ ↳_ ↳_ ↳4↵ ditto .↵ 
-↳\" which prices were to commence on the first day of January 
-↳\" ↳1 8 0 0↵ .↵ 
-↳\" The scarcity of wheat in the public store was occasioned 
-↳\" by the unbounded extravagance of the labouring people ,↵ who had ,↵ 
-↳\" in consequence of the last unproductive season ,↵ reduced those 
-↳\" who supported themselves to very great distress ;↵ and several 
-↳\" persons ,↵ who sometime since would gladly have sent their wheat 
-↳\" to the store at the established price ,↵ had now refused it ,↵ when 
-↳\" the store was capable of receiving it ;↵ and ,↵ taking advantage of 
-↳\" the scarcity which they themselves had occasioned ,↵ had raised the 
-↳\" p price of wheat £1..10s per bushel ;↵ a shameful extortion !\"↵ 
+P .↵ ↳2 6 8↵ .↵ October ↳1 7 9 9↵ .↵ ↳" The scarcity of wheat at this time 
+↳" in the public stores rendering it necessary to deduct two pounds 
+↳" from the twelve which were issued ,↵ addition was made to the 
+↳" weekly allowance of salt meat ,↵ eight pounds and a half of beef 
+↳" being issued in lieu of five ,↵ and five pounds of port in lieu 
+↳" of three .↵ This alteration was to continue until the new crops 
+↳" came in .↵ ↳_ 
+↳" Then wearing at present a very promising app appearance ,↵ 
+↳" and the various and unforeseen misfortunes which had from time 
+↳" to time attended the exertions of the industrious in agriculture ,↵ 
+↳" being ,↵ it was hoped ,↵ now at an end ,↵ the governor ,↵ conceiving it 
+↳" to be no longer consistent with his duty to continue the original 
+↳" prices of grain ,↵ directed in future that the following should be 
+↳" given ,↵ viz .↵ 
+↳" For wheat ,↵ per bushel ↳_ ↳_ ↳8↵ shillings .↵ 
+↳" For the present barley ,↵ do .↵ ↳_ ↳_ ↳6↵ ditto .↵ 
+↳" And for maize ,↵ do .↵ ↳_ ↳_ ↳_ ↳4↵ ditto .↵ 
+↳" which prices were to commence on the first day of January 
+↳" ↳1 8 0 0↵ .↵ 
+↳" The scarcity of wheat in the public store was occasioned 
+↳" by the unbounded extravagance of the labouring people ,↵ who had ,↵ 
+↳" in consequence of the last unproductive season ,↵ reduced those 
+↳" who supported themselves to very great distress ;↵ and several 
+↳" persons ,↵ who sometime since would gladly have sent their wheat 
+↳" to the store at the established price ,↵ had now refused it ,↵ when 
+↳" the store was capable of receiving it ;↵ and ,↵ taking advantage of 
+↳" the scarcity which they themselves had occasioned ,↵ had raised the 
+↳" p price of wheat £1..10s per bushel ;↵ a shameful extortion !"↵ 
 ↳5↵ 
-P .↵ ↳2 7 4↵ :↵ December ↳1 7 9 9↵ .↵ ↳\" The settlers ,↵ being dissatisfied 
-↳\" with the reduction in the price of grain which had been ordered ,↵ 
-↳\" presented petitions to the governor ,↵ in which they stated the various 
-↳\" hardships that for a considerable time past they had laboured 
-↳\" under ,↵ in the hope that he might be induced to receive the 
-↳\" crops of the present season at the usual price .↵ Having taken 
-↳\" their petitions into consideration ,↵ he desired them to recollect ,↵ that 
-↳\" near four years since he had given them notice ,↵ that the high 
-↳\" price of grain could not be continued longer than that season ;↵ 
-↳\" and though he had not any doubt of their having sustained 
-↳\" the losses which they represented ,↵ and they must be sensible he 
-↳\" had used every means in his power to remove and relieve 
-↳\" their misfortunes ,↵ yet his duty to government compelled him 
-↳\" to adhere to the reduction of which they complained .↵ At the same 
-↳\" time he could not avoid observing ,↵ that some of these misfortunes 
-↳\" had in many instances proceeded from a want of that attention 
-↳\" to their own interest ,↵ which every man possessing common dis -↵ 
-↳-\" cretion would have shewn ;↵ many of them having parted with 
-↳\" their last bushel for the gratification of the moment ,↵ thereby re -↵ 
+P .↵ ↳2 7 4↵ :↵ December ↳1 7 9 9↵ .↵ ↳" The settlers ,↵ being dissatisfied 
+↳" with the reduction in the price of grain which had been ordered ,↵ 
+↳" presented petitions to the governor ,↵ in which they stated the various 
+↳" hardships that for a considerable time past they had laboured 
+↳" under ,↵ in the hope that he might be induced to receive the 
+↳" crops of the present season at the usual price .↵ Having taken 
+↳" their petitions into consideration ,↵ he desired them to recollect ,↵ that 
+↳" near four years since he had given them notice ,↵ that the high 
+↳" price of grain could not be continued longer than that season ;↵ 
+↳" and though he had not any doubt of their having sustained 
+↳" the losses which they represented ,↵ and they must be sensible he 
+↳" had used every means in his power to remove and relieve 
+↳" their misfortunes ,↵ yet his duty to government compelled him 
+↳" to adhere to the reduction of which they complained .↵ At the same 
+↳" time he could not avoid observing ,↵ that some of these misfortunes 
+↳" had in many instances proceeded from a want of that attention 
+↳" to their own interest ,↵ which every man possessing common dis -↵ 
+↳-" cretion would have shewn ;↵ many of them having parted with 
+↳" their last bushel for the gratification of the moment ,↵ thereby re -↵ 
 ↳- ducing their families to distress and nakedness .↵ 
-↳\" He likewise informed them ,↵ that he had much pleasure 
-↳\" in finding that government had a serious intention ,↵ as early 
-↳\" as the public concerns of the nation would admit ,↵ of adminis -↵ 
-↳-\" tering every possible relief ,↵ by supplying the inhabitants with 
-↳\" such necessaries and comforts as they might require at a moderate 
-↳\" price .↵ He was ,↵ however ,↵ obliged to direct the commissary to 
-↳\" receive the grain of this season at the prices ordered by him 
-↳\" in the month of October .\"↵ ↳_ 
-P .↵ ↳2 7 6↵ .↵ Decr .↵ ↳1 7 9 9↵ .↵ ↳\" The body of the settlers having again represented their 
-↳\" total inability to bear any reduction in the price of the wheat of this season ,↵ 
-↳\" on account ,↵ not only of their former heavy losses ,↵ but of the exorbitant prices of 
-↳\" all those necessaries of life which they required for paying their labourers ,↵ the 
-↳\" governor consented to receive the wheat only at the former price of ten 
-↳\" shillings per bushel ,↵ and they were at the same time told to pre -↵ 
-↳-\" pare for the reduction that would certainly take place in the next 
-↳\" season .↵ He also permitted a certain quantity of the wine ↳& spirits 
-↳\" from the prize to be landed ,↵ for the immediate accommodation of 
-↳\" those who had their crops to secure ,↵ and to prevent the impositions 
-↳\" to which they were subject in being obliged to procure them from 
-↳\" a second or third hand .\"↵ ↳_ 
-P .↵ ↳2 9 8↵ .↵ Aug .↵ ↳1 8 0 0↵ .↵ ↳\" Several gentlemen being now preparing to return to England ,↵ 
-↳\" having obtained the Governor\'s permission for that purpose ;↵ much live stock was sold ,↵ 
-↳\" and a considerable addition was made to that belonging to the crown by the purchase of 
-↳\" some of the large horned cattle \".↵ 
+↳" He likewise informed them ,↵ that he had much pleasure 
+↳" in finding that government had a serious intention ,↵ as early 
+↳" as the public concerns of the nation would admit ,↵ of adminis -↵ 
+↳-" tering every possible relief ,↵ by supplying the inhabitants with 
+↳" such necessaries and comforts as they might require at a moderate 
+↳" price .↵ He was ,↵ however ,↵ obliged to direct the commissary to 
+↳" receive the grain of this season at the prices ordered by him 
+↳" in the month of October ."↵ ↳_ 
+P .↵ ↳2 7 6↵ .↵ Decr .↵ ↳1 7 9 9↵ .↵ ↳" The body of the settlers having again represented their 
+↳" total inability to bear any reduction in the price of the wheat of this season ,↵ 
+↳" on account ,↵ not only of their former heavy losses ,↵ but of the exorbitant prices of 
+↳" all those necessaries of life which they required for paying their labourers ,↵ the 
+↳" governor consented to receive the wheat only at the former price of ten 
+↳" shillings per bushel ,↵ and they were at the same time told to pre -↵ 
+↳-" pare for the reduction that would certainly take place in the next 
+↳" season .↵ He also permitted a certain quantity of the wine ↳& spirits 
+↳" from the prize to be landed ,↵ for the immediate accommodation of 
+↳" those who had their crops to secure ,↵ and to prevent the impositions 
+↳" to which they were subject in being obliged to procure them from 
+↳" a second or third hand ."↵ ↳_ 
+P .↵ ↳2 9 8↵ .↵ Aug .↵ ↳1 8 0 0↵ .↵ ↳" Several gentlemen being now preparing to return to England ,↵ 
+↳" having obtained the Governor's permission for that purpose ;↵ much live stock was sold ,↵ 
+↳" and a considerable addition was made to that belonging to the crown by the purchase of 
+↳" some of the large horned cattle ".↵ 
 ↳2↵ 
 Want of a regular market for purchasers .↵ 
-No ↳3↵ .↵ Page ↳1 1 3↵ .↵ May ↳1 7 9 8↵ .↵ ↳\" As the governor has received several 
+No ↳3↵ .↵ Page ↳1 1 3↵ .↵ May ↳1 7 9 8↵ .↵ ↳" As the governor has received several 
 ↳& complaints 
-complaints and ↳\" petitions from the settlers there ↳( on Norfolk Island )↵ 
-↳\" he caused the following order to be printed and sent thither 
-↳\" for their information :↵ 
-↳\' From the nature of the difficulties of which the settlers 
-↳\' upon Norfolk-Island have complained ,↵ difficulties which have not 
-↳\' until very lately been known to have an existence ,↵ the governor 
-↳\' is led to suspect ,↵ that the same rage for traffic ,↵ and ↳& an intem -↵ 
-↳-\' perate ↳\' indulgence in some of those destructive gratifications which 
-↳\' have so effectually ruined many of the most forward ↳& promising 
-↳\' settlers in New South Wales ,↵ have reached Norfolk-Island .↵ ↳_ 
-↳\' His Excellency ,↵ from an earnest desire to promote the prosperity 
-↳\' of the island ,↵ and the true happiness of its inhabitants ,↵ has ,↵ 
-↳\' since his arrival in this country ,↵ availed himself of every 
-↳\' opportunity of forwarding for their accommodation a share of such 
-↳\' little comforts ,↵ as accidental ships may have brought hither .↵ But ,↵ 
-↳\' he is sorry to observe ,↵ that ,↵ instead of those attentions being felt 
-↳\' as an advantage ,↵ they appear only to operate as an incitement 
-↳\' to more extensive dealings ;↵ a circumstance which he foresees 
-↳\' must end in the ruin of many of the settlers ,↵ for whose 
-↳\' welfare he is extremely anxious .↵ He therefore urges them not 
-↳\' to be led away from their real interest ,↵ by speculative 
-↳\' ideas ,↵ or a desire of indulging in dangerous gratifications ,↵ 
-↳\' squandering the whole produce of their hard labour in trifles ,↵ 
-↳\' or in scenes of dissipation which must eventually end in 
-↳\' their complete ruin .↵ He desires that they will persevere with 
-↳\' patience in the management of their farms ,↵ and the rearing 
-of ↳\' stock ;↵ and assures them that he has taken such steps 
-↳\' as he hopes will incline the government to consider the 
-↳\' inconveniencies which are sustained in this distant part 
-↳\' of the world ,↵ and induce them to adopt such measures as 
-↳\' will promise the colonists ,↵ before long ,↵ every European article 
-↳\' that they may have occasion for at a very moderate expence ;↵ 
-↳\' and by that means put an effectual stop to the impositions 
-↳\' under which the industrious settlers have too long laboured .\"↵ 
+complaints and ↳" petitions from the settlers there ↳( on Norfolk Island )↵ 
+↳" he caused the following order to be printed and sent thither 
+↳" for their information :↵ 
+↳' From the nature of the difficulties of which the settlers 
+↳' upon Norfolk-Island have complained ,↵ difficulties which have not 
+↳' until very lately been known to have an existence ,↵ the governor 
+↳' is led to suspect ,↵ that the same rage for traffic ,↵ and ↳& an intem -↵ 
+↳-' perate ↳' indulgence in some of those destructive gratifications which 
+↳' have so effectually ruined many of the most forward ↳& promising 
+↳' settlers in New South Wales ,↵ have reached Norfolk-Island .↵ ↳_ 
+↳' His Excellency ,↵ from an earnest desire to promote the prosperity 
+↳' of the island ,↵ and the true happiness of its inhabitants ,↵ has ,↵ 
+↳' since his arrival in this country ,↵ availed himself of every 
+↳' opportunity of forwarding for their accommodation a share of such 
+↳' little comforts ,↵ as accidental ships may have brought hither .↵ But ,↵ 
+↳' he is sorry to observe ,↵ that ,↵ instead of those attentions being felt 
+↳' as an advantage ,↵ they appear only to operate as an incitement 
+↳' to more extensive dealings ;↵ a circumstance which he foresees 
+↳' must end in the ruin of many of the settlers ,↵ for whose 
+↳' welfare he is extremely anxious .↵ He therefore urges them not 
+↳' to be led away from their real interest ,↵ by speculative 
+↳' ideas ,↵ or a desire of indulging in dangerous gratifications ,↵ 
+↳' squandering the whole produce of their hard labour in trifles ,↵ 
+↳' or in scenes of dissipation which must eventually end in 
+↳' their complete ruin .↵ He desires that they will persevere with 
+↳' patience in the management of their farms ,↵ and the rearing 
+of ↳' stock ;↵ and assures them that he has taken such steps 
+↳' as he hopes will incline the government to consider the 
+↳' inconveniencies which are sustained in this distant part 
+↳' of the world ,↵ and induce them to adopt such measures as 
+↳' will promise the colonists ,↵ before long ,↵ every European article 
+↳' that they may have occasion for at a very moderate expence ;↵ 
+↳' and by that means put an effectual stop to the impositions 
+↳' under which the industrious settlers have too long laboured ."↵ 
 Among the amusements of early years ,↵ did it ever happen to 
 your Lordship to include the Peruvian Tales ?↵ The monster with 
 a head upon his shoulders was not a more an object of more 
@@ -7714,12 +7714,12 @@ occasion ,↵ to this orand that right honourable or otherwise dignified
 personage ↳_ more of them than he cares to think of ↳_ on the score 
 of this humble ,↵ and as he thought innocent attempt ,↵ to sacrifice 
 a moderate and well-weighed portion of personal profit ,↵ upon the 
-altar of public justice .↵ It was but t\'other day that a gentleman in 
-high office ↳_ a most intimate friend of your Lordship\'s ↳_ with that 
+altar of public justice .↵ It was but t'other day that a gentleman in 
+high office ↳_ a most intimate friend of your Lordship's ↳_ with that 
 candour which was fitted to the occasion and the purpose ↳_ and that 
 superiority of intuition which is among the appendages of such 
 high office ↳_ was pleased ,↵ in conversation with a common friend ,↵ 
-to number this among my ↳\" flights \":↵ this simple one possessing of 
+to number this among my ↳" flights ":↵ this simple one possessing of 
 itself a sufficient degree of eccentricity to ground a presumption 
 of as many more ,↵ as it might be convenient to give me credit for .↵ 
 The gentleman had not then by any means made up his mind 
@@ -7736,12 +7736,12 @@ upon it ?↵ Procedure ,↵ thus summary !↵ score the secretum Judicis !↵
 No commission issued ↳_ no Physicians ,↵ no nor so much as the 
 patient ,↵ heard !↵ ↳_ Alas ,↵ my Lord !↵ and is the offence inexpiable !↵ 
 the 
-If in either gentleman\'s official or his private calendar ,↵ disinter -↵ 
+If in either gentleman's official or his private calendar ,↵ disinter -↵ 
 ↳- estedness and a too poss passionate love of justice on upon 
 the list of nuisances and crimes ,↵ can not nine years spent 
 in disgrace and solitude be accepted as a sufficient punish -↵ 
 ↳- ment ?↵ My good Lord !↵ The key of the door which opens to the 
-foundation of Royal mercy is in your Lordship\'s hands .↵ ↳_ Tell 
+foundation of Royal mercy is in your Lordship's hands .↵ ↳_ Tell 
 me then my Lord ,↵ in pity tell me ↳_ by what submissions ,↵ if by any ,↵ 
 I 
 Before any instructitions were received for stopping 
@@ -7810,7 +7810,7 @@ which might be put .↵ ↳_
 Extracts from the case of Hall v .↵ Campbell 
 ↳& ↳2 1 4↵ 
 p .↵ ↳2 1 3↵ .↵ Whatever construction is to be put upon it ↳[ the 
-King\'s proclamation in Granada ]↵ which perhaps may be very 
+King's proclamation in Granada ]↵ which perhaps may be very 
 difficult through all the cares to which it may be applied ,↵ 
 it la alludes to a gorve government by laws in being ,↵ and 
 by courts of justices ,↵ not by a legislative authority ,↵ until 
@@ -7829,26 +7829,26 @@ Therefore ,↵ though the abolishing the duties of the French
 King and the substituting this tax in its stead ,↵ which 
 according to the finding in this special verdict is paid 
 in all the British Leeward Islands ,↵ yet ,↵ through the 
-inattention of the king \'↵ servants ,↵ in investing the order 
+inattention of the king '↵ servants ,↵ in investing the order 
 in which the instruments should have passed ,↵ and 
 been nor notoriously published ,↵ the last act is contraducing 
 to ,↵ and a violation of the first ,↵ and is therefore void .↵ 
 How proper soever it may be in sep respect of the 
 object of the letters patent of the 20th July ,↵ ↳1 7 6 6↵ ,↵ to use 
 the words of Sir Philip Yorke and Sir Clement Wearge ,↵ 
-↳\" it can only now be done ,↵ by the assembly of the island ,↵ 
-↳\" or by an act of the parliament of Great Britain .↵ ↳\" 
-13.9.2.c.4.§.20 .↵ ↳\' And whereas good and necessary laws Laws 
-↳\' have been made ,↵ and are still in force ,↵ within several of his 
-↳\' Majesty\'s Colonies or Plantations in America ,↵ for the preventing 
-↳\' the carrying off from the said Colonies or Plantations any 
-↳\' Servant or Slave without the Consent of the Owner ,↵ or the 
-↳\' carrying off from thence any other Person or Persons whatsoever ,↵ 
-↳\' until in until such Person shall have taken out his Ticket 
-↳\' from the Secretary\'s office within such respective Colony or Plant -↵ 
-↳-\' ation ,↵ in such Manner ,↵ and under such Penalties and 
-↳\' Forfeitures ,↵ as in and by the said several Laws in declared 
-↳\' and provided \';↵ Be it therefore further enacted by the Authority 
+↳" it can only now be done ,↵ by the assembly of the island ,↵ 
+↳" or by an act of the parliament of Great Britain .↵ ↳" 
+13.9.2.c.4.§.20 .↵ ↳' And whereas good and necessary laws Laws 
+↳' have been made ,↵ and are still in force ,↵ within several of his 
+↳' Majesty's Colonies or Plantations in America ,↵ for the preventing 
+↳' the carrying off from the said Colonies or Plantations any 
+↳' Servant or Slave without the Consent of the Owner ,↵ or the 
+↳' carrying off from thence any other Person or Persons whatsoever ,↵ 
+↳' until in until such Person shall have taken out his Ticket 
+↳' from the Secretary's office within such respective Colony or Plant -↵ 
+↳-' ation ,↵ in such Manner ,↵ and under such Penalties and 
+↳' Forfeitures ,↵ as in and by the said several Laws in declared 
+↳' and provided ';↵ Be it therefore further enacted by the Authority 
 aforesaid ,↵ That all Commanders of Private Ships of War ,↵ 
 or Merchant Ships having Letters of Marque ,↵ shall upon 
 their going into any of those Ports or Harbours ,↵ be subject 
@@ -7860,9 +7860,9 @@ by such Laws made and provided ;↵ any in this Act con -↵
 standing ._↵ 
 Title .↵ 
 ch .↵ IV .↵ An Act for the more effectual securing and encou -↵ 
-↳- raging the Trade of his Majesty\'s British Subjects in America ,↵ 
+↳- raging the Trade of his Majesty's British Subjects in America ,↵ 
 and for the encouragement of Same to enter into his 
-Majesty\'s Service ._.↵ 
+Majesty's Service ._.↵ 
 be eager to 
 which some would gap/ is ↳- that there ought to be no 
 Minister in England :↵ my inference is that there ought 
@@ -7894,12 +7894,12 @@ Penal Colony .↵
 from 
 legislation proved by the Gra -↵ 
 ↳- nada Base .↵ 
-Governor\'s 
+Governor's 
 §.10 .↵ Illegal Ordinances 
 exemplified ↳_ 
 issued by the Governor Esq .↵ 
 ↳1↵ .↵ for prevention of famine .↵ ↳_ 
-Governor\'s 
+Governor's 
 §.11 .↵ Illegal Ordinances 
 exemplified ↳_ 
 issued by the Governor Esq .↵ 
@@ -7926,10 +7926,10 @@ Parliament .↵
 §.6 .↵ Nullity of legislation in 
 New South Wales ,↵ for want of 
 an Assembly to consent .↵ ↳_ 
-§.7 .↵ Nullity of Governor\'s Or -↵ 
+§.7 .↵ Nullity of Governor's Or -↵ 
 ↳- dinances ,↵ for want of a Court 
 to try offences against them .↵ 
-§.8 .↵ The King\'s Law-Servants 
+§.8 .↵ The King's Law-Servants 
 not infallible .↵ ↳_ 
 ↳1↵ 
 Dispensing Power 
@@ -7978,8 +7978,8 @@ King was fully conscious :↵ and that this criminal conscious -↵
 ↳- ness is ,↵ prima facie at least ,↵ to be imputed to the Duke ↳_ the 
 Principal Secretary ↳_ by whom the letter was signed ;↵ in as 
 much as ,↵ in that letter ,↵ he declares in express terms that he 
-has ↳\" examined \"↵ the said Acts ↳_ and that he ↳\" understands the 
-↳\" object of \"↵ them .↵ ↳_ 
+has ↳" examined "↵ the said Acts ↳_ and that he ↳" understands the 
+↳" object of "↵ them .↵ ↳_ 
 That besides these offences against the authority of 
 Parliament ↳_ by concurring with the Commissioners of the 
 Treasury and their Secretaries in giving to the party con -↵ 
@@ -7990,7 +7990,7 @@ and consequently double the expence ,↵ of that which ,↵ by the ac -↵
 ↳- ceptance of the original proposal ,↵ they stood engaged to give ;↵ ↳_ 
 ↳_ such authority being given in the express view ,↵ of making 
 use of such necessary enhancement of expence ,↵ as a pretence 
-for the utter ↳\" relinquishment \"↵ of the whole concern ;↵ ↳_ the said 
+for the utter ↳" relinquishment "↵ of the whole concern ;↵ ↳_ the said 
 concern being thereafter relinquished accordingly ↳_ and such 
 pretence accordingly made use of as a ground and reason 
 for the relinquishment ;↵ ↳_ such enhancement so produced 
@@ -7999,7 +7999,7 @@ being
 Dispensing Power 
 being ,↵ according to such conceit and conspiracy ,↵ falsely and 
 basely imputed to the contracting party ↳_ as a ground for im -↵ 
-↳- puting to him an ↳\" increase of terms \";↵ and this in a paper 
+↳- puting to him an ↳" increase of terms ";↵ and this in a paper 
 addressed to Parliament ,↵ and precluding on his part the 
 possibility of a reply :↵ ↳_ that this proceeding being an act of 
 systematical fraud and treachery and oppression ↳_ altogether 
@@ -8040,8 +8040,8 @@ one .↵ For years together ,↵ they had not so much as began to
 think :↵ and the moment they did begin to think ,↵ their 
 thoughts were bent upon injustice ._↵ 
 Captain Collins will inform us .↵ Speaking of the month 
-of August ↳1 7 9 2↵ ,↵ near four years after the first arrival ,↵ ↳\" the getting 
-↳\" away 
+of August ↳1 7 9 2↵ ,↵ near four years after the first arrival ,↵ ↳" the getting 
+↳" away 
 ↳5↵ 
 N .↵ S .↵ Wales 
 of local distance ↳- had been trusted to ↳- nature herself having 
@@ -8056,17 +8056,17 @@ such view as that of preventing the return of Convicts ↳- at least
 of de jure emancipated Convicts ↳- had been received .↵ For at this 
 very time ↳( as we learn from the paragraph next before the 
 above )↵ such as should be desirous of returning to England were 
-↳\" informed ,↵ that no obstacle would be shown in their way \"↵ ↳( the 
+↳" informed ,↵ that no obstacle would be shown in their way "↵ ↳( the 
 way of those Convicts whose sentences of transportation had expired+ 
-↳\" they being at liberty to ship themselves on board of such vessels 
-↳\" as would give them a passage \".↵ ↳- Such was the communication ,↵ 
+↳" they being at liberty to ship themselves on board of such vessels 
+↳" as would give them a passage ".↵ ↳- Such was the communication ,↵ 
 ↳- such the language ,↵ which justice would naturally dictate to 
 honourable minds ;↵ unfettered as yet and uncorrupted ,↵ by instruct 
 ions as oppressive and perfidious as they were illegal .↵ 
 Yet ,↵ it is after this ,↵ that among the ingredients in the 
-composition of the ↳\" utility \"↵ of this ↳\" settlement \"↵ the ↳\" circumstances of 
-↳\" its freeing the Mother Country from the depraved branches of her 
-↳\" offspring \"↵ ↳# is mentioned by its ci-devant Judge Advocate ,↵ and still 
+composition of the ↳" utility "↵ of this ↳" settlement "↵ the ↳" circumstances of 
+↳" its freeing the Mother Country from the depraved branches of her 
+↳" offspring "↵ ↳# is mentioned by its ci-devant Judge Advocate ,↵ and still 
 faithful though ever candid and honourable advocate ,↵ upon the 
 list .↵ Whence then ,↵ it may be asked ;↵ comes this language ,↵ and 
 under circumstances so little favourable to the use of it ?↵ Whence ?↵ 
@@ -8077,10 +8077,10 @@ there
 ↳9↵ 
 N .↵ S .↵ Wales 
 were kept in bondage .↵ The papers ↳( it is said )↵ had been delivered 
-to ↳\" the Masters of the Transports \":↵ and these men ,↵ instead of 
+to ↳" the Masters of the Transports ":↵ and these men ,↵ instead of 
 bringing them to New South Wales ,↵ left them ,↵ or pretended to 
 have left them ,↵ with their owners in England .↵ ↳( ↳) The story is as 
-curious as it is obscure :↵ ↳_ Papers sent from the Secretary of State\'s 
+curious as it is obscure :↵ ↳_ Papers sent from the Secretary of State's 
 Office ,↵ and directed either to the Governor ,↵ or to the Judge Advocate _↵ 
 ↳( for to whom else could they have been directed ?)↵ Papers thus 
 directed ,↵ delivered ↳_ not to the person in New South Wales to 
@@ -8088,28 +8088,28 @@ whom they were directed ↳_ but to a person in England who ,↵ had
 no 
 Note .↵ 
 ↳( ↳) Collins p .↵ ↳7 4↵ July ↳1 7 8 9↵ .↵ Notwithstanding that little more than 
-↳\" two years had elapsed since our departure from England ,↵ several convicts 
-↳\" about this time signified about this time that the respective terms for 
+↳" two years had elapsed since our departure from England ,↵ several convicts 
+↳" about this time signified about this time that the respective terms for 
 which they had been transported had expired ,↵ and claimed to be restored 
-↳\" to the privileges of free men .↵ Unfortunately ,↵ by some unaccountable 
-↳\" oversight ,↵ the papers necessary to ascertain these particulars had been 
-↳\" left by the Masters of the transports with their owners in England ,↵ instead 
-↳\" of being brought out and deposited in the colony ;↵ and as ,↵ thus situated ,↵ 
-↳\" it was equally impossible to admit or to deny the truth of their assertions ,↵ 
-↳\" they were told to wait until account could be received from England ;↵ ↳& 
-↳\" in the mean time ,↵ by continuing to labour for the public ,↵ they would 
-↳\" be entitled to share the public provisions in the store .↵ This was by no means 
-↳\" satisfactory ,↵ as it appeared that they expected an assurance from the governor 
+↳" to the privileges of free men .↵ Unfortunately ,↵ by some unaccountable 
+↳" oversight ,↵ the papers necessary to ascertain these particulars had been 
+↳" left by the Masters of the transports with their owners in England ,↵ instead 
+↳" of being brought out and deposited in the colony ;↵ and as ,↵ thus situated ,↵ 
+↳" it was equally impossible to admit or to deny the truth of their assertions ,↵ 
+↳" they were told to wait until account could be received from England ;↵ ↳& 
+↳" in the mean time ,↵ by continuing to labour for the public ,↵ they would 
+↳" be entitled to share the public provisions in the store .↵ This was by no means 
+↳" satisfactory ,↵ as it appeared that they expected an assurance from the governor 
 of receiving some gratuity for employing their future time and labour for the 
-↳\" benefit of the settlement .]↵ One of these people having ,↵ in the presence of his 
-↳\" excellency ,↵ expressed himself disrespectfully of the lieutenant-governor ,↵ he was 
-↳\" brought before a criminal court and tried for the same ,↵ of which offence being 
-↳\" found guilty ,↵ he was sentenced to receive six hundred lashes ,↵ and to wear 
-↳\" Irons for the space of six months .↵ ↳_ 
-A ↳\" criminal court \"?↵ What criminal court ?↵ the court legalized by 
+↳" benefit of the settlement .]↵ One of these people having ,↵ in the presence of his 
+↳" excellency ,↵ expressed himself disrespectfully of the lieutenant-governor ,↵ he was 
+↳" brought before a criminal court and tried for the same ,↵ of which offence being 
+↳" found guilty ,↵ he was sentenced to receive six hundred lashes ,↵ and to wear 
+↳" Irons for the space of six months .↵ ↳_ 
+A ↳" criminal court "?↵ What criminal court ?↵ the court legalized by 
 the Act ?↵ the cognizance of that Court is limited by the Act itself ,↵ to 
-such ↳\" outrages \"↵ and ↳\" misbehaviours \"↵ as would be ↳\" misdemeanors ,↵ felonies ,↵ 
-↳\" treasons or misprision thereof if committed within this realm \"↵ ↳[ 27.G.3.c.2 ]↵ 
+such ↳" outrages "↵ and ↳" misbehaviours "↵ as would be ↳" misdemeanors ,↵ felonies ,↵ 
+↳" treasons or misprision thereof if committed within this realm "↵ ↳[ 27.G.3.c.2 ]↵ 
 which of all these crimes then would a man committ in this realm 
 by speaking disrespectfully of a Lieutenant-Governor of New South Wales ?↵ ↳_ 
 it must 
@@ -8140,15 +8140,15 @@ years .↵ An account of a set of extensions more or less nume -↵
 ↳- rous ,↵ in the same strain ,↵ but some of them ↳( I understand )↵ 
 barbarous in the degree ,↵ will be among the account which Your 
 have 
-Lordship\'s Most Noble predecessor will one day perhaps to give .↵ In 
+Lordship's Most Noble predecessor will one day perhaps to give .↵ In 
 some recent instances ,↵ Convicts whose confinement in New South 
 Wales would have become illegal almost as soon as it would 
 have commenced ,↵ were liberated at the indication of a person very 
 near to me ,↵ from the oppression to which they had been doomed 
 under the auspice of his Grace :↵ and I had the satisfaction 
-to learn that it was to Your Lordship\'s justice ,↵ that he is 
+to learn that it was to Your Lordship's justice ,↵ that he is 
 indebted for the few items struck out of the catalogue of his 
-res gestae ,↵ in a relation to this his ↳\" improved Colony .\"↵ 
+res gestae ,↵ in a relation to this his ↳" improved Colony ."↵ 
 ↳1 2↵ 
 I .↵ Conduct of the Governor towards Expirees ,↵ principally in relation 
 to their liberty of departure ,↵ before the month of August ↳1 7 9 2↵ :↵ being 
@@ -8158,25 +8158,25 @@ No .↵ ↳1↵ ↳( p .↵ ↳7 4↵ )↵ July ↳1 7 8 9↵ .↵ The situation
 general now found themselves placed has been already stated .↵ 
 By one individual in particular ,↵ an experimental proof of the 
 nature of the situation was at this same time received .↵ The 
-only evidence by which the Governor\'s right to confine any body 
+only evidence by which the Governor's right to confine any body 
 in New South Wales could be established not being forth -↵ 
 ↳- coming ,↵ a man in whose instance there was no doubt but 
 that his time of punishment was expired ,↵ claimed his liberty .↵ 
 For the course of his argument ,↵ having used some words which 
-though not mentioned were deemed ↳\" disrespectful to the 
-↳\" Lieutenant Governor \",↵ he was punished with six hundred lashes ,↵ 
+though not mentioned were deemed ↳" disrespectful to the 
+↳" Lieutenant Governor ",↵ he was punished with six hundred lashes ,↵ 
 and kept in irons for six months .↵ A very instructive example 
 certainly :↵ it showed more what was to be got by talking about rights .↵ 
 No .↵ ↳2↵ ↳( p .↵ ↳1 3 0↵ )↵ August ↳1 7 9 0↵ .↵ Another freeman trying to quit the 
-Colony punished ↳\" for taking a very improper mode \".↵ The act itself 
+Colony punished ↳" for taking a very improper mode ".↵ The act itself 
 consisted in the exercise of that liberty which the law of the land 
 had saved to him ,↵ and which no man alive had any right so 
 much as to pretend to give him leave to exercise .↵ The impropriety 
 of the mode consisted in the not asking leave ,↵ at the risk of 
 receiving six hundred lashes and wearing irons for six months .↵ 
 Mode of punishment of course flogging though not mentioned :↵ 
-number of lashes not mentioned .↵ This freeman ↳\" was punished to -↵ 
-↳-\" gether with a Convict \"↵ ↳( bondsman )↵ who had made a like attempt 
+number of lashes not mentioned .↵ This freeman ↳" was punished to -↵ 
+↳-" gether with a Convict "↵ ↳( bondsman )↵ who had made a like attempt 
 in the same ship at the same time .↵ As far as can be judged ,↵ 
 right or no right made no sort of difference .↵ 
 No .↵ ↳3↵ .↵ 
@@ -8185,27 +8185,27 @@ N .↵ S .↵ Wales
 According to the account given by Captain Collins in the 
 same paragraph ,↵ at the very time of giving this assurance ,↵ the 
 intention was that it should not be fulfilled .↵ For now it was 
-that ↳\" it was understood \"↵ ↳( now for the first time ,↵ as already observed )↵ 
-↳\" that a clause was to be inserted in all future contracts for 
-↳\" shipping for this country ,↵ subjecting the masters to certain 
-↳\" penalties ,↵ on certificates being received of their having brought 
-↳\" away any Convicts or other persons from the settlement without 
-↳\" the Governor\'s permission :↵ and as it was not probable that many 
-↳\" of them would ,↵ on their return ,↵ refrain from the vices ,↵ or avoid 
-↳\" the society ,↵ of those companions who had been the causes of their 
-↳\" transportation to this country ,↵ not many could hope to obtain the 
-↳\" sanction of the governor for their return \".↵ ↳_ A promise was thus 
+that ↳" it was understood "↵ ↳( now for the first time ,↵ as already observed )↵ 
+↳" that a clause was to be inserted in all future contracts for 
+↳" shipping for this country ,↵ subjecting the masters to certain 
+↳" penalties ,↵ on certificates being received of their having brought 
+↳" away any Convicts or other persons from the settlement without 
+↳" the Governor's permission :↵ and as it was not probable that many 
+↳" of them would ,↵ on their return ,↵ refrain from the vices ,↵ or avoid 
+↳" the society ,↵ of those companions who had been the causes of their 
+↳" transportation to this country ,↵ not many could hope to obtain the 
+↳" sanction of the governor for their return ".↵ ↳_ A promise was thus 
 given to all ↳- and this at the very time when it was understood _↵ 
 understood ,↵ not by those who received it ,↵ but only by those who 
-gave it ,↵ that ↳\" not many \"↵ would ever receive the benefit of it .↵ ↳_ 
+gave it ,↵ that ↳" not many "↵ would ever receive the benefit of it .↵ ↳_ 
 No wonder :↵ since in the bosom of the Governor there was this 
 are 
 dilemma for every one :↵ ↳_ you a bad man ↳? ↳_ you would do mis -↵ 
-↳- chief elsewhere :↵ are you a good man ?↵ ↳_ we can\'t spare you .↵ It 
+↳- chief elsewhere :↵ are you a good man ?↵ ↳_ we can't spare you .↵ It 
 was by this last horn of the syllogism ,↵ that Bloodsworth was 
-hung up ↳_ the good Convict mentioned in No..3 .↵ ↳\" As his loss 
-↳\" would be severely felt should he quit it \"↵ ↳( the Colony )\"↵ while in 
-hi ↳\" its infancy \"↵ therefore it was that he received what is 
+hung up ↳_ the good Convict mentioned in No..3 .↵ ↳" As his loss 
+↳" would be severely felt should he quit it "↵ ↳( the Colony )"↵ while in 
+hi ↳" its infancy "↵ therefore it was that he received what is 
 called his freedom ↳_ viz :↵ an obligation to work for two years ,↵ 
 having for his recompence the not being starved .↵ ↳_ 
 To say nothing of the perfidy ↳_ the wanton useless perfidy ↳_ 
@@ -8221,14 +8221,14 @@ revoked it accordingly ,↵ the case would have been intelligible e -↵
 time when ,↵ spontaneously or under instructions ,↵ a resolution is 
 taken not to fulfill it .↵ 
 N .↵ ↳1 0↵ ↳( p .↵ ↳2 6 8↵ )↵ Feb ↳1 7 9 3↵ .↵ At this time the expectation about 
-↳\" the clause ↳... in the chapter party \"↵ for preventing Shipmasters from 
+↳" the clause ↳... in the chapter party "↵ for preventing Shipmasters from 
 
-↳\" receiving any person \"↵ whatever on board ↳\" from the Colony ,↵ without 
-↳\" the express consent and order of the Governor \"↵ was found to be 
+↳" receiving any person "↵ whatever on board ↳" from the Colony ,↵ without 
+↳" the express consent and order of the Governor "↵ was found to be 
 l 
 realized .↵ The Bel ona ,↵ arrived 15th January ↳1 7 9 3↵ came provided 
 with this clause .↵ She had sailed from England on the 8th of 
-August ↳1 7 9 2↵ .↵ The ↳\" improved \"↵ Colony was thus improved into 
+August ↳1 7 9 2↵ .↵ The ↳" improved "↵ Colony was thus improved into 
 a pretty compleat Bastile :↵ a key only being put into the 
 hand of the Governor with liberty to let loose any person whom 
 he might be induced to favour .↵ Into the jaws of this Bastile 
@@ -8268,8 +8268,8 @@ and recognized so that ,↵ by his own shewing ,↵ he kept them
 there in defiance of the law .↵ 
 N .↵ ↳1 2↵ ↳( p .↵ ↳2 8 3↵ )↵ 24th April ↳1 7 9 3↵ .↵ A second opportunity for ma -↵ 
 ↳- nifesting the sincerity of the assurance ,↵ and the manifestation is 
-of the same kind .↵ ↳\" But few Convicts \"↵ ↳( meaning Expirees ,↵ says 
-Captain Collins )↵ ↳\" were allowed to quit the Colony in these ships :↵ 
+of the same kind .↵ ↳" But few Convicts "↵ ↳( meaning Expirees ,↵ says 
+Captain Collins )↵ ↳" were allowed to quit the Colony in these ships :↵ 
 by which it is evident that it was want of permission on the 
 part of the governor ,↵ and not want of room or any other 
 faculty that prevented the numbers from being greater .↵ The 
@@ -8330,7 +8330,7 @@ have stated elsewhere by what causes )↵ of whom again a
 great part ,↵ perhaps the greatest part ,↵ staid abroad :↵ and ,↵ 
 whether reformed or not ,↵ those who did return dropped in 
 gradually ,↵ and in small numbers ,↵ as their terms expired .↵ 
-Under Mr Pitt\'s system ,↵ they have been almost without 
+Under Mr Pitt's system ,↵ they have been almost without 
 exception ,↵ worse corrupted than before :↵ and ,↵ where the 
 unbending rules of strict justice to be obeyed ,↵ the accumulated 
 corruption of so many years would come pouring into the 
@@ -8400,10 +8400,10 @@ one containing Copies of a correspondence between you and Mr Long .↵ I
 have seen no private letter from you :↵ ↳_ 
 I have the honour to be ↳& c ↳_ 
 No ↳1 0↵ 
-Mr Bentham\'s note on No ↳9↵ :↵ written ↳2 7↵ Aug .↵ ↳1 8 0 2↵ 
+Mr Bentham's note on No ↳9↵ :↵ written ↳2 7↵ Aug .↵ ↳1 8 0 2↵ 
 whole 
 Mr Addington then received the private address :↵ marked private .↵ 
-After near ↳6↵ weeks consideration ,↵ he puts into his Brother\'s hands the 
+After near ↳6↵ weeks consideration ,↵ he puts into his Brother's hands the 
 Appendix only ,↵ keeping back the body of the letter without which 
 the Appendix is unintelligible .↵ 
 There remains the relieving my character from the official imputations already 
@@ -8476,7 +8476,7 @@ Hints for the reformation and improvement of the
 Police ,↵ humbly addressed to Lord Pelham .↵ ↳1 5↵ Octor 
 ↳1 8 0 2↵ .↵ 
 ↳1↵ .↵ ↳_ To provide work for the industrious ,↵ on a plan 
-similar to Mr .↵ Bentham\'s .↵ 
+similar to Mr .↵ Bentham's .↵ 
 ↳2↵ .↵ ↳_ As the ignorance of the inferior classes of society ,↵ is one 
 grand cause of the numberless depredations ,↵ which are 
 daily and nightly perpetrated ,↵ Public Schools ,↵ under 
@@ -8489,7 +8489,7 @@ to the Poor .↵
 Beggars .↵ 
 ↳4↵ .↵ ↳_ A House of Industry and a School wanted for 
 the Jews .↵ 
-↳5↵ .↵ ↳_ No Jew to carry a pedlar\'s box ,↵ or pursue street -↵ 
+↳5↵ .↵ ↳_ No Jew to carry a pedlar's box ,↵ or pursue street -↵ 
 traffic ,↵ of any sort ,↵ without a recommendation from 
 respectable persons of his own persuasion ,↵ and a licence 
 from a Magistrate .↵ 
@@ -8519,7 +8519,7 @@ Fridays ,↵ instead of Saturdays ;↵ and no pay-tables to
 be allowed in public-houses ,↵ on any account .↵ 
 ↳1 1↵ .↵ ↳_ No Shops to be opened on Sundays ,↵ under a severe penalty .↵ 
 ↳1 2↵ .↵ ↳_ Tea-Gardens ,↵ which are open in the Summer only ,↵ 
-should dismiss their customers at ↳9↵ o\'clock ,↵ under penalty .↵ 
+should dismiss their customers at ↳9↵ o'clock ,↵ under penalty .↵ 
 ↳1 3↵ .↵ ↳_ Skittles ,↵ Pins ,↵ Shuffle-boards ,↵ Cards ,↵ Dice ,↵ Draft-tables ,↵ 
 ↳& c ,↵ not to be played at ,↵ in public-houses ,↵ after day-light .↵ 
 ↳1 4↵ .↵ ↳_ There should be a day-Watch ,↵ as well as a night -↵ 
@@ -8539,13 +8539,13 @@ to their labour .↵
 ↳1 7↵ .↵ ↳_ A certain number of respectable Parishioners ↳( No .↵ ↳7↵ .)↵ 
 should be appointed ,↵ as Constables ,↵ pro tempore ,↵ to 
 superintend the Night-Watch ,↵ ↳_ to march them ,↵ as a 
-Corporal\'s relief-guard ,↵ to their several stations ,↵ and 
+Corporal's relief-guard ,↵ to their several stations ,↵ and 
 to preside at the Watch-House during the night .↵ ↳_ 
 ↳1 8↵ .↵ ↳_ Watchmen should be chosen from disbanded Sai :↵ 
 ↳: lors or Soldiers ,↵ of good character ;↵ ↳_ their age to be 
 not younger than ↳3 0↵ ,↵ nor ever older than ↳5 0↵ ;↵ ↳_ 
 their dress should be jackets and over-alls ,↵ with 
-a light Horseman\'s helmet ,↵ ↳( having a lamp in front )↵ 
+a light Horseman's helmet ,↵ ↳( having a lamp in front )↵ 
 and a hanger or cutlas ;↵ ↳_ but neither pole nor 
 rattle ,↵ as both of them are incumbrances .↵ Instead 
 of a rattle ,↵ a Bell ↳( like those used by the Dustmen )↵ 
@@ -8553,8 +8553,8 @@ should be adopted ,↵ to hang by their sides till wanted ;↵
 and a strict prohibition against the use of Bells 
 by any other persons whatsoever .↵ ↳_ When the hour 
 is announced by the Watchmen ,↵ they should not 
-make use of the word ↳\" Clock ;\"↵ but say ,↵ ↳\" Past twelve ,\"↵ 
-↳\" Past one ,\"↵ or ↳\" Half past twelve ,\"↵ ↳& c ,↵ ↳& c .↵ 
+make use of the word ↳" Clock ;"↵ but say ,↵ ↳" Past twelve ,"↵ 
+↳" Past one ,"↵ or ↳" Half past twelve ,"↵ ↳& c ,↵ ↳& c .↵ 
 ↳1 9↵ .↵ 
 ↳9↵ 
 Letter 3d 
@@ -8612,7 +8612,7 @@ point of economy ,↵ is necessary for reformation .↵ But
 the less the expence of reformation ,↵ the less it will 
 be grudged .↵ 
 Grudged ↳? ↳_ says a voice somewh somewhere ↳_ 
-whether your Lordship\'s or whose else I am unable 
+whether your Lordship's or whose else I am unable 
 to distinguishs out of all habits as I am with 
 great men ↳_ Grudged !↵ however ↳( says the voice and 
 in a tone of displeasure ↳_) and what of that ↳? ↳_ as 
@@ -8675,7 +8675,7 @@ the Philadelphia prison may be and have been
 afforded :↵ ↳_ why ?↵ ↳_ because the good effects of the 
 discipline of these good jails are to such a degree 
 drowned in the bad effects of the surrounding bad 
-ones .↵ ↳\* In Pensylvanyia too ↳& in New York ,↵ the whole 
+ones .↵ ↳ In Pensylvanyia too ↳& in New York ,↵ the whole 
 system of penal justice is invigorated by the abolition 
 of capital punishment as above :↵ while in England 
 the debility resulting from the opposite excess ↳( by 
@@ -8691,12 +8691,12 @@ never saw the inside of a prison in their whole
 lives ↳_ persons by much too high to have ever 
 bestowed upon any such low object any thing 
 that call be called a thought ↳_ persons who are 
-as much at home in ↳\" improved \"↵ prisons as 
-they are in ↳\" improved \"↵ colonies ↳_ it is by such 
+as much at home in ↳" improved "↵ prisons as 
+they are in ↳" improved "↵ colonies ↳_ it is by such 
 lovers of improvements ,↵ and by the lovers of 
 such improvements ,↵ that the penitentiary system 
 in its most improved form has been consigned 
-to ↳\" relinquishment \",↵ and the authority that pre -↵ 
+to ↳" relinquishment ",↵ and the authority that pre -↵ 
 ↳- scribed it to contempt .↵ ↳_ 
 intention ,↵ 
 It was not my original ↳, my Lord ,↵ to have 
@@ -8719,9 +8719,9 @@ Letter 3d
 Lordship adorns at present .↵ It is in answer to 
 from 
 a letter from to his Grace to the Treasury dated 
-the 27th of the preceding month ↳\" desiring to be 
-↳\" apprized of the number of Convicts which the 
-↳\" Panopticon ↳. ↳. ↳. ↳. is intended to accommodate \":↵ and 
+the 27th of the preceding month ↳" desiring to be 
+↳" apprized of the number of Convicts which the 
+↳" Panopticon ↳. ↳. ↳. ↳. is intended to accommodate ":↵ and 
 is the letter that constituted or at least helped 
 to constitute the ground of the just-quoted 
 Treasury letter ,↵ written ↳5↵ months and ↳8↵ days 
@@ -8735,77 +8735,77 @@ erected .↵ ↳_
 After stating ,↵ in regard to the object of the 
 Act in question ↳( the Act of ↳1 7 9 4↵ for the erection 
 of the Panopticon Penitentiary House requiring as 
-well as ↳\" authorizing \"↵ such House or Houses to be 
-erected )↵ that he ↳\" understands the object of it \"↵ and 
-that that object is ↳_ as to ↳\" transportable convicts \"↵ 
-↳\" that such Penitentiary Houses should be used .↵ ↳. ↳. ↳. 
-↳\" as receptacles for such transportable convicts as 
-↳\" the several Goals of the respective Counties can 
-↳\" not contain \"↵ ↳[ and therefore for none that they 
-can contain ]↵ ↳\" from the time of their receiving 
-↳\" sentence till an opportunity may offer for their 
-↳\" being 
-↳2 8↵ \*↵ 
-↳\* that this plan of the Duke of Portland\'s for crowding 
+well as ↳" authorizing "↵ such House or Houses to be 
+erected )↵ that he ↳" understands the object of it "↵ and 
+that that object is ↳_ as to ↳" transportable convicts "↵ 
+↳" that such Penitentiary Houses should be used .↵ ↳. ↳. ↳. 
+↳" as receptacles for such transportable convicts as 
+↳" the several Goals of the respective Counties can 
+↳" not contain "↵ ↳[ and therefore for none that they 
+can contain ]↵ ↳" from the time of their receiving 
+↳" sentence till an opportunity may offer for their 
+↳" being 
+↳2 8↵ ↵ 
+↳ that this plan of the Duke of Portland's for crowding 
 Gaols and taxing Counties was not in every point of view 
 a new one ,↵ appears from a Memorial presented by the 
 Middlesex Justices to his Grace about ↳1 6↵ Months before ,↵ on the 
 subject of the State Prisoners committed to Cold Bath Fields .↵ 
-The Memorial is printed at length in the ↳\" Papers presented 
-↳\" to the House of Commons relative to his Majesty\'s Prison 
-↳\" in Cold Bath Fields \".↵ Ordered b to be printed ↳1 8↵ ,↵ Decr ↳1 8 0 0↵ .↵ pp ↳7 8↵ ,↵ ↳7 9↵ .↵ 
-↳\" His Majesty\'s Justices of the Peace for the County of 
-↳\" Middlesex ↳... do ↳... humbly entreat Your Grace to take into 
-↳\" consideration the difficulties under which they labour ;↵ which 
-↳\" are yet farther encreased by the addition of so great a 
-↳\" number of Prisoners of the above description \"↵ ↳[ State Pri -↵ 
-↳- soners ]↵ ↳\" to those whom the House of Correction was originally 
-↳\" intended to receive ,↵ and with which it is crowded to 
-↳\" a great degree of inconvenience ↳.... 
-↳\" They also beg leave to observe ,↵ that a very great 
-↳\" additional expence has been incurred ,↵ on account of Pri -↵ 
-↳- soners ↳\" of the above description ;↵ which expenditure ,↵ as 
-↳\" the various Burthens upon the County Rate ,↵ are already 
-↳\" very severely felt ↳, they are deeply concerned to be under 
-↳\" the necessity of adding to the ordinary Charges of the Prison ;↵ 
-↳\" but this Expence the Magistrates confidently hoped will 
-↳\" be reimbursed to the County ,↵ on a fair statement of the 
-↳\" several Particulars \".↵ ↳- 
+The Memorial is printed at length in the ↳" Papers presented 
+↳" to the House of Commons relative to his Majesty's Prison 
+↳" in Cold Bath Fields ".↵ Ordered b to be printed ↳1 8↵ ,↵ Decr ↳1 8 0 0↵ .↵ pp ↳7 8↵ ,↵ ↳7 9↵ .↵ 
+↳" His Majesty's Justices of the Peace for the County of 
+↳" Middlesex ↳... do ↳... humbly entreat Your Grace to take into 
+↳" consideration the difficulties under which they labour ;↵ which 
+↳" are yet farther encreased by the addition of so great a 
+↳" number of Prisoners of the above description "↵ ↳[ State Pri -↵ 
+↳- soners ]↵ ↳" to those whom the House of Correction was originally 
+↳" intended to receive ,↵ and with which it is crowded to 
+↳" a great degree of inconvenience ↳.... 
+↳" They also beg leave to observe ,↵ that a very great 
+↳" additional expence has been incurred ,↵ on account of Pri -↵ 
+↳- soners ↳" of the above description ;↵ which expenditure ,↵ as 
+↳" the various Burthens upon the County Rate ,↵ are already 
+↳" very severely felt ↳, they are deeply concerned to be under 
+↳" the necessity of adding to the ordinary Charges of the Prison ;↵ 
+↳" but this Expence the Magistrates confidently hoped will 
+↳" be reimbursed to the County ,↵ on a fair statement of the 
+↳" several Particulars ".↵ ↳- 
 From the so often mentioned posterior letter of his 
-Grace\'s ,↵ which I have had the honour to bring to light ,↵ 
+Grace's ,↵ which I have had the honour to bring to light ,↵ 
 information in no small degree interesting may now be 
 derived by these same Magistrates .↵ In May ↳1 7 9 8↵ they 
-complain of the ↳\" crowding \"↵ of their Gaol with Prisoners 
+complain of the ↳" crowding "↵ of their Gaol with Prisoners 
 not intended for it ,↵ speak of inconvenience ,↵ assume ↳( as 
 was but natural )↵ that the inconvenience was ,↵ as such ,↵ 
 unintentional on the part of the Duke ,↵ and ,↵ in mentioning 
 it in that character ,↵ conceive that the consideration thus 
-submitted to that Noble person\'s will ,↵ in the character of 
-a motive ,↵ give birth in his Grace\'s mind to a determination 
+submitted to that Noble person's will ,↵ in the character of 
+a motive ,↵ give birth in his Grace's mind to a determination 
 to grant the relief they pra pray for .↵ Little did they expect 
 to see the day ,↵ ↳& that so early a one ,↵ in which by a document 
 under 
 ↳3 0↵ 
-his Majesty\'s Ministers in the Police department in 
+his Majesty's Ministers in the Police department in 
 respect not of Gaols only but of instruments of all 
 kinds in the apparatus for the prevention of 
 crimes ↳- such is the energy with which the Duke 
-of Portland determined to ↳\" crowd the County Gaols \"↵ 
-for fear of ↳\" their being neglected .\"↵ ↳- Such is the energy 
+of Portland determined to ↳" crowd the County Gaols "↵ 
+for fear of ↳" their being neglected ."↵ ↳- Such is the energy 
 with which Lord Pelham has forced a fifth hundred 
 a year into the hands of the Police Magistrates ↳- 
 Such is the energy with which at the price of 
 £87 .↵ ↳1 0↵ gap/ a peep ,↵ he has determined that four peeps 
 in a year shall be taken at the Hulks -↵ such is 
-the ↳\" spirit of improvement \"↵ manifested by there 
+the ↳" spirit of improvement "↵ manifested by there 
 congenial and combined exertions that unless a few 
-patriots like ourselves were to help ↳\" crowd \"↵ the streets 
+patriots like ourselves were to help ↳" crowd "↵ the streets 
 with robbers and the houses with burglarers this 
-↳\" spirit of improvement \"↵ among there hitherto zealous 
-and spirited improvers might be ↳\" checked \"↵ and all 
+↳" spirit of improvement "↵ among there hitherto zealous 
+and spirited improvers might be ↳" checked "↵ and all 
 these their implements of improvement ↳- super-pensioned 
-Magistrates ↳- Quarterly peepers at Hulks ↳- and even ↳\" crowded \"↵ 
-↳\" Gaols themselves \"↵ might come to be ↳\" neglected \":↵ To a plain 
+Magistrates ↳- Quarterly peepers at Hulks ↳- and even ↳" crowded "↵ 
+↳" Gaols themselves "↵ might come to be ↳" neglected ":↵ To a plain 
 understanding ,↵ could these ideal plans of these ideal Ma -↵ 
 ↳- chiavels have been more directly repugnant to the 
 dicr decrease of crimes than the real plan of the 
@@ -8826,7 +8826,7 @@ disposition as that of promoting the object of the Act ?↵ ↳-
 I mean ,↵ my Lord ,↵ the Act which was calling upon him 
 as it continues calling upon yYour Lordship nor for ob -↵ 
 ↳- struction but for obedience ↳- the Act his Grace has so well 
-↳\" examined and understood the object of \"↵ the Act for the 
+↳" examined and understood the object of "↵ the Act for the 
 establishment of that Penitentiary House ,↵ whih ch it was 
 the object of this Letter of his to unco rowd of as many 
 inhabitants as had been designed for it by that Act .↵ 
@@ -8834,9 +8834,9 @@ It is in pursuance of this plan ,↵ my Lord ,↵ that a
 little more than five months after viz :↵ on the 25th of 
 March ↳1 8 0 0↵ ,↵ the Treasury ,↵ on the ground of a preparatory 
 Letter therein spoken of as received from his Grace ,↵ write 
-to me to acquaint me that the ↳\" proposed building of 
-↳\" a Panopticon was to be calculated to accommodate ↳2 0 0 0↵ 
-↳\" persons \".↵ This ,↵ by way of answer to an humble address 
+to me to acquaint me that the ↳" proposed building of 
+↳" a Panopticon was to be calculated to accommodate ↳2 0 0 0↵ 
+↳" persons ".↵ This ,↵ by way of answer to an humble address 
 of mine ,↵ written of on the 17th of August more than seven 
 months before ,↵ in the declared view of my making 
 preparations of an expensive nature ,↵ and begging to know 
@@ -8856,7 +8856,7 @@ though not every where without a murmur ,↵ because
 they know not very well how to help themselves :↵ the 
 tax for architecture they may stand excused from load -↵ 
 ↳- ing themselves with ,↵ were it only that in that behalf 
-neither his Grace\'s nor your Lordship\'s pleasure ,↵ has ever 
+neither his Grace's nor your Lordship's pleasure ,↵ has ever 
 yet ,↵ I believe ,↵ been directly signified .↵ 
 For proof I betake myself once more to the 
 worthy Magistrate :↵ in whose testimony ,↵ as far as it goes ,↵ 
@@ -8867,26 +8867,26 @@ New Prison ,↵ the old and beggarly neighbour of the vastly
 new as well as costly and courtly structure half prison 
 half pl palace ,↵ in Cold Bath Fields :↵ What he says of it is 
 as follows ↳_ 
-No .↵ ↳1↵ .↵ Page ↳4 1↵ .↵ ↳\" Few places of confinement can be under 
-↳\" worse regulation than the New Prison ↳.... The arrange -↵ 
+No .↵ ↳1↵ .↵ Page ↳4 1↵ .↵ ↳" Few places of confinement can be under 
+↳" worse regulation than the New Prison ↳.... The arrange -↵ 
 ↳- ment of the prison itself is such ,↵ as renders it impossible 
-↳\" to prevent its being one of the most dreadful seminaries 
-↳\" of vice and profligacy that can be imagined .\"\*↵ 
-No .↵ ↳2↵ Pages ↳4 2↵ ,↵ ↳4 3↵ .↵ ↳\" Four years ago ↳... plan and esti -↵ 
-↳-\" mate ↳... laid before the Court :↵ the business was postponed 
-↳\" sine die ,↵ under the idea ,↵ that the County rate ,↵ already 
-↳\" burthened in a great variety of ways ,↵ would be found ina -↵ 
-↳-\" dequate without great inconvenience ,↵ to the additional 
-↳\" expenditure of £4000 .↵ But may we not hope ,↵ if 
+↳" to prevent its being one of the most dreadful seminaries 
+↳" of vice and profligacy that can be imagined ."↵ 
+No .↵ ↳2↵ Pages ↳4 2↵ ,↵ ↳4 3↵ .↵ ↳" Four years ago ↳... plan and esti -↵ 
+↳-" mate ↳... laid before the Court :↵ the business was postponed 
+↳" sine die ,↵ under the idea ,↵ that the County rate ,↵ already 
+↳" burthened in a great variety of ways ,↵ would be found ina -↵ 
+↳-" dequate without great inconvenience ,↵ to the additional 
+↳" expenditure of £4000 .↵ But may we not hope ,↵ if 
 application 
-↳\* In this respect ,↵ at the worst not as bad as the Hulks :↵ nor yet a great 
+↳ In this respect ,↵ at the worst not as bad as the Hulks :↵ nor yet a great 
 deal worse than the Cold Bath Fields Prison ,↵ if it be true ,↵ as I 
 suspect ,↵ without being able to affirm it to a certainty ,↵ that the worst 
 and the best are together there at sometimes though not at all times .↵ 
 ↳4 0↵ 
-↳\" I verily believe ,↵ to expend from the public purse 
-↳\" four thousand pounds in any way more beineficial 
-↳\" to the community than that which is here pointed out \".↵ ↳\* 
+↳" I verily believe ,↵ to expend from the public purse 
+↳" four thousand pounds in any way more beineficial 
+↳" to the community than that which is here pointed out ".↵ ↳ 
 Thus far the worthy Magistrate .↵ ↳- A supposition ,↵ 
 unquestionably though tacitly assumed in the hypothe -↵ 
 ↳- tical offer thus made by him ,↵ is ↳_ that on the other 
@@ -8899,9 +8899,9 @@ acceptors as advanced upon the faith of it ,↵ and Acts
 of Parliament ,↵ if necessary ,↵ obtained for it ,↵ he would 
 not have to see the execution of it set down in petto 
 for the Greek calends ,↵ by any such person as the 
-predecessor of the ↳\" great person \"↵ he is so afraid of 
+predecessor of the ↳" great person "↵ he is so afraid of 
 flattering ↳_ not to speak of successors .↵ ↳_ To the 
-not add to the County rates the worthy Magistrate\'s own imagination 
+not add to the County rates the worthy Magistrate's own imagination 
 ↳( Your Lordship may venture to assure him )↵ is the likeliest place for 
 finding what he wants .↵ Years ago he would restrain vice ↳& improve 
 morals without adding to County rates would have made his appear -↵ 
@@ -8917,8 +8917,8 @@ always been :↵ full knowledge of that duty there has always
 been :↵ ↳_ had will been in the same place the thing would have 
 been done years ago ,↵ ↳& neither the worthy Magistrate nor so 
 many other people would have been left at this time of day 
-to amuse themselves with ↳\" hopes \"↵ and ↳\" expectations \".↵ ↳_ 
-↳\* Here the worthy Magistrate is quite mistaken .↵ ↳\" I can 
+to amuse themselves with ↳" hopes "↵ and ↳" expectations ".↵ ↳_ 
+↳ Here the worthy Magistrate is quite mistaken .↵ ↳" I can 
 tell 
 ↳4 2↵ 
 Your Lordship with the balm of tranquillity to pour 
@@ -8927,7 +8927,7 @@ may be pleased to observe to him )↵ is up already :↵
 it is up high in favour :↵ and ↳- what is beyond 
 every thing ,↵ and without which every thing else would 
 be as nothing ↳- there is no Gospel ↳- propagating Lord -↵ 
-no friend of the ↳\" great person\'s \"↵ to steal up the back 
+no friend of the ↳" great person's "↵ to steal up the back 
 staircase and whisper in his ear ↳- up or not up 
 the spot is too near me ↳_ it must not be made 
 use of ._↵ 
@@ -8936,7 +8936,7 @@ Let him come forward then with his offer .↵
 a hypothetical one :↵ ↳- let him convert it into a cate -↵ 
 ↳- gorical one :↵ accepted or not by the County ,↵ he has 
 nothing to fear from great persons ,↵ so long as he 
-can keep himself from ↳\" flattery \".↵ ↳_ As to the £400 
+can keep himself from ↳" flattery ".↵ ↳_ As to the £400 
 a Year Your Lordship and he together will be able 
 to find a use for it :↵ ↳_ it will sever with in a 
 trifle for a place of Inspector of Prisons ;↵ to smell 
@@ -8955,7 +8955,7 @@ seems
 ↳4 3↵ 
 seems to have fallen into ,↵ by asking for Jail building 
 money from Parliament ,↵ to ease his County from 
-so much Poor-rate .↵ It was but t\'other day as Your 
+so much Poor-rate .↵ It was but t'other day as Your 
 Lordship has been seeing that Acts of Parliament were 
 broke through by great persons to shake the burthen 
 off from government ↳& throw them upon the Counties .↵ 
@@ -8982,14 +8982,14 @@ his anxieties to steer clear of the rock of offence ,↵
 has thus run full upon it ?↵ ↳_ Step in once more ,↵ 
 my Lord ,↵ to his relief ,↵ for nothing less than a great 
 person can effect it .↵ The seals of the fountain of 
-mercy are in Your Lordship\'s hands ↳_ grudge not a 
+mercy are in Your Lordship's hands ↳_ grudge not a 
 few 
 ↳5 5↵ 
 presumption in regard to will ↳_ the clearest proof 
 of a disposition at least ,↵ not to grudge exertions 
 toward the application of a remedy ,↵ howsoever that 
 disposition might be overruled by other circumstances .↵ 
-From the mere circumstance of a man\'s having 
+From the mere circumstance of a man's having 
 given information of a mischief ,↵ the conclusion is 
 certainly far enough from being a necessary one ,↵ that 
 whether obtainable or not obtainable ,↵ he would him -↵ 
@@ -9073,9 +9073,9 @@ word ↳- is to blame .↵ What is on record -↵ what is pub -↵
 ↳- lic ↳- may be mentioned without reserve :↵ ↳& it is 
 quite sufficient for the purpose .↵ Lord Pelham ,↵ on 
 coming into office ,↵ finds him a Police Magistrate ,↵ 
-at £400 a year .↵ By one of Lord Pelham\'s two exertions ,↵ 
+at £400 a year .↵ By one of Lord Pelham's two exertions ,↵ 
 to this £400 is added another £100 ,↵ God knows why 
-or wherefore :↵ and for decency\'s sake ,↵ and because 
+or wherefore :↵ and for decency's sake ,↵ and because 
 it could not be done otherwise ↳- the whole corps of 
 the Police-Magistrates I mean ↳- for as to drudges who 
 must attend ,↵ and must understand the business ,↵ 
@@ -9162,7 +9162,7 @@ is in several points the only ground I can exhi -↵
 I have no eye-witness to depose ,↵ that as often as 
 a Noble Secretary hias appeared to act ,↵ a gentleman 
 on the other side the wainscoat has pulled the wirer ↳. 
-Friendship between the gentleman who popp\'d out 
+Friendship between the gentleman who popp'd out 
 the 
 of his pocket ,↵ and the gentlemen out of whose 
 pocket the other popped ,↵ is a point not less diffi -↵ 
@@ -9221,12 +9221,12 @@ into a Negotiation with England .↵
 with other countries ,↵ when we see how he has observed his engagements 
 to his own 
 H xxxviii 
-Character of Buonaparte .↵ Extracted from the Appendix to Mr Windham\'s 
+Character of Buonaparte .↵ Extracted from the Appendix to Mr Windham's 
 speech ,↵ delivered in the House of Commons ,↵ on the 4th of Novr ↳1 8 0 1↵ ,↵ on the 
 Report of an address to the Throne ,↵ approving of the Preliminaries of 
 Peace with the Republic of France ↳_ 
 ↳. ↳. ↳. A detailed ↳& most masterly exposition of these is to be found 
-in Mr Pitt\'s speech of the ↳3↵ Feby ↳1 8 0 0↵ ,↵ in which among other particulars ,↵ 
+in Mr Pitt's speech of the ↳3↵ Feby ↳1 8 0 0↵ ,↵ in which among other particulars ,↵ 
 an account is given of his proceedings toward the people and govern -↵ 
 ↳- ments of the several states of Milan ,↵ Modena ,↵ Genoa ,↵ Tuscany ,↵ the 
 Pope ,↵ Venice ,↵ ↳& Egypt .↵ Of all these things it may be said generally ,↵ ↳& as 
@@ -9242,7 +9242,7 @@ have an immense advantage over those who should remain under the
 old constraints ,↵ and who might not be sensible immediately of the change 
 which had taken place ,↵ or ,↵ when they were ,↵ might be long incapable either 
 of adopting it into their own conduct ,↵ or of so unseating their antient feelings 
-and habits ↳( the habit for instance of relying in some degree on men\'s 
+and habits ↳( the habit for instance of relying in some degree on men's 
 apearances ,↵ yielding something to their professions ,↵ believing in part what they 
 should solemnly assert ),↵ as to make themselves proof against its effects .↵ 
 Nobody has entered more fully into their views ,↵ or pursued them logically 

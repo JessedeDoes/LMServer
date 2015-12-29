@@ -1,15 +1,23 @@
 "<s>"	[]	<BS>
 "</s>"	[]	<ES>
 "!↵"	[!]	1.000000000	! <fs>
+"",↵"	[",]	1.000000000	<dquote> , <fs>
+"".↵"	[".]	1.000000000	<dquote> . <fs>
+"":↵"	[":]	1.000000000	<dquote> : <fs>
+"";↵"	[";]	1.000000000	<dquote> ; <fs>
+""?↵"	["?]	1.000000000	<dquote> ? <fs>
+""]↵"	["]]	1.000000000	<dquote> ] <fs>
+""↵"	["]	1.000000000	<dquote> <fs>
+"'↵"	[']	1.000000000	<quote> <fs>
 "),↵"	[),]	1.000000000	) , <fs>
 ")↵"	[)]	1.000000000	) <fs>
 "+"	[+]	1.000000000	<is> + <fs>
-",\"↵"	[,"]	1.000000000	, <dquote> <fs>
+","↵"	[,"]	1.000000000	, <dquote> <fs>
 ",↵"	[,]	1.000000000	, <fs>
 "-↵"	[-]	1.000000000	- <fs>
+"."↵"	[."]	1.000000000	. <dquote> <fs>
 ".)↵"	[.)]	1.000000000	. ) <fs>
 ".-↵"	[.-]	1.000000000	. - <fs>
-".\"↵"	[."]	1.000000000	. <dquote> <fs>
 ".]↵"	[.]]	1.000000000	. ] <fs>
 "._↵"	[._]	1.000000000	. _ <fs>
 ".↵"	[.]	1.000000000	. <fs>
@@ -58,7 +66,7 @@
 "8↵"	[8]	1.000000000	8 <fs>
 "9"	[9]	1.000000000	9
 "9↵"	[9]	1.000000000	9 <fs>
-":\"↵"	[:"]	1.000000000	: <dquote> <fs>
+":"↵"	[:"]	1.000000000	: <dquote> <fs>
 ":↵"	[:]	1.000000000	: <fs>
 ";↵"	[;]	1.000000000	; <fs>
 "=MENT"	[=ment]	1.000000000	<is> = m e n t <fs>
@@ -367,9 +375,9 @@
 "AUSPICES"	[auspices]	1.000000000	<is> a u s p i c e s <fs>
 "AUTHOR"	[author]	.266666667	<is> a u t h o r <fs>
 "AUTHOR"	[Author]	.733333333	<is> A u t h o r <fs>
+"AUTHOR'S"	[Author's]	1.000000000	<is> A u t h o r <quote> s <fs>
 "AUTHORITY"	[Authority]	.115384615	<is> A u t h o r i t y <fs>
 "AUTHORITY"	[authority]	.884615385	<is> a u t h o r i t y <fs>
-"AUTHOR\'S"	[Author's]	1.000000000	<is> A u t h o r <quote> s <fs>
 "AVAILED"	[availed]	1.000000000	<is> a v a i l e d <fs>
 "AVERAGE"	[average]	1.000000000	<is> a v e r a g e <fs>
 "AVERSION"	[aversion]	1.000000000	<is> a v e r s i o n <fs>
@@ -379,6 +387,7 @@
 "AWAY"	[away]	1.000000000	<is> a w a y <fs>
 "B"	[b]	.233333333	<is> b <fs>
 "B"	[B]	.766666667	<is> B <fs>
+"B'S"	[B's]	1.000000000	<is> B <quote> s <fs>
 "BACK"	[back]	1.000000000	<is> b a c k <fs>
 "BACKS"	[backs]	1.000000000	<is> b a c k s <fs>
 "BAD"	[Bad]	.048780488	<is> B a d <fs>
@@ -440,7 +449,7 @@
 "BENEVOLENCE"	[benevolence]	1.000000000	<is> b e n e v o l e n c e <fs>
 "BENT"	[bent]	1.000000000	<is> b e n t <fs>
 "BENTHAM"	[Bentham]	1.000000000	<is> B e n t h a m <fs>
-"BENTHAM\'S"	[Bentham's]	1.000000000	<is> B e n t h a m <quote> s <fs>
+"BENTHAM'S"	[Bentham's]	1.000000000	<is> B e n t h a m <quote> s <fs>
 "BER"	[ber]	1.000000000	<is> b e r <fs>
 "BERY"	[bery]	1.000000000	<is> b e r y <fs>
 "BESIDES"	[Besides]	.416666667	<is> B e s i d e s <fs>
@@ -523,7 +532,6 @@
 "BY"	[By]	.033591731	<is> B y <fs>
 "BY"	[by]	.966408269	<is> b y <fs>
 "BYSTANDER"	[Bystander]	1.000000000	<is> B y s t a n d e r <fs>
-"B\'S"	[B's]	1.000000000	<is> B <quote> s <fs>
 "C"	[c]	.200000000	<is> c <fs>
 "C"	[C]	.800000000	<is> C <fs>
 "CAL="	[cal=]	1.000000000	<is> c a l = <fs>
@@ -540,8 +548,8 @@
 "CALLS"	[calls]	1.000000000	<is> c a l l s <fs>
 "CAME"	[came]	1.000000000	<is> c a m e <fs>
 "CAMPBEL"	[Campbel]	1.000000000	<is> C a m p b e l <fs>
+"CAMPBEL'S"	[Campbel's]	1.000000000	<is> C a m p b e l <quote> s <fs>
 "CAMPBELL"	[Campbell]	1.000000000	<is> C a m p b e l l <fs>
-"CAMPBEL\'S"	[Campbel's]	1.000000000	<is> C a m p b e l <quote> s <fs>
 "CAN"	[can]	1.000000000	<is> c a n <fs>
 "CANDIDATES"	[candidates]	1.000000000	<is> c a n d i d a t e s <fs>
 "CANNOT"	[cannot]	1.000000000	<is> c a n n o t <fs>
@@ -942,9 +950,9 @@
 "DATED"	[dated]	1.000000000	<is> d a t e d <fs>
 "DAUNCING"	[dauncing]	1.000000000	<is> d a u n c i n g <fs>
 "DAY"	[day]	1.000000000	<is> d a y <fs>
+"DAY'S"	[day's]	1.000000000	<is> d a y <quote> s <fs>
 "DAYS"	[Days]	.235294118	<is> D a y s <fs>
 "DAYS"	[days]	.764705882	<is> d a y s <fs>
-"DAY\'S"	[day's]	1.000000000	<is> d a y <quote> s <fs>
 "DE"	[de]	1.000000000	<is> d e <fs>
 "DE="	[de=]	1.000000000	<is> d e = <fs>
 "DEAL"	[deal]	1.000000000	<is> d e a l <fs>
@@ -1546,7 +1554,7 @@
 "FORCED"	[forced]	1.000000000	<is> f o r c e d <fs>
 "FORCIBLY"	[forcibly]	1.000000000	<is> f o r c i b l y <fs>
 "FORD"	[Ford]	1.000000000	<is> F o r d <fs>
-"FORD\'S"	[Ford's]	1.000000000	<is> F o r d <quote> s <fs>
+"FORD'S"	[Ford's]	1.000000000	<is> F o r d <quote> s <fs>
 "FORE"	[fore]	1.000000000	<is> f o r e <fs>
 "FOREIGN"	[Foreign]	.133333333	<is> F o r e i g n <fs>
 "FOREIGN"	[foreign]	.866666667	<is> f o r e i g n <fs>
@@ -1569,7 +1577,7 @@
 "FOUND"	[found]	1.000000000	<is> f o u n d <fs>
 "FOUNDATION"	[foundation]	1.000000000	<is> f o u n d a t i o n <fs>
 "FOUNDED"	[founded]	1.000000000	<is> f o u n d e d <fs>
-"FOUNDER\'S"	[founder's]	1.000000000	<is> f o u n d e r <quote> s <fs>
+"FOUNDER'S"	[founder's]	1.000000000	<is> f o u n d e r <quote> s <fs>
 "FOUR"	[Four]	.074074074	<is> F o u r <fs>
 "FOUR"	[four]	.925925926	<is> f o u r <fs>
 "FOURTH"	[fourth]	1.000000000	<is> f o u r t h <fs>
@@ -1660,10 +1668,10 @@
 "GOVERNMENT"	[Government]	.629629630	<is> G o v e r n m e n t <fs>
 "GOVERNOR"	[governor]	.310344828	<is> g o v e r n o r <fs>
 "GOVERNOR"	[Governor]	.689655172	<is> G o v e r n o r <fs>
+"GOVERNOR'S"	[Governor's]	1.000000000	<is> G o v e r n o r <quote> s <fs>
 "GOVERNORS"	[Governors]	1.000000000	<is> G o v e r n o r s <fs>
-"GOVERNOR\'S"	[Governor's]	1.000000000	<is> G o v e r n o r <quote> s <fs>
 "GRACE"	[Grace]	1.000000000	<is> G r a c e <fs>
-"GRACE\'S"	[Grace's]	1.000000000	<is> G r a c e <quote> s <fs>
+"GRACE'S"	[Grace's]	1.000000000	<is> G r a c e <quote> s <fs>
 "GRACIOUSLY"	[graciously]	1.000000000	<is> g r a c i o u s l y <fs>
 "GRADUALLY"	[gradually]	1.000000000	<is> g r a d u a l l y <fs>
 "GRAIN"	[grain]	1.000000000	<is> g r a i n <fs>
@@ -2062,9 +2070,9 @@
 "ISSUING"	[issuing]	1.000000000	<is> i s s u i n g <fs>
 "IT"	[It]	.112974404	<is> I t <fs>
 "IT"	[it]	.887025596	<is> i t <fs>
+"IT'S"	[it's]	1.000000000	<is> i t <quote> s <fs>
 "ITS"	[its]	1.000000000	<is> i t s <fs>
 "ITSELF"	[itself]	1.000000000	<is> i t s e l f <fs>
-"IT\'S"	[it's]	1.000000000	<is> i t <quote> s <fs>
 "IV"	[IV]	1.000000000	<is> I V <fs>
 "JAIL"	[Jail]	1.000000000	<is> J a i l <fs>
 "JAILS"	[Jails]	1.000000000	<is> J a i l s <fs>
@@ -2121,8 +2129,8 @@
 "KINDS"	[kinds]	.777777778	<is> k i n d s <fs>
 "KING"	[king]	.307692308	<is> k i n g <fs>
 "KING"	[King]	.692307692	<is> K i n g <fs>
+"KING'S"	[King's]	1.000000000	<is> K i n g <quote> s <fs>
 "KINGS"	[kings]	1.000000000	<is> k i n g s <fs>
-"KING\'S"	[King's]	1.000000000	<is> K i n g <quote> s <fs>
 "KNEW"	[knew]	1.000000000	<is> k n e w <fs>
 "KNIGHT"	[Knight]	1.000000000	<is> K n i g h t <fs>
 "KNOW"	[know]	1.000000000	<is> k n o w <fs>
@@ -2134,6 +2142,7 @@
 "KNOWN"	[known]	1.000000000	<is> k n o w n <fs>
 "KNOWS"	[knows]	1.000000000	<is> k n o w s <fs>
 "L"	[L]	1.000000000	<is> L <fs>
+"L'HOMME"	[l'homme]	1.000000000	<is> l <quote> h o m m e <fs>
 "LA"	[la]	1.000000000	<is> l a <fs>
 "LABOUR"	[Labour]	.114285714	<is> L a b o u r <fs>
 "LABOUR"	[labour]	.885714286	<is> l a b o u r <fs>
@@ -2214,7 +2223,7 @@
 "LIMITATIONS"	[limitations]	1.000000000	<is> l i m i t a t i o n s <fs>
 "LIMITED"	[limited]	1.000000000	<is> l i m i t e d <fs>
 "LIMITS"	[limits]	1.000000000	<is> l i m i t s <fs>
-"LINCOLN\'S"	[Lincoln's]	1.000000000	<is> L i n c o l n <quote> s <fs>
+"LINCOLN'S"	[Lincoln's]	1.000000000	<is> L i n c o l n <quote> s <fs>
 "LINE"	[Line]	.400000000	<is> L i n e <fs>
 "LINE"	[line]	.600000000	<is> l i n e <fs>
 "LINN"	[Linn]	1.000000000	<is> L i n n <fs>
@@ -2242,8 +2251,8 @@
 "LORD"	[Lord]	1.000000000	<is> L o r d <fs>
 "LORDS"	[Lords]	1.000000000	<is> L o r d s <fs>
 "LORDSHIP"	[Lordship]	1.000000000	<is> L o r d s h i p <fs>
+"LORDSHIP'S"	[Lordship's]	1.000000000	<is> L o r d s h i p <quote> s <fs>
 "LORDSHIPS"	[Lordships]	1.000000000	<is> L o r d s h i p s <fs>
-"LORDSHIP\'S"	[Lordship's]	1.000000000	<is> L o r d s h i p <quote> s <fs>
 "LOSE"	[lose]	1.000000000	<is> l o s e <fs>
 "LOSES"	[loses]	1.000000000	<is> l o s e s <fs>
 "LOSS"	[Loss]	.250000000	<is> L o s s <fs>
@@ -2259,7 +2268,6 @@
 "LUCRE"	[Lucre]	.600000000	<is> L u c r e <fs>
 "LY"	[ly]	1.000000000	<is> l y <fs>
 "LYING"	[lying]	1.000000000	<is> l y i n g <fs>
-"L\'HOMME"	[l'homme]	1.000000000	<is> l <quote> h o m m e <fs>
 "MA"	[ma]	.375000000	<is> m a <fs>
 "MA"	[Ma]	.625000000	<is> M a <fs>
 "MAD"	[mad]	1.000000000	<is> m a d <fs>
@@ -2274,7 +2282,7 @@
 "MAINTAINING"	[maintaining]	1.000000000	<is> m a i n t a i n i n g <fs>
 "MAINTENANCE"	[maintenance]	1.000000000	<is> m a i n t e n a n c e <fs>
 "MAJESTY"	[Majesty]	1.000000000	<is> M a j e s t y <fs>
-"MAJESTY\'S"	[Majesty's]	1.000000000	<is> M a j e s t y <quote> s <fs>
+"MAJESTY'S"	[Majesty's]	1.000000000	<is> M a j e s t y <quote> s <fs>
 "MAKE"	[make]	1.000000000	<is> m a k e <fs>
 "MAKER"	[maker]	1.000000000	<is> m a k e r <fs>
 "MAKES"	[makes]	1.000000000	<is> m a k e s <fs>
@@ -2287,6 +2295,7 @@
 "MALUM"	[malum]	1.000000000	<is> m a l u m <fs>
 "MAN"	[Man]	.158823529	<is> M a n <fs>
 "MAN"	[man]	.841176471	<is> m a n <fs>
+"MAN'S"	[man's]	1.000000000	<is> m a n <quote> s <fs>
 "MANAGEMENT"	[management]	1.000000000	<is> m a n a g e m e n t <fs>
 "MANAGERS"	[Managers]	1.000000000	<is> M a n a g e r s <fs>
 "MANAGING"	[managing]	1.000000000	<is> m a n a g i n g <fs>
@@ -2300,7 +2309,6 @@
 "MANNERS"	[manners]	1.000000000	<is> m a n n e r s <fs>
 "MANUFACTORIES"	[Manufactories]	1.000000000	<is> M a n u f a c t o r i e s <fs>
 "MANY"	[many]	1.000000000	<is> m a n y <fs>
-"MAN\'S"	[man's]	1.000000000	<is> m a n <quote> s <fs>
 "MARCH"	[March]	1.000000000	<is> M a r c h <fs>
 "MARINE"	[marine]	1.000000000	<is> m a r i n e <fs>
 "MARKET"	[market]	1.000000000	<is> m a r k e t <fs>
@@ -2353,13 +2361,13 @@
 "MEMORIAL"	[Memorial]	1.000000000	<is> M e m o r i a l <fs>
 "MEN"	[Men]	.111111111	<is> M e n <fs>
 "MEN"	[men]	.888888889	<is> m e n <fs>
+"MEN'S"	[men's]	1.000000000	<is> m e n <quote> s <fs>
 "MENCEMENT"	[mencement]	1.000000000	<is> m e n c e m e n t <fs>
 "MENT"	[ment]	1.000000000	<is> m e n t <fs>
 "MENTI"	[menti]	1.000000000	<is> m e n t i <fs>
 "MENTIONED"	[mentioned]	1.000000000	<is> m e n t i o n e d <fs>
 "MENTIONING"	[mentioning]	1.000000000	<is> m e n t i o n i n g <fs>
 "MENTS"	[ments]	1.000000000	<is> m e n t s <fs>
-"MEN\'S"	[men's]	1.000000000	<is> m e n <quote> s <fs>
 "MERCANTILE"	[mercantile]	.285714286	<is> m e r c a n t i l e <fs>
 "MERCANTILE"	[Mercantile]	.714285714	<is> M e r c a n t i l e <fs>
 "MERCY"	[mercy]	1.000000000	<is> m e r c y <fs>
@@ -2490,9 +2498,9 @@
 "NEGOTIATION"	[negotiation]	1.000000000	<is> n e g o t i a t i o n <fs>
 "NEIGHBOUR"	[Neighbour]	.500000000	<is> N e i g h b o u r <fs>
 "NEIGHBOUR"	[neighbour]	.500000000	<is> n e i g h b o u r <fs>
+"NEIGHBOUR'S"	[Neighbour's]	1.000000000	<is> N e i g h b o u r <quote> s <fs>
 "NEIGHBOURHOOD"	[Neighbourhood]	1.000000000	<is> N e i g h b o u r h o o d <fs>
 "NEIGHBOURS"	[neighbours]	1.000000000	<is> n e i g h b o u r s <fs>
-"NEIGHBOUR\'S"	[Neighbour's]	1.000000000	<is> N e i g h b o u r <quote> s <fs>
 "NEILD"	[Neild]	1.000000000	<is> N e i l d <fs>
 "NEITHER"	[neither]	1.000000000	<is> n e i t h e r <fs>
 "NEPEAN"	[Nepean]	1.000000000	<is> N e p e a n <fs>
@@ -2600,10 +2608,10 @@
 "OFFEND"	[offend]	1.000000000	<is> o f f e n d <fs>
 "OFFENDER"	[Offender]	.344827586	<is> O f f e n d e r <fs>
 "OFFENDER"	[offender]	.655172414	<is> o f f e n d e r <fs>
+"OFFENDER'S"	[Offender's]	.500000000	<is> O f f e n d e r <quote> s <fs>
+"OFFENDER'S"	[offender's]	.500000000	<is> o f f e n d e r <quote> s <fs>
 "OFFENDERS"	[Offenders]	.333333333	<is> O f f e n d e r s <fs>
 "OFFENDERS"	[offenders]	.666666667	<is> o f f e n d e r s <fs>
-"OFFENDER\'S"	[offender's]	.500000000	<is> o f f e n d e r <quote> s <fs>
-"OFFENDER\'S"	[Offender's]	.500000000	<is> O f f e n d e r <quote> s <fs>
 "OFFER"	[offer]	1.000000000	<is> o f f e r <fs>
 "OFFERED"	[offered]	1.000000000	<is> o f f e r e d <fs>
 "OFFERS"	[offers]	1.000000000	<is> o f f e r s <fs>
@@ -2625,10 +2633,10 @@
 "ONCE"	[once]	1.000000000	<is> o n c e <fs>
 "ONE"	[One]	.020491803	<is> O n e <fs>
 "ONE"	[one]	.979508197	<is> o n e <fs>
+"ONE'S"	[one's]	1.000000000	<is> o n e <quote> s <fs>
 "ONED"	[oned]	1.000000000	<is> o n e d <fs>
 "ONERS"	[oners]	1.000000000	<is> o n e r s <fs>
 "ONES"	[ones]	1.000000000	<is> o n e s <fs>
-"ONE\'S"	[one's]	1.000000000	<is> o n e <quote> s <fs>
 "ONLY"	[only]	1.000000000	<is> o n l y <fs>
 "ONS"	[ons]	1.000000000	<is> o n s <fs>
 "ONT"	[ont]	1.000000000	<is> o n t <fs>
@@ -2684,8 +2692,8 @@
 "OWN"	[own]	1.000000000	<is> o w n <fs>
 "OWNER"	[Owner]	.200000000	<is> O w n e r <fs>
 "OWNER"	[owner]	.800000000	<is> o w n e r <fs>
+"OWNER'S"	[owner's]	1.000000000	<is> o w n e r <quote> s <fs>
 "OWNERS"	[owners]	1.000000000	<is> o w n e r s <fs>
-"OWNER\'S"	[owner's]	1.000000000	<is> o w n e r <quote> s <fs>
 "P"	[P]	.263157895	<is> P <fs>
 "P"	[p]	.736842105	<is> p <fs>
 "PAGE"	[Page]	.444444444	<is> P a g e <fs>
@@ -2724,7 +2732,7 @@
 "PARTLY"	[partly]	1.000000000	<is> p a r t l y <fs>
 "PARTS"	[parts]	1.000000000	<is> p a r t s <fs>
 "PARTY"	[party]	1.000000000	<is> p a r t y <fs>
-"PARTY\'S"	[party's]	1.000000000	<is> p a r t y <quote> s <fs>
+"PARTY'S"	[party's]	1.000000000	<is> p a r t y <quote> s <fs>
 "PASS"	[pass]	1.000000000	<is> p a s s <fs>
 "PASSED"	[passed]	1.000000000	<is> p a s s e d <fs>
 "PASSING"	[passing]	1.000000000	<is> p a s s i n g <fs>
@@ -2783,13 +2791,13 @@
 "PERPETUALLY"	[perpetually]	1.000000000	<is> p e r p e t u a l l y <fs>
 "PERSON"	[Person]	.062111801	<is> P e r s o n <fs>
 "PERSON"	[person]	.937888199	<is> p e r s o n <fs>
+"PERSON'S"	[person's]	1.000000000	<is> p e r s o n <quote> s <fs>
 "PERSONAGE"	[personage]	1.000000000	<is> p e r s o n a g e <fs>
 "PERSONAL"	[Personal]	.436363636	<is> P e r s o n a l <fs>
 "PERSONAL"	[personal]	.563636364	<is> p e r s o n a l <fs>
 "PERSONALLY"	[personally]	1.000000000	<is> p e r s o n a l l y <fs>
 "PERSONS"	[Persons]	.076923077	<is> P e r s o n s <fs>
 "PERSONS"	[persons]	.923076923	<is> p e r s o n s <fs>
-"PERSON\'S"	[person's]	1.000000000	<is> p e r s o n <quote> s <fs>
 "PERSUASION"	[persuasion]	1.000000000	<is> p e r s u a s i o n <fs>
 "PERTY"	[perty]	1.000000000	<is> p e r t y <fs>
 "PETITIONS"	[petitions]	1.000000000	<is> p e t i t i o n s <fs>
@@ -2803,7 +2811,7 @@
 "PIECES"	[pieces]	1.000000000	<is> p i e c e s <fs>
 "PIRACY"	[Piracy]	1.000000000	<is> P i r a c y <fs>
 "PITCH"	[pitch]	1.000000000	<is> p i t c h <fs>
-"PITT\'S"	[Pitt's]	1.000000000	<is> P i t t <quote> s <fs>
+"PITT'S"	[Pitt's]	1.000000000	<is> P i t t <quote> s <fs>
 "PLACE"	[place]	1.000000000	<is> p l a c e <fs>
 "PLACED"	[placed]	1.000000000	<is> p l a c e d <fs>
 "PLACES"	[places]	1.000000000	<is> p l a c e s <fs>
@@ -2936,10 +2944,10 @@
 "PRISON"	[Prison]	.555555556	<is> P r i s o n <fs>
 "PRISONER"	[prisoner]	.257142857	<is> p r i s o n e r <fs>
 "PRISONER"	[Prisoner]	.742857143	<is> P r i s o n e r <fs>
+"PRISONER'S"	[prisoner's]	.333333333	<is> p r i s o n e r <quote> s <fs>
+"PRISONER'S"	[Prisoner's]	.666666667	<is> P r i s o n e r <quote> s <fs>
 "PRISONERS"	[prisoners]	.282608696	<is> p r i s o n e r s <fs>
 "PRISONERS"	[Prisoners]	.717391304	<is> P r i s o n e r s <fs>
-"PRISONER\'S"	[prisoner's]	.333333333	<is> p r i s o n e r <quote> s <fs>
-"PRISONER\'S"	[Prisoner's]	.666666667	<is> P r i s o n e r <quote> s <fs>
 "PRISONS"	[Prisons]	.285714286	<is> P r i s o n s <fs>
 "PRISONS"	[prisons]	.714285714	<is> p r i s o n s <fs>
 "PRIVATE"	[private]	1.000000000	<is> p r i v a t e <fs>
@@ -2996,8 +3004,8 @@
 "PROPOSED"	[proposed]	1.000000000	<is> p r o p o s e d <fs>
 "PROPOSER"	[proposer]	.444444444	<is> p r o p o s e r <fs>
 "PROPOSER"	[Proposer]	.555555556	<is> P r o p o s e r <fs>
-"PROPOSER\'S"	[proposer's]	.400000000	<is> p r o p o s e r <quote> s <fs>
-"PROPOSER\'S"	[Proposer's]	.600000000	<is> P r o p o s e r <quote> s <fs>
+"PROPOSER'S"	[proposer's]	.400000000	<is> p r o p o s e r <quote> s <fs>
+"PROPOSER'S"	[Proposer's]	.600000000	<is> P r o p o s e r <quote> s <fs>
 "PROPOSES"	[proposes]	1.000000000	<is> p r o p o s e s <fs>
 "PROPOSITION"	[proposition]	1.000000000	<is> p r o p o s i t i o n <fs>
 "PROPOSITIONS"	[propositions]	1.000000000	<is> p r o p o s i t i o n s <fs>
@@ -3664,6 +3672,7 @@
 "SYMPATHY"	[sympathy]	1.000000000	<is> s y m p a t h y <fs>
 "SYSTEM"	[System]	.333333333	<is> S y s t e m <fs>
 "SYSTEM"	[system]	.666666667	<is> s y s t e m <fs>
+"T'OTHER"	[t'other]	1.000000000	<is> t <quote> o t h e r <fs>
 "TACITLY"	[tacitly]	1.000000000	<is> t a c i t l y <fs>
 "TAIN"	[tain]	1.000000000	<is> t a i n <fs>
 "TAINED"	[tained]	1.000000000	<is> t a i n e d <fs>
@@ -3863,7 +3872,6 @@
 "TWO"	[two]	.970000000	<is> t w o <fs>
 "TY"	[ty]	1.000000000	<is> t y <fs>
 "TYRANNY"	[tyranny]	1.000000000	<is> t y r a n n y <fs>
-"T\'OTHER"	[t'other]	1.000000000	<is> t <quote> o t h e r <fs>
 "U="	[u=]	1.000000000	<is> u = <fs>
 "ULTIMATELY"	[ultimately]	1.000000000	<is> u l t i m a t e l y <fs>
 "UMPIRE"	[umpire]	1.000000000	<is> u m p i r e <fs>
@@ -4102,9 +4110,9 @@
 "XI"	[XI]	1.000000000	<is> X I <fs>
 "YEAR"	[Year]	.021505376	<is> Y e a r <fs>
 "YEAR"	[year]	.978494624	<is> y e a r <fs>
+"YEAR'S"	[year's]	1.000000000	<is> y e a r <quote> s <fs>
 "YEARS"	[Years]	.073529412	<is> Y e a r s <fs>
 "YEARS"	[years]	.926470588	<is> y e a r s <fs>
-"YEAR\'S"	[year's]	1.000000000	<is> y e a r <quote> s <fs>
 "YES"	[Yes]	1.000000000	<is> Y e s <fs>
 "YESTERDAY"	[yesterday]	1.000000000	<is> y e s t e r d a y <fs>
 "YET"	[Yet]	.078947368	<is> Y e t <fs>
@@ -4115,14 +4123,6 @@
 "YOUR"	[Your]	.425000000	<is> Y o u r <fs>
 "YOUR"	[your]	.575000000	<is> y o u r <fs>
 "ZEALOUS"	[zealous]	1.000000000	<is> z e a l o u s <fs>
-"\",↵"	[",]	1.000000000	<dquote> , <fs>
-"\".↵"	[".]	1.000000000	<dquote> . <fs>
-"\":↵"	[":]	1.000000000	<dquote> : <fs>
-"\";↵"	[";]	1.000000000	<dquote> ; <fs>
-"\"?↵"	["?]	1.000000000	<dquote> ? <fs>
-"\"]↵"	["]]	1.000000000	<dquote> ] <fs>
-"\"↵"	["]	1.000000000	<dquote> <fs>
-"\'↵"	[']	1.000000000	<quote> <fs>
 "]),↵"	[]),]	1.000000000	] ) , <fs>
 "]↵"	[]]	1.000000000	] <fs>
 "_↵"	[_]	1.000000000	_ <fs>
@@ -4156,14 +4156,19 @@
 "£7,000"	[£7,000]	1.000000000	<is> £ 7 , 0 0 0 <fs>
 "£9000"	[£9000]	1.000000000	<is> £ 9 0 0 0 <fs>
 "§"	[§]	1.000000000	<is> § <fs>
+"↳"	[]	1.000000000	<is>
+"↳""	["]	1.000000000	<is> <dquote>
+"↳"&"	["&]	1.000000000	<is> <dquote> &
+"↳"-"	["-]	1.000000000	<is> <dquote> -
 "↳#"	[#]	1.000000000	<is> #
 "↳&"	[&]	1.000000000	<is> &
+"↳'"	[']	1.000000000	<is> <quote>
 "↳("	[(]	1.000000000	<is> (
 "↳)"	[)]	1.000000000	<is> )
 "↳,"	[,]	1.000000000	<is> ,
 "↳-"	[-]	1.000000000	<is> -
-"↳-\""	[-"]	1.000000000	<is> - <dquote>
-"↳-\'"	[-']	1.000000000	<is> - <quote>
+"↳-""	[-"]	1.000000000	<is> - <dquote>
+"↳-'"	[-']	1.000000000	<is> - <quote>
 "↳."	[.]	1.000000000	<is> .
 "↳..."	[...]	1.000000000	<is> . . .
 "↳...."	[....]	1.000000000	<is> . . . .
@@ -4191,13 +4196,8 @@
 "↳;"	[;]	1.000000000	<is> ;
 "↳?"	[?]	1.000000000	<is> ?
 "↳["	[[]	1.000000000	<is> [
+"↳[""	[["]	1.000000000	<is> [ <dquote>
 "↳[("	[[(]	1.000000000	<is> [ (
-"↳[\""	[["]	1.000000000	<is> [ <dquote>
-"↳\""	["]	1.000000000	<is> <dquote>
-"↳\"&"	["&]	1.000000000	<is> <dquote> &
-"↳\"-"	["-]	1.000000000	<is> <dquote> -
-"↳\'"	[']	1.000000000	<is> <quote>
-"↳\*"	[*]	1.000000000	<is> *
 "↳]"	[]]	1.000000000	<is> ]
 "↳_"	[_]	1.000000000	<is> _
 "↳_)"	[_)]	1.000000000	<is> _ )

@@ -39,7 +39,7 @@ public class SomeUsefulCommands
 
 		Object[][] paramsWithFile = 
 			{ 
-					{ "script", "java.lang.String"},
+					{ "script", FileArgument, Command.ioType.IN, Command.referenceType.NAME}, // nee.....
 				
 					{ "conf", FileArgument, 
 					Command.ioType.CONFIG, Command.referenceType.NAME},

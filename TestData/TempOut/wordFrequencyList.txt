@@ -30,7 +30,6 @@ aimed		2
 Stat		2
 eight		2
 Must		2
-Campbel\'s		2
 vain		2
 violent		2
 unwholesome		2
@@ -42,7 +41,6 @@ uncorrupted		2
 loaded		2
 commence		2
 indicates		2
-Neighbour\'s		2
 press		2
 poses		2
 Pain		2
@@ -65,7 +63,6 @@ deviation		2
 Description		2
 Hardwick		2
 feels		2
-year\'s		2
 draw		2
 drive		2
 confusion		2
@@ -89,6 +86,7 @@ covering		2
 confessed		2
 republish		2
 Who		2
+party's		2
 carnal		2
 endangered		2
 conclusively		2
@@ -156,7 +154,6 @@ intimate		2
 Behalf		2
 professions		2
 benevolence		2
-prisoner\'s		2
 iary		2
 disposal		2
 hence		2
@@ -175,6 +172,7 @@ wainscoat		2
 bona		2
 marine		2
 mistake		2
+t'other		2
 tend		2
 offers		2
 project		2
@@ -225,12 +223,10 @@ i.e		2
 incitement		2
 crushing		2
 expository		2
-↳\"&		2
 Explanations		2
 corrupted		2
 St		2
 Certificate		2
-↳\"-		2
 lessened		2
 inconsistency		2
 XI		2
@@ -243,7 +239,6 @@ flogging		2
 possibility		2
 Plague		2
 sincerity		2
-\"?↵		2
 sounds		2
 formation		2
 Plant		2
@@ -262,7 +257,6 @@ Extracted		2
 Masters		2
 complicated		2
 Blackburn		2
-party\'s		2
 sessed		2
 river		2
 Profit		2
@@ -304,7 +298,6 @@ ne		2
 train		2
 guarding		2
 debility		2
-t\'other		2
 Yes		2
 Deference		2
 im=		2
@@ -317,6 +310,7 @@ knew		2
 12th		2
 serious		2
 Middlesex		2
+men's		2
 load		2
 Whence		2
 Summer		2
@@ -350,7 +344,6 @@ insist		2
 refuses		2
 refused		2
 Expectation		2
-\"]↵		2
 pair		2
 Bell		2
 ope=		2
@@ -384,6 +377,7 @@ Forfeitures		2
 penis		2
 Ten		2
 compu		2
+Campbel's		2
 Culpable		2
 formidable		2
 Else		2
@@ -446,7 +440,7 @@ Piracy		2
 Being		2
 accommodate		2
 proportionably		2
-men\'s		2
+↳-'		2
 heedlessness		2
 whe		2
 malevolence		2
@@ -518,7 +512,6 @@ trying		2
 effective		2
 judge		2
 frequently		2
-:\"↵		2
 provi=		2
 clearly		2
 grant		2
@@ -533,6 +526,8 @@ issuing		2
 fill		2
 genus		2
 howsoever		2
+↳"&		2
+↳"-		2
 £21,000		2
 sonal		2
 Specification		2
@@ -646,7 +641,6 @@ do=		2
 rises		2
 spectively		2
 replace		2
-l\'homme		2
 attend		2
 destined		2
 dare		2
@@ -735,6 +729,7 @@ Intoxication		2
 debarred		2
 favourite		2
 productive		2
+"?↵		2
 opposed		2
 plight		2
 ]),↵		2
@@ -809,6 +804,7 @@ subsisting		2
 humble		2
 Bishops		2
 complete		2
+"]↵		2
 lucre		2
 tax		2
 Dura		2
@@ -863,6 +859,7 @@ Answer		2
 brings		2
 Par		2
 peo		2
+Pitt's		2
 closely		2
 untutored		2
 finds		2
@@ -898,10 +895,10 @@ Pri		2
 Grudged		2
 ingly		2
 tedious		2
-↳-\'		2
 ranked		2
 buy		2
 situations		2
+year's		2
 dauncing		2
 Review		2
 assemblage		2
@@ -930,7 +927,7 @@ stone		2
 ap=		2
 strictly		2
 sanction		2
-offender\'s		2
+Neighbour's		2
 unnoticed		2
 defence		2
 Art.20		2
@@ -968,6 +965,7 @@ expedients		2
 afford		2
 conspiracy		2
 restrictive		2
+proposer's		2
 qua		2
 verse		2
 Inquiries		2
@@ -1009,6 +1007,7 @@ weighing		2
 riding		2
 procuring		2
 Carriage		2
+:"↵		2
 plundered		2
 rare		2
 wonder		2
@@ -1045,7 +1044,6 @@ indifference		2
 quantities		2
 obstacle		2
 throughout		2
-Offender\'s		2
 generic		2
 conclusive		2
 increased		2
@@ -1060,7 +1058,6 @@ desires		2
 disguises		2
 desired		2
 insufficient		2
-founder\'s		2
 Norfolk-Island		2
 Guardians		2
 Illegal		2
@@ -1090,6 +1087,7 @@ barriers		2
 alters		2
 dulent		2
 chastisement		2
+founder's		2
 stick		2
 Motion		2
 prevail		2
@@ -1111,6 +1109,7 @@ Estimation		2
 served		2
 marry		2
 coiner		2
+prisoner's		2
 compulsion		2
 Annuities		2
 perfidious		2
@@ -1150,6 +1149,7 @@ Work		2
 lived		2
 incur		2
 comfort		2
+Offender's		2
 gratitude		2
 founded		2
 ascertain		2
@@ -1177,7 +1177,6 @@ Sharper		2
 destroy=		2
 Worth		2
 pardon		2
-proposer\'s		2
 fired		2
 Memorial		2
 exert		2
@@ -1190,7 +1189,6 @@ punishable		2
 exerted		2
 inevitable		2
 certify		2
-Pitt\'s		2
 Direction		2
 sect		2
 offspring		2
@@ -1276,6 +1274,7 @@ substitute		2
 somewhere		2
 harsh		2
 exigency		2
+offender's		2
 commensurate		2
 weight		2
 busi=		2
@@ -1297,6 +1296,7 @@ False		2
 neighbour		2
 shape		2
 Bound		2
+l'homme		2
 Corporation		2
 ceed		2
 women		2
@@ -1397,7 +1397,6 @@ Notwithstanding		3
 Nations		3
 night		3
 nihil		3
-owner\'s		3
 We		3
 arbitrary		3
 mankind		3
@@ -1407,7 +1406,6 @@ doth		3
 furnished		3
 Waste		3
 fifth		3
-\";↵		3
 taxes		3
 pains		3
 i:e		3
@@ -1456,7 +1454,6 @@ Cloathing		3
 dissipation		3
 adduced		3
 Quasi		3
-↳[\"		3
 Debtor		3
 Hiley		3
 importance		3
@@ -1488,7 +1485,6 @@ Britain		3
 Gunpowder		3
 anxious		3
 excused		3
-day\'s		3
 Foreigners		3
 learning		3
 mate		3
@@ -1598,7 +1594,6 @@ felonious		3
 divisions		3
 lovers		3
 remove		3
-Lincoln\'s		3
 renders		3
 Two		3
 converting		3
@@ -1632,11 +1627,13 @@ corruption		3
 Death		3
 witness		3
 hired		3
+↳["		3
 dog		3
 tentiary		3
 £400		3
 unpleasant		3
 sudden		3
+Grace's		3
 commanding		3
 obtain		3
 insured		3
@@ -1665,6 +1662,7 @@ female		3
 support		3
 Clause		3
 branch		3
+day's		3
 decision		3
 Managers		3
 reserved		3
@@ -1693,6 +1691,7 @@ line		3
 toward		3
 police		3
 Conduct		3
+";↵		3
 £7,000		3
 Vacation		3
 gross		3
@@ -1812,6 +1811,7 @@ oppression		3
 complained		3
 incline		3
 Russia		3
+Lincoln's		3
 shews		3
 Knowledge		3
 Town		3
@@ -1870,7 +1870,6 @@ Behaviour		3
 comprised		3
 Slave		3
 Mischief		3
-Proposer\'s		3
 preliminary		3
 quarter		3
 leaving		3
@@ -1901,6 +1900,7 @@ Differs		3
 continuance		3
 crowding		3
 annum		3
+owner's		3
 professional		3
 operate		3
 contracting		3
@@ -1912,6 +1912,7 @@ Executor		3
 prohibit		3
 produces		3
 particu=		3
+Proposer's		3
 touching		3
 Male		3
 examination		3
@@ -1981,7 +1982,6 @@ Men		3
 Jails		3
 grounds		3
 talents		3
-Grace\'s		3
 improve		3
 compel		3
 Owner		3
@@ -2013,7 +2013,6 @@ washing		4
 3		4
 payments		4
 parted		4
-person\'s		4
 X		4
 d		4
 cutting		4
@@ -2093,7 +2092,6 @@ Guinea		4
 imagine		4
 Sa		4
 persuasion		4
-\":↵		4
 exhibited		4
 trades		4
 Inn		4
@@ -2126,6 +2124,7 @@ contain		4
 accidents		4
 forcibly		4
 Are		4
+Ford's		4
 fraudulent		4
 lead		4
 retained		4
@@ -2158,13 +2157,13 @@ address		4
 Whatever		4
 stake		4
 division		4
+person's		4
 discipline		4
 Parties		4
 ring		4
 ripe		4
 defeated		4
 remains		4
-B\'s		4
 war		4
 forward		4
 pence		4
@@ -2194,6 +2193,7 @@ Copper		4
 encreasing		4
 reckoning		4
 pronounced		4
+Prisoner's		4
 un=		4
 undergone		4
 enable		4
@@ -2250,6 +2250,7 @@ precaution		4
 applying		4
 broken		4
 Liberty		4
+":↵		4
 habits		4
 stipulated		4
 necessaries		4
@@ -2283,14 +2284,12 @@ wherefore		4
 contrived		4
 mortality		4
 Taken		4
-Ford\'s		4
 diligence		4
 beg		4
 ber		4
 enter		4
 fined		4
 shillings		4
-Prisoner\'s		4
 consistent		4
 pos		4
 lashes		4
@@ -2343,6 +2342,7 @@ Irreparable		4
 restrain		4
 affections		4
 engagement		4
+B's		4
 Loss		4
 accepted		4
 conclusion		4
@@ -2431,7 +2431,6 @@ connected		5
 concerns		5
 sources		5
 fund		5
-,\"↵		5
 enacted		5
 boat		5
 containing		5
@@ -2459,12 +2458,13 @@ choose		5
 custom		5
 popular		5
 interests		5
+,"↵		5
+Author's		5
 encreased		5
 £50		5
 Dr		5
 £20		5
 supplemental		5
-\",↵		5
 Ma		5
 Number		5
 IV		5
@@ -2530,7 +2530,6 @@ Character		5
 Chaplain		5
 expedient		5
 throw		5
-Author\'s		5
 include		5
 returning		5
 believe		5
@@ -2570,7 +2569,6 @@ thoughts		5
 ↳8		5
 ↳?		5
 Disturbance		5
-↳\*		5
 relationship		5
 comparative		5
 ter		5
@@ -2587,6 +2585,7 @@ Code		5
 reign		5
 saw		5
 public-houses		5
+↳		5
 sit		5
 striking		5
 design		5
@@ -2627,6 +2626,7 @@ frauds		5
 attempted		5
 Besides		5
 generally		5
+",↵		5
 Extracts		5
 causes		5
 ticular		5
@@ -2717,11 +2717,11 @@ came		6
 limits		6
 ance		6
 reformatory		6
-Governor\'s		6
 premises		6
 expenditure		6
 treated		6
 felt		6
+Governor's		6
 plainly		6
 Gaols		6
 turned		6
@@ -2929,6 +2929,7 @@ points		7
 turn		7
 directly		7
 domestic		7
+Lordship's		7
 tions		7
 £25		7
 III		7
@@ -3026,7 +3027,6 @@ gain		7
 utmost		7
 age		7
 nation		7
-Lordship\'s		7
 August		7
 ask		7
 supposition		7
@@ -3261,6 +3261,7 @@ Cases		9
 truth		9
 world		9
 necessarily		9
+'↵		9
 impossible		9
 son		9
 reduced		9
@@ -3269,7 +3270,6 @@ Extenuation		9
 exceed		9
 thereunto		9
 Class		9
-\'↵		9
 current		9
 supernumerary		9
 effectual		9
@@ -3472,10 +3472,10 @@ depend		12
 required		12
 food		12
 often		12
+Bentham's		12
 Justifications		12
 high		12
 escape		12
-Bentham\'s		12
 proposed		12
 says		12
 farther		12
@@ -3496,6 +3496,7 @@ pain		13
 expected		13
 again		13
 need		13
+↳-"		13
 duty		13
 determined		13
 contempt		13
@@ -3515,7 +3516,6 @@ title		13
 deemed		13
 force		13
 £100		13
-↳-\"		13
 favour		13
 husband		13
 felony		13
@@ -3538,11 +3538,11 @@ fee		14
 legal		14
 near		14
 confined		14
-King\'s		14
 Estate		14
 Reasons		14
 till		14
 motive		14
+man's		14
 regarding		14
 tion		14
 decease		14
@@ -3552,10 +3552,10 @@ system		14
 seven		14
 Legislator		14
 obtainment		14
-man\'s		14
 six		14
 felon		14
 exceeding		14
+King's		14
 knowledge		14
 Lordship		14
 left		14
@@ -3592,7 +3592,6 @@ consideration		15
 chance		15
 information		15
 responsible		15
-one\'s		15
 articles		15
 Governors		15
 Article		15
@@ -3609,6 +3608,7 @@ proof		15
 Embezzlement		15
 likely		15
 Injuries		15
+one's		15
 example		15
 Heirs		15
 certainly		15
@@ -3645,7 +3645,6 @@ Statute		17
 settlers		17
 addition		17
 better		17
-\".↵		17
 goods		17
 long		17
 Your		17
@@ -3667,6 +3666,7 @@ knowing		17
 pro		17
 instances		17
 hands		17
+".↵		17
 Case		17
 justice		17
 consent		17
@@ -3738,9 +3738,9 @@ end		21
 Samuel		21
 otherwise		21
 period		21
+Majesty's		21
 When		21
 Tit		21
-Majesty\'s		21
 happen		21
 There		21
 direct		21
@@ -3815,7 +3815,6 @@ brought		25
 word		25
 large		25
 Where		25
-.\"↵		25
 view		25
 received		25
 concerned		25
@@ -3826,7 +3825,7 @@ produce		25
 four		25
 thousand		25
 +		26
-it\'s		26
+it's		26
 matter		26
 By		26
 Prisoner		26
@@ -3836,6 +3835,7 @@ natural		26
 giving		26
 Feoffee		26
 ↳4		26
+."↵		26
 cannot		26
 see		26
 others		26
@@ -3978,7 +3978,7 @@ thus		43
 Successors		44
 you		44
 proper		44
-↳\'		44
+↳'		44
 expence		46
 question		46
 taking		46
@@ -4075,7 +4075,7 @@ place		75
 also		75
 must		76
 then		79
-\"↵		79
+"↵		79
 Mr		80
 into		80
 0↵		80
@@ -4179,7 +4179,7 @@ his		481
 ↳:		498
 any		509
 not		510
-↳\"		536
+↳"		536
 which		548
 such		583
 :↵		642

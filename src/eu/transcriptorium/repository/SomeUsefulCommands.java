@@ -37,12 +37,17 @@ public class SomeUsefulCommands
 	{
 		//Map<String, Object> m = new HashMap<String,Object>();
 
-		Object[][] paramsWithFile = 
+		Object[][] paramsWithFile = // hier moeten alle files in....
 			{ 
 					{ "script", FileArgument, Command.ioType.IN, Command.referenceType.NAME}, // nee.....
 				
 					{ "conf", FileArgument, 
 					Command.ioType.CONFIG, Command.referenceType.NAME},
+					
+					{ "CHARSET", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
+					
+					
+					{ "CORPUS", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
 					
 					{"OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, // we moeten hier een collectienaam aan kunnen koppelen
 						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
@@ -58,8 +63,8 @@ public class SomeUsefulCommands
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
 		
-		c1.formalParameters.get(3).baseName = "OUTPUT";
-		c1.formalParameters.get(4).baseName = "OUTPUT";
+		c1.formalParameters.get(5).baseName = "OUTPUT";
+		c1.formalParameters.get(6).baseName = "OUTPUT";
 		
 
 		c1.addSRILMandHTKToPath();

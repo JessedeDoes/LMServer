@@ -63,7 +63,7 @@ public class SomeUsefulCommands
 		
 
 		c1.addSRILMandHTKToPath();
-
+		// en voeg de nodige zaken toe aan classpath....
 		return c1;
 	}
 

@@ -1,5 +1,7 @@
 package eu.transcriptorium.repository;
 import java.io.*;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.*;
 
 import eu.transcriptorium.repository.Command.FormalParameter;
@@ -88,7 +90,7 @@ public class ExternalCommand extends JavaInternalCommand
 			Map<String, String> env = pb.environment();
 			
 			addPathToEnvironment(env);
-			
+			setClassPath(env);
 			//env.put("PATH", programDir + "/");
 			//pb.directory(new File(programDir));
 
@@ -128,6 +130,30 @@ public class ExternalCommand extends JavaInternalCommand
 		return null;
 	}
 	
+	private void setClassPath(Map<String, String> env) 
+	{
+		// TODO Auto-generated method stub
+		String cp = System.getProperty("java.class.path"); // dit dus niet....
+		//(Thread.currentThread().getContextClassLoader()).get
+		System.err.println("Setting classpath to " + cp);
+		env.put("CLASSPATH", cp);
+		
+		
+			 
+		     ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		 
+		     do {
+		         URL[] urls = ((URLClassLoader)classloader).getURLs();
+		 
+		         for(URL url: urls){
+		             System.err.println("URL:" + url.getFile());
+		         }
+		         classloader = (URLClassLoader)classloader.getParent();
+		 
+		     } while(classloader != null);
+		 
+	}
+
 	private void addPathToEnvironment(Map<String, String> env) 
 	{
 		// TODO Auto-generated method stub

@@ -16,8 +16,8 @@ import eu.transcriptorium.servlet.LMBuilder;
 public class SomeUsefulCommands 
 {
 	static final String FileArgument = Command.FileArgument.class.getName();
-	
-	
+
+
 	/**
 	 * Example invocation:
 	 <pre>
@@ -30,9 +30,9 @@ public class SomeUsefulCommands
 	 </pre>
 	 * @return
 	 */
-	
+
 	// java eu.transcriptorium.repository.RepositoryCL INVOKE BUILDLM '{script:"TestScripts/basicModelBuilding.sh",conf:"TestScripts/test.settings.sh",languageModel:"languageModel.lm",dictionary:"dictionary.txt", OUTPUT:"veryUsefulLanguageModel"}'
-	
+
 	static public Command getBasicLMBuildingCommand()
 	{
 		//Map<String, Object> m = new HashMap<String,Object>();
@@ -40,32 +40,32 @@ public class SomeUsefulCommands
 		Object[][] paramsWithFile = // hier moeten alle files in....
 			{ 
 					{ "script", FileArgument, Command.ioType.IN, Command.referenceType.NAME}, // nee.....
-				
+
 					{ "conf", FileArgument, 
-					Command.ioType.CONFIG, Command.referenceType.NAME},
-					
+						Command.ioType.CONFIG, Command.referenceType.NAME},
+
 					{ "CHARSET", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
-					
-					
+
+
 					{ "CORPUS", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
-					
+
 					{"OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, // we moeten hier een collectienaam aan kunnen koppelen
 						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
 
 					{ "languageModel", FileArgument, 
-						Command.ioType.OUT,
-						Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
-						
-					{ "dictionary", FileArgument, 
 							Command.ioType.OUT,
-							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
+							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
+
+					{ "dictionary", FileArgument, 
+								Command.ioType.OUT,
+								Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
-		
+
 		c1.formalParameters.get(5).baseName = "OUTPUT";
 		c1.formalParameters.get(6).baseName = "OUTPUT";
-		
+
 
 		c1.addSRILMandHTKToPath();
 		// en voeg de nodige zaken toe aan classpath....
@@ -87,11 +87,11 @@ public class SomeUsefulCommands
 			};
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
-		
+
 		//m.clear();
 		//m.put("f", new Integer(1));
 
-	
+
 
 		return c1;
 	}
@@ -112,29 +112,29 @@ public class SomeUsefulCommands
 		Object[][] paramsWithFile = 
 			{ 
 					{ "script", "java.lang.String"},
-				
+
 					{ "conf", FileArgument, 
-					Command.ioType.CONFIG, Command.referenceType.NAME},
-					
+						Command.ioType.CONFIG, Command.referenceType.NAME},
+
 					{ "VALIDATION_FILE", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
-					
+
 					{ "MODEL_DESTINATION_DIR", FileArgument, Command.ioType.OUTPUT_DIRECTORY, 
 						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
 
 					{ "languageModel", FileArgument, 
-						Command.ioType.OUT,
-						Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
-						
-					{ "dictionary", FileArgument, 
 							Command.ioType.OUT,
-							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
+							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
+
+					{ "dictionary", FileArgument, 
+								Command.ioType.OUT,
+								Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};
 
 		ExternalCommand c1 = new ExternalCommand("/bin/bash", paramsWithFile);
-		
+
 		c1.formalParameters.get(4).baseName = "MODEL_DESTIONATION_DIR";
 		c1.formalParameters.get(5).baseName = "MODEL_DESTINATION_DIR";
-		
+
 		for (int i=0; i < k; i++) // component models (?) (maar die komen niet in de conf?)
 		{
 			Command.FormalParameter f = new Command.FormalParameter();
@@ -156,7 +156,7 @@ public class SomeUsefulCommands
 		m.put("LM2PFSG", SomeUsefulCommands.getLM2PFSGCommand() );
 		return m;
 	}
-	
+
 	public static void main(String args[])
 	{
 		Repository r = new PostgresRepository(PostgresRepository.getDefaultProperties());
@@ -164,7 +164,7 @@ public class SomeUsefulCommands
 
 		String scriptName = args[0];
 		String confName = args[1];
-		
+
 		try
 		{
 
@@ -172,7 +172,7 @@ public class SomeUsefulCommands
 			Command c = getBasicLMBuildingCommand();
 
 			Map<String, Object> m = new HashMap<String, Object>();
-			
+
 			m.put("script", scriptName);
 			m.put("conf", confName);
 

@@ -17,17 +17,11 @@
    			<param-name>taggers</param-name>
    			<param-value><!--stanford-ner-kbkranten impact-tagger-lemmatizer-dutch-sonar-->impact-ner stanford-ner-english text2tei word2tei epub2tei html2tei</param-value>
    		</init-param>
+        <init-param>
+                <param-name>repositoryConnection</param-name>
+                <param-value>{dbHost:svowdb02, dbPort:5432, dbSchemaName:lmserver, dbPasswd:inl, dbUser:postgres}</param-value>
+        </init-param>
 	</servlet>
-	<context-param> 
-		    <description>Location to store uploaded file</description> 
-		    <param-name>file-upload</param-name> 
-		    <param-value>/var/lib/tomcat5/webapps/uploadedFiles/</param-value> 
-	</context-param>
-	<context-param> 
-		    <description>Stylesheet location for display of TEI text</description> 
-		    <param-name>stylesheet-location</param-name> 
-		    <param-value>/var/lib/tomcat5/webapps/NER/XSL/namescape.xsl</param-value> 
-	</context-param>
      <servlet-mapping>
    <servlet-name>LMServer</servlet-name>
    <url-pattern>/LMServer</url-pattern>

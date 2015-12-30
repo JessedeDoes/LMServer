@@ -367,7 +367,9 @@ public class PostgresRepository implements Repository
 	public int search(String name)
 	{
 		Set<Integer> V = searchByName(name);
-		return V.iterator().next();
+		if (V.size() > 0)
+			return V.iterator().next();
+		return -1;
 	}
 
 	public Set<Integer> search(Properties p)
@@ -515,7 +517,7 @@ public class PostgresRepository implements Repository
 		return null;
 	}
 
-	public static Properties getDefaultProperties()
+	public static Properties getDefaultConnectionProperties()
 	{
 		Properties p = new Properties();
 
@@ -711,7 +713,7 @@ public class PostgresRepository implements Repository
 
 		
 		
-		p = getDefaultProperties();
+		p = getDefaultConnectionProperties();
 		p.put("year_from", "300");
 		p.put("language", "dutch");
 

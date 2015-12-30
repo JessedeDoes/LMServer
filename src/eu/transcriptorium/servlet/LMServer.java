@@ -102,10 +102,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private Map<String,Suggest> suggesterMap = new HashMap<String,Suggest>();
 	private Map<String,NgramLanguageModel> modelMap = new HashMap<String,NgramLanguageModel>();
 	private Map<String, String> modelDescriptionMap = new HashMap<String,String>();
-    static String lmType = "{type:lm}";
-    static Properties lmProps = JSON.toProperties(JSON.fromString(lmType));
-    
-    
+	static String lmType = "{type:lm}";
+	static Properties lmProps = JSON.toProperties(JSON.fromString(lmType));
+
+
 	private NgramLanguageModel getModel(String name)
 	{
 		NgramLanguageModel lm = null;
@@ -167,7 +167,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		}
 		return f;
 	}
-	
+
 	private NgramLanguageModel getModelFromRepository(String name)
 	{
 		NgramLanguageModel lm = null;
@@ -179,9 +179,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		}
 		String languageModelFilename = null;
 		File languageModelFile = null;
-		
+
 		int id = repository.search(name);
-		
+
 		if (id >= 0)
 		{
 			try
@@ -194,7 +194,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 			}
 		}
-		
+
 		if (languageModelFilename != null)
 		{
 			System.err.println("attempt to read model from " + languageModelFilename);
@@ -432,6 +432,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				e.printStackTrace();
 			} // hm...
 		}
+		System.err.println("###finished invocation of command" + c);
 	}
 
 	private void handleUpload(Map<String, String> parameterMap,
@@ -575,9 +576,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			System.err.println("found suggester"  + s);
 			return s;
 		}
-		
+
 		NgramLanguageModel lm = this.getModel(lmName);
-		
+
 		if (lm != null)
 		{
 			s = new Suggest(lm);
@@ -593,12 +594,27 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		{
 			this.modelDescriptionMap.put(x[0], x[2]);
 		}
-		
+
 		String toolPath = this.getServletContext().getRealPath("/Tools");
+		String connectionParams = this.getServletConfig().getInitParameter("repositoryConnection");
+		Properties connectionProperties;
+		if (connectionParams != null)
+		{
+			connectionProperties  = JSON.toProperties(JSON.fromString(connectionParams));
+			try {
+				connectionProperties.store(System.out, "Connection properties from server:" + connectionParams);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else
+			connectionProperties = PostgresRepository.getDefaultConnectionProperties();
+
 		System.err.println("Tomcat tool path:" + toolPath);
 		ExternalCommand.TOMCAT_PATH = toolPath;
-		repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
-		commandMap = SomeUsefulCommands.getBasicCommands();
+		repository = new PostgresRepository(connectionProperties);
+
+		commandMap = SomeUsefulCommands.getBasicCommands(repository);
 		getLMsFromRepository();
 	}
 
@@ -612,7 +628,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			this.modelDescriptionMap.put(name, repository.getMetadataProperty(id, "description"));
 		}
 	}
-	
+
 	public static String mapToJSON(Map<String,String> map)
 	{
 		StringWriter  strw = new StringWriter();

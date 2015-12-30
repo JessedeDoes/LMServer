@@ -16,14 +16,12 @@ import eu.transcriptorium.util.*;
 
 public class RepositoryCL 
 {
-	Repository r = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	Repository r = new PostgresRepository(PostgresRepository.getDefaultConnectionProperties());
 	Map<String, Command> commandMap = new HashMap<String,Command>();
 
 	public RepositoryCL()
 	{
-		commandMap.put("LM2PFSG",  SomeUsefulCommands.getLM2PFSGCommand());
-		commandMap.put("TEST",  SomeUsefulCommands.getTestCommand());
-		commandMap.put("BUILDLM", SomeUsefulCommands.getBasicLMBuildingCommand());
+		commandMap = SomeUsefulCommands.getBasicCommands(r);
 	}
 /**
  * Misschien nog een extract all to zip toevoegen?

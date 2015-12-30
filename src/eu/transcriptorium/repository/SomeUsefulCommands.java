@@ -153,17 +153,24 @@ public class SomeUsefulCommands
 		return c1;
 	}
 
-	public static Map<String,Command> getBasicCommands()
+	public static Map<String,Command> getBasicCommands(Repository r)
 	{
 		Map<String,Command> m = new HashMap<String,Command>();
 		m.put("BUILDLM",   SomeUsefulCommands.getBasicLMBuildingCommand());
 		m.put("LM2PFSG", SomeUsefulCommands.getLM2PFSGCommand() );
+		
+		for (String n: m.keySet())
+		{
+			Command c= m.get(n);
+			c.setRepository(r);
+		}
+		
 		return m;
 	}
 
 	public static void main(String args[])
 	{
-		Repository r = new PostgresRepository(PostgresRepository.getDefaultProperties());
+		Repository r = new PostgresRepository(PostgresRepository.getDefaultConnectionProperties());
 		r.clear();
 
 		String scriptName = args[0];

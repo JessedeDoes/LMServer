@@ -51,7 +51,7 @@ import java.nio.file.Paths;
  */
 public class Command
 {
-	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties()); // do this differently...
+	Repository repository = null; // new PostgresRepository(PostgresRepository.getDefaultProperties()); // do this differently...
 	static private Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
 	
 	public String commandName;
@@ -425,9 +425,10 @@ public class Command
 	{
 		File f = createTempFile();
 
-		InputStream stream = repository.openFile(repoId);
+		
 		try 
 		{
+			InputStream stream = repository.openFile(repoId);
 			FileUtils.copyStream(stream, f);
 		} catch (Exception e) 
 		{
@@ -472,10 +473,12 @@ public class Command
 
 	protected  Path createTempDir() throws IOException
 	{
+		System.err.println("Creating temp dir....");
 		String property = "java.io.tmpdir";
 
 		String tempDir = System.getProperty(property);
 
+		System.err.println("System temp dir: " + tempDir);
 		Path p = Files.createTempDirectory(Paths.get(tempDir) ,
 				"lmserverTemp.");
 
@@ -544,5 +547,10 @@ public class Command
 				p.setProperty(n, v);
 			}
 		}
+	}
+	
+	public void setRepository(Repository r)
+	{
+		this.repository = r;
 	}
 }

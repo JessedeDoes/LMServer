@@ -16,20 +16,27 @@ public class ExternalCommand extends JavaInternalCommand
 	List<String> pathEntries = new ArrayList<String>();
 	static String PATH_SEPARATOR = ":";
 
-	static String SRILM_DIR="/home/jesse/Tools/srilm";
-	static String HTK_DIR="/home/jesse/Tools/htk3-4-Atros";
-	static String SRILM_DIR_INL="/mnt/Projecten/transcriptorium/Tools/SRILM";
-	static String HTK_DIR_INL="/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14";
+	static String SRILM_DIR ="/home/jesse/Tools/srilm";
+	static String HTK_DIR = "/home/jesse/Tools/htk3-4-Atros";
+	static String SRILM_DIR_INL = "/mnt/Projecten/transcriptorium/Tools/SRILM";
+	static String HTK_DIR_INL = "/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14";
 
-
+	public static String TOMCAT_PATH = "";
+	
 	public void addSRILMandHTKToPath()
 	{
 		addToPath(SRILM_DIR + "/bin");
 		addToPath(SRILM_DIR + "/bin/i686-m64");
+		
 		addToPath(SRILM_DIR_INL + "/bin");
 		addToPath(SRILM_DIR_INL + "/bin/i686-m64");
+		
+		addToPath(TOMCAT_PATH + "/SRILM/bin");
+		addToPath(TOMCAT_PATH + "/SRILM/bin/i686-m64");
+		
 		addToPath(HTK_DIR + "/bin.linux");
 		addToPath(HTK_DIR_INL);
+		addToPath(TOMCAT_PATH + "/HTK/bin.linux");
 	}
 
 	public ExternalCommand(String commandName, Object[][] args)

@@ -21,6 +21,7 @@ import eu.transcriptorium.lattice.LatticeToDot;
 import eu.transcriptorium.lattice.StandardLatticeFile;
 import eu.transcriptorium.lm.ScoreWordSubstitutions;
 import eu.transcriptorium.repository.Command;
+import eu.transcriptorium.repository.ExternalCommand;
 import eu.transcriptorium.repository.FileUtils;
 import eu.transcriptorium.repository.PostgresRepository;
 import eu.transcriptorium.repository.Repository;
@@ -58,7 +59,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 
 
-	Map<String, Command> commandMap null; 
+	Map<String, Command> commandMap = null; 
 	// ToDo: naar configuratiebestandje
 
 	private String[][] lmLocations = 
@@ -574,7 +575,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			System.err.println("found suggester"  + s);
 			return s;
 		}
+		
 		NgramLanguageModel lm = this.getModel(lmName);
+		
 		if (lm != null)
 		{
 			s = new Suggest(lm);
@@ -590,6 +593,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		{
 			this.modelDescriptionMap.put(x[0], x[2]);
 		}
+		
+		String toolPath = this.getServletContext().getRealPath("/Tools");
+		System.err.println("Tomcat tool path:" + toolPath);
+		ExternalCommand.TOMCAT_PATH = toolPath;
 		repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
 		commandMap = SomeUsefulCommands.getBasicCommands();
 		getLMsFromRepository();

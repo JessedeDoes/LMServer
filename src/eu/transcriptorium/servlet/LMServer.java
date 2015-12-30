@@ -115,7 +115,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			System.err.println("lm already loaded for " + name + ":" + lm);
 			return lm;
 		}
+		
 		String languageModel = null;
+		
 		for (int i=0; i < lmLocations.length; i++)
 		{
 			if (lmLocations[i][0].equalsIgnoreCase(name))
@@ -123,6 +125,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				languageModel = lmLocations[i][1];
 			}
 		}
+		
 		if (languageModel != null)
 		{
 			System.err.println("attempt to read model from " + languageModel);
@@ -596,7 +599,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		}
 
 		String toolPath = this.getServletContext().getRealPath("/Tools");
-		String connectionParams = this.getServletConfig().getInitParameter("repositoryConnection");
+	
+		String connectionParams = getInitParameter("repositoryConnection");
 		Properties connectionProperties;
 		if (connectionParams != null)
 		{

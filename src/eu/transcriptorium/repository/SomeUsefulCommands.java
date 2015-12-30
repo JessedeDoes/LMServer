@@ -49,7 +49,7 @@ public class SomeUsefulCommands
 
 					{ "CORPUS", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
 
-					{"OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, // we moeten hier een collectienaam aan kunnen koppelen
+					{ "OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, // we moeten hier een collectienaam aan kunnen koppelen
 						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
 
 					{ "languageModel", FileArgument, 

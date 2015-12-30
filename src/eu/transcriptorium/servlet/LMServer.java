@@ -51,14 +51,14 @@ import java.util.*;
 public class LMServer extends  javax.servlet.http.HttpServlet
 {
 
-	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
+	Repository repository= null; 
 
 	private static final long serialVersionUID = 1L;
 	private String basePath="/datalokaal/Corpus/LM/";
 
 
 
-	Map<String, Command> commandMap = SomeUsefulCommands.getBasicCommands();
+	Map<String, Command> commandMap null; 
 	// ToDo: naar configuratiebestandje
 
 	private String[][] lmLocations = 
@@ -590,6 +590,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		{
 			this.modelDescriptionMap.put(x[0], x[2]);
 		}
+		repository = new PostgresRepository(PostgresRepository.getDefaultProperties());
+		commandMap = SomeUsefulCommands.getBasicCommands();
 		getLMsFromRepository();
 	}
 

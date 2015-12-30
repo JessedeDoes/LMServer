@@ -23,7 +23,11 @@ public class PostgresRepository implements Repository
 
 	// create table FileTable (id serial, fileName text, type text, content oid);
 
-	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, language text, year_from integer, year_to integer, type text references types (type), content bytea)":
+	static String createFileTable =uniqueNames? "create table FileTable "
+			+ "(id serial primary key, "
+			+ "filename text UNIQUE, language text, "
+			+ "year_from integer, year_to integer, type text references types (type), content bytea)":
+				
 		"create table FileTable (id serial primary key, filename text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer, key  text, value text, constraint munq unique (id, key, value))";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";

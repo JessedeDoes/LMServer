@@ -60,7 +60,7 @@ public class SomeUsefulCommands
 								Command.ioType.OUT,
 								Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
 					
-					{ "latticefile", FileArgument, 
+					{ "latticeFile", FileArgument, 
 									Command.ioType.OUT,
 									Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};

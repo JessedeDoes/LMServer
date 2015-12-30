@@ -58,14 +58,18 @@ public class SomeUsefulCommands
 
 					{ "dictionary", FileArgument, 
 								Command.ioType.OUT,
-								Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
+								Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
+					
+					{ "latticefile", FileArgument, 
+									Command.ioType.OUT,
+									Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};
 
 		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
 
 		c1.formalParameters.get(5).baseName = "OUTPUT";
 		c1.formalParameters.get(6).baseName = "OUTPUT";
-
+		c1.formalParameters.get(7).baseName = "OUTPUT";
 
 		c1.addSRILMandHTKToPath();
 		// en voeg de nodige zaken toe aan classpath....

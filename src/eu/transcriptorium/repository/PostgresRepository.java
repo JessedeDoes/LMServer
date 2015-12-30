@@ -25,7 +25,7 @@ public class PostgresRepository implements Repository
 
 	static String createFileTable =uniqueNames? "create table FileTable (id serial primary key, filename text UNIQUE, language text, year_from integer, year_to integer, type text references types (type), content bytea)":
 		"create table FileTable (id serial primary key, filename text, type text, content bytea)";
-	static String createMetadataTable = "create table metadata (id integer, key  text, value text) constraint munq (id, key, value)";
+	static String createMetadataTable = "create table metadata (id integer, key  text, value text, constraint munq unique (id, key, value))";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 
 	// uniqueness constraint does not work with NULL!

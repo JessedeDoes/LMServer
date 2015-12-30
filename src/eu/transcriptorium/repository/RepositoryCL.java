@@ -35,6 +35,7 @@ public class RepositoryCL
 	{
 		LIST,
 		STORE,
+		STORE_WITH_METADATA,
 		GETMETADATA,
 		SEARCHBYNAME,
 		SEARCH,
@@ -60,6 +61,13 @@ public class RepositoryCL
 			for (String a: args)
 				System.out.println(r.storeFile(new FileInputStream(a), a, null));
 			break;
+		case STORE_WITH_METADATA:
+		{
+			JsonObject o = JSON.fromString(args[1]);
+			Properties p0 = JSON.toProperties(o);
+			System.out.println(r.storeFile(new FileInputStream(args[0]), args[0], p0));
+			break;
+		}
 		case EXTRACT:
 			InputStream str = r.openFile(Integer.parseInt(args[0]));
 			if (str != null)

@@ -53,6 +53,7 @@ public class Command
 {
 	Repository repository = new PostgresRepository(PostgresRepository.getDefaultProperties()); // do this differently...
 	static private Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
+	
 	public String commandName;
 	List<FormalParameter> formalParameters = null;
 	Properties configuration = null;
@@ -60,6 +61,7 @@ public class Command
 	Set<String> tempFileSet  = new HashSet<String>();
 	Set<String> tempDirSet  = new HashSet<String>();
 
+	private static boolean doNotCleanup = true;
 	public enum type
 	{
 		SHELL,
@@ -489,6 +491,8 @@ public class Command
 
 	protected void cleanup()
 	{
+		if (doNotCleanup)
+			return;
 		for (String d: this.tempDirSet)
 		{
 			System.err.println("cleanup dir: " + d);

@@ -119,11 +119,14 @@ public class SimpleTokenization implements CharacterSet
 		Set<Character> remove = new HashSet<Character>();
 		for (Character c: escapeMap.keySet())
 		{
-			if (!characterAccepted[c])
+			if (!characterAccepted[c] && characterModelNames.get(c) == null)
 				remove.add(c);
 		}
 		for (Character c: remove)
+		{
+			System.err.println("Removing <" + c + "> from escape map");
 			escapeMap.remove(c);
+		}
 	}
 	
 	public SimpleTokenization()

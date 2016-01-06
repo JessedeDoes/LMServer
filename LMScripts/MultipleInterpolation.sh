@@ -10,6 +10,7 @@ DESTINATION=$1
 TEXT=$2
 SUBMODEL_DIRS="${@:3}"
 CLEANED_TEXTS=`echo "$SUBMODEL_DIRS" | perl -pe 's/\S+/$&\/cleanedText.txt/g'`
+FREQUENCY_LISTS=`echo "$SUBMODEL_DIRS" | perl -pe 's/\S+/$&\/wordFrequencyList.txt/g'`
 SUBMODEL_FILES=`echo "$SUBMODEL_DIRS" | perl -pe 's/\S+/$&\/languageModel.lm/g'`
 
 #HACK
@@ -44,6 +45,10 @@ echo "Interleaved args=$INTERPOLATION_ARGS"
 ## build the combined HTR dictionary, and the vocabulary for the interpolation
 ## here we have one cutoff for the combined corpus, which is not what we want
 ## instead: per-component cutoff, build vocabulary, etc...
+
+# compile the vocabulary for the joint dictionary
+
+cat $FREQUENCY_LISTS | cut -f1 | sort -u > $DESTINATION/combinedVocabulary.txt
 
 # $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
 LexicalProcessing2  $DESTINATION/cleanedText.txt $CLASS_CHARSET $CHARSET $CUTOFF $DESTINATION

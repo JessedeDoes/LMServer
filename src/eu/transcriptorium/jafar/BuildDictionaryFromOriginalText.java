@@ -48,7 +48,12 @@ public class BuildDictionaryFromOriginalText
 	{
 		this.characterSet = cs;
 	}
-
+/**
+ * 
+ * @param frequencyList (not normalized, cleaned)
+ * @param outFile (the dictionary)
+ * @param normalizedWordListOut (list of normalized words)
+ */
 	public void processFiles(String frequencyList, String outFile, String normalizedWordListOut)
 	{
 		try

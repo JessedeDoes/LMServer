@@ -35,7 +35,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.*;
 
 /**
  * 
@@ -48,7 +50,7 @@ import java.util.TreeMap;
 
 public class WordFrequencySort
 {
-
+	Set<String> vocabulary = null;
 	public static String getTopClass()
 	{
 		StackTraceElement[] st = Thread.currentThread().getStackTrace();
@@ -169,17 +171,24 @@ public class WordFrequencySort
 				}
 
 				in.close();
-				int Num = Integer.parseInt(args[5]);
-
+				int frequencyThreshold = Integer.parseInt(args[5]);
+				if (args.length >= 10)
+				{
+					String vocabFileName = args[9];
+					List<String> v = StringUtils.readStringList(vocabFileName);
+					this.vocabulary = new HashSet();
+					vocabulary.addAll(v);
+				}
+				
 				Map<String, Integer> unsortlits = new HashMap<String, Integer>();
 
-				unsortlits = printMapHash(m, output, Num);
+				unsortlits = printMapHash(m, output, frequencyThreshold);
 
 				output.close();
 
 				Map<String, Integer> sorted = sortByValues(unsortlits);
 
-				printMap(sorted, sortoutput, Num);
+				printMap(sorted, sortoutput, frequencyThreshold);
 
 				sortoutput.close();
 
@@ -223,8 +232,8 @@ public class WordFrequencySort
 		return sortedMap;
 	}
 
-	public static void printMap(Map<String, Integer> map,
-			PrintWriter sortoutput, int num)
+	public void printMap(Map<String, Integer> map,
+			PrintWriter sortoutput, int frequencyThreshold)
 	{
 		// sortoutput.println("W.List" + "\t\t" + "W.Frequency"); // do not
 		// print a header....
@@ -238,13 +247,13 @@ public class WordFrequencySort
 			// System.out.println("Key : " + entry.getKey() + " Value : "
 			// + entry.getValue());
 			int freq = entry.getValue();
-			if (freq > num)
+			if (freq > frequencyThreshold && (vocabulary == null || vocabulary.contains(entry.getKey())))
 				sortoutput.println(entry.getKey() + "\t\t" + entry.getValue());
 		}
 	}
 
-	public static Map<String, Integer> printMapHash(Map<String, Integer> map,
-			PrintWriter sortoutput, int num)
+	public  Map<String, Integer> printMapHash(Map<String, Integer> map,
+			PrintWriter sortoutput, int frequencyThreshold)
 	{
 		// sortoutput.println("!ENTER");
 		// sortoutput.println("!EXIT");
@@ -260,8 +269,10 @@ public class WordFrequencySort
 			String st = (String) entry.getKey();
 			int freq = entry.getValue();
 			unsortlits.put(st, freq);
-			if (freq > num)
+			if (freq > frequencyThreshold && (vocabulary == null || vocabulary.contains(entry.getKey())))
+			{
 				sortoutput.println(entry.getKey());
+			}
 		}
 		return unsortlits;
 	}

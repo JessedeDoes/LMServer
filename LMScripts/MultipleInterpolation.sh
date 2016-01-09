@@ -51,7 +51,7 @@ echo "Interleaved args=$INTERPOLATION_ARGS"
 cat $FREQUENCY_LISTS | cut -f1 | sort -u > $DESTINATION/combinedVocabulary.txt
 
 # $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
-LexicalProcessing2  $DESTINATION/cleanedText.txt $CLASS_CHARSET $CHARSET $CUTOFF $DESTINATION
+LexicalProcessing2  $DESTINATION/cleanedText.txt $CLASS_CHARSET $CHARSET $CUTOFF $DESTINATION $DESTINATION/combinedVocabulary.txt
 ## carry out the interpolation
 interpolate $DESTINATION $INTERPOLATION_ARGS
 ## convert the resulting language model to an HTK lattice file

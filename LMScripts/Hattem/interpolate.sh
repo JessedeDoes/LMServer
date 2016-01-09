@@ -24,5 +24,5 @@ export PATH=$SRILM_HOME/bin:/$SRILM_HOME/bin/i686-m64/:/usr/bin/:$PATH
 export HTK=/home/jesse/Tools/htk3-4-Atros/bin.linux/
 #export HTK=/usr/local/bin
 
-export CUTOFF=3
+export CUTOFF=0
 bash LMScripts/MultipleInterpolation.sh $OUTPUT $VALIDATION $COMPONENTS

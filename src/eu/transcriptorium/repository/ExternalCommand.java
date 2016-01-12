@@ -61,9 +61,11 @@ public class ExternalCommand extends JavaInternalCommand
 				continue;
 			String flag = p.flagName;
 			if (flag != null)
-
 				a.add("-" + flag);
-			a.add(args[i].toString());
+			if (args[i] != null)
+				a.add(args[i].toString());
+			else
+			System.err.println("Parameter " + i + " is null, name=" + p.name);
 		}
 		System.err.println("Command to invoke: " + a);
 		String[] r = new String[a.size()];
@@ -86,7 +88,7 @@ public class ExternalCommand extends JavaInternalCommand
 	}
 
 	@Override
-	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args)
+	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args, Properties config)
 	{
 
 		try
@@ -98,6 +100,11 @@ public class ExternalCommand extends JavaInternalCommand
 
 			addPathToEnvironment(env);
 			setClassPath(env);
+			for (Object o: config.keySet())
+			{
+				System.err.println("Add to env: "+ o + "--> " + config.get(o));
+				env.put(o.toString(), config.get(o).toString());
+			}
 			//env.put("PATH", programDir + "/");
 			//pb.directory(new File(programDir));
 

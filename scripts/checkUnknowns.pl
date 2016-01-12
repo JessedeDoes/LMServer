@@ -173,7 +173,7 @@ while(<>)
     next if ($isNonContent{lc $w});
     if ($p ==1) { $nFirst++ } else { $nNoFirst++ } ;
     if ($p == $i-1)  { $nLast++ }  else { $nNoLast ++ };
-    if ($p > $1 && $p < $i-1) { $nMid++ };
+    if ($p > 1 && $p < $i-1) { $nMid++ };
 
     if (isWord($w) && !($h2{$w}))
     {

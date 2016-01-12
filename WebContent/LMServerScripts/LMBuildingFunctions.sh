@@ -18,7 +18,9 @@ LexicalProcessing2()
    CHARSET=$3
    OUTPUT=$5
    CUTOFF=$4
-   java -classpath $CLASSPATH eu.transcriptorium.jafar.LexicalProcessing $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT
+   VOCABULARY=$6
+   echo "Vocabulary: $VOCABULARY"
+   java -classpath $CLASSPATH eu.transcriptorium.jafar.LexicalProcessing $CLASS_CHARSET $CHARSET $CORPUS $CUTOFF $OUTPUT $VOCABULARY
 }
 
 ##################################################################################################

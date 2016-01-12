@@ -21,10 +21,11 @@ do
   fi
 done
 
+echo "Component model dirs: 
 echo "charset type: $CLASS_CHARSET $CHARSET"
 TEXT=$VALIDATION_TEXT
 DESTINATION=$MODEL_DESTINATION_DIR
 SUBMODEL_DIRS=$COMPONENT_MODEL_DIRS
 echo $SUBMODEL_DIRS
 
-#bash LMScripts/MultipleInterpolation.sh  $TEXT $DESTINATION $SUBMODEL_DIRS
+# bash /var/lib/tomcat7/webapps/LMServer/LMScripts/MultipleInterpolation.sh  $TEXT $DESTINATION $SUBMODEL_DIRS

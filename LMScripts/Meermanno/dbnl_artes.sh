@@ -15,7 +15,7 @@ MNLDIR=/media/jesse/Data/tranScriptorium/NederlandseData/MNL-plaintext/Corpora
 CORPUS=$MNLDIR/DBNL-artes.txt
 OUTPUT=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/DBNL-ARTES
 CHARSET=$BASIC_TRAINING_SOURCE/charset.txt
-CUTOFF=0
+CUTOFF=1
 
 
 

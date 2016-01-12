@@ -161,7 +161,7 @@ public class Command
 	}
 
 
-	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args) throws IllegalAccessException, 
+	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args, Properties configuration) throws IllegalAccessException, 
 	InvocationTargetException 
 	{
 		return null;
@@ -229,6 +229,7 @@ public class Command
 								String name = repository.getName(id);
 								name = name.replace(collectionName, "");  // shaky
 								String p1 = p.toString() + "/" + name;
+								System.err.println( "saving file:"  + p1 + " id= " + id);
 								saveToFile(p1,id);
 							}
 							configuration.put(formalParameter.name, p.toString());
@@ -279,7 +280,7 @@ public class Command
 								for (Object x: configuration.keySet())
 								{
 									p.put(x,configuration.get(x));
-								}
+								} // maar omgekeerd niets... Waarom niet?
 
 								expandVariables(p);
 								saveConfigTo = f;
@@ -288,7 +289,7 @@ public class Command
 								// p.store(new FileOutputStream(f), "");
 
 								args[i] = f.getAbsolutePath();
-								p.list(System.out);
+								p.store(new OutputStreamWriter(System.out), "listing properties");
 							}
 						} 
 					}
@@ -311,7 +312,7 @@ public class Command
 
 		try 
 		{
-			Object r = invokeCommand(this.formalParameters, args);
+			Object r = invokeCommand(this.formalParameters, args, configToSave);
 			System.out.println("Result:" + r);
 
 			// en nu de nazorg: opruimen en resultatem opslaan...
@@ -391,6 +392,7 @@ public class Command
 	{
 		// TODO Auto-generated method stub
 		File f = new File(p1);
+		if (!doNotCleanup) f.deleteOnExit();
 		tempFileSet.add(p1);
 		InputStream stream = repository.openFile(id);
 		try 
@@ -407,7 +409,7 @@ public class Command
 	protected File createTempFile() throws IOException 
 	{
 		File f = File.createTempFile("repo", ".repo");
-		f.deleteOnExit();
+		if (!doNotCleanup) f.deleteOnExit();
 		tempFileSet.add(f.getCanonicalPath());
 		return f;
 	}
@@ -416,7 +418,7 @@ public class Command
 	protected File createTempFile(File dir) throws IOException 
 	{
 		File f = File.createTempFile("repo", ".repo", dir);
-		f.deleteOnExit();
+		if (!doNotCleanup) f.deleteOnExit();
 		tempFileSet.add(f.getCanonicalPath());
 		return f;
 	}

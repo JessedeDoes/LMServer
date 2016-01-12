@@ -36,6 +36,7 @@ public class RepositoryCL
 		LIST,
 		STORE,
 		STORE_WITH_METADATA,
+		STORE_COLLECTION,
 		GETMETADATA,
 		SEARCHBYNAME,
 		SEARCH,
@@ -66,6 +67,22 @@ public class RepositoryCL
 			JsonObject o = JSON.fromString(args[1]);
 			Properties p0 = JSON.toProperties(o);
 			System.out.println(r.storeFile(new FileInputStream(args[0]), args[0], p0));
+			break;
+		}
+		case STORE_COLLECTION:
+		{
+			File dir = new File(args[0]);
+			JsonObject o = JSON.fromString(args[1]);
+			Properties p0 = JSON.toProperties(o);
+			int cid = r.createCollection(args[0], p0);
+			for (String s: dir.list())
+			{
+				Properties p1 = JSON.toProperties(o);
+				String p =args[0] + "/" + s;
+				System.err.println("Store file with path: " + p);
+				int fid = r.storeFile(new FileInputStream(p), p, p1);
+				r.addToCollection(cid, fid);
+			}
 			break;
 		}
 		case EXTRACT:

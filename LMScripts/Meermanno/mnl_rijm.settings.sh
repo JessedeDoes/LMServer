@@ -13,7 +13,7 @@ MNLDIR=/media/jesse/Data/tranScriptorium/NederlandseData/MNL-plaintext/Corpora
 CORPUS=$MNLDIR/CDROM-rijm.txt
 OUTPUT=/home/jesse/TUTORIAL-HTR/EXP-MEERMANNO/TRAIN/LM/MNL-RIJM
 CHARSET=$BASIC_TRAINING_SOURCE/charset.txt
-CUTOFF=3
+CUTOFF=4
 
 
 

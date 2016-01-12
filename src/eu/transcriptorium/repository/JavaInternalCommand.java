@@ -125,7 +125,7 @@ public class JavaInternalCommand extends Command
 	
 
 	@Override
-	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args) throws IllegalAccessException, InvocationTargetException {
+	protected Object invokeCommand(List<FormalParameter> formalParameters, Object[] args, Properties config) throws IllegalAccessException, InvocationTargetException {
 		return this.method.invoke(object, args);
 	}
 	

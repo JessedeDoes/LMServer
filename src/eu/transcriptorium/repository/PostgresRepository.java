@@ -37,7 +37,7 @@ public class PostgresRepository implements Repository
 	static String createTypesTable = "create table types (type text primary key)";
 
 	static String[] predefinedTypes = 
-		{ "lm", "dictionary", "corpus_plaintext", "collection", 
+		{ "lm", "dictionary", "corpus_plaintext", "collection", "word_list",
 				"page_xml", "tei_xml", "doc", "docx", "character_set"};
 
 	String tableName="filetable";

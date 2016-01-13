@@ -418,7 +418,16 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		Command c = commandMap.get(commandName);
 		Map<String,Object> args = new HashMap<String,Object>();
 
-		for (String s: parameterMap.keySet())
+		String parametersJSON = parameterMap.get("params");
+		if (parametersJSON != null)
+		{
+			com.google.gson.JsonObject o = JSON.fromString(parametersJSON);
+			Properties p1 = JSON.toProperties(o);
+			for (Object k: p1.keySet())
+			{
+				args.put(k.toString(), p1.get(k));
+			}
+		} else for (String s: parameterMap.keySet())
 		{
 			if (!s.equalsIgnoreCase("command") && !s.equalsIgnoreCase("action"))
 				args.put(s, parameterMap.get(s));
@@ -599,7 +608,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		}
 
 		String toolPath = this.getServletContext().getRealPath("/Tools");
-	
+		String scriptPath = this.getServletContext().getRealPath("/LMServerScripts");
+		
 		String connectionParams = getInitParameter("repositoryConnection");
 		Properties connectionProperties;
 		if (connectionParams != null)
@@ -615,7 +625,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			connectionProperties = PostgresRepository.getDefaultConnectionProperties();
 
 		System.err.println("Tomcat tool path:" + toolPath);
-		ExternalCommand.TOMCAT_PATH = toolPath;
+		ExternalCommand.EXTERNAL_TOOL_PATH = toolPath;
+		ExternalCommand.LM_SCRIPT_PATH = scriptPath;
+		
 		repository = new PostgresRepository(connectionProperties);
 
 		commandMap = SomeUsefulCommands.getBasicCommands(repository);

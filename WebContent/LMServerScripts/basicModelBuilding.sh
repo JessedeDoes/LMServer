@@ -2,7 +2,7 @@ source $1
 
 # rm -rf $OUTPUT/*
 
-source /var/lib/tomcat7/webapps/LMServer/LMServerScripts/LMBuildingFunctions.sh
+source $LM_SCRIPT_PATH/LMBuildingFunctions.sh
 
 TextAndLexicalProcessing2 $CORPUS $CLASS_CHARSET $CHARSET $CUTOFF $OUTPUT $ORDER
 

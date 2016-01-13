@@ -21,7 +21,8 @@ public class ExternalCommand extends JavaInternalCommand
 	static String SRILM_DIR_INL = "/mnt/Projecten/transcriptorium/Tools/SRILM";
 	static String HTK_DIR_INL = "/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14";
 
-	public static String TOMCAT_PATH = "";
+	public static String EXTERNAL_TOOL_PATH = "";
+	public static String LM_SCRIPT_PATH= "/var/lib/tomcat7/webapps/LMServer/LMServerScripts/";
 	
 	public void addSRILMandHTKToPath()
 	{
@@ -31,12 +32,12 @@ public class ExternalCommand extends JavaInternalCommand
 		addToPath(SRILM_DIR_INL + "/bin");
 		addToPath(SRILM_DIR_INL + "/bin/i686-m64");
 		
-		addToPath(TOMCAT_PATH + "/SRILM/bin");
-		addToPath(TOMCAT_PATH + "/SRILM/bin/i686-m64");
+		addToPath(EXTERNAL_TOOL_PATH + "/SRILM/bin");
+		addToPath(EXTERNAL_TOOL_PATH + "/SRILM/bin/i686-m64");
 		
 		addToPath(HTK_DIR + "/bin.linux");
 		addToPath(HTK_DIR_INL);
-		addToPath(TOMCAT_PATH + "/HTK/bin.linux");
+		addToPath(EXTERNAL_TOOL_PATH + "/HTK/bin.linux");
 	}
 
 	public ExternalCommand(String commandName, Object[][] args)
@@ -102,9 +103,10 @@ public class ExternalCommand extends JavaInternalCommand
 			setClassPath(env);
 			for (Object o: config.keySet())
 			{
-				System.err.println("Add to env: "+ o + "--> " + config.get(o));
+				//System.err.println("Add to env: "+ o + "--> " + config.get(o));
 				env.put(o.toString(), config.get(o).toString());
 			}
+			env.put("LM_SCRIPT_PATH", LM_SCRIPT_PATH);
 			//env.put("PATH", programDir + "/");
 			//pb.directory(new File(programDir));
 

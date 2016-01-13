@@ -100,8 +100,7 @@ RunHBuild()
 {
   FOLDER=$1
   echo "start HBuild for directory  $1"
-  $HTK/HBuild -s '<s>' '</s>' -n $FOLDER/languageModel.lm $FOLDER/dictionary.txt $FOLDER/latticeFile.txt 2>/tmp/hbuild.log
-  cat /tmp/hbuild.log
+  HBuild -s '<s>' '</s>' -n $FOLDER/languageModel.lm $FOLDER/dictionary.txt $FOLDER/latticeFile.txt
 }
 
 

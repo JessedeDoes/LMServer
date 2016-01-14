@@ -61,7 +61,7 @@ public class Command
 	Set<String> tempFileSet  = new HashSet<String>();
 	Set<String> tempDirSet  = new HashSet<String>();
 
-	private static boolean doNotCleanup = true;
+	private static boolean doNotCleanup = false;
 	public enum type
 	{
 		SHELL,

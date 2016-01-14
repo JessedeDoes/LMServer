@@ -461,6 +461,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			p.setProperty("uploadFieldName", n);
 			p.setProperty("uploadName", mpfd.getUploadName(n));
 			int id = repository.storeFile(new FileInputStream(f), f.getCanonicalPath(), p);
+			f.delete();
 			out.println(mpfd.getUploadName(n) + ":" + id + " " + p);
 		}
 		this.getLMsFromRepository(); // you might have uploaded an LM

@@ -28,7 +28,7 @@ Recog-WGGen.sh Leiden.conf
 
 
 # Replace the WG words by the corresponding real pronunciation
-PutRealPronInWG.sh Leiden.dic WG_REC WG_REC_ED
+#PutRealPronInWG.sh Leiden.dic WG_REC WG_REC_ED
 
 # As output, at the end of the execution of "Recog-WGGen.sh", a directory
 # named REC (or WG_REC in case -w option was set) containing all corresponding 

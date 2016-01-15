@@ -22,7 +22,19 @@ public class ExternalCommand extends JavaInternalCommand
 	static String HTK_DIR_INL = "/mnt/Projecten/transcriptorium/Tools/HTK-BIN-100k/GLIBC_2.14";
 
 	public static String EXTERNAL_TOOL_PATH = "";
-	public static String LM_SCRIPT_PATH= "/var/lib/tomcat7/webapps/LMServer/LMServerScripts/";
+	
+	public static String DEFAULT_LM_SCRIPT_PATH= "/var/lib/tomcat7/webapps/LMServer/LMServerScripts/";
+	public static String LM_SCRIPT_PATH= getInitialValueForLMScriptPath();
+	
+	public static String getInitialValueForLMScriptPath()
+	{
+		String p = System.getenv("LM_SCRIPT_PATH");
+		
+		if (p!= null && p.length() > 0)
+			return p;
+		
+		else return DEFAULT_LM_SCRIPT_PATH;
+	}
 	
 	public void addSRILMandHTKToPath()
 	{

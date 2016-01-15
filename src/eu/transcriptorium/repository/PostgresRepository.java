@@ -29,11 +29,11 @@ public class PostgresRepository implements Repository
 			+ "year_from integer, year_to integer, type text references types (type), content bytea)":
 				
 		"create table FileTable (id serial primary key, filename text, type text, content bytea)";
-	static String createMetadataTable = "create table metadata (id integer, key  text, value text, constraint munq unique (id, key, value))";
+	static String createMetadataTable = "create table metadata (id integer references filetable(id) on delete cascade, key  text, value text, constraint munq unique (id, key, value))";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 
 	// uniqueness constraint does not work with NULL!
-	static String createCollectionsTable = "create table collections (collection_id integer, item_id integer, constraint unq unique(collection_id, item_id))";
+	static String createCollectionsTable = "create table collections (collection_id integer references filetable(id) on delete cascade, item_id integer references filetable(id) on delete cascade, constraint unq unique(collection_id, item_id))";
 	static String createTypesTable = "create table types (type text primary key)";
 
 	static String[] predefinedTypes = 
@@ -59,7 +59,7 @@ public class PostgresRepository implements Repository
 	{
 		try
 		{
-			database.query("drop table if exists filetable");
+			database.query("drop table if exists filetable cascade");
 			database.query("drop table if exists metadata");
 			database.query("drop table if exists tags");
 			database.query("drop table if exists collections");
@@ -78,7 +78,7 @@ public class PostgresRepository implements Repository
 
 			database.query(createFileTable);
 			database.query(createMetadataTable);
-			database.query(createTagsTable);
+			//database.query(createTagsTable);
 			database.query(createCollectionsTable);
 
 		} catch (Exception e)

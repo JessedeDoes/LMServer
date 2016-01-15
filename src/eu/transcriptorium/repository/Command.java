@@ -62,6 +62,7 @@ public class Command
 	Set<String> tempDirSet  = new HashSet<String>();
 
 	private static boolean doNotCleanup = false;
+	
 	public enum type
 	{
 		SHELL,
@@ -89,6 +90,15 @@ public class Command
 
 	type commandType;
 
+	public String toString()
+	{
+		List<String> fps = new ArrayList<String>();
+		for (FormalParameter fp: this.formalParameters)
+			fps.add(fp.asJSON());
+		return "{name:" + this.commandName + ",\n" + 
+				"parameters:" + fps + "}\n";
+	}
+	
 	static class FormalParameter
 	{
 		String name;
@@ -103,6 +113,14 @@ public class Command
 		public String toString()
 		{
 			return "name=" + name + "; class=" + className;
+		}
+		
+		public String asJSON()
+		{
+			return "{name: " + name + ",\n" 
+					+ "ioType:" + ioType + ",\n"
+					+ "referenceType:"  + referenceType + ",\n" 
+					+ "className:\"" + className + "\"}";
 		}
 
 		public FormalParameter(String name, String className)

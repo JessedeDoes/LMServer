@@ -25,7 +25,7 @@ public class PostgresRepository implements Repository
 
 	static String createFileTable =uniqueNames? "create table FileTable "
 			+ "(id serial primary key, "
-			+ "filename text UNIQUE, language text, "
+			+ "filename text not null UNIQUE, language text, "
 			+ "year_from integer, year_to integer, type text references types (type), content bytea)":
 				
 		"create table FileTable (id serial primary key, filename text, type text, content bytea)";
@@ -562,7 +562,7 @@ public class PostgresRepository implements Repository
 	{
 		// TODO Auto-generated method stub
 		List<FileInfo> V = new ArrayList<FileInfo>();
-		String q = "select id,filename,length(content) from filetable";
+		String q = "select id,filename,length(content) from filetable order by id";
 
 		try
 		{

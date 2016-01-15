@@ -95,7 +95,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		CLEAR,
 		DELETE,
 		INVOKE,
-		EXTRACT
+		EXTRACT,
+		LIST_COMMANDS
 	};
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
@@ -352,7 +353,12 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		case INVOKE:
 			invokeCommand(parameterMap, mpfd, out);
 			break;
-
+		case LIST_COMMANDS:
+			List<String> cmds = new ArrayList<String>();
+			for (Command s: this.commandMap.values())
+				cmds.add(s.toString());
+			out.println(cmds);
+			break;
 		default:
 			out.println("No valid action specified. Doing nothing!");
 		}
@@ -401,7 +407,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			// repository functions (make this a separate servlet? )
 		case LIST: case GETMETADATA: case SEARCHBYNAME: case SEARCH: 
 		case SETMETADATA: case CLEAR: case DELETE: case EXTRACT: 
-		case STORE: case INVOKE: 
+		case STORE: case INVOKE: case LIST_COMMANDS:
 			this.repositoryAction(response, parameterMap, mpfd, out, action);
 			break;
 
@@ -453,18 +459,23 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	{
 		Map <String, File> files = mpfd.getFileMap();
 
-		String metadata = parameterMap.get("metadata"); // hmpf?
-
+		String metadata = parameterMap.get("metadata"); 
+		List<Integer> ids = new ArrayList<Integer>();
 		for (String n: files.keySet())
 		{
 			File f  = files.get(n);
 			Properties p = JSON.toProperties(JSON.fromString(metadata));
 			p.setProperty("uploadFieldName", n);
 			p.setProperty("uploadName", mpfd.getUploadName(n));
-			int id = repository.storeFile(new FileInputStream(f), f.getCanonicalPath(), p);
+			String fn =  mpfd.getUploadName(n);
+			if (p.getProperty("filename") != null)
+				fn =p.getProperty("filename");
+			int id = repository.storeFile(new FileInputStream(f), fn, p);
 			f.delete();
-			out.println(mpfd.getUploadName(n) + ":" + id + " " + p);
+			//out.println(mpfd.getUploadName(n) + ":" + id + " " + p);
+			ids.add(id);
 		}
+		out.println(ids);
 		this.getLMsFromRepository(); // you might have uploaded an LM
 	}
 

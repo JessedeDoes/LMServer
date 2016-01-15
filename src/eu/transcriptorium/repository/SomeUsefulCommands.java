@@ -66,7 +66,7 @@ public class SomeUsefulCommands
 									Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};
 
-		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
+		ExternalCommand c1 = new ExternalCommand("basic_lm_building", "bash", paramsWithFile);
 
 		c1.formalParameters.get(5).baseName = "OUTPUT";
 		c1.formalParameters.get(6).baseName = "OUTPUT";
@@ -91,7 +91,7 @@ public class SomeUsefulCommands
 							Command.referenceType.PICKUP_FROM_CONFIG},
 			};
 
-		ExternalCommand c1 = new ExternalCommand("bash", paramsWithFile);
+		ExternalCommand c1 = new ExternalCommand("test", "bash", paramsWithFile);
 
 		//m.clear();
 		//m.put("f", new Integer(1));
@@ -141,7 +141,7 @@ public class SomeUsefulCommands
 									Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
 			};
 
-		ExternalCommand c1 = new ExternalCommand("/bin/bash", paramsWithFile);
+		ExternalCommand c1 = new ExternalCommand("interpolation_of_" + k, "/bin/bash", paramsWithFile);
 
 		c1.formalParameters.get(5).baseName = "MODEL_DESTINATION_DIR";
 		c1.formalParameters.get(6).baseName = "MODEL_DESTINATION_DIR";

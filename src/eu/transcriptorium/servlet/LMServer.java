@@ -350,7 +350,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 
 		case INVOKE:
-			invokeCommand(parameterMap, mpfd);
+			invokeCommand(parameterMap, mpfd, out);
 			break;
 
 		default:
@@ -411,7 +411,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	}
 
 	private void invokeCommand(Map<String, String> parameterMap,
-			MultipartFormData mpfd)
+			MultipartFormData mpfd,  java.io.PrintWriter out)
 	{
 		// TODO Auto-generated method stub
 		String commandName = parameterMap.get("command");
@@ -437,7 +437,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		{
 			try
 			{
-				c.invoke(args);
+				Map<String,Integer> createdResources = c.invoke(args);
+				out.println(JSON.intMapToJson(createdResources));
 			} catch (IOException e)
 			{
 				// TODO Auto-generated catch block

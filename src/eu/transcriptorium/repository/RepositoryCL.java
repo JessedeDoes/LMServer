@@ -130,7 +130,7 @@ public class RepositoryCL
 			Command cmd = commandMap.get(args[0]);
 			JsonObject o = JSON.fromString(args[1]);
 			Map<String, Object> p1 = JSON.toMap(o);
-			cmd.invoke(p1);
+			System.out.println(JSON.intMapToJson(cmd.invoke(p1)));
 			break;
 		}	
 		}

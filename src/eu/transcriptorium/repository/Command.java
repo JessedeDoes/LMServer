@@ -168,13 +168,16 @@ public class Command
 	}
 
 
-	public void invoke(Map<String, Object> actualParameters) throws IOException
+	public Map<String, Integer> invoke(Map<String, Object> actualParameters) throws IOException
 	{
 		Object[] args = new Object[this.formalParameters.size()];
 		configuration = new Properties();
 		File saveConfigTo = null;
 		Properties configToSave = null;
 		Properties originalConfig = null;
+		
+		Map<String, Integer> createdResources = new HashMap<String, Integer>();
+		
 		for (int i=0; i < this.formalParameters.size(); i++)
 		{
 			FormalParameter formalParameter = this.formalParameters.get(i);
@@ -369,8 +372,8 @@ public class Command
 
 							System.err.println("Storing new file with properties:"  + p);
 
-							repository.storeFile(str, p.getProperty("filename"), p);
-
+							int id= repository.storeFile(str, p.getProperty("filename"), p);
+							createdResources.put(formalParameter.name, id);
 							str.close();
 						} else
 						{
@@ -385,6 +388,7 @@ public class Command
 			e.printStackTrace();
 		}
 		this.cleanup();
+		return createdResources;
 	}
 
 

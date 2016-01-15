@@ -11,7 +11,7 @@ import eu.transcriptorium.util.StringUtils;
 public class ExternalCommand extends JavaInternalCommand 
 {
 	static boolean verbose = true;
-	String exe = null;
+	String externalCommand = null;
 
 	List<String> pathEntries = new ArrayList<String>();
 	static String PATH_SEPARATOR = ":";
@@ -40,17 +40,17 @@ public class ExternalCommand extends JavaInternalCommand
 		addToPath(EXTERNAL_TOOL_PATH + "/HTK/bin.linux");
 	}
 
-	public ExternalCommand(String commandName, Object[][] args)
+	public ExternalCommand(String commandName, String externalCommand, Object[][] args)
 	{
 		this.formalParameters = FormalParameter.makeArgumentList(args);
-		this.exe = commandName;
+		this.externalCommand = externalCommand;
 		this.commandName = commandName;
 	}
 
 	public String[] buildCommand(List<FormalParameter> formalParameters, Object[] args)
 	{
 		List<String> a = new ArrayList<String>();
-		a.add(exe);
+		a.add(externalCommand);
 
 		// sommige parameters komen niet in de command string terecht
 		// (de bestanden die je ophaalt uit een output folder)
@@ -200,7 +200,7 @@ public class ExternalCommand extends JavaInternalCommand
 					{ "f", Command.FileArgument.class.getName(), Command.ioType.IN, Command.referenceType.ID} 		
 			};
 
-		ExternalCommand c1 = new ExternalCommand("cat", paramsWithFile);
+		ExternalCommand c1 = new ExternalCommand("cat", "cat", paramsWithFile);
 		m.clear();
 		m.put("f", new Integer(1));
 

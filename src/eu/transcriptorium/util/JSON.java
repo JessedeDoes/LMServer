@@ -109,4 +109,15 @@ public class JSON
 						" }";
 		System.err.println(toMap(fromString(s)));
 	}
+
+	public static JsonObject intMapToJson(Map<String, Integer> p) 
+	{
+		JsonObject o = new JsonObject();
+		for (Object k: p.keySet())
+		{
+			String key = (String) k;
+			o.addProperty(key, p.get(key));
+		}
+		return o;
+	}
 }

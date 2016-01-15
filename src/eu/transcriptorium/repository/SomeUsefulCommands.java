@@ -104,7 +104,7 @@ public class SomeUsefulCommands
 	{
 		Object[][] args  = 
 			{
-					{"lm", FileArgument, Command.ioType.IN, Command.referenceType.ID},
+					{"lm", FileArgument, Command.ioType.IN, Command.referenceType.NAME},
 					{"pfsg", FileArgument, Command.ioType.OUT,  Command.referenceType.ID}
 			};
 		LM2PFSG x = new LM2PFSG();

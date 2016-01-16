@@ -8,9 +8,13 @@ import javax.json.stream.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.output.WriterOutputStream;
+//import org.apache.http.auth.Credentials;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
 
 import edu.berkeley.nlp.lm.NgramLanguageModel;
 import edu.berkeley.nlp.lm.collections.Counter;
@@ -31,6 +35,7 @@ import eu.transcriptorium.suggest.Suggest;
 import eu.transcriptorium.util.JSON;
 import eu.transcriptorium.util.StringUtils;
 
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +44,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.Principal;
 import java.util.*;
 
 //import json.JSONObjects;
@@ -57,8 +65,9 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private static final long serialVersionUID = 1L;
 	private String basePath="/datalokaal/Corpus/LM/";
 
-
-
+	private String  nonce = "dcd98b7102dd2f0e8b11d0f600bfb0c093";
+	private String realm = "just_a_realm";
+	private String qop = "MD5";
 	Map<String, Command> commandMap = null; 
 	// ToDo: naar configuratiebestandje
 
@@ -268,6 +277,18 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json"); // niet altijd!
 
+		//Principal p = request.getUserPrincipal();
+		//System.err.println(p.getName());
+		
+		String d = this.getDigest(request, "jesse", "dedoes", realm, nonce);
+		System.err.println("Looking for digest: " + d);
+		Credentials c = credentialsWithBasicAuthentication(request);
+		if (c == null)
+		{
+			response.setStatus(401); 
+			response.setHeader("WWW-Authenticate", "Digest realm=\"" + realm + "\", nonce=\"" + nonce + "\"" + ", qop=\"" + qop + "\"");
+			return;
+		}
 		Map<String,String> parameterMap = cloneParameterMap(request);
 
 		MultipartFormData mpfd = null;
@@ -630,7 +651,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			connectionProperties  = JSON.toProperties(JSON.fromString(connectionParams));
 			try {
 				connectionProperties.store(System.out, "Connection properties from server:" + connectionParams);
-			} catch (IOException e) {
+			} catch (IOException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -673,4 +695,123 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		System.err.println("GET REQUEST:" + request.getQueryString());
 		doPost(request,response);
 	} 
+	
+	public String H(String s)
+	{
+	
+		
+		try 
+		{
+			byte[] bytesOfMessage = s.getBytes("UTF-8");
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] thedigest = md.digest(bytesOfMessage);
+			//md.
+			StringBuffer hexString = new StringBuffer();
+			for (int i=0;i<thedigest.length;i++) 
+			{
+				hexString.append(Integer.toHexString(0xFF & thedigest[i]));
+			}
+			return hexString.toString();
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return "oompf";
+	}
+	/**
+	 * 
+	 * @param req
+	 * @return
+	 * Authorization: Digest
+           username="<username>",             -- required
+           realm="<realm>",                   -- required
+           nonce="<nonce>",                   -- required
+           uri="<requested-uri>",             -- required
+           response="<digest>",               -- required
+           message="<message-digest>",        -- OPTIONAL
+           opaque="<opaque>"                  -- required if provided by server
+
+        where <digest> := H( H(A1) + ":" + N + ":" + H(A2) )
+  and <message-digest> := H( H(A1) + ":" + N + ":" + H(<message-body>) )
+
+        where:
+
+                A1 := U + ':' + R + ':' + P
+                A2 := <Method> + ':' + <requested-uri>
+
+                with:
+                        N -- nonce value
+                        U -- username
+                        R -- realm
+                        P -- password
+                        <Method> -- from header line 0
+                        <requested-uri> -- uri sans proxy/routing
+	 */
+	private String getDigest(HttpServletRequest req, String user, String password, String realm, String nonce)
+	{
+		String A1 = user + ":" + realm + ":" + password;
+		String A2 = req.getMethod() + ':' + req.getRequestURI() + "?" + req.getQueryString(); //req.getRequestURL();
+		System.err.println("A1: " + A1 + " H(A1): " +  H(A1));
+		System.err.println("A2: " + A2 + " H(A2): " +  H(A2));
+		String digest = H(H(A1) + ":" + nonce +  ":" + H(A2));
+		return digest;
+		//String d = md.
+	}
+	
+	// Authentication header: Digest username="jesse", realm="just_a_realm", nonce="1", uri="/LMServer/LMServer?action=LIST", response="d6d5d5f85b9701ca6c8c1adcfb4e7c33"
+
+	
+	public Credentials credentialsWithBasicAuthentication(HttpServletRequest req) 
+	{
+	    String authHeader = req.getHeader("Authorization");
+	    if (authHeader != null) 
+	    {
+	    	System.err.println("Authentication header: " + authHeader);
+	        StringTokenizer st = new StringTokenizer(authHeader);
+	        if (st.hasMoreTokens()) 
+	        {
+	            String method = st.nextToken();
+
+	            if (method.equalsIgnoreCase("Basic")) 
+	            {
+	                try 
+	                {
+	                    String credentials = new String(Base64.decodeBase64(st.nextToken()), "UTF-8");
+	                    System.err.println("Credentials: " + credentials);
+	                    int p = credentials.indexOf(":");
+	                    if (p != -1) 
+	                    {
+	                        String login = credentials.substring(0, p).trim();
+	                        String password = credentials.substring(p + 1).trim();
+	                        return new UsernamePasswordCredentials(login, password);
+	                    } else 
+	                    {
+	                        // LOG.error("Invalid authentication token");
+	                    }
+	                } catch (UnsupportedEncodingException e) 
+	                {
+	                    // LOG.warn("Couldn't retrieve authentication", e);
+	                }
+	            } else if (method.equalsIgnoreCase("digest"))
+	            {
+	            	String rest = authHeader.substring(authHeader.indexOf("igest")+5);
+	            	rest = rest.trim();
+	            	String[] parts = rest.split(",\\s*");
+	            	for (String p: parts)
+	            	{
+	            		String[] nv = p.split("=");
+	            		if (nv.length == 2)
+	            		{
+	            			String n = nv[0];
+	            			String v = nv[1];
+	            			v = v.replaceAll("\"", "").trim();
+	            			
+	            		}
+	            	}
+	            }
+	        }
+	    }
+
+	    return null;
+	}
 }

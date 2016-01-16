@@ -4,12 +4,28 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
 
-    <display-name>Simple Corpus stats with BlackLab</display-name>
+    <display-name>tranScriptorium Language Resource server</display-name>
     <description>
-	Some simple counting and listing stuff
+      tranScriptorium Language Resource server
     </description>
 
- 
+<!--
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Everything</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+       <role-name>user</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-role>
+    <role-name>user</role-name>
+  </security-role>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+  </login-config>
+-->
 	<servlet>
    		<servlet-name>LMServer</servlet-name>
    		<servlet-class>eu.transcriptorium.servlet.LMServer</servlet-class>

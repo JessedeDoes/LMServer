@@ -420,7 +420,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	{
 		// TODO Auto-generated method stub
 		String commandName = parameterMap.get("command");
-		Command c = commandMap.get(commandName);
+		Command command = commandMap.get(commandName);
 		Map<String,Object> args = new HashMap<String,Object>();
 
 		String parametersJSON = parameterMap.get("params");
@@ -438,11 +438,11 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				args.put(s, parameterMap.get(s));
 		}
 
-		if (c != null)
+		if (command != null)
 		{
 			try
 			{
-				Map<String,Integer> createdResources = c.invoke(args);
+				Map<String,Integer> createdResources = command.invoke(args);
 				out.println(JSON.intMapToJson(createdResources));
 			} catch (IOException e)
 			{
@@ -450,7 +450,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				e.printStackTrace();
 			} // hm...
 		}
-		System.err.println("###finished invocation of command" + c);
+		System.err.println("###finished invocation of command" + command);
 	}
 
 	private void handleUpload(Map<String, String> parameterMap,

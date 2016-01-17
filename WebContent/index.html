@@ -51,6 +51,8 @@ var LMServerLocation = "http://" + host + ":" + port + "/LMServer/LMServer";
 var username="";
 var password="";
 
+var authenticated = false;
+
  $(function() {
 $( "#tabs" ).tabs();
 });
@@ -149,11 +151,13 @@ function reloadModelList()
       // set header
       // alert("base64: " + base64);
       xhr.setRequestHeader("Authorization", "Basic " + base64);
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
      },
-     success: function(data) 
+     success: function(data)
      {
         var s = "";
         //alert(data); 
+        lmList.innerHTML = "";
         $.each(data, function(k,e)
         {
           var opt = document.createElement('option');
@@ -171,8 +175,9 @@ function reloadModelList()
             row.appendChild(col2); 
             col1.innerHTML = k; col2.innerHTML = e;
         });
+        authenticated = true;
      },
-     error: function(xhr, statusText) { alert(statusText); },
+     error: function(xhr, statusText) { displayLogin(); },
    }); 
 } 
 
@@ -237,6 +242,12 @@ function login()
   //alert(x.style.display);
   reloadModelList();
   return false;
+}
+
+function displayLogin()
+{
+   var x = document.getElementById('login');
+   x.style.display='block';
 }
 
 </script>

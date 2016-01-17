@@ -69,7 +69,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private String realm = "lr_server_all_realm";
 	private boolean useDigest = false;
 	String nonceCount="00000001";
-    //String cnonce="0a4f113b";
+	//String cnonce="0a4f113b";
 	private String qop = "auth";
 	Map<String, Command> commandMap = null; 
 	// ToDo: naar configuratiebestandje
@@ -115,7 +115,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	static Properties lmProps = JSON.toProperties(JSON.fromString(lmType));
 
 
-	
+
 
 	protected File createTempFile() throws IOException 
 	{
@@ -216,7 +216,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				}
 			}
 		}
-		*/
+		 */
 		return null;
 	}
 
@@ -247,22 +247,29 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			roles =repository.getRolesForUser(c);
 			System.err.println("Roles for " + c +  " : " + roles);
 			if (roles.contains("user") || roles.contains("owner"))
-					authorized = true;
+				authorized = true;
 		}
+
+
 		if (!authorized)
 		{
-			response.setStatus(401); 
-			if (useDigest)
-				response.setHeader("WWW-Authenticate", "Digest realm=\"" + realm + "\", nonce=\"" + nonce + "\"" + ", qop=\"" + qop + "\"");
-			else
-				response.setHeader("WWW-Authenticate", "Basic realm=\"" + realm);
+			response.setStatus(401);
+			String xRequestedWith = request.getHeader("X-Requested-With");
+			boolean isAjaxRequest = "XMLHttpRequest".equalsIgnoreCase(xRequestedWith);
+			if (!isAjaxRequest)
+			{
+				if (useDigest)
+					response.setHeader("WWW-Authenticate", "Digest realm=\"" + realm + "\", nonce=\"" + nonce + "\"" + ", qop=\"" + qop + "\"");
+				else
+					response.setHeader("WWW-Authenticate", "Basic realm=\"" + realm);
+			}
 			return;
 		}
-		
+
 		UserInfo ui = new UserInfo();
 		ui.credentials = c;
 		ui.roles = roles;
-		
+
 		Map<String,String> parameterMap = cloneParameterMap(request);
 
 		MultipartFormData mpfd = null;
@@ -328,11 +335,11 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 		case CLEAR:
 			if (roles.contains("owner"))
-			repository.clear();
+				repository.clear();
 			break;
 		case DELETE:
 			if (roles.contains("owner"))
-			repository.delete(Integer.parseInt(parameterMap.get("id")));
+				repository.delete(Integer.parseInt(parameterMap.get("id")));
 			break;
 		case EXTRACT:
 			response.setContentType("application/octet-stream");
@@ -395,7 +402,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			out.println("No valid action specified. Doing nothing!");
 		}
 	}
-	
+
 	private void performAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
 			java.io.PrintWriter out, Action action, UserInfo ui) throws FileNotFoundException, IOException {
 		switch(action)
@@ -582,7 +589,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		p.setProperty("type", "lm");
 		p.setProperty("owner", ui.credentials.get("username"));
 		p.setProperty("createdAt", new Date(System.currentTimeMillis()).toString());
-		
+
 		try
 		{
 			repository.storeFile(new FileInputStream(newLMFileName), newLMFileName.getCanonicalPath(), p);
@@ -590,7 +597,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		{
 			e.printStackTrace();
 		}
-		
+
 		newLMFileName.delete();
 		this.getLMsFromRepository();
 	}
@@ -619,10 +626,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 	public void init() // hierin moet je dus al de database uitlezen
 	{
-	
+
 		String toolPath = this.getServletContext().getRealPath("/Tools");
 		String scriptPath = this.getServletContext().getRealPath("/LMServerScripts");
-		
+
 		String connectionParams = getInitParameter("repositoryConnection");
 		Properties connectionProperties;
 		if (connectionParams != null)
@@ -641,7 +648,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		System.err.println("Tomcat tool path:" + toolPath);
 		ExternalCommand.EXTERNAL_TOOL_PATH = toolPath;
 		ExternalCommand.LM_SCRIPT_PATH = scriptPath;
-		
+
 		repository = new PostgresRepository(connectionProperties);
 
 		commandMap = SomeUsefulCommands.getBasicCommands(repository);
@@ -674,7 +681,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		System.err.println("GET REQUEST:" + request.getQueryString());
 		doPost(request,response);
 	} 
-	
+
 	public static String H(String s)
 	{
 		try 
@@ -742,7 +749,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		//String uri = "/dir/index.html";
 		//cnonce = cnonce.replaceAll("=", "");
 		String uri = req.getRequestURI() + "?" + req.getQueryString();
-		
+
 		System.err.println("user=" + user);
 		System.err.println("password=" + password);
 		System.err.println("realm=" + realm);
@@ -765,63 +772,63 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	{
 		return "dedoes";
 	}
-	
+
 	public Map<String,String> getCredentials(HttpServletRequest req) 
 	{
-	    String authHeader = req.getHeader("Authorization");
-	    if (authHeader != null) 
-	    {
-	    	System.err.println("Authentication header: " + authHeader);
-	        StringTokenizer st = new StringTokenizer(authHeader);
-	        if (st.hasMoreTokens()) 
-	        {
-	            String method = st.nextToken();
+		String authHeader = req.getHeader("Authorization");
+		if (authHeader != null) 
+		{
+			System.err.println("Authentication header: " + authHeader);
+			StringTokenizer st = new StringTokenizer(authHeader);
+			if (st.hasMoreTokens()) 
+			{
+				String method = st.nextToken();
 
-	            if (method.equalsIgnoreCase("Basic")) 
-	            {
-	                try 
-	                {
-	                    String credentials = new String(Base64.decodeBase64(st.nextToken()), "UTF-8");
-	                    System.err.println("Credentials: " + credentials);
-	                    int p = credentials.indexOf(":");
-	                    if (p != -1) 
-	                    {
-	                        String login = credentials.substring(0, p).trim();
-	                        String password = credentials.substring(p + 1).trim();
-	                        Map<String,String> m = new HashMap<String,String>();
-	                        m.put("method", "basic");
-	                        m.put("username", login);
-	                        m.put("password", password);
-	                        return m;
-	                    } else 
-	                    {
-	                        // LOG.error("Invalid authentication token");
-	                    }
-	                } catch (UnsupportedEncodingException e) 
-	                {
-	                    // LOG.warn("Couldn't retrieve authentication", e);
-	                }
-	            } else if (method.equalsIgnoreCase("digest"))
-	            {
-	            	String rest = authHeader.substring(authHeader.indexOf("igest")+5);
-	            	rest = rest.trim();
-	            	
-	            	Map<String,String> digestProperties = new HashMap<String,String>();
-	            	String[] parts = rest.split(",\\s*");
-	            	for (String p: parts)
-	            	{
-	            		int pos =p.indexOf("=");
-	            		if (pos > 0)
-	            		{
-	            			String n = p.substring(0, pos);
-	            			String v = p.substring(pos+1);
-	            			v = v.replaceAll("\"", "").trim();
-	            			digestProperties.put(n, v);
-	            		}
-	            	}
-	            	System.err.println(digestProperties);
-	            	return(digestProperties);
-	            	/*
+				if (method.equalsIgnoreCase("Basic")) 
+				{
+					try 
+					{
+						String credentials = new String(Base64.decodeBase64(st.nextToken()), "UTF-8");
+						System.err.println("Credentials: " + credentials);
+						int p = credentials.indexOf(":");
+						if (p != -1) 
+						{
+							String login = credentials.substring(0, p).trim();
+							String password = credentials.substring(p + 1).trim();
+							Map<String,String> m = new HashMap<String,String>();
+							m.put("method", "basic");
+							m.put("username", login);
+							m.put("password", password);
+							return m;
+						} else 
+						{
+							// LOG.error("Invalid authentication token");
+						}
+					} catch (UnsupportedEncodingException e) 
+					{
+						// LOG.warn("Couldn't retrieve authentication", e);
+					}
+				} else if (method.equalsIgnoreCase("digest"))
+				{
+					String rest = authHeader.substring(authHeader.indexOf("igest")+5);
+					rest = rest.trim();
+
+					Map<String,String> digestProperties = new HashMap<String,String>();
+					String[] parts = rest.split(",\\s*");
+					for (String p: parts)
+					{
+						int pos =p.indexOf("=");
+						if (pos > 0)
+						{
+							String n = p.substring(0, pos);
+							String v = p.substring(pos+1);
+							v = v.replaceAll("\"", "").trim();
+							digestProperties.put(n, v);
+						}
+					}
+					System.err.println(digestProperties);
+					return(digestProperties);
+					/*
 	            	String user  = digestProperties.get("username");
 	            	String expectedResponse = getExpectedDigestResponceWithAuthQOP(req, user, getPasswordForUser(user), 
 	            			digestProperties.get("realm"), digestProperties.get("nonce"), digestProperties.get("cnonce"), digestProperties.get("nc"));
@@ -831,11 +838,11 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	            	{
 	            		return digestProperties;
 	            	}
-	            	*/
-	            }
-	        }
-	    }
+					 */
+				}
+			}
+		}
 
-	    return null;
+		return null;
 	}
 }

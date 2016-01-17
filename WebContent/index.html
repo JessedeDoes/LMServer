@@ -24,16 +24,16 @@ https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?c
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-#login
+.login
 {
   position:absolute;
-  top:50%;
-  left:50%;
-  margin-top:-50px;  
-  margin-left:-100px; 
+  top:10%;
+  left:30%;
   background-color: lightblue;
+  display: block;
 }
 
+#loginForm { margin: 3cm; padding: 2cm }
 #header { background-image: url(img/background.png) }
 </style>
 
@@ -48,8 +48,8 @@ var host = location.hostname;
 var port = location.port;
 var LMServerLocation = "http://" + host + ":" + port + "/LMServer/LMServer";
 
-var username="jesse";
-var password="dedoes";
+var username="";
+var password="";
 
  $(function() {
 $( "#tabs" ).tabs();
@@ -147,7 +147,7 @@ function reloadModelList()
       var bytes = Crypto.charenc.Binary.stringToBytes(username + ":" + password);
       var base64 = Crypto.util.bytesToBase64(bytes);
       // set header
-      alert("base64" + base64);
+      // alert("base64: " + base64);
       xhr.setRequestHeader("Authorization", "Basic " + base64);
      },
      success: function(data) 
@@ -228,10 +228,15 @@ function suggest()
 
 function login()
 {
-  username = document.forms["loginForm"].username;
-  password = document.forms["loginForm"].password;
-  alert("Be happy, " + username + "!";
-  document.getElementById('login').style.display='none';
+  username = document.forms["loginForm"].elements["username"].value;
+  password = document.forms["loginForm"].elements["password"].value;
+  //alert("Be happy, " + username + "!");
+  var x = document.getElementById('login');
+  //alert(x);
+  x.style.display='none';
+  //alert(x.style.display);
+  reloadModelList();
+  return false;
 }
 
 </script>
@@ -239,7 +244,7 @@ function login()
 
 
 
-<body onload="reloadModelList()">
+<body>
 <div id="header">
         <div class="logo">
             <a href="http://transcriptorium.eu"><img src="img/Brand_tranScriptorium-622.png" alt="tranScriptorium" title="tranScriptorium"></a>
@@ -247,8 +252,8 @@ function login()
 	<span style="text-align: right">Language resource server prototype</span>
 </div>
 
-<div id="login">
-<form id="loginForm" name="loginForm" onsubmit="login()">
+<div class='x_login' id="login" style="position:absolute; top:10%; left:30%; background-color: lightblue; display: block; z-index:100">
+<form id="loginForm" name="loginForm" onsubmit="return login()">
 <table>
 <tr valign="top">
   <td>
@@ -261,7 +266,7 @@ function login()
   <td>
      <input name="password" type="password">
 </table>
-<input type="submit">
+<button onclick="login()">Submit</button>
 </form>
 </div>
 

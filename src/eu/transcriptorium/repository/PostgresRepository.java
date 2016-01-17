@@ -32,6 +32,11 @@ public class PostgresRepository implements Repository
 	static String createMetadataTable = "create table metadata (id integer references filetable(id) on delete cascade, key  text, value text, constraint munq unique (id, key, value))";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 
+	 static String createUsers="CREATE TABLE users (username         VARCHAR(15) NOT NULL PRIMARY KEY, password         CHAR(32) NOT NULL);";
+	 static String createRoles = "CREATE TABLE user_roles (username         VARCHAR(15) NOT NULL, role             VARCHAR(15) NOT NULL, "
+	 		+ "PRIMARY KEY    (username, role), "
+			 +  " FOREIGN KEY (username) REFERENCES users(username));";
+
 	// uniqueness constraint does not work with NULL!
 	static String createCollectionsTable = "create table collections (collection_id integer references filetable(id) on delete cascade, item_id integer references filetable(id) on delete cascade, constraint unq unique(collection_id, item_id))";
 	static String createTypesTable = "create table types (type text primary key)";
@@ -64,7 +69,10 @@ public class PostgresRepository implements Repository
 			database.query("drop table if exists tags");
 			database.query("drop table if exists collections");
 			database.query("drop table if exists types");
-
+			
+			// do not drop users....
+			//database.query("drop table if exists users");
+			//database.query("drop table if exists user_roles");
 			database.query(createTypesTable);
 			String q = "insert into types (type) VALUES (?)";
 			String qm="";
@@ -80,7 +88,9 @@ public class PostgresRepository implements Repository
 			database.query(createMetadataTable);
 			//database.query(createTagsTable);
 			database.query(createCollectionsTable);
-
+			database.query(createUsers);
+			database.query(createRoles);
+			//database.query("insert into users (name,password) VALUES()";
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -741,5 +751,30 @@ public class PostgresRepository implements Repository
 		}
 	}
 
+	@Override
+	public Set<String> getRolesForUser(Map<String, String> userCredentials) 
+	{
+		// TODO Auto-generated method stub
+		String q = " select role from users,user_roles where users.username=user_roles.username and users.username=? and users.password=? ";
+		Set<String> roles = new HashSet<String>();
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q);
+			stmt.setString(1, userCredentials.get("username"));
+			stmt.setString(2, userCredentials.get("password"));
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) 
+			{
+				String r = rs.getString(1); //  new String(rs.getBytes(1), "UTF-8");
+				roles.add(r);
+			}
+			return roles;
+		} catch (Exception e)
+		{
+			return roles;
+		}
+	}
 	
 }

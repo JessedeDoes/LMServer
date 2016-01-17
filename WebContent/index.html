@@ -29,8 +29,18 @@ https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?c
 
 <script src="JS/jquery.min.js"></script>
 <script src="JS/jquery-ui.js"></script>
+<script type="text/javascript" src="http://crypto-js.googlecode.com/svn/tags/2.5.4/build/crypto/crypto-min.js"></script>
 
 <script type="text/JavaScript">
+
+var protocol = location.protocol;
+var host = location.hostname;
+var port = location.port;
+var LMServerLocation = "http://" + host + ":" + port + "/LMServer/LMServer";
+
+var username="jesse";
+var password="dedoes";
+
  $(function() {
 $( "#tabs" ).tabs();
 });
@@ -69,7 +79,7 @@ function getData()
     type:"GET",
     dataType: "text",
     contentType: "text/plain",
-    url: "http://svprre02:8080/LMServer/LMServer?"  + queryString, 
+    url: LMServerLocation + "?"  + queryString, 
     success: function(data) { handleResponse(data); },
     error: function(xhr, statusText) { alert(statusText); },
   });
@@ -103,7 +113,7 @@ function buildAndListModels()
     type:"POST",
     dataType: "json",
     contentType: "application/json",
-    url: "http://svprre02:8080/LMServer/LMServer?"  + queryString, 
+    url: LMServerLocation + "?"  + queryString, 
     success: function(data) { reloadModelList(); },
     error: function(xhr, statusText) { alert(statusText); },
   });
@@ -111,19 +121,25 @@ function buildAndListModels()
 
 function reloadModelList()
 {
-
-   var lmList = document.getElementById("lm");
+   var lmList = document.getElementById("lmOptionList");
    var modelTable = document.getElementById("modelTable");
    lmList.innerHTML = "";
    modelTable.innerHTML="";
-   var jsonURL = "http://svprre02:8080/LMServer/LMServer?action=LIST_LMS";
+   var jsonURL = LMServerLocation + "?action=LIST_LMS";
    $.ajax(
    {
      type:"GET",
      dataType: "json",
      contentType: "application/json",
      url: jsonURL,
-
+     beforeSend : function(xhr) {
+      // generate base 64 string from username + password
+      var bytes = Crypto.charenc.Binary.stringToBytes(username + ":" + password);
+      var base64 = Crypto.util.bytesToBase64(bytes);
+      // set header
+      alert("base64" + base64);
+      xhr.setRequestHeader("Authorization", "Basic " + base64);
+     },
      success: function(data) 
      {
         var s = "";
@@ -140,7 +156,7 @@ function reloadModelList()
             var col2 = document.createElement('td');
             col1.setAttribute('class','modelTable') ;
             col2.setAttribute('class','modelTable'); 
-            modelTable.appendChild(row);
+            //modelTable.appendChild(row); // uncomment to reactivate model list
             row.appendChild(col1); 
             row.appendChild(col2); 
             col1.innerHTML = k; col2.innerHTML = e;
@@ -152,15 +168,21 @@ function reloadModelList()
 
 function getSuggestions(left, pattern)
 {
-   var lm = document.getElementById("lm").value;
-   var jsonURL = "http://svprre02:8080/LMServer/LMServer?action=SUGGESTION&lm=" + lm + "&left="  + left + "&pattern=" + pattern + ".*";
+   var lm = document.getElementById("lmOptionList").value;
+   var jsonURL = LMServerLocation + "?action=SUGGESTION&lm=" + lm + "&left="  + left + "&pattern=" + pattern + ".*";
    $.ajax(
    {
      type:"GET",
      dataType: "json",
      contentType: "application/json",
      url: jsonURL,
-
+     beforeSend : function(xhr) {
+      // generate base 64 string from username + password
+      var bytes = Crypto.charenc.Binary.stringToBytes(username + ":" + password);
+      var base64 = Crypto.util.bytesToBase64(bytes);
+      // set header
+      xhr.setRequestHeader("Authorization", "Basic " + base64);
+    },
      success: function(data) 
      {
         var s = "";
@@ -198,7 +220,7 @@ function suggest()
 
 
 
-
+<body onload="reloadModelList()">
 <div id="header">
         <div class="logo">
             <a href="http://transcriptorium.eu"><img src="img/Brand_tranScriptorium-622.png" alt="tranScriptorium" title="tranScriptorium"></a>
@@ -210,7 +232,9 @@ function suggest()
 <div id="tabs">
 <ul>
   <li><a href="#tabs-1">Build model</a>
+<!--
   <li><a href="#tabs-2">Decode word graph</a>
+-->
   <li><a href="#tabs-3">Try out model</a>
 </ul>
 
@@ -225,14 +249,10 @@ function suggest()
 <table id='modelTable'>
 </table>
 </div>
+<!--
 <div id="tabs-2">
 <form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
 LM: <select id="lm2" name="lm">
-<option value="Bentham">Bentham with ECCO out-of-domain data</option>
-<option value="Reichsgericht">Reichsgericht (including OCR of book)</option>
-<option value="Plantas">Plantas weakly interpolated with Gutenberg Spanish</option>
-<option value="SpanishGutenberg">Gutenberg Spanish books</option>
-<option value="MNL">General (literary) Middle Dutch Corpus</option>
 </select><br>
 <input type='hidden' name='action' value='DECODE_WG'><br>
 <input type='file' name='lattice' multiple='multiple'><br>
@@ -240,15 +260,11 @@ Show word graphs: <input type='checkbox' name='showWG'><br>
 <input type="submit" value="Decode">
 </form>
 </div>
+-->
 
 <div id="tabs-3">
 <form id='theform' accept-charset="UTF-8" method="POST" target="_blank" action="http://svprre02:8080/LMServer/LMServer">
-LM: <select id="lm" name="lm">
-<option value="Bentham">Bentham with ECCO out-of-domain data</option>
-<option value="Reichsgericht">Reichsgericht (including OCR of book)</option>
-<option value="Plantas">Plantas weakly interpolated with Gutenberg Spanish</option>
-<option value="SpanishGutenberg">Gutenberg Spanish books</option>
-<option value="MNL">General (literary) Middle Dutch Corpus</option>
+LM: <select id="lmOptionList" name="lmOptionList">
 </select>
 <!--
 <span onclick="reloadModelList()">Refresh Model List</span>

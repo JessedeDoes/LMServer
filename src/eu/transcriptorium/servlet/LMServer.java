@@ -66,20 +66,19 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private String basePath="/datalokaal/Corpus/LM/";
 
 	private String  nonce = "dcd98b7102dd2f0e8b11d0f600bfb0c093";
-	private String realm = "just_a_realm";
-	private String qop = "MD5";
+	private String realm = "lr_server_all_realm";
+	private boolean useDigest = false;
+	String nonceCount="00000001";
+    //String cnonce="0a4f113b";
+	private String qop = "auth";
 	Map<String, Command> commandMap = null; 
 	// ToDo: naar configuratiebestandje
 
-	private String[][] lmLocations = 
-		{
-				// {"Sonar",  basePath + "Sonar.lm.gz"},
-				{"MNL",  basePath + "cdrom_mnl.lm", "Middelnederlands"},
-				{"Bentham", basePath + "trigramModel.lm.bin", "Bentham with ECCO"},
-				{"Reichsgericht",  basePath + "ReichsGericht.lm", "Reichsgericht"},
-				{"Plantas",  basePath + "PlantasGutenberg.lm", "Plantas with Gutenberg Spanish"},
-				{"SpanishGutenberg", basePath + "SpanishGutenberg.lm.gz", "Spanish Gutenberg"}
-		};
+	static class UserInfo
+	{
+		Map<String, String> credentials;
+		Set<String> roles;
+	}
 
 	enum Action 
 	{
@@ -116,47 +115,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	static Properties lmProps = JSON.toProperties(JSON.fromString(lmType));
 
 
-	private NgramLanguageModel getModel(String name)
-	{
-		NgramLanguageModel lm = null;
-		System.err.println("requesting model for " + name);
-		if ((lm = modelMap.get(name)) != null)
-		{
-			System.err.println("lm already loaded for " + name + ":" + lm);
-			return lm;
-		}
-		
-		String languageModel = null;
-		
-		for (int i=0; i < lmLocations.length; i++)
-		{
-			if (lmLocations[i][0].equalsIgnoreCase(name))
-			{
-				languageModel = lmLocations[i][1];
-			}
-		}
-		
-		if (languageModel != null)
-		{
-			System.err.println("attempt to read model from " + languageModel);
-			try
-			{
-				if (!languageModel.endsWith(".bin"))
-					lm = LmReaders.readArrayEncodedLmFromArpa(languageModel,false);
-				else
-					lm = LmReaders.readLmBinary(languageModel);
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-			System.err.println("finished reading LM");
-			modelMap.put(name,lm);
-		} else
-		{
-			System.err.println("no model found for: " + name);
-		}
-		return lm;
-	}
+	
 
 	protected File createTempFile() throws IOException 
 	{
@@ -239,6 +198,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		{
 			return s;
 		}
+		/*
 		for (int i=0; i < lmLocations.length; i++)
 		{
 			if (lmLocations[i][0].equalsIgnoreCase(name))
@@ -256,6 +216,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 				}
 			}
 		}
+		*/
 		return null;
 	}
 
@@ -277,18 +238,31 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json"); // niet altijd!
 
-		//Principal p = request.getUserPrincipal();
-		//System.err.println(p.getName());
-		
-		String d = this.getDigest(request, "jesse", "dedoes", realm, nonce);
-		System.err.println("Looking for digest: " + d);
-		Credentials c = credentialsWithBasicAuthentication(request);
-		if (c == null)
+
+		Map<String,String> c = getCredentials(request);
+		Set<String> roles = null;
+		boolean authorized = false;
+		if (c != null)
+		{
+			roles =repository.getRolesForUser(c);
+			System.err.println("Roles for " + c +  " : " + roles);
+			if (roles.contains("user") || roles.contains("owner"))
+					authorized = true;
+		}
+		if (!authorized)
 		{
 			response.setStatus(401); 
-			response.setHeader("WWW-Authenticate", "Digest realm=\"" + realm + "\", nonce=\"" + nonce + "\"" + ", qop=\"" + qop + "\"");
+			if (useDigest)
+				response.setHeader("WWW-Authenticate", "Digest realm=\"" + realm + "\", nonce=\"" + nonce + "\"" + ", qop=\"" + qop + "\"");
+			else
+				response.setHeader("WWW-Authenticate", "Basic realm=\"" + realm);
 			return;
 		}
+		
+		UserInfo ui = new UserInfo();
+		ui.credentials = c;
+		ui.roles = roles;
+		
 		Map<String,String> parameterMap = cloneParameterMap(request);
 
 		MultipartFormData mpfd = null;
@@ -310,12 +284,13 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			e.printStackTrace();
 		}
 
-		performAction(response, parameterMap, mpfd, out, action);
+		performAction(response, parameterMap, mpfd, out, action, ui);
 	}
 
 	private void repositoryAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
-			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException
+			java.io.PrintWriter out, Action action, UserInfo ui) throws FileNotFoundException, IOException
 	{
+		Set<String> roles = ui.roles;
 		switch(action)
 		{
 
@@ -352,9 +327,11 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			repository.setMetadata(id, p1);
 			break;
 		case CLEAR:
+			if (roles.contains("owner"))
 			repository.clear();
 			break;
 		case DELETE:
+			if (roles.contains("owner"))
 			repository.delete(Integer.parseInt(parameterMap.get("id")));
 			break;
 		case EXTRACT:
@@ -386,7 +363,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	}
 
 	private void demoAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
-			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException {
+			java.io.PrintWriter out, Action action, UserInfo ui) throws FileNotFoundException, IOException {
 		switch(action)
 		{
 		case LIST_LMS:
@@ -400,7 +377,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 
 		case BUILD_LM:
-			buildLM(mpfd);
+			buildLM(mpfd,ui);
 			break;
 
 		case DECODE_WG:
@@ -418,18 +395,19 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			out.println("No valid action specified. Doing nothing!");
 		}
 	}
+	
 	private void performAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
-			java.io.PrintWriter out, Action action) throws FileNotFoundException, IOException {
+			java.io.PrintWriter out, Action action, UserInfo ui) throws FileNotFoundException, IOException {
 		switch(action)
 		{
 		case LIST_LMS: case SUGGESTION: case BUILD_LM: case DECODE_WG: case SUBSTITUTION:
-			this.demoAction(response, parameterMap, mpfd, out, action);
+			this.demoAction(response, parameterMap, mpfd, out, action, ui);
 			break;
 			// repository functions (make this a separate servlet? )
 		case LIST: case GETMETADATA: case SEARCHBYNAME: case SEARCH: 
 		case SETMETADATA: case CLEAR: case DELETE: case EXTRACT: 
 		case STORE: case INVOKE: case LIST_COMMANDS:
-			this.repositoryAction(response, parameterMap, mpfd, out, action);
+			this.repositoryAction(response, parameterMap, mpfd, out, action, ui);
 			break;
 
 		default:
@@ -559,7 +537,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		boolean showWordGraphs  = false; 
 		String swg = parameterMap.get("showWG");
 		if (swg != null) showWordGraphs = swg.matches("yes|true|checked|on");
-		NgramLanguageModel lm = this.getModel(lmName);
+		NgramLanguageModel lm = this.getModelFromRepository(lmName);
 		LatticeDecoder decoder = new LatticeDecoder();
 		decoder.setLanguageModel(lm);
 		out.println("<html><head><style type='text/css'>.zoom { font-size: 14pt} \n svg {width: 100%; border-style: solid; border-width: 1px; border-color: pink} \n g { background-color: pink }  </style>" + 
@@ -589,27 +567,32 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		}
 	}
 
-	private void buildLM(MultipartFormData mpfd)
+	private void buildLM(MultipartFormData mpfd, UserInfo ui)
 	{
 		String name = mpfd.getFields().get("name");
 		System.err.println("Building model named "+ name);
 		String description = mpfd.getFields().get("description");
 		if (description == null)
 		{
-			description = " undocumented ";
+			description = " Undocumented, created in web interface by " + ui.credentials.get("username");
 		}
-		String newLMFileName = new LMBuilder().buildLM(3, mpfd.getNamesOfUploadedfiles());
-		if (newLMFileName != null)
+		File newLMFileName = new LMBuilder().buildLM(3, mpfd.getNamesOfUploadedfiles());
+		Properties p = new Properties();
+		p.setProperty("description", description);
+		p.setProperty("type", "lm");
+		p.setProperty("owner", ui.credentials.get("username"));
+		p.setProperty("createdAt", new Date(System.currentTimeMillis()).toString());
+		
+		try
 		{
-			NgramLanguageModel lm = null;
-			if (!newLMFileName.endsWith(".bin"))
-				lm = LmReaders.readArrayEncodedLmFromArpa(newLMFileName,false);
-			else
-				lm = LmReaders.readLmBinary(newLMFileName);
-			System.err.println("finished reading LM");
-			modelMap.put(name,lm);
-			this.modelDescriptionMap.put(name, description);
+			repository.storeFile(new FileInputStream(newLMFileName), newLMFileName.getCanonicalPath(), p);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
+		
+		newLMFileName.delete();
+		this.getLMsFromRepository();
 	}
 
 	private Suggest getSuggester(String lmName)
@@ -623,7 +606,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			return s;
 		}
 
-		NgramLanguageModel lm = this.getModel(lmName);
+		NgramLanguageModel lm = this.getModelFromRepository(lmName);
 
 		if (lm != null)
 		{
@@ -636,11 +619,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 	public void init() // hierin moet je dus al de database uitlezen
 	{
-		for (String [] x: this.lmLocations)
-		{
-			this.modelDescriptionMap.put(x[0], x[2]);
-		}
-
+	
 		String toolPath = this.getServletContext().getRealPath("/Tools");
 		String scriptPath = this.getServletContext().getRealPath("/LMServerScripts");
 		
@@ -696,10 +675,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		doPost(request,response);
 	} 
 	
-	public String H(String s)
+	public static String H(String s)
 	{
-	
-		
 		try 
 		{
 			byte[] bytesOfMessage = s.getBytes("UTF-8");
@@ -747,21 +724,49 @@ public class LMServer extends  javax.servlet.http.HttpServlet
                         <Method> -- from header line 0
                         <requested-uri> -- uri sans proxy/routing
 	 */
-	private String getDigest(HttpServletRequest req, String user, String password, String realm, String nonce)
+	private static String getDigest(HttpServletRequest req, String user, String password, String realm, String nonce)
 	{
+		String uri = "/dir/index.html";
+		// String uri = req.getRequestURI() + "?" + req.getQueryString()
 		String A1 = user + ":" + realm + ":" + password;
-		String A2 = req.getMethod() + ':' + req.getRequestURI() + "?" + req.getQueryString(); //req.getRequestURL();
+		String A2 = req.getMethod() + ':' + uri; //req.getRequestURL();
 		System.err.println("A1: " + A1 + " H(A1): " +  H(A1));
 		System.err.println("A2: " + A2 + " H(A2): " +  H(A2));
 		String digest = H(H(A1) + ":" + nonce +  ":" + H(A2));
 		return digest;
 		//String d = md.
 	}
-	
+	// response=MD5(HA1:nonce:nonceCount:clientNonce:qop:HA2)
+	private static String getExpectedDigestResponceWithAuthQOP(HttpServletRequest req, String user, String password, String realm, String nonce, String cnonce, String nonceCount)
+	{
+		//String uri = "/dir/index.html";
+		//cnonce = cnonce.replaceAll("=", "");
+		String uri = req.getRequestURI() + "?" + req.getQueryString();
+		
+		System.err.println("user=" + user);
+		System.err.println("password=" + password);
+		System.err.println("realm=" + realm);
+		System.err.println("nonce=" + nonce);
+		System.err.println("cnonce=" + cnonce);
+		System.err.println("nonceCount=" + nonceCount);
+		String A1 = user + ":" + realm + ":" + password;
+		String A2 = req.getMethod() + ':' + uri; //req.getRequestURL();
+		System.err.println("A1: " + A1 + " H(A1): " +  H(A1));
+		System.err.println("A2: " + A2 + " H(A2): " +  H(A2));
+		String z = H(A1) + ":" + nonce +  ":" + nonceCount + ":" + cnonce + ":auth:" + H(A2);
+		System.err.println("z=" + z);
+		String digest = H(z);
+		return digest;
+		//String d = md.
+	}
 	// Authentication header: Digest username="jesse", realm="just_a_realm", nonce="1", uri="/LMServer/LMServer?action=LIST", response="d6d5d5f85b9701ca6c8c1adcfb4e7c33"
 
+	public String getPasswordForUser(String user)
+	{
+		return "dedoes";
+	}
 	
-	public Credentials credentialsWithBasicAuthentication(HttpServletRequest req) 
+	public Map<String,String> getCredentials(HttpServletRequest req) 
 	{
 	    String authHeader = req.getHeader("Authorization");
 	    if (authHeader != null) 
@@ -783,7 +788,11 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	                    {
 	                        String login = credentials.substring(0, p).trim();
 	                        String password = credentials.substring(p + 1).trim();
-	                        return new UsernamePasswordCredentials(login, password);
+	                        Map<String,String> m = new HashMap<String,String>();
+	                        m.put("method", "basic");
+	                        m.put("username", login);
+	                        m.put("password", password);
+	                        return m;
 	                    } else 
 	                    {
 	                        // LOG.error("Invalid authentication token");
@@ -796,18 +805,33 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	            {
 	            	String rest = authHeader.substring(authHeader.indexOf("igest")+5);
 	            	rest = rest.trim();
+	            	
+	            	Map<String,String> digestProperties = new HashMap<String,String>();
 	            	String[] parts = rest.split(",\\s*");
 	            	for (String p: parts)
 	            	{
-	            		String[] nv = p.split("=");
-	            		if (nv.length == 2)
+	            		int pos =p.indexOf("=");
+	            		if (pos > 0)
 	            		{
-	            			String n = nv[0];
-	            			String v = nv[1];
+	            			String n = p.substring(0, pos);
+	            			String v = p.substring(pos+1);
 	            			v = v.replaceAll("\"", "").trim();
-	            			
+	            			digestProperties.put(n, v);
 	            		}
 	            	}
+	            	System.err.println(digestProperties);
+	            	return(digestProperties);
+	            	/*
+	            	String user  = digestProperties.get("username");
+	            	String expectedResponse = getExpectedDigestResponceWithAuthQOP(req, user, getPasswordForUser(user), 
+	            			digestProperties.get("realm"), digestProperties.get("nonce"), digestProperties.get("cnonce"), digestProperties.get("nc"));
+	            	String response = digestProperties.get("response");
+	            	System.err.println("expected response: " + expectedResponse +  " received: " + response);
+	            	if (expectedResponse.equals(response))
+	            	{
+	            		return digestProperties;
+	            	}
+	            	*/
 	            }
 	        }
 	    }

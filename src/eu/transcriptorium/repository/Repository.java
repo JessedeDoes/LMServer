@@ -103,4 +103,6 @@ public interface Repository
 	void setMetadata(int id, Properties p);
 	void setMetadataProperty(int id, String key, String value);
 	String getName(int id);
+	
+	Set<String> getRolesForUser(Map<String,String> userCredentials);
 }

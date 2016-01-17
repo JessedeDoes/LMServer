@@ -12,15 +12,15 @@ import edu.berkeley.nlp.lm.util.Logger;
 
 public class LMBuilder 
 {
-	public String destinationFolder = "/datalokaal/Corpus/LM/build";
-	public String buildLM(int lmOrder, List<String> inputFiles)
+	//public String destinationFolder = "/datalokaal/Corpus/LM/build";
+	public File buildLM(int lmOrder, List<String> inputFiles)
 	{
-		String outputFile = null;
+		File outputFile = null;
 		try
 		{
-			outputFile = File.createTempFile("lmx", "lm", new File(destinationFolder)).getCanonicalPath();
+			outputFile = File.createTempFile("lmx", ".lm");
 		
-			buildLM(lmOrder, inputFiles, outputFile);
+			buildLM(lmOrder, inputFiles, outputFile.getCanonicalPath());
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -28,7 +28,8 @@ public class LMBuilder
 		return outputFile;
 	}
 
-	private void buildLM(int lmOrder, List<String> inputFiles, String outputFile) {
+	private void buildLM(int lmOrder, List<String> inputFiles, String outputFile) 
+	{
 		Logger.setGlobalLogger(new Logger.SystemLogger(System.out, System.err));
 		Logger.startTrack("Reading text files " + inputFiles + " and writing to file " + outputFile);
 

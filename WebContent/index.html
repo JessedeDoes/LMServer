@@ -320,7 +320,8 @@ function search()
             // modelTable.appendChild(row); // uncomment to reactivate model list
             row.appendChild(col1);
             row.appendChild(col2);
-            col1.innerHTML = e; col2.innerHTML = JSON.stringify(m);
+            var downloadLink = LMServerLocation + "?action=EXTRACT&id=" + e;
+            col1.innerHTML = '<a href="' + downloadLink + '">' + e + '</a>'; col2.innerHTML = JSON.stringify(m);
             resultList.appendChild(row);
         });
         authenticated = true;
@@ -365,11 +366,11 @@ function search()
 <div id="tabs">
 <ul>
   <li><a href="#tabs-0">Search for resources</a>
-  <li><a href="#tabs-1">Build model</a>
 <!--
   <li><a href="#tabs-2">Decode word graph</a>
 -->
-  <li><a href="#tabs-3">Try out model</a>
+  <li><a href="#tabs-1">Try out model</a>
+  <li><a href="#tabs-2">Build model</a>
 </ul>
 
 <div id="tabs-0">
@@ -387,20 +388,9 @@ Search for: <input name='query' type="text">
 </div>
 
 
-<div id="tabs-1">
-<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
-<input type='hidden' name='action' value='BUILD_LM'>
-<input type='file' name='sourceFile'>
-<input name='name' type='text' value='myUpload'>
-<input type='text' name='description' value=' -- please describe --'>
-<input type="submit" value="Submit form to build model">
-</form>
-<table id='modelTable'>
-</table>
-</div>
 
 <!-- #############
-<div id="tabs-2">
+<div id="tabs-1">
 <form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
 LM: <select id="lm2" name="lm">
 </select><br>
@@ -412,7 +402,7 @@ Show word graphs: <input type='checkbox' name='showWG'><br>
 </div>
 ##### -->
 
-<div id="tabs-3">
+<div id="tabs-1">
 <form id='theform' accept-charset="UTF-8" method="POST" target="_blank" action="http://svprre02:8080/LMServer/LMServer">
 LM: <select id="lmOptionList" name="lmOptionList">
 </select>
@@ -433,8 +423,23 @@ LM: <select id="lmOptionList" name="lmOptionList">
 <span class='button-link' id='showUrl'><a target="console" id='url'>Show JSON</a></span>
 </form>
 </div>
+
+
+<div id="tabs-2">
+<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
+<input type='hidden' name='action' value='BUILD_LM'>
+<input type='file' name='sourceFile'>
+<input name='name' type='text' value='myUpload'>
+<input type='text' name='description' value=' -- please describe --'>
+<input type="submit" value="Submit form to build model">
+</form>
+<table id='modelTable'>
+</table>
 </div>
+
+<!--
 <button onClick="reloadModelList()">Refresh Model List</button>
+-->
 
 <div width='100%' style='background-color: white'> 
 <iframe width='100%' height='800px' name='console'></iframe>

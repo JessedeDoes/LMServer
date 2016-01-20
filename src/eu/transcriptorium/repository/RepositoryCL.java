@@ -41,6 +41,7 @@ public class RepositoryCL
 		SEARCHBYNAME,
 		SEARCH,
 		SETMETADATA,
+		REPLACE_METADATA,
 		CLEAR,
 		DELETE,
 		INVOKE,
@@ -94,6 +95,9 @@ public class RepositoryCL
 			Properties p = r.getMetadata(Integer.parseInt(args[0]));
 			System.err.println(p.keySet());
 			p.store(System.out, "metadata for repository item " + args[0]);
+			break;
+		case REPLACE_METADATA:
+			Repository.Static.replaceMetadata(r, args[0], args[1]);
 			break;
 		case SEARCH:
 		{

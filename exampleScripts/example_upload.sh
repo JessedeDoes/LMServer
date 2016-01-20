@@ -1,0 +1,1 @@
+curl -silent -i -F action=STORE -F metadata='{language:english,type:corpus_plaintext,filename:"Bentham/example_bentham_text"}' -F name=test -F filedata=@TestData/bentham.train.txt http://localhost:8080/LMServer/LMServer

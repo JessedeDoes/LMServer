@@ -104,7 +104,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		DELETE,
 		INVOKE,
 		EXTRACT,
-		LIST_COMMANDS
+		LIST_COMMANDS, REPLACE_METADATA
 	};
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
@@ -332,6 +332,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			com.google.gson.JsonObject o = JSON.fromString(metadata);
 			Properties p1 = JSON.toProperties(o);
 			repository.setMetadata(id, p1);
+			this.getLMsFromRepository();
+			break;
+		case REPLACE_METADATA:
+			Repository.Static.replaceMetadata(repository, parameterMap.get("search"), parameterMap.get("replace"));
 			break;
 		case CLEAR:
 			if (roles.contains("owner"))
@@ -370,10 +374,12 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	}
 
 	private void demoAction(HttpServletResponse response, Map<String, String> parameterMap, MultipartFormData mpfd,
-			java.io.PrintWriter out, Action action, UserInfo ui) throws FileNotFoundException, IOException {
+			java.io.PrintWriter out, Action action, UserInfo ui) throws FileNotFoundException, IOException 
+	{
 		switch(action)
 		{
 		case LIST_LMS:
+			this.getLMsFromRepository();
 			out.println(mapToJSON(this.modelDescriptionMap));
 			break;
 
@@ -412,7 +418,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 			// repository functions (make this a separate servlet? )
 		case LIST: case GETMETADATA: case SEARCHBYNAME: case SEARCH: 
-		case SETMETADATA: case CLEAR: case DELETE: case EXTRACT: 
+		case SETMETADATA: case REPLACE_METADATA: case CLEAR: case DELETE: case EXTRACT: 
 		case STORE: case INVOKE: case LIST_COMMANDS:
 			this.repositoryAction(response, parameterMap, mpfd, out, action, ui);
 			break;

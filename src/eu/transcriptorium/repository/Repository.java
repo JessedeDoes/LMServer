@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-
+import eu.transcriptorium.util.JSON;
 import java.io.*;
 
 public interface Repository
@@ -78,6 +78,17 @@ public interface Repository
 				l.add(j);
 			}
 			return l;
+		}
+		
+		public static void replaceMetadata(Repository rep, String search, String replace)
+		{
+			Properties p = JSON.toProperties(JSON.fromString(search));
+			Properties r = JSON.toProperties(JSON.fromString(replace));
+			Set<Integer> V = rep.search(p);
+			for (int k: V)
+			{
+				rep.setMetadata(k, r);
+			}
 		}
 	};
 	

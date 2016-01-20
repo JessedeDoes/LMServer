@@ -14,7 +14,7 @@ public class PostgresDatabase extends SimpleDatabase
 		dbSchemaName="INLModernCorpus";
 		dbUser = "jesse";
 		dbPasswd= "does";
-		dbURL = "jdbc:"  + getRDBMS() + "://" + dbHost + ":" + dbPort + "/" + dbSchemaName;
+		dbURL = "jdbc:"  + getRDBMS() + "://" + dbHost + ":" + dbPort + "/" + dbSchemaName + "?recvBufferSize=700000000";
 		init();
 	}
 
@@ -26,7 +26,7 @@ public class PostgresDatabase extends SimpleDatabase
 		dbSchemaName = props.getProperty("dbSchemaName");
 		dbUser = props.getProperty("dbUser");
 		dbPasswd = props.getProperty("dbPasswd");
-		dbURL = "jdbc:postgresql://" + dbHost + ":" + dbPort + "/" + dbSchemaName;
+		dbURL = "jdbc:postgresql://" + dbHost + ":" + dbPort + "/" + dbSchemaName +  "?recvBufferSize=700000000";
 		System.err.println("DB URL: " + dbURL);
 		init();
 	}

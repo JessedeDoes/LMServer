@@ -339,6 +339,7 @@ public class PostgresRepository implements Repository
 			}
 		} catch (Exception e)
 		{
+			e.printStackTrace();
 			return null;
 		}
 		return null;
@@ -348,14 +349,25 @@ public class PostgresRepository implements Repository
 	{
 		Set<Integer> result = new HashSet<Integer>();
 		boolean regex = false;
-
+		String operator = "=";
+		if (name.startsWith("<"))
+		{
+			operator = "<";
+			name = name.substring(1);
+		} else if (name.startsWith(">"))
+		{
+			operator = ">";
+			name = name.substring(1);
+		} else
 		if (name.startsWith("~"))
 		{
 			regex = true;
 			name = name.substring(1);
+			operator = "~";
 		}
-		String operator = regex?"~":"=";
+		
 
+		
 		String q = " select distinct id from filetable where filename"  + operator +  "? ";
 
 		try
@@ -400,6 +412,22 @@ public class PostgresRepository implements Repository
 			String value = p.getProperty(key);
 			System.err.println("Value=" + value);
 			
+			String operator = "=";
+			if (value.startsWith("<"))
+			{
+				operator = "<";
+				value = value.substring(1);
+			} else if (value.startsWith(">"))
+			{
+				operator = ">";
+				value = value.substring(1);
+			} else
+			if (value.startsWith("~"))
+			{
+				//regex = true;
+				value = value.substring(1);
+				operator = "~";
+			}
 			
 			boolean regex = false;
 
@@ -409,7 +437,7 @@ public class PostgresRepository implements Repository
 				value = value.substring(1);
 			}
 
-			String operator = regex?"~":"=";
+			
 
 			String clause = " select distinct id from metadata where key=? and value" +  operator + "? ";
 			clauses.add(clause);

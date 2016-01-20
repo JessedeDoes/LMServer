@@ -109,7 +109,10 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 
 	private Map<String,ScoreWordSubstitutions> ScoreWordSubstitutionsMap = new HashMap<String,ScoreWordSubstitutions>(); 
 	private Map<String,Suggest> suggesterMap = new HashMap<String,Suggest>();
-	private Map<String,NgramLanguageModel> modelMap = new HashMap<String,NgramLanguageModel>();
+	
+	// the model map should be static
+	
+	private static Map<String,NgramLanguageModel> modelMap = new HashMap<String,NgramLanguageModel>();
 	private Map<String, String> modelDescriptionMap = new HashMap<String,String>();
 	static String lmType = "{type:lm,description:\"~.\"}";
 	static Properties lmProps = JSON.toProperties(JSON.fromString(lmType));
@@ -140,7 +143,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		return f;
 	}
 
-	private NgramLanguageModel getModelFromRepository(String name)
+	private synchronized NgramLanguageModel getModelFromRepository(String name)
 	{
 		NgramLanguageModel lm = null;
 		System.err.println("requesting model for " + name);
@@ -158,7 +161,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		{
 			try
 			{
-				languageModelFile = saveToTempFile(id);
+				languageModelFile = saveToTempFile(id); // this is problem with large files!
 				languageModelFile.deleteOnExit();
 				languageModelFilename = languageModelFile.getCanonicalPath();
 			} catch (Exception e)

@@ -44,7 +44,14 @@ public class Suggest
 		for (Map.Entry<String, Double> e: 	c.getEntriesSortedByDecreasingCount())
 		{
 			//System.err.println(sw.toString());
-			jg = jg.writeStartObject().write("word",e.getKey()).write( "count",e.getValue()).writeEnd();
+			String w = e.getKey();
+			if (!w.matches("^\\p{L}+$"))
+			{
+				System.err.println("Discarding: " + w);
+				continue;
+			}
+			w = w.toLowerCase();
+			jg = jg.writeStartObject().write("word",w).write( "count",e.getValue()).writeEnd();
 
 			if (i++ > max)
 			{

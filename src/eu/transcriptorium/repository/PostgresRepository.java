@@ -776,5 +776,31 @@ public class PostgresRepository implements Repository
 			return roles;
 		}
 	}
+
+	@Override
+	public boolean addUser(Map<String, String> userCredentials) 
+	{
+		// TODO Auto-generated method stub
+		
+		String rule = userCredentials.get("role");
+		
+		String q0 = "insert into users (username,password) VALUES (?,?)";
+		String q1 = "insert into user_roles (username,role) VALUES (?,?)";
+		try
+		{
+			PreparedStatement stmt = database.getConnection().prepareStatement(q0);
+			stmt.setString(1, userCredentials.get("username"));
+			stmt.setString(2, userCredentials.get("password"));
+			stmt.execute();
+			stmt = database.getConnection().prepareStatement(q1);
+			stmt.setString(1, userCredentials.get("username"));
+			stmt.setString(2, userCredentials.get("role"));
+			stmt.execute();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 }

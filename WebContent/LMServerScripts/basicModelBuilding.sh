@@ -12,4 +12,3 @@ echo "start HBuild for $OUTPUT ...."
 
 HBuild -s '<s>' '</s>' -n $OUTPUT/languageModel.lm $OUTPUT/dictionary.txt $OUTPUT/latticeFile.txt
 
-cat /tmp/hbuild.log

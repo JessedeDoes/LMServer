@@ -45,7 +45,8 @@ public class RepositoryCL
 		CLEAR,
 		DELETE,
 		INVOKE,
-		EXTRACT
+		EXTRACT,
+		ADDUSER
 	}
 
 	public void exec(command c, String[] args) throws Exception
@@ -137,6 +138,15 @@ public class RepositoryCL
 			System.out.println(JSON.intMapToJson(cmd.invoke(p1)));
 			break;
 		}	
+		case ADDUSER:
+		{
+			Map<String,String> cr = new HashMap<String,String>();
+			cr.put("username", args[0]);
+			cr.put("role", args[1]);
+			cr.put("password", args[2]);
+			r.addUser(cr);
+			break;
+		}
 		}
 	}
 

@@ -116,4 +116,5 @@ public interface Repository
 	String getName(int id);
 	
 	Set<String> getRolesForUser(Map<String,String> userCredentials);
+	boolean addUser(Map<String,String> userCredentials);
 }

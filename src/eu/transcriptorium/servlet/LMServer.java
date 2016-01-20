@@ -111,7 +111,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 	private Map<String,Suggest> suggesterMap = new HashMap<String,Suggest>();
 	private Map<String,NgramLanguageModel> modelMap = new HashMap<String,NgramLanguageModel>();
 	private Map<String, String> modelDescriptionMap = new HashMap<String,String>();
-	static String lmType = "{type:lm}";
+	static String lmType = "{type:lm,description:\"~.\"}";
 	static Properties lmProps = JSON.toProperties(JSON.fromString(lmType));
 
 
@@ -336,6 +336,7 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 		case REPLACE_METADATA:
 			Repository.Static.replaceMetadata(repository, parameterMap.get("search"), parameterMap.get("replace"));
+			this.getLMsFromRepository(); 
 			break;
 		case CLEAR:
 			if (roles.contains("owner"))
@@ -390,7 +391,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			break;
 
 		case BUILD_LM:
-			buildLM(mpfd,ui);
+			//buildLM(mpfd,ui);
+			buildLM(parameterMap, mpfd, ui, out);
 			break;
 
 		case DECODE_WG:
@@ -464,6 +466,78 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			} // hm...
 		}
 		System.err.println("###finished invocation of command" + command);
+	}
+	// http://localhost:8080/LMServer/LMServer?action=INVOKE&command=BUILDLM&script=WebContent/LMServerScripts/basicModelBuilding.sh&
+	//conf=TestScripts/test.settings.sh&languageModel=languageModel.lm&dictionary=dictionary.txt&latticeFile=latticeFile.txt&OUTPUT=notVeryUsefulLanguageModel&CHARSET=resources/CharacterSets/AuxHMMsList&CORPUS=TestData/bentham.train.txt
+	
+	private void buildLM(Map<String, String> parameterMap,
+			MultipartFormData mpfd,  UserInfo ui, java.io.PrintWriter out)
+	{
+		String commandName = "BUILDLM";
+		Command command = commandMap.get(commandName);
+		String baseName = parameterMap.get("basename");
+		Map <String, File> files = mpfd.getFileMap();
+		
+		// store uploaded files in repository
+		
+		System.err.println("baseName = " + baseName);
+		String corpusName= null;
+		for (String n: files.keySet())
+		{
+			File f  = files.get(n);
+			Properties p = new Properties();
+			p.setProperty("uploadFieldName", n);
+			p.setProperty("uploadName", mpfd.getUploadName(n));
+			String fn =  mpfd.getUploadName(n);
+			if (p.getProperty("filename") != null)
+				fn = p.getProperty("filename");
+			try
+			{
+				int id = repository.storeFile(new FileInputStream(f), fn, p);
+				System.err.println("uploaded file with id " + id + " and name " + fn);
+				f.delete();
+				corpusName = repository.getName(id);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			//out.println(mpfd.getUploadName(n) + ":" + id + " " + p);
+			break;
+		}
+		
+		if (corpusName == null)
+		{
+			System.err.println("no corpusName!");
+			return;
+		}
+		
+		Map<String, Object> args = new HashMap<String,Object>();
+		
+		args.put("script", "WebContent/LMServerScripts/basicModelBuilding.sh"); // this should always be in the repo
+		args.put("conf", "WebContent/LMServerScripts/basic.settings.sh");
+		args.put("languageModel","languageModel.lm");
+		args.put("dictionary", "dictionary.txt");
+		args.put("latticeFile", "latticeFile.txt");
+		args.put("CHARSET", "resources/CharacterSets/AuxHMMsList");
+		args.put("OUTPUT", baseName);
+		args.put("CORPUS", corpusName);
+		
+		System.err.println("create LM with args: " + args);
+		try
+		{
+			Map<String,Integer> createdResources = command.invoke(args);
+			out.println(JSON.intMapToJson(createdResources));
+			int lmId = createdResources.get("languageModel");
+			Properties p = new Properties();
+			p.put("description", parameterMap.get("description"));
+			p.put("type", "lm");
+			repository.setMetadata(lmId, p);
+			this.getLMsFromRepository();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		// store the uploaded file into the repository
 	}
 
 	private void handleUpload(Map<String, String> parameterMap,

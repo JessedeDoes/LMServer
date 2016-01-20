@@ -24,6 +24,11 @@ https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?c
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
+body
+{
+  font-family: sans;
+}
+
 .login
 {
   position:absolute;
@@ -33,6 +38,7 @@ https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?c
   display: block;
 }
 
+#console { background-color: grey; height: 30em; color: white}
 #loginForm { margin: 3cm; padding: 2cm }
 #header { background-image: url(img/background.png) }
 </style>
@@ -341,7 +347,7 @@ function search()
         <div class="logo">
             <a href="http://transcriptorium.eu"><img src="img/Brand_tranScriptorium-622.png" alt="tranScriptorium" title="tranScriptorium"></a>
         </div>
-	<span style="text-align: right">Language resource server prototype</span>
+	<span style="text-align: right">Language resource server test and demo interface (first version)</span>
 </div>
 
 <div class='x_login' id="login" style="position:absolute; top:10%; left:30%; background-color: lightblue; display: block; z-index:100">
@@ -367,10 +373,11 @@ function search()
 <ul>
   <li><a href="#tabs-0">Search for resources</a>
 <!--
-  <li><a href="#tabs-2">Decode word graph</a>
+  <li><a href="#tabs-3">Decode word graph</a>
 -->
   <li><a href="#tabs-1">Try out model</a>
-  <li><a href="#tabs-2">Build model</a>
+  <li><a href="#tabs-2">Upload resource</a>
+  <li><a href="#tabs-3">Build model</a>
 </ul>
 
 <div id="tabs-0">
@@ -379,7 +386,9 @@ function search()
 Search for: <input name='query' type="text">
 <button onclick="return search()">Search</button>
 </form>
-
+<p>
+(search query is a set of key:value pairs in JSON format, e.g. <em>{type:lm,language:"english"}</em>.)
+</p>
 <div id='searchResults'>
 <table id='resultList'>
 <tr><td>
@@ -391,7 +400,7 @@ Search for: <input name='query' type="text">
 
 <!-- #############
 <div id="tabs-1">
-<form method='post' id='decodeForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
+<form method='post' id='decodeForm'  enctype="multipart/form-data"  action="/LMServer/LMServer" target="console">
 LM: <select id="lm2" name="lm">
 </select><br>
 <input type='hidden' name='action' value='DECODE_WG'><br>
@@ -403,7 +412,7 @@ Show word graphs: <input type='checkbox' name='showWG'><br>
 ##### -->
 
 <div id="tabs-1">
-<form id='theform' accept-charset="UTF-8" method="POST" target="_blank" action="http://svprre02:8080/LMServer/LMServer">
+<form id='theform' accept-charset="UTF-8" method="POST" target="_blank" action="/LMServer/LMServer">
 LM: <select id="lmOptionList" name="lmOptionList">
 </select>
 <!--
@@ -424,13 +433,29 @@ LM: <select id="lmOptionList" name="lmOptionList">
 </form>
 </div>
 
-
 <div id="tabs-2">
-<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="http://svprre02:8080/LMServer/LMServer" target="console">
+<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="/LMServer/LMServer" target="console">
+<input type='hidden' name='action' value='STORE'>
+<table>
+<tr valign="top"><td>Upload resource: <td> <input type='file' name='sourceFile'></tr>
+<tr valign="top"><td>Resource filename to be used in repository</td><td><input type="text" name="filename" value="upload"></tr>
+<tr valign="top"><td>Metadata for resource in JSON format<td><input type='text' name='metadata' value=''></tr>
+</table>
+<input type="submit" value="Submit form to upload">
+</form>
+<table id='modelTable'>
+</table>
+</div>
+
+
+<div id="tabs-3">
+<form method='post' id='uploadForm'  enctype="multipart/form-data"  action="/LMServer/LMServer" target="console">
 <input type='hidden' name='action' value='BUILD_LM'>
-<input type='file' name='sourceFile'>
-<input name='name' type='text' value='myUpload'>
-<input type='text' name='description' value=' -- please describe --'>
+<table>
+<tr valign="top"><td>Source corpus: Upload text file: <td> <input type='file' name='sourceFile'></tr>
+<tr valign="top"><td>Base name for LM<td><input name='basename' type='text' value='modelFromUpload'></tr>
+<tr valign="top"><td>Short description for model<td><input type='text' name='description' value=''></tr>
+</table>
 <input type="submit" value="Submit form to build model">
 </form>
 <table id='modelTable'>
@@ -442,7 +467,7 @@ LM: <select id="lmOptionList" name="lmOptionList">
 -->
 
 <div width='100%' style='background-color: white'> 
-<iframe width='100%' height='800px' name='console'></iframe>
+<iframe width='100%' height='800px' name='console' id='console'></iframe>
 </div>
 </body>
 </html>

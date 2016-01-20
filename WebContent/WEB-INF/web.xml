@@ -35,7 +35,7 @@
    		</init-param>
         <init-param>
                 <param-name>repositoryConnection</param-name>
-                <param-value>{dbHost:svowdb02, dbPort:5432, dbSchemaName:lmserver, dbPasswd:inl, dbUser:postgres}</param-value>
+                <param-value>{dbHost:localhost, dbPort:5432, dbSchemaName:lmserver, dbPasswd:inl, dbUser:postgres}</param-value>
         </init-param>
 	</servlet>
      <servlet-mapping>

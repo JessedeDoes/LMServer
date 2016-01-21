@@ -4,7 +4,29 @@ import java.nio.channels.*;
 
 public class FileUtils
 {
-
+	public static void makeFilesExecutable(String path)
+	{
+		File d = new File(path);
+		if (d.isDirectory())
+		{
+			File[] entries = d.listFiles();
+			for (File f: entries)
+			{
+				if (f.isFile() && !f.canExecute())
+				{
+					try
+					{
+						System.err.println("Make executable: " + f.getCanonicalPath());
+					} catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+					f.setExecutable(true);
+				}
+			}
+		}
+	}
+	
 	public static void copyStream(InputStream fis, File out) throws Exception 
 	{
 		FileOutputStream fos = new FileOutputStream(out);

@@ -98,6 +98,7 @@ public class ExternalCommand extends JavaInternalCommand
 	public void addToPath(String pathName)
 	{
 		pathEntries.add(pathName);
+		FileUtils.makeFilesExecutable(pathName);
 	}
 
 	@Override

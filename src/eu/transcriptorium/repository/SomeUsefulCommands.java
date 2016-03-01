@@ -208,6 +208,7 @@ public class SomeUsefulCommands
 	{
 		Map<String,Command> m = new HashMap<String,Command>();
 		m.put("BUILDLM",   SomeUsefulCommands.getBasicLMBuildingCommand());
+		m.put("BUILDLM_LIST",   SomeUsefulCommands.getBasicLMBuildingCommandFromList());
 		m.put("LM2PFSG", SomeUsefulCommands.getLM2PFSGCommand() );
 		
 		m.put("INTERPOLATE_TWO", SomeUsefulCommands.getLmInterpolationCommand(2) );

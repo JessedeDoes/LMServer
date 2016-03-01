@@ -261,7 +261,7 @@ public class Command
 						} else if (formalParameter.ioType == Command.ioType.INPUT_LIST && 
 								formalParameter.referenceType == Command.referenceType.INSERT_INTO_CONFIG)
 						{
-							int collection_id = findRepositoryID(actualParameter, formalParameter.referenceType);
+							//int collection_id = findRepositoryID(actualParameter, formalParameter.referenceType);
 							String s = actualParameter.toString().replaceAll("[^0-9,]", "");
 							Set<Integer> V= new HashSet<Integer>();
 							for (String t: s.split(","))
@@ -271,19 +271,19 @@ public class Command
 							Path p = createTempDir();
 							// this is a bit silly, but...
 							// we need to save to the temp dir, stripping the collection name from the filenames...
-							String collectionName = repository.getName(collection_id);
+							//String collectionName = repository.getName(collection_id);
 							List<String> names = new ArrayList<String>();
 							for (int id: V)
 							{
 								String name = repository.getName(id);
-								name = name.replace(collectionName, "");  // shaky
+								name = name.replaceAll(".*/", "");  // shaky
 								String p1 = p.toString() + "/" + name;
 								System.err.println( "saving file:"  + p1 + " id= " + id);
 								saveToFile(p1,id);
-								names.add(p1);
+								names.add(name);
 							}
 							String stukjes = "{" + StringUtils.join(names, ",") + "}";
-							configuration.put(formalParameter.name, p.toString() +  "/" + stukjes);
+							configuration.put(formalParameter.name, p.toString() +  "/*");
 						}
 						else if (formalParameter.ioType == Command.ioType.OUT)
 						{

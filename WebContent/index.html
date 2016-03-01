@@ -289,11 +289,14 @@ function getMetadata(id)
 }
 
 
+var selection = {};
+
 function search()
 {
    var searchFor = document.forms["searchForm"].elements["query"].value;
    var jsonURL = LMServerLocation + "?action=SEARCH&metadata=" + searchFor;
    var resultList = document.getElementById('resultList');
+   selection = {};
    $.ajax(
    {
      type:"GET",
@@ -320,11 +323,20 @@ function search()
             //alert(e + " --> " + m);
             var row = document.createElement('tr');
             var col1 = document.createElement('td');
+            var col11 = document.createElement('td'); 
+            var cb = document.createElement('input');
+
+            cb.setAttribute('id',e);
+            cb.setAttribute('type','checkbox');
+            cb.setAttribute('onchange','selectResource("' + e + '")');
+            col11.appendChild(cb);
+            
             var col2 = document.createElement('td');
             col1.setAttribute('class','modelTable') ;
             col2.setAttribute('class','modelTable');
             // modelTable.appendChild(row); // uncomment to reactivate model list
             row.appendChild(col1);
+            row.appendChild(col11);
             row.appendChild(col2);
             var downloadLink = LMServerLocation + "?action=EXTRACT&id=" + e;
             col1.innerHTML = '<a href="' + downloadLink + '">' + e + '</a>'; col2.innerHTML = JSON.stringify(m);
@@ -337,6 +349,25 @@ function search()
   return false;
 }
 
+function getSelection()
+{
+  var a = [];
+  $.each(selection, function(k,v) 
+  {
+    if (v)
+    {
+      a.push(k);
+    }
+  });
+  return a.join(",");
+}
+function selectResource(id)
+{
+  var cb = document.getElementById(id);
+  var checked = cb.checked; 
+  selection[id] = cb.checked;
+  alert('you selected ' + id +  ' checked? ' + checked + ' selection now ' + getSelection());
+}
 </script>
 </head>
 
@@ -383,7 +414,7 @@ function search()
 <div id="tabs-0">
 <form name="searchForm" id="searchForm" onsubmit="return search()">
 
-Search for: <input name='query' type="text">
+Search for: <textarea name='query' rows=2 cols=120></textarea>
 <button onclick="return search()">Search</button>
 </form>
 <p>

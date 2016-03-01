@@ -27,15 +27,15 @@ public class PostgresRepository implements Repository
 			+ "(id serial primary key, "
 			+ "filename text not null UNIQUE, language text, "
 			+ "year_from integer, year_to integer, type text references types (type), content bytea)":
-				
-		"create table FileTable (id serial primary key, filename text, type text, content bytea)";
+
+				"create table FileTable (id serial primary key, filename text, type text, content bytea)";
 	static String createMetadataTable = "create table metadata (id integer references filetable(id) on delete cascade, key  text, value text, constraint munq unique (id, key, value))";
 	static String createTagsTable = "create table tags (tag_id integer, tag text, file_id integer)";
 
-	 static String createUsers="CREATE TABLE users (username         VARCHAR(15) NOT NULL PRIMARY KEY, password         CHAR(32) NOT NULL);";
-	 static String createRoles = "CREATE TABLE user_roles (username         VARCHAR(15) NOT NULL, role             VARCHAR(15) NOT NULL, "
-	 		+ "PRIMARY KEY    (username, role), "
-			 +  " FOREIGN KEY (username) REFERENCES users(username));";
+	static String createUsers="CREATE TABLE users (username         VARCHAR(15) NOT NULL PRIMARY KEY, password         CHAR(32) NOT NULL);";
+	static String createRoles = "CREATE TABLE user_roles (username         VARCHAR(15) NOT NULL, role             VARCHAR(15) NOT NULL, "
+			+ "PRIMARY KEY    (username, role), "
+			+  " FOREIGN KEY (username) REFERENCES users(username));";
 
 	// uniqueness constraint does not work with NULL!
 	static String createCollectionsTable = "create table collections (collection_id integer references filetable(id) on delete cascade, item_id integer references filetable(id) on delete cascade, constraint unq unique(collection_id, item_id))";
@@ -69,7 +69,7 @@ public class PostgresRepository implements Repository
 			database.query("drop table if exists tags");
 			database.query("drop table if exists collections");
 			database.query("drop table if exists types");
-			
+
 			// do not drop users....
 			//database.query("drop table if exists users");
 			//database.query("drop table if exists user_roles");
@@ -247,7 +247,7 @@ public class PostgresRepository implements Repository
 			String key = (String) n;
 			String value  = p.getProperty(key);
 			setMetadataProperty(id, key, value);
-			
+
 		}
 	}
 
@@ -359,15 +359,15 @@ public class PostgresRepository implements Repository
 			operator = ">";
 			name = name.substring(1);
 		} else
-		if (name.startsWith("~"))
-		{
-			regex = true;
-			name = name.substring(1);
-			operator = "~";
-		}
-		
+			if (name.startsWith("~"))
+			{
+				regex = true;
+				name = name.substring(1);
+				operator = "~";
+			}
 
-		
+
+
 		String q = " select distinct id from filetable where filename"  + operator +  "? ";
 
 		try
@@ -403,15 +403,47 @@ public class PostgresRepository implements Repository
 		List<String> clauses = new ArrayList<String>();
 		List<String> fillers = new ArrayList<String>();
 		Set<Integer> result = new HashSet<Integer>();
-		
+
 		int nClauses = 0;
-		
+
 		for (Object n: p.keySet())
 		{
 			String key = (String) n;
-			String value = p.getProperty(key);
+			String value  = null;
+			if (key.contains("("))
+			{
+				int pos = key.indexOf("(");
+				String nm = key.substring(0,pos);
+				String paramList = key.substring(pos);
+				paramList = paramList.replaceAll("[()]", "");
+				String[] t = paramList.split(",");
+				
+				Class[] paramClasses = new Class[t.length];
+				int[] params = new int[t.length];
+				
+				for (int i=0; i < t.length; i++)
+				{
+					params[i] = Integer.parseInt(t[i]);
+					paramClasses[i] = Integer.class;
+				}
+				
+				try
+				{
+					Class c = Class.forName(nm);
+					Object o = c.getDeclaredConstructor(paramClasses).newInstance(params);
+					if (o instanceof ItemTest)
+					{
+						ItemTest it = (ItemTest) o; // this requires quite a lot of ugly reflection stuff
+						return this.search(it);
+					}
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			} else value = p.getProperty(key);
+
 			System.err.println("Value=" + value);
-			
+
 			String operator = "=";
 			if (value.startsWith("<"))
 			{
@@ -422,13 +454,13 @@ public class PostgresRepository implements Repository
 				operator = ">";
 				value = value.substring(1);
 			} else
-			if (value.startsWith("~"))
-			{
-				//regex = true;
-				value = value.substring(1);
-				operator = "~";
-			}
-			
+				if (value.startsWith("~"))
+				{
+					//regex = true;
+					value = value.substring(1);
+					operator = "~";
+				}
+
 			boolean regex = false;
 
 			if (value.startsWith("~"))
@@ -437,7 +469,7 @@ public class PostgresRepository implements Repository
 				value = value.substring(1);
 			}
 
-			
+
 
 			String clause = " select distinct id from metadata where key=? and value" +  operator + "? ";
 			clauses.add(clause);
@@ -735,7 +767,7 @@ public class PostgresRepository implements Repository
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				String s = rs.getString(1); //  new String(rs.getBytes(1), "UTF-8");
@@ -747,28 +779,28 @@ public class PostgresRepository implements Repository
 		}
 		return null;
 	}
-	
-	
+
+
 	public static void main(String [] args)
 	{
 		Properties p = new Properties();
 
-		
-		
+
+
 		p = getDefaultConnectionProperties();
 		p.put("year_from", "300");
 		p.put("language", "dutch");
 
 		PostgresRepository fs = new PostgresRepository(p);
 		fs.createNew();
-		
+
 		//fs.testje();
-		
+
 		fs.createCollection("bentham", null);
 		fs.addToCollection(fs.search("bentham"), fs.search("bentham"));
-		
+
 		fs.setMetadata(fs.search("bentham"), p);
-		
+
 		//fs.removeFromCollection(fs.search("bentham"), fs.search("bentham"));
 		//fs.storeFile("s:/Jesse/bred001kluc04_01.xml",p);
 
@@ -790,9 +822,9 @@ public class PostgresRepository implements Repository
 			PreparedStatement stmt = database.getConnection().prepareStatement(q);
 			stmt.setString(1, userCredentials.get("username"));
 			stmt.setString(2, userCredentials.get("password"));
-			
+
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				String r = rs.getString(1); //  new String(rs.getBytes(1), "UTF-8");
@@ -809,9 +841,9 @@ public class PostgresRepository implements Repository
 	public boolean addUser(Map<String, String> userCredentials) 
 	{
 		// TODO Auto-generated method stub
-		
+
 		String rule = userCredentials.get("role");
-		
+
 		String q0 = "insert into users (username,password) VALUES (?,?)";
 		String q1 = "insert into user_roles (username,role) VALUES (?,?)";
 		try
@@ -830,5 +862,20 @@ public class PostgresRepository implements Repository
 		}
 		return false;
 	}
-	
+
+	@Override
+	public Set<Integer> search(ItemTest test)
+	{
+		// TODO Auto-generated method stub
+		Set<Integer> V = new HashSet<Integer>();
+		List<FileInfo> l = this.list();
+		for (FileInfo f: l)
+		{
+			if (test.test(this,f.id))
+			{
+				V.add(f.id);
+			}
+		}
+		return V;
+	}
 }

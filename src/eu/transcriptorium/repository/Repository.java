@@ -37,6 +37,11 @@ public interface Repository
 		}
 	};
 	
+	public static  interface ItemTest
+	{
+		public boolean test (Repository r, int id);
+	}
+	
 	public static class Static
 	{
 		public static JsonArray list(Repository r)
@@ -96,6 +101,7 @@ public interface Repository
 	InputStream openFile(int id);
 	
 	Set<Integer> search(Properties metadata);
+	Set<Integer> search(ItemTest test);
 	Set<Integer> searchByName(String name);
 	int search(String name);
 	// collection stuff

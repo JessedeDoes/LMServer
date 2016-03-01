@@ -3,13 +3,16 @@ package eu.transcriptorium.repository;
 import java.util.Properties;
 import java.io.*;
 
+import eu.transcriptorium.repository.Repository.ItemProperty;
 import eu.transcriptorium.util.Counter;
 import java.util.*;
 
-public class DistanceTest implements Repository.ItemTest
+public class DistanceTest implements Repository.ItemTest, ItemProperty
 {
     int referenceId = -1;
-	
+    Map<String,Double> reference = null;
+    Repository repository;
+    
     public Map<String,Double> makeRelativeFrequencyList(InputStream i) throws IOException
     {
     	Counter<String> c = new Counter<String>();
@@ -34,7 +37,7 @@ public class DistanceTest implements Repository.ItemTest
     	return m;
     }
     
-    public static double cosineSimilarity( Map<String,Double> a,  Map<String,Double> b) 
+    public static double cosineSimilarity(Map<String,Double> a,  Map<String,Double> b) 
 	{
 		double dotProduct = 0.0;
 		double aMagnitude = 0.0;
@@ -64,14 +67,38 @@ public class DistanceTest implements Repository.ItemTest
 				? 0: dotProduct / (aMagnitude * bMagnitude);
 	}
     
-    public double distance(InputStream a1, InputStream a2) throws IOException
+    public double distance(Map<String,Double> a,  Map<String,Double> b) throws IOException
     {
-    	return 1 - Math.sqrt(cosineSimilarity(makeRelativeFrequencyList(a1), makeRelativeFrequencyList(a2)));
+    	return 1 - Math.sqrt(cosineSimilarity(a, b));
     }
     
-	public DistanceTest(int i)
+	public DistanceTest(Repository r, Integer i)
 	{
+		this.repository = r;
 		this.referenceId = i;
+	}
+	
+	@Override
+	
+	public String getPropertyValue(Repository r, int id)
+	{
+		if (this.reference == null)
+		{
+			try {
+				reference = makeRelativeFrequencyList(r.openFile(this.referenceId));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			Double d = distance(reference, makeRelativeFrequencyList(r.openFile(id)));
+			return d.toString();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	@Override
 	public boolean test(Repository r, int id)

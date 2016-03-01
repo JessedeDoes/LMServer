@@ -406,43 +406,15 @@ public class PostgresRepository implements Repository
 
 		int nClauses = 0;
 
+		List<PropertyCheck> propertiesToCheck = new ArrayList<PropertyCheck>();
+
 		for (Object n: p.keySet())
 		{
 			String key = (String) n;
 			String value  = null;
-			if (key.contains("("))
-			{
-				int pos = key.indexOf("(");
-				String nm = key.substring(0,pos);
-				String paramList = key.substring(pos);
-				paramList = paramList.replaceAll("[()]", "");
-				String[] t = paramList.split(",");
-				
-				Class[] paramClasses = new Class[t.length];
-				int[] params = new int[t.length];
-				
-				for (int i=0; i < t.length; i++)
-				{
-					params[i] = Integer.parseInt(t[i]);
-					paramClasses[i] = Integer.class;
-				}
-				
-				try
-				{
-					Class c = Class.forName(nm);
-					Object o = c.getDeclaredConstructor(paramClasses).newInstance(params);
-					if (o instanceof ItemTest)
-					{
-						ItemTest it = (ItemTest) o; // this requires quite a lot of ugly reflection stuff
-						return this.search(it);
-					}
-				} catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			} else value = p.getProperty(key);
+			ItemProperty it = null;
+			value = p.getProperty(key);
 
-			System.err.println("Value=" + value);
 
 			String operator = "=";
 			if (value.startsWith("<"))
@@ -453,13 +425,12 @@ public class PostgresRepository implements Repository
 			{
 				operator = ">";
 				value = value.substring(1);
-			} else
-				if (value.startsWith("~"))
-				{
-					//regex = true;
-					value = value.substring(1);
-					operator = "~";
-				}
+			} else if (value.startsWith("~"))
+			{
+				//regex = true;
+				value = value.substring(1);
+				operator = "~";
+			}
 
 			boolean regex = false;
 
@@ -469,12 +440,50 @@ public class PostgresRepository implements Repository
 				value = value.substring(1);
 			}
 
+			if (key.contains("("))
+			{
+				int pos = key.indexOf("(");
+				String nm = key.substring(0,pos);
+				String paramList = key.substring(pos);
+				paramList = paramList.replaceAll("[()]", "");
+				String[] t = paramList.split(",");
+
+				Class[] paramClasses = new Class[t.length+1];
+				Object[] params = new Object[t.length+1];
+				params[0] = this;
+				paramClasses[0] = Repository.class;
+				for (int i=0; i < t.length; i++)
+				{
+					params[i+1] = Integer.parseInt(t[i]);
+					paramClasses[i+1] = Integer.class;
+				}
+
+				try
+				{
+					Class c = Class.forName(nm);
+					Object o = c.getDeclaredConstructor(paramClasses).newInstance(params);
+					if (o instanceof ItemProperty)
+					{
+						it = (ItemProperty) o; // this requires quite a lot of ugly reflection stuff
+						propertiesToCheck.add(new PropertyCheck(it, operator, value));
+						//value = it.getPropertyValue(this, id); // Neen....
+					}
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			} else
+			{
+				System.err.println("Value=" + value);
 
 
-			String clause = " select distinct id from metadata where key=? and value" +  operator + "? ";
-			clauses.add(clause);
-			fillers.add(key);
-			fillers.add(value);
+
+
+				String clause = " select distinct id from metadata where key=? and value" +  operator + "? ";
+				clauses.add(clause);
+				fillers.add(key);
+				fillers.add(value);
+			}
 		}
 
 		String q = StringUtils.join(clauses, " INTERSECT ");
@@ -491,7 +500,12 @@ public class PostgresRepository implements Repository
 			while (rs.next()) 
 			{
 				int  i = rs.getInt(1); //  new String(rs.getBytes(1), "UTF-8");
-				result.add(i);
+				boolean add = true;
+				for (ItemTest t: propertiesToCheck)
+				{
+					add &= t.test(this, i);
+				}
+				if (add) result.add(i);
 			}
 		} catch (Exception e)
 		{

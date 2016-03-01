@@ -42,6 +42,11 @@ public interface Repository
 		public boolean test (Repository r, int id);
 	}
 	
+	public static  interface ItemProperty
+	{
+		public String getPropertyValue(Repository r, int id);
+	}
+	
 	public static class Static
 	{
 		public static JsonArray list(Repository r)

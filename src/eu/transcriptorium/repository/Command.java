@@ -2,6 +2,9 @@ package eu.transcriptorium.repository;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import impact.ee.util.StringUtils;
+
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
@@ -73,6 +76,7 @@ public class Command
 	{
 		IN,
 		INPUT_COLLECTION,
+		INPUT_LIST,
 		OUT,
 		CONFIG,
 		OUTPUT_DIRECTORY // directory arguments are always temporary (?)
@@ -254,6 +258,32 @@ public class Command
 								saveToFile(p1,id);
 							}
 							configuration.put(formalParameter.name, p.toString());
+						} else if (formalParameter.ioType == Command.ioType.INPUT_LIST && 
+								formalParameter.referenceType == Command.referenceType.INSERT_INTO_CONFIG)
+						{
+							int collection_id = findRepositoryID(actualParameter, formalParameter.referenceType);
+							String s = actualParameter.toString().replaceAll("[^0-9,]", "");
+							Set<Integer> V= new HashSet<Integer>();
+							for (String t: s.split(","))
+							{
+								V.add(Integer.parseInt(t));
+							}
+							Path p = createTempDir();
+							// this is a bit silly, but...
+							// we need to save to the temp dir, stripping the collection name from the filenames...
+							String collectionName = repository.getName(collection_id);
+							List<String> names = new ArrayList<String>();
+							for (int id: V)
+							{
+								String name = repository.getName(id);
+								name = name.replace(collectionName, "");  // shaky
+								String p1 = p.toString() + "/" + name;
+								System.err.println( "saving file:"  + p1 + " id= " + id);
+								saveToFile(p1,id);
+								names.add(p1);
+							}
+							String stukjes = "{" + StringUtils.join(names, ",") + "}";
+							configuration.put(formalParameter.name, p.toString() +  "/" + stukjes);
 						}
 						else if (formalParameter.ioType == Command.ioType.OUT)
 						{

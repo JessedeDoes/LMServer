@@ -77,6 +77,48 @@ public class SomeUsefulCommands
 		return c1;
 	}
 
+	static public Command getBasicLMBuildingCommandFromList()
+	{
+		//Map<String, Object> m = new HashMap<String,Object>();
+
+		Object[][] paramsWithFile = // hier moeten alle files in....
+			{ 
+					{ "script", FileArgument, Command.ioType.IN, Command.referenceType.NAME}, // nee.....
+
+					{ "conf", FileArgument, 
+						Command.ioType.CONFIG, Command.referenceType.NAME},
+
+					{ "CHARSET", FileArgument, Command.ioType.IN, Command.referenceType.INSERT_INTO_CONFIG},
+
+
+					{ "CORPUS", FileArgument, Command.ioType.INPUT_LIST, Command.referenceType.INSERT_INTO_CONFIG},
+
+					{ "OUTPUT", FileArgument, Command.ioType.OUTPUT_DIRECTORY, // we moeten hier een collectienaam aan kunnen koppelen
+						Command.referenceType.INSERT_INTO_CONFIG},  // vergeet niet hier passToCommand false te maken
+
+					{ "languageModel", FileArgument, 
+							Command.ioType.OUT,
+							Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
+
+					{ "dictionary", FileArgument, 
+								Command.ioType.OUT,
+								Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY},
+					
+					{ "latticeFile", FileArgument, 
+									Command.ioType.OUT,
+									Command.referenceType.RELATIVE_TO_OUTPUT_DIRECTORY}
+			};
+
+		ExternalCommand c1 = new ExternalCommand("basic_lm_building_from_list", "bash", paramsWithFile);
+
+		c1.formalParameters.get(5).baseName = "OUTPUT";
+		c1.formalParameters.get(6).baseName = "OUTPUT";
+		c1.formalParameters.get(7).baseName = "OUTPUT";
+
+		c1.addSRILMandHTKToPath();
+		// en voeg de nodige zaken toe aan classpath....
+		return c1;
+	}
 	// java eu.transcriptorium.repository.RepositoryCL INVOKE TEST '{script:"TestScripts/testCommand.sh",conf:"TestScripts/test.settings.sh",OUTPUT:sortedFile}'
 
 	public static Command getTestCommand()

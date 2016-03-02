@@ -11,6 +11,10 @@ https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline?c
 <link rel="stylesheet" href="jquery-ui.css">
 <style type="text/css">
 .modelTable { padding: 4pt; border-style: solid; border-collapse: collapse; border-width: 1px } 
+
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
+
 .datatable {border-style:solid; border-collapse:collapse; background-color:white; padding:4pt }
 .button-link {
     [...]
@@ -361,12 +365,44 @@ function getSelection()
   });
   return a.join(",");
 }
+
 function selectResource(id)
 {
   var cb = document.getElementById(id);
   var checked = cb.checked; 
   selection[id] = cb.checked;
-  alert('you selected ' + id +  ' checked? ' + checked + ' selection now ' + getSelection());
+  // alert('you selected ' + id +  ' checked? ' + checked + ' selection now ' + getSelection());
+}
+
+function buildModelFromSelection()
+{
+  var s = getSelection();
+  var params = '{script:"WebContent/LMServerScripts/basicModelBuildingFromList.sh",conf:"WebContent/LMServerScripts/basic.settings.sh",languageModel:"languageModel.lm",dictionary:"dictionary.txt",latticeFile:"latticeFile.txt",OUTPUT:"modelFromSelection",CORPUS:"' + s + '",CHARSET:"resources/CharacterSets/AuxHMMsList"}';
+//  alert(params);
+  var URL = LMServerLocation + '?action=INVOKE&command=BUILDLM_LIST&params=' + escape(params);
+  alert(URL);
+ $.ajax(
+   {
+     type:"GET",
+     dataType: "json",
+     contentType: "application/json",
+     url: URL,
+     beforeSend : function(xhr)
+     {
+      // generate base 64 string from username + password
+      var bytes  = Crypto.charenc.Binary.stringToBytes(username + ":" + password);
+      var base64 = Crypto.util.bytesToBase64(bytes);
+      // set header
+      xhr.setRequestHeader("Authorization", "Basic " + base64);
+    },
+    success: function(data)
+    {
+        var s = "";
+        alert('sucess:' + data);
+     },
+     error: function(xhr, statusText) { alert(statusText); },
+   });
+
 }
 </script>
 </head>
@@ -414,7 +450,7 @@ function selectResource(id)
 <div id="tabs-0">
 <form name="searchForm" id="searchForm" onsubmit="return search()">
 
-Search for: <textarea name='query' rows=2 cols=120></textarea>
+Search for: <textarea name='query' rows=2 cols=120>{language:spanish,year_from:"<1790",type:corpus_plaintext,"eu.transcriptorium.repository.DistanceTest(2268)":"<0.3"}</textarea>
 <button onclick="return search()">Search</button>
 </form>
 <p>
@@ -425,7 +461,12 @@ Search for: <textarea name='query' rows=2 cols=120></textarea>
 <tr><td>
 </table>
 </div>
+
+<div id='buildModelFromSelection'>
+<button onclick="buildModelFromSelection()">Build model</button>
 </div>
+
+</div> <!-- einde tab 0 -->
 
 
 

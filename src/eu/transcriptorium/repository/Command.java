@@ -56,7 +56,7 @@ public class Command
 {
 	Repository repository = null; // new PostgresRepository(PostgresRepository.getDefaultProperties()); // do this differently...
 	static private Pattern variablePattern = Pattern.compile("\\$\\{[^{}]*\\}");
-	
+
 	public String commandName;
 	List<FormalParameter> formalParameters = null;
 	Properties configuration = null;
@@ -65,7 +65,7 @@ public class Command
 	Set<String> tempDirSet  = new HashSet<String>();
 
 	private static boolean doNotCleanup = false;
-	
+
 	public enum type
 	{
 		SHELL,
@@ -100,9 +100,9 @@ public class Command
 		for (FormalParameter fp: this.formalParameters)
 			fps.add(fp.asJSON());
 		return "{name:" + this.commandName + ",\n" + 
-				"parameters:" + fps + "}\n";
+		"parameters:" + fps + "}\n";
 	}
-	
+
 	static class FormalParameter
 	{
 		String name;
@@ -118,7 +118,7 @@ public class Command
 		{
 			return "name=" + name + "; class=" + className;
 		}
-		
+
 		public String asJSON()
 		{
 			return "{name: " + name + ",\n" 
@@ -197,9 +197,9 @@ public class Command
 		File saveConfigTo = null;
 		Properties configToSave = null;
 		Properties originalConfig = null;
-		
+
 		Map<String, Integer> createdResources = new HashMap<String, Integer>();
-		
+
 		for (int i=0; i < this.formalParameters.size(); i++)
 		{
 			FormalParameter formalParameter = this.formalParameters.get(i);
@@ -304,7 +304,7 @@ public class Command
 								{
 									// dit is niet goed: je moet opslaan in een temp file
 									// maar wel de in de parameters gegeven naam in de repository zetten
-									
+
 									File f = createTempFile();
 									args[i] = f.toString();
 								}
@@ -436,6 +436,12 @@ public class Command
 			e.printStackTrace();
 		}
 		this.cleanup();
+		if (createdResources.size() > 0) 
+			for (Integer id: createdResources.values())
+			{
+				Repository.Static.guessTypeFromFilename(repository, id);
+				Repository.Static.makeDescription(repository,id);
+			}
 		return createdResources;
 	}
 
@@ -479,7 +485,7 @@ public class Command
 	{
 		File f = createTempFile();
 
-		
+
 		try 
 		{
 			InputStream stream = repository.openFile(repoId);
@@ -602,7 +608,7 @@ public class Command
 			}
 		}
 	}
-	
+
 	public void setRepository(Repository r)
 	{
 		this.repository = r;

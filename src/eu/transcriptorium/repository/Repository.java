@@ -100,6 +100,43 @@ public interface Repository
 				rep.setMetadata(k, r);
 			}
 		}
+		
+		public static void makeDescription(Repository rep, int id)
+		{
+			String d = rep.getMetadataProperty(id, "description");
+			if (d != null && d.trim().length() > 0)
+				return;
+			String n = rep.getName(id);
+			String t = rep.getMetadataProperty(id, "type");
+			String description = t + ":" + n;
+			rep.setMetadataProperty(id, "description", description);
+		}
+		public static void guessTypeFromFilename(Repository rep, int id)
+		{
+			String n = rep.getName(id);
+			String t = rep.getMetadataProperty(id, "type");
+			String guess = null;
+			if (t == null || t.length() == 0)
+			{
+				if (n.endsWith(".lm"))
+				{
+					guess = "lm";
+				} else if (n.contains("dictionary"))
+				{
+					guess="dictionary";
+				} else if (n.endsWith(".txt"))
+				{
+					guess="corpus_plaintext";
+				} else if (n.endsWith(".xml"))
+				{
+					guess = "tei_xml";
+				}
+				if (guess != null)
+				{
+					rep.setMetadataProperty(id, "type", guess);
+				}
+			}
+		}
 	};
 	
 	int storeFile(InputStream s, String name, Properties metadata); 

@@ -69,7 +69,9 @@ public class DistanceTest implements Repository.ItemTest, ItemProperty
     
     public double distance(Map<String,Double> a,  Map<String,Double> b) throws IOException
     {
-    	return 1 - Math.sqrt(cosineSimilarity(a, b));
+    	double c = cosineSimilarity(a, b);
+    	if (c > 1) c = 1;
+    	return Math.sqrt(1 - c*c);
     }
     
 	public DistanceTest(Repository r, Integer i)

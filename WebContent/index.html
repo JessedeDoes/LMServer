@@ -398,7 +398,8 @@ function buildModelFromSelection()
     success: function(data)
     {
         var s = "";
-        alert('sucess:' + data);
+        alert('sucess:' + JSON.stringify(data));
+        reloadModelList();
      },
      error: function(xhr, statusText) { alert(statusText); },
    });

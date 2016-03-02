@@ -21,6 +21,7 @@ public class PropertyCheck implements ItemTest
 	{
 		// TODO Auto-generated method stub
 		String v = itemProperty.getPropertyValue(r, id);
+		r.setMetadataProperty(id, "info", itemProperty.getClass().getName() + "/" + v);
 		System.err.println(v + " " + referenceValue);
 		switch(this.operator)
 		{

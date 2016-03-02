@@ -462,6 +462,15 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			{
 				Map<String,Integer> createdResources = command.invoke(args);
 				out.println(JSON.intMapToJson(createdResources));
+				// for all the created resources,
+				// delete them from modelMap and suggesterMap
+				for (Integer id: createdResources.values())
+				{
+					String name = repository.getName(id);
+					System.err.println("Removing created resources with name " + name +  " from cache");
+					modelMap.remove(name);
+					suggesterMap.remove(name);
+				}
 			} catch (IOException e)
 			{
 				// TODO Auto-generated catch block
@@ -685,6 +694,8 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 		this.getLMsFromRepository();
 	}
 
+	// sometimes update is needed...
+	
 	private Suggest getSuggester(String lmName)
 	{
 		// TODO Auto-generated method stub

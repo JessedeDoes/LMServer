@@ -49,7 +49,7 @@ body
 
 <script src="JS/jquery.min.js"></script>
 <script src="JS/jquery-ui.js"></script>
-<script type="text/javascript" src="http://crypto-js.googlecode.com/svn/tags/2.5.4/build/crypto/crypto-min.js"></script>
+<script type="text/javascript" src="JS/crypto.js"></script>
 
 <script type="text/JavaScript">
 
@@ -451,21 +451,21 @@ function buildModelFromSelection()
 <div id="tabs-0">
 <form name="searchForm" id="searchForm" onsubmit="return search()">
 
-Search for: <textarea name='query' rows=2 cols=120>{language:spanish,year_from:"<1790",type:corpus_plaintext,"eu.transcriptorium.repository.DistanceTest(2268)":"<0.3"}</textarea>
+Search for: <textarea name='query' rows=2 cols=120>{language:spanish,year_from:"<1790",type:corpus_plaintext,"eu.transcriptorium.repository.DistanceTest(2343)":"<0.4"}</textarea>
 <button onclick="return search()">Search</button>
 </form>
 <p>
 (search query is a set of key:value pairs in JSON format, e.g. <em>{type:lm,language:"english"}</em>.)
 </p>
+<div id='buildModelFromSelection'>
+<button onclick="buildModelFromSelection()">Build model</button>
+</div>
 <div id='searchResults'>
 <table id='resultList'>
 <tr><td>
 </table>
 </div>
 
-<div id='buildModelFromSelection'>
-<button onclick="buildModelFromSelection()">Build model</button>
-</div>
 
 </div> <!-- einde tab 0 -->
 

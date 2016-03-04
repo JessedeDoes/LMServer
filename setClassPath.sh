@@ -5,4 +5,4 @@ do
   export CLASSPATH=$CLASSPATH:$x;
 done
 
-echo $CLASSPATH
+echo $CLASSPATH |  perl -pe 's/:/\n/g' 

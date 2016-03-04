@@ -566,6 +566,11 @@ public class LMServer extends  javax.servlet.http.HttpServlet
 			p.setProperty("uploadFieldName", n);
 			p.setProperty("uploadName", mpfd.getUploadName(n));
 			String fn =  mpfd.getUploadName(n);
+			String fnx = parameterMap.get("filename");
+			if (fnx != null && fnx.trim().length() > 0 && !(fnx.equals("upload")))
+			{
+				fn = fnx;
+			}
 			if (p.getProperty("filename") != null)
 				fn =p.getProperty("filename");
 			int id = repository.storeFile(new FileInputStream(f), fn, p);
